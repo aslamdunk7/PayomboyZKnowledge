@@ -1,0 +1,20 @@
+roblox/services.md|Roblox Services|services,GetService,Players,Workspace,ReplicatedStorage,UserInputService,TweenService,HttpService,บริการ,เซิร์ฟเวอร์,ผู้เล่น,โลก,ทำงาน,ระบบ|S
+roblox/instances.md|Roblox Instances|instances,Instance,Parent,Child,Descendants,FindFirstChild,WaitForChild,Destroy,IsA,GetAttribute,SetAttribute,อินสแตนซ์,วัตถุ,สร้าง,ลบ,ค้นหา,โฟลเดอร์,พาร์ท|S
+roblox/players.md|Roblox Players|players,Player,LocalPlayer,PlayerAdded,PlayerRemoving,Character,CharacterAdded,CharacterRemoving,HumanoidRootPart,ผู้เล่น,ตัวละคร,สปอว์น,เกิด,ตาย,ผู้ใช้,ไอเทม|S
+roblox/runservice.md|Roblox RunService|runservice,PreRender,PreSimulation,PostSimulation,Heartbeat,IsClient,IsServer,deltaTime,throttle,เฟรม,เวลา,หน่วง,ค้าง,แลค,ลูป,ทำงานทุกเฟรม,กล้อง|S
+roblox/remotes.md|Roblox Remote Communication|remotes,RemoteEvent,RemoteFunction,UnreliableRemoteEvent,FireServer,FireClient,InvokeServer,OnServerEvent,รีโมท,เครือข่าย,สื่อสาร,ส่งข้อมูล,เซิร์ฟเวอร์,ไคลเอนต์|S
+roblox/datatypes.md|Roblox Data Types|datatypes,Vector3,CFrame,Color3,UDim2,TweenInfo,RaycastParams,Magnitude,Lerp,lookAt,ไดเมนชัน,พิกัด,เวกเตอร์,ตำแหน่ง,สี,ขนาด,วาป,CFrame,Vector3|A
+patterns/cleanup.md|Connection Lifecycle and Cleanup Pattern|cleanup,Maid,Janitor,RBXScriptConnection,Disconnect,Destroy,memory leak,DoCleaning,ล้าง,ทำความสะอาด,ปิดการทำงาน,คืนหน่วยความจำ,ลบ|S
+patterns/cache.md|Caching Pattern|cache,caching,store,ChildAdded,ChildRemoved,invalidation,TTL,FindFirstChild,stale,แคช,เก็บข้อมูล,ค้นหา,บันทึก,ลืม|S
+patterns/state-machine.md|Finite State Machine Pattern|state-machine,FSM,SetState,onEnter,onExit,transition,states,IDLE,FARMING,สถานะ,โหมด,เปลี่ยนโหมด,ทำงาน,หยุด,สเตท|S
+patterns/event-driven.md|Event-Driven Architecture Pattern|event-driven,signal,callback,GetPropertyChangedSignal,AttributeChanged,polling,Connect,เหตุการณ์,ตัวรับสัญญาณ,ทำงานเมื่อ,ปรับเปลี่ยน,อีเวนต์|S
+patterns/error-handling.md|Error Handling Pattern|error-handling,pcall,xpcall,assert,warn,exceptions,validation,swallow error,ข้อผิดพลาด,พลาด,ป้องกันสคริปต์ดับ,ตรวจสอบ,ล้มเหลว|S
+luau/types.md|Luau Type System|types,Luau,typeof,type,annotations,union,optional,aliases,generics,ชนิดข้อมูล,ชนิด,ไทป์,ตรวจสอบไทป์|A
+luau/functions.md|Luau Functions and Contracts|functions,local function,parameters,returns,closure,variadic,methods,guard clauses,ฟังก์ชัน,เมธอด,พารามิเตอร์,ตัวแปรท้องถิ่น,คอลแบ็ก|A
+luau/tables.md|Luau Tables and Data Structures|tables,array,dictionary,ipairs,pairs,table.clear,table.create,table.freeze,table.clone,ตาราง,อาร์เรย์,ดิพชันนารี,ข้อมูล,วนลูป,เคลียร์|A
+luau/modules.md|Luau ModuleScripts and Architecture|modules,ModuleScript,require,circular dependency,encapsulation,Init,Start,มอดูล,สคริปต์มอดูล,โหลดมอดูล,การทำงานซ้ำ|A
+luau/events.md|Luau Event Signals and Callbacks|events,RBXScriptSignal,RBXScriptConnection,Connect,Once,Wait,Fire,custom Signal,สัญญาณ,ตัวรับสัญญาณ,คอลแบ็ก,เชื่อมต่อ,ซิกแนล|A
+luau/basics.md|Luau Basics Reference|basics,syntax,local,variables,if,for,while,repeat,inline if,ternary,พื้นฐาน,ไวยากรณ์,ตัวแปร,ลูป,เงื่อนไข|B
+examples/player-cache.md|Player Cache Implementation Pattern|player-cache,example,PlayerCache,Init,CharacterAdded,PlayerRemoving,ตัวอย่างแคชผู้เล่น,โค้ดแคชผู้เล่น|C
+examples/connection-manager.md|Connection Manager Implementation Pattern|connection-manager,example,Maid,ConnectionManager,Track,Clean,ตัวอย่าง Maid,ตัวอย่างการล้างข้อมูล|C
+examples/state-machine.md|Finite State Machine Implementation Pattern|state-machine,example,StateMachine,RegisterState,SetState,FSM example,ตัวอย่างสเตทแมชชีน|C
