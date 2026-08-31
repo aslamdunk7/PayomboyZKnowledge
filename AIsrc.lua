@@ -117,6 +117,288 @@ local AIContextEngine = {
     end
 }
 
+-----------------------------------------------------------------------------------------
+-- 🌐 GITHUB KNOWLEDGE RETRIEVAL & INTEGRATION ENGINE
+-----------------------------------------------------------------------------------------
+local KnowledgeEngine = {
+    Enabled = true,
+    RawRepoBaseUrl = "https://raw.githubusercontent.com/aslamdunk7/PayomboyZKnowledge/main/",
+    CacheFolder = "PayomboyZ_KnowledgeCache",
+    ManifestEntries = {},
+    DocCache = {},
+    IsLoaded = false,
+    LastSyncTime = "Never",
+    
+    -- Thai Synonym dictionary for semantic query expansion
+    ThaiSynonyms = {
+        ["ผู้เล่น"] = {"player", "players", "character", "humanoid"},
+        ["ตัวละคร"] = {"character", "humanoid", "humanoidrootpart", "rig"},
+        ["เก็บข้อมูล"] = {"cache", "store", "storage", "table"},
+        ["ล้าง"] = {"cleanup", "clear", "disconnect", "maid", "destroy"},
+        ["วาป"] = {"teleport", "cframe", "position", "moveto"},
+        ["ย้าย"] = {"teleport", "cframe", "position"},
+        ["เหตุการณ์"] = {"event", "signal", "callback", "bindable"},
+        ["รีโมท"] = {"remote", "remoteevent", "remotefunction"},
+        ["หน่วง"] = {"lag", "performance", "optimization", "task"},
+        ["กระเป๋า"] = {"backpack", "inventory", "tool"},
+        ["อาวุธ"] = {"weapon", "tool", "sword", "gun"},
+        ["ดักจับ"] = {"spy", "remote", "hook", "intercept"},
+        ["สแกน"] = {"scan", "anticheat", "ac", "heuristic"},
+        ["สถานะ"] = {"state", "statemachine", "fsm", "condition"},
+        ["วนลูป"] = {"runservice", "heartbeat", "renderstepped", "stepped", "loop"},
+        ["หน่วยความจำ"] = {"cleanup", "disconnect", "memory", "leak"},
+        ["ข้อผิดพลาด"] = {"error", "pcall", "xpcall", "assert"},
+        ["โมดูล"] = {"module", "modulescript", "require"}
+    }
+}
+
+function KnowledgeEngine:EnsureCacheFolder()
+    if typeof(makefolder) == "function" then
+        pcall(function() makefolder(self.CacheFolder) end)
+    end
+end
+
+function KnowledgeEngine:LoadManifest(forceRefresh)
+    self:EnsureCacheFolder()
+    local manifestContent = nil
+    local manifestCacheFile = self.CacheFolder .. "/manifest.txt"
+
+    if not forceRefresh and typeof(readfile) == "function" and typeof(isfile) == "function" and isfile(manifestCacheFile) then
+        pcall(function() manifestContent = readfile(manifestCacheFile) end)
+    end
+
+    if not manifestContent or manifestContent == "" or forceRefresh then
+        local ok, body = pcall(function()
+            return game:HttpGet(self.RawRepoBaseUrl .. "manifest.txt")
+        end)
+        if ok and body and #body > 0 then
+            manifestContent = body
+            if typeof(writefile) == "function" then
+                pcall(function() writefile(manifestCacheFile, body) end)
+            end
+            self.LastSyncTime = os.date("%H:%M:%S")
+            DebugLog("INFO", "KNOWLEDGE", "Fetched manifest.txt from GitHub")
+        else
+            DebugLog("WARN", "KNOWLEDGE", "Failed to fetch manifest.txt from GitHub, fallback to local if available")
+        end
+    end
+
+    if not manifestContent or manifestContent == "" then
+        DebugLog("ERROR", "KNOWLEDGE", "Manifest data unavailable")
+        return false
+    end
+
+    table.clear(self.ManifestEntries)
+    for line in string.gmatch(manifestContent, "[^\r\n]+") do
+        line = string.gsub(line, "^%s*(.-)%s*$", "%1")
+        if line ~= "" and not string.find(line, "^#") then
+            -- Schema: PATH|TITLE|KEYWORDS|PRIORITY
+            local parts = {}
+            for part in string.gmatch(line, "[^|]+") do
+                table.insert(parts, part)
+            end
+            if #parts >= 3 then
+                local path = parts[1]
+                local title = parts[2]
+                local rawKw = parts[3]
+                local priority = parts[4] or "MEDIUM"
+                
+                local kwList = {}
+                for kw in string.gmatch(rawKw, "[^,]+") do
+                    local cleanKw = string.lower(string.gsub(kw, "^%s*(.-)%s*$", "%1"))
+                    if cleanKw ~= "" then
+                        table.insert(kwList, cleanKw)
+                    end
+                end
+
+                table.insert(self.ManifestEntries, {
+                    Path = path,
+                    Title = title,
+                    Keywords = kwList,
+                    Priority = string.upper(priority)
+                })
+            end
+        end
+    end
+
+    self.IsLoaded = true
+    DebugLog("INFO", "KNOWLEDGE", string.format("Parsed %d entries from manifest.txt", #self.ManifestEntries))
+    return true
+end
+
+function KnowledgeEngine:GetDocument(path)
+    if self.DocCache[path] then
+        return self.DocCache[path]
+    end
+
+    self:EnsureCacheFolder()
+    local safePath = string.gsub(path, "[/\\]", "_")
+    local cacheFilePath = self.CacheFolder .. "/" .. safePath
+    local content = nil
+
+    if typeof(readfile) == "function" and typeof(isfile) == "function" and isfile(cacheFilePath) then
+        pcall(function() content = readfile(cacheFilePath) end)
+    end
+
+    if not content or content == "" then
+        local ok, body = pcall(function()
+            return game:HttpGet(self.RawRepoBaseUrl .. path)
+        end)
+        if ok and body and #body > 0 then
+            content = body
+            if typeof(writefile) == "function" then
+                pcall(function() writefile(cacheFilePath, body) end)
+            end
+            DebugLog("INFO", "KNOWLEDGE", "Downloaded doc: " .. path)
+        end
+    end
+
+    if content then
+        self.DocCache[path] = content
+        return content
+    end
+
+    return nil
+end
+
+function KnowledgeEngine:ExpandQuery(userPrompt)
+    local tokens = {}
+    local lowerPrompt = string.lower(userPrompt or "")
+    
+    for word in string.gmatch(lowerPrompt, "[%w%z\128-\255]+") do
+        if #word > 1 then
+            table.insert(tokens, word)
+        end
+    end
+
+    local expanded = {}
+    local seen = {}
+    for _, t in ipairs(tokens) do
+        if not seen[t] then
+            seen[t] = true
+            table.insert(expanded, t)
+        end
+        if self.ThaiSynonyms[t] then
+            for _, syn in ipairs(self.ThaiSynonyms[t]) do
+                if not seen[syn] then
+                    seen[syn] = true
+                    table.insert(expanded, syn)
+                end
+            end
+        end
+    end
+
+    return expanded
+end
+
+function KnowledgeEngine:Search(userPrompt, maxResults)
+    maxResults = maxResults or 3
+    if not self.IsLoaded then
+        self:LoadManifest(false)
+    end
+
+    if #self.ManifestEntries == 0 then
+        return {}
+    end
+
+    local expandedQuery = self:ExpandQuery(userPrompt)
+    local lowerPrompt = string.lower(userPrompt or "")
+    local priorityWeights = { S = 40, CRITICAL = 40, A = 30, HIGH = 30, B = 20, MEDIUM = 20, C = 10, LOW = 10 }
+
+    local scoredResults = {}
+
+    for _, entry in ipairs(self.ManifestEntries) do
+        local score = 0
+        local entryTitleLower = string.lower(entry.Title)
+
+        if string.find(lowerPrompt, entryTitleLower, 1, true) then
+            score = score + 50
+        else
+            for _, qTerm in ipairs(expandedQuery) do
+                if string.find(entryTitleLower, qTerm, 1, true) then
+                    score = score + 15
+                end
+            end
+        end
+
+        for _, kw in ipairs(entry.Keywords) do
+            for _, qTerm in ipairs(expandedQuery) do
+                if kw == qTerm then
+                    score = score + 25
+                elseif string.find(kw, qTerm, 1, true) or string.find(qTerm, kw, 1, true) then
+                    score = score + 10
+                end
+            end
+        end
+
+        if score > 0 then
+            local pWeight = priorityWeights[entry.Priority] or 10
+            score = score + pWeight
+            table.insert(scoredResults, {
+                Path = entry.Path,
+                Title = entry.Title,
+                Score = score,
+                Priority = entry.Priority
+            })
+        end
+    end
+
+    table.sort(scoredResults, function(a, b) return a.Score > b.Score end)
+
+    local finalResults = {}
+    for i = 1, math.min(maxResults, #scoredResults) do
+        table.insert(finalResults, scoredResults[i])
+    end
+
+    return finalResults
+end
+
+function KnowledgeEngine:BuildContext(userPrompt)
+    local results = self:Search(userPrompt, 3)
+    if #results == 0 then
+        return "-- [[ GITHUB KNOWLEDGE: No specific architectural patterns matched for prompt ]]"
+    end
+
+    local contextLines = {
+        "-- [[ GITHUB KNOWLEDGE RETRIEVAL (" .. #results .. " DOCUMENTS MATCHED) ]]"
+    }
+
+    for i, res in ipairs(results) do
+        local docContent = self:GetDocument(res.Path)
+        if docContent then
+            contextLines[#contextLines + 1] = string.format("-- [%d] %s (%s) [Score: %d | Priority: %s]", i, res.Title, res.Path, res.Score, res.Priority)
+            
+            local guidance = string.match(docContent, "##%s*AI_GUIDANCE(.-)##") or string.match(docContent, "##%s*AI_GUIDANCE(.*)")
+            if guidance then
+                guidance = string.gsub(guidance, "^%s*(.-)%s*$", "%1")
+                contextLines[#contextLines + 1] = "-- AI Guidance Rules:\n-- " .. string.gsub(guidance, "\n", "\n-- ")
+            else
+                local summary = string.sub(docContent, 1, 350)
+                contextLines[#contextLines + 1] = "-- Content Snippet:\n-- " .. string.gsub(summary, "\n", "\n-- ")
+            end
+            contextLines[#contextLines + 1] = ""
+        end
+    end
+
+    DebugLog("INFO", "KNOWLEDGE", string.format("Built Knowledge Context (%d docs) for query: '%s'", #results, userPrompt))
+    return table.concat(contextLines, "\n")
+end
+
+function KnowledgeEngine:Refresh()
+    self.DocCache = {}
+    self:LoadManifest(true)
+    DebugLog("INFO", "KNOWLEDGE", "Refreshed Knowledge Engine manifest and cleared document cache")
+end
+
+function KnowledgeEngine:Initialize()
+    task.spawn(function()
+        self:LoadManifest(false)
+    end)
+end
+
+-- Initialize Knowledge Engine automatically
+KnowledgeEngine:Initialize()
+
 local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer or Players.PlayerAdded:Wait()
@@ -3560,6 +3842,71 @@ DebugTab:AddButton({
 
 
 -- 1. AI GENERATOR TAB BUILDER
+AiTab:AddSection("📚 GITHUB KNOWLEDGE ENGINE (DECISION SUPPORT)")
+
+-- Knowledge Base Monitor Card
+local kbCard = Instance.new("Frame")
+kbCard.Size = UDim2.new(1, -10, 0, 75)
+kbCard.BackgroundColor3 = COLORS.glassDeep
+kbCard.BackgroundTransparency = 0.18
+kbCard.BorderSizePixel = 0
+kbCard.Parent = AiTab.page
+
+local kbcCorner = Instance.new("UICorner")
+kbcCorner.CornerRadius = UDim.new(0, 8)
+kbcCorner.Parent = kbCard
+
+local kbcStroke = Instance.new("UIStroke")
+kbcStroke.Color = COLORS.surface
+kbcStroke.Thickness = 1
+kbcStroke.Parent = kbCard
+
+local kbStatusText = Instance.new("TextLabel")
+kbStatusText.Size = UDim2.new(1, -16, 1, -12)
+kbStatusText.Position = UDim2.new(0, 8, 0, 6)
+kbStatusText.BackgroundTransparency = 1
+kbStatusText.Font = Enum.Font.Code
+kbStatusText.TextSize = 11
+kbStatusText.TextColor3 = Color3.fromRGB(0, 230, 180)
+kbStatusText.TextXAlignment = Enum.TextXAlignment.Left
+kbStatusText.TextYAlignment = Enum.TextYAlignment.Top
+kbStatusText.Parent = kbCard
+
+local function updateKnowledgeCardUI()
+    if kbStatusText and kbStatusText.Parent then
+        local status = KnowledgeEngine.IsLoaded and "🟢 ONLINE" or "🟡 INITIALIZING / OFFLINE"
+        local cacheCount = 0
+        for _ in pairs(KnowledgeEngine.DocCache) do cacheCount = cacheCount + 1 end
+        kbStatusText.Text = string.format(
+            "GITHUB KNOWLEDGE RETRIEVAL LAYER:\n• Status: %s\n• Indexed Documents: %d entries (manifest.txt)\n• Active Cache: %d loaded files\n• Last Sync: %s",
+            status, #KnowledgeEngine.ManifestEntries, cacheCount, KnowledgeEngine.LastSyncTime
+        )
+    end
+end
+
+task.spawn(function()
+    while task.wait(2) do
+        if not kbStatusText or not kbStatusText.Parent then break end
+        updateKnowledgeCardUI()
+    end
+end)
+
+AiTab:AddButton({
+    Title = "🔄 Sync & Update GitHub Knowledge Base",
+    Callback = function()
+        ObsidianGlassEngine:Notify({ Title = "Knowledge Base", Content = "Fetching latest manifest and updating knowledge cache...", Duration = 3 })
+        task.spawn(function()
+            KnowledgeEngine:Refresh()
+            updateKnowledgeCardUI()
+            ObsidianGlassEngine:Notify({
+                Title = "Knowledge Base Updated",
+                Content = string.format("Synced %d knowledge documents from GitHub!", #KnowledgeEngine.ManifestEntries),
+                Duration = 4
+            })
+        end)
+    end
+})
+
 AiTab:AddSection("AI CODE SYNTHESIZER")
 
 -- Prompt Input Frame (Glass Card)
@@ -3705,15 +4052,21 @@ processBtnObj.MouseButton1Click:Connect(function()
         end
     end
 
+    local knowledgeContext = KnowledgeEngine:BuildContext(userPrompt)
+    local matchedKnowledge = KnowledgeEngine:Search(userPrompt, 3)
+
     local codeLines = {
         "-- ======================================================================================",
         "-- [[ PAYOMBOYZ AI ENGINE V6 - COMPOSITE SYNTHESIZED OUTPUT ]]",
         "-- User Intent Prompt: " .. userPrompt,
         "-- Generated At: " .. os.date("%Y-%m-%d %H:%M:%S"),
         "-- Intention Categories Matched: " .. (#matchedTitles > 0 and table.concat(matchedTitles, ", ") or "Generic Structural Override"),
+        "-- GitHub Knowledge Matched: " .. tostring(#matchedKnowledge) .. " architectural docs",
         "-- ======================================================================================",
         "",
         AIContextEngine:GetSummaryText(),
+        "",
+        knowledgeContext,
         "",
         "-- [[ GAME INSTANCE BINDING & ENVIRONMENT RESOLUTION ]]"
     }
@@ -3745,7 +4098,7 @@ processBtnObj.MouseButton1Click:Connect(function()
 
     ObsidianGlassEngine:Notify({
         Title = "AI Synthesis Complete",
-        Content = string.format("Compiled %d sub-systems & %d game contexts!", #matchedBlocks, #AIContextEngine.BoundItems),
+        Content = string.format("Compiled %d sub-systems, %d knowledge docs & %d game contexts!", #matchedBlocks, #matchedKnowledge, #AIContextEngine.BoundItems),
         Duration = 4
     })
 end)
@@ -4070,9 +4423,11 @@ perfText.Parent = perfCard
         while gui and gui.Parent and perfText and perfText.Parent do
             local memKB = gcinfo()
             local memMB = string.format("%.2f MB", memKB / 1024)
+            local cacheCount = 0
+            for _ in pairs(KnowledgeEngine.DocCache) do cacheCount = cacheCount + 1 end
             perfText.Text = string.format(
-                "PERFORMANCE MONITOR V6:\n• Memory Usage: %s (%d KB)\n• Active Connections Tracked: %d\n• Debug Log Buffer: %d entries\n• Bound AI Contexts: %d",
-                memMB, memKB, #TrackedConnections, #DebugLogs, #AIContextEngine.BoundItems
+                "PERFORMANCE MONITOR V6:\n• Memory Usage: %s (%d KB)\n• Active Connections Tracked: %d\n• Debug Log Buffer: %d entries\n• Bound AI Contexts: %d | GitHub Knowledge: %d docs (%d cached)",
+                memMB, memKB, #TrackedConnections, #DebugLogs, #AIContextEngine.BoundItems, #KnowledgeEngine.ManifestEntries, cacheCount
             )
             task.wait(1)
         end
