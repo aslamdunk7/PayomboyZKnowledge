@@ -1,0 +1,413 @@
+-- ======================================================================================
+-- [[ พยอมบอย AI Script ฮับ - FINAL LOGIN SYSTEM (HWID + 2H TRIAL + CUSTOM KICK) ]]
+-- ======================================================================================
+
+local CoreGui = game:GetService("CoreGui")
+local TweenService = game:GetService("TweenService")
+local UserInputService = game:GetService("UserInputService")
+local RbxAnalytics = game:GetService("RbxAnalyticsService")
+local Players = game:GetService("Players")
+
+-- 🧹 ล้าง UI เก่าถ้ามี
+if CoreGui:FindFirstChild("PayomboyZ_LoginUI") then
+    CoreGui.PayomboyZ_LoginUI:Destroy()
+end
+if CoreGui:FindFirstChild("PayomboyZ_KickUI") then
+    CoreGui.PayomboyZ_KickUI:Destroy()
+end
+
+-- 🔑 คีย์เวิร์ด 50 คีย์ (คีย์ถาวร)
+local validKeys = {
+    "PaYoMbOyZhUbA1B2C3D4E", "PaYoMbOyZhUbX9Y8Z7W6V", "PaYoMbOyZhUbQ1W2E3R4T", "PaYoMbOyZhUbP0O9I8U7Y", "PaYoMbOyZhUbM1N2B3V4C",
+    "PaYoMbOyZhUbL9K8J7H6G", "PaYoMbOyZhUbZ1X2C3V4B", "PaYoMbOyZhUbF9D8S7A6M", "PaYoMbOyZhUbR1T2Y3U4I", "PaYoMbOyZhUbE9W8Q7P6O",
+    "PaYoMbOyZhUb1A3B5C7D9", "PaYoMbOyZhUb2Z4X6C8V0", "PaYoMbOyZhUb9Q7W5E3R1", "PaYoMbOyZhUb8P6O4I2U0", "PaYoMbOyZhUb3M5N7B9V1",
+    "PaYoMbOyZhUb4L6K8J0H2", "PaYoMbOyZhUb5F7D9S1A3", "PaYoMbOyZhUb6G8H0J2K4", "PaYoMbOyZhUb7T9Y1U3I5", "PaYoMbOyZhUb0E2W4Q6P8",
+    "PaYoMbOyZhUbAA11BB22C", "PaYoMbOyZhUbXX99YY88Z", "PaYoMbOyZhUbQQ11WW22E", "PaYoMbOyZhUbPP00OO99I", "PaYoMbOyZhUbMM11NN22B",
+    "PaYoMbOyZhUbLL99KK88J", "PaYoMbOyZhUbZZ11XX22C", "PaYoMbOyZhUbFF99DD88S", "PaYoMbOyZhUbRR11TT22Y", "PaYoMbOyZhUbEE99WW88Q",
+    "PaYoMbOyZhUbA1A1A1A1A", "PaYoMbOyZhUbB2B2B2B2B", "PaYoMbOyZhUbC3C3C3C3C", "PaYoMbOyZhUbD4D4D4D4D", "PaYoMbOyZhUbE5E5E5E5E",
+    "PaYoMbOyZhUbF6F6F6F6F", "PaYoMbOyZhUbG7G7G7G7G", "PaYoMbOyZhUbH8H8H8H8H", "PaYoMbOyZhUbI9I9I9I9I", "PaYoMbOyZhUbJ0J0J0J0J",
+    "PaYoMbOyZhUbK1K2K3K4K", "PaYoMbOyZhUbL9L8L7L6L", "PaYoMbOyZhUbM1M3M5M7M", "PaYoMbOyZhUbN2N4N6N8N", "PaYoMbOyZhUbO9O7O5O3O",
+    "PaYoMbOyZhUbP0P2P4P6P", "PaYoMbOyZhUbQ1Q5Q9Q3Q", "PaYoMbOyZhUbR2R6R0R4R", "PaYoMbOyZhUbS3S7S1S5S", "PaYoMbOyZhUbT4T8T2T6T"
+}
+
+-- ⏱️ ตั้งค่าคีย์ทดลอง
+local trialKey = "PaYoMbOyZ_TRIAL_FREE"
+local trialFileName = "PayomboyZ_HWID_Trial.txt"
+local trialDuration = 7200 -- 2 ชั่วโมง (วินาที)
+local cooldownDuration = 86400 -- 24 ชั่วโมง สำหรับการเล่นรอบถัดไป (วินาที)
+
+-- 📡 ฟังก์ชั่นดึง HWID
+local function getMachineHWID()
+    if gethwid then return gethwid() end
+    local success, clientId = pcall(function() return RbxAnalytics:GetClientId() end)
+    if success and clientId then return clientId end
+    return "UNKNOWN_HWID_" .. tostring(Players.LocalPlayer.UserId)
+end
+
+-- 🚨 ฟังก์ชั่นหน้าต่างแดงกระพริบเตะผู้เล่น (Custom Kick UI)
+local function TriggerCustomKick(nextPlayTimeEpoch)
+    local nextPlayStr = os.date("%d/%m/%Y %H:%M", nextPlayTimeEpoch)
+    
+    -- ทำลายฮับและตัวละครผู้เล่นเพื่อหยุดการเล่น
+    if CoreGui:FindFirstChild("ObsidianGlass2_UI") then CoreGui.ObsidianGlass2_UI:Destroy() end
+    pcall(function() Players.LocalPlayer.Character:Destroy() end)
+    
+    local kickGui = Instance.new("ScreenGui")
+    kickGui.Name = "PayomboyZ_KickUI"
+    kickGui.IgnoreGuiInset = true
+    kickGui.ResetOnSpawn = false
+    kickGui.DisplayOrder = 999999
+    kickGui.Parent = CoreGui
+    
+    local bg = Instance.new("Frame")
+    bg.Size = UDim2.fromScale(1, 1)
+    bg.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
+    bg.BorderSizePixel = 0
+    bg.Parent = kickGui
+    
+    -- อนิเมชั่นสีแดงกระพริบแบบอันตราย
+    local ti = TweenInfo.new(0.6, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true)
+    TweenService:Create(bg, ti, {BackgroundColor3 = Color3.fromRGB(60, 0, 0)}):Play()
+    
+    local alertText = Instance.new("TextLabel")
+    alertText.Size = UDim2.new(1, 0, 0, 100)
+    alertText.Position = UDim2.new(0, 0, 0.5, -120)
+    alertText.BackgroundTransparency = 1
+    alertText.Text = "⚠️ หมดเวลาแล้วจ้า ⚠️\nพรุ่งนี้ค่อยมาเล่นใหม่ หรือซื้อคีย์ที่ร้านค้า"
+    alertText.TextColor3 = Color3.fromRGB(255, 255, 255)
+    alertText.Font = Enum.Font.GothamBold
+    alertText.TextSize = 35
+    alertText.TextWrapped = true
+    alertText.Parent = bg
+    
+    local timeText = Instance.new("TextLabel")
+    timeText.Size = UDim2.new(1, 0, 0, 40)
+    timeText.Position = UDim2.new(0, 0, 0.5, 10)
+    timeText.BackgroundTransparency = 1
+    timeText.Text = "สามารถใช้งานอีกทีได้เวลา: " .. nextPlayStr
+    timeText.TextColor3 = Color3.fromRGB(255, 200, 200)
+    timeText.Font = Enum.Font.GothamBold
+    timeText.TextSize = 22
+    timeText.Parent = bg
+    
+    local storeBtn = Instance.new("TextButton")
+    storeBtn.Size = UDim2.fromOffset(250, 60)
+    storeBtn.Position = UDim2.new(0.5, -125, 0.5, 70)
+    storeBtn.BackgroundColor3 = Color3.fromRGB(255, 170, 0)
+    storeBtn.Text = "🛒 คัดลอกลิ้งค์ซื้อคีย์"
+    storeBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
+    storeBtn.Font = Enum.Font.GothamBold
+    storeBtn.TextSize = 20
+    storeBtn.Parent = bg
+    
+    local btnCorner = Instance.new("UICorner")
+    btnCorner.CornerRadius = UDim.new(0, 12)
+    btnCorner.Parent = storeBtn
+    
+    local statusLbl = Instance.new("TextLabel")
+    statusLbl.Size = UDim2.new(1, 0, 0, 30)
+    statusLbl.Position = UDim2.new(0, 0, 0.5, 140)
+    statusLbl.BackgroundTransparency = 1
+    statusLbl.Text = ""
+    statusLbl.TextColor3 = Color3.fromRGB(0, 255, 100)
+    statusLbl.Font = Enum.Font.GothamBold
+    statusLbl.TextSize = 16
+    statusLbl.Parent = bg
+
+    storeBtn.MouseButton1Click:Connect(function()
+        setclipboard("https://payomboyz.rexzy.xyz/home")
+        statusLbl.Text = "✅ คัดลอกลิ้งค์แล้ว! นำไปเปิดในเว็บได้เลย"
+    end)
+end
+
+-- 🎨 โทนสี Obsidian Glass
+local COLORS = {
+    shell = Color3.fromRGB(8, 20, 12),
+    glass = Color3.fromRGB(12, 28, 16),
+    glassDeep = Color3.fromRGB(8, 22, 12),
+    primary = Color3.fromRGB(0, 230, 118),
+    danger = Color3.fromRGB(255, 65, 80),
+    highlight = Color3.fromRGB(240, 200, 50)
+}
+
+-- 🖼️ สร้างหน้าต่าง UI Login
+local gui = Instance.new("ScreenGui")
+gui.Name = "PayomboyZ_LoginUI"
+gui.ResetOnSpawn = false
+gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+gui.Parent = CoreGui
+
+local mainFrame = Instance.new("Frame")
+mainFrame.Size = UDim2.fromOffset(380, 280)
+mainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+mainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+mainFrame.BackgroundColor3 = COLORS.shell
+mainFrame.BackgroundTransparency = 0.15
+mainFrame.BorderSizePixel = 0
+mainFrame.Parent = gui
+
+local mfCorner = Instance.new("UICorner")
+mfCorner.CornerRadius = UDim.new(0, 14)
+mfCorner.Parent = mainFrame
+
+local mfStroke = Instance.new("UIStroke")
+mfStroke.Color = COLORS.primary
+mfStroke.Thickness = 1.5
+mfStroke.Transparency = 0.2
+mfStroke.Parent = mainFrame
+
+-- ระบบลากหน้าต่าง (Draggable)
+local dragging, dragInput, dragStart, startPos
+mainFrame.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        dragging = true
+        dragStart = input.Position
+        startPos = mainFrame.Position
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then dragging = false end
+        end)
+    end
+end)
+mainFrame.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+        dragInput = input
+    end
+end)
+UserInputService.InputChanged:Connect(function(input)
+    if input == dragInput and dragging then
+        local delta = input.Position - dragStart
+        mainFrame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+    end
+end)
+
+-- 📝 ส่วนประกอบ UI Login
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1, 0, 0, 40)
+title.Position = UDim2.new(0, 0, 0, 10)
+title.BackgroundTransparency = 1
+title.Text = "พยอมบอย AI Script ฮับ"
+title.TextColor3 = Color3.fromRGB(240, 255, 245)
+title.Font = Enum.Font.GothamBold
+title.TextSize = 22
+title.Parent = mainFrame
+
+local subTitle = Instance.new("TextLabel")
+subTitle.Size = UDim2.new(1, 0, 0, 20)
+subTitle.Position = UDim2.new(0, 0, 0, 45)
+subTitle.BackgroundTransparency = 1
+subTitle.Text = "Obsidian Glassmorphic Engine"
+subTitle.TextColor3 = COLORS.primary
+subTitle.Font = Enum.Font.Gotham
+subTitle.TextSize = 12
+subTitle.Parent = mainFrame
+
+local keyInput = Instance.new("TextBox")
+keyInput.Size = UDim2.new(1, -60, 0, 40)
+keyInput.Position = UDim2.new(0, 30, 0, 80)
+keyInput.BackgroundColor3 = COLORS.glassDeep
+keyInput.BackgroundTransparency = 0.2
+keyInput.PlaceholderText = "กรอกคีย์ที่นี่..."
+keyInput.Text = ""
+keyInput.TextColor3 = COLORS.primary
+keyInput.Font = Enum.Font.GothamSemibold
+keyInput.TextSize = 14
+keyInput.Parent = mainFrame
+
+local kiCorner = Instance.new("UICorner")
+kiCorner.CornerRadius = UDim.new(0, 8)
+kiCorner.Parent = keyInput
+
+local kiStroke = Instance.new("UIStroke")
+kiStroke.Color = COLORS.primary
+kiStroke.Thickness = 1
+kiStroke.Transparency = 0.5
+kiStroke.Parent = keyInput
+
+local statusText = Instance.new("TextLabel")
+statusText.Size = UDim2.new(1, 0, 0, 20)
+statusText.Position = UDim2.new(0, 0, 0, 125)
+statusText.BackgroundTransparency = 1
+statusText.Text = ""
+statusText.TextColor3 = COLORS.danger
+statusText.Font = Enum.Font.GothamBold
+statusText.TextSize = 13
+statusText.Parent = mainFrame
+
+local loginBtn = Instance.new("TextButton")
+loginBtn.Size = UDim2.new(1, -60, 0, 40)
+loginBtn.Position = UDim2.new(0, 30, 0, 150)
+loginBtn.BackgroundColor3 = COLORS.primary
+loginBtn.BackgroundTransparency = 0.1
+loginBtn.Text = "🚀 เข้าสู่ระบบ"
+loginBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
+loginBtn.Font = Enum.Font.GothamBold
+loginBtn.TextSize = 16
+loginBtn.Parent = mainFrame
+
+local lbCorner = Instance.new("UICorner")
+lbCorner.CornerRadius = UDim.new(0, 8)
+lbCorner.Parent = loginBtn
+
+local buyBtn = Instance.new("TextButton")
+buyBtn.Size = UDim2.new(0.6, -35, 0, 35)
+buyBtn.Position = UDim2.new(0, 30, 0, 205)
+buyBtn.BackgroundColor3 = COLORS.highlight
+buyBtn.BackgroundTransparency = 0.1
+buyBtn.Text = "🛒 จะใช้ไปซื้อคีย์"
+buyBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
+buyBtn.Font = Enum.Font.GothamBold
+buyBtn.TextSize = 13
+buyBtn.Parent = mainFrame
+
+local bbCorner = Instance.new("UICorner")
+bbCorner.CornerRadius = UDim.new(0, 8)
+bbCorner.Parent = buyBtn
+
+local discordBtn = Instance.new("TextButton")
+discordBtn.Size = UDim2.new(0.4, -35, 0, 35)
+discordBtn.Position = UDim2.new(0.6, 5, 0, 205)
+discordBtn.BackgroundColor3 = Color3.fromRGB(88, 101, 242)
+discordBtn.BackgroundTransparency = 0.1
+discordBtn.Text = "💬 Discord"
+discordBtn.TextColor3 = Color3.fromRGB(240, 255, 245)
+discordBtn.Font = Enum.Font.GothamBold
+discordBtn.TextSize = 13
+discordBtn.Parent = mainFrame
+
+local dbCorner = Instance.new("UICorner")
+dbCorner.CornerRadius = UDim.new(0, 8)
+dbCorner.Parent = discordBtn
+
+-- ฟังก์ชั่นสั่นหน้าจอ
+local function shakeUI()
+    local origPos = mainFrame.Position
+    for i = 1, 6 do
+        mainFrame.Position = origPos + UDim2.new(0, math.random(-5, 5), 0, math.random(-5, 5))
+        task.wait(0.04)
+    end
+    mainFrame.Position = origPos
+end
+
+-- ⚙️ ระบบการทำงานของปุ่ม
+buyBtn.MouseButton1Click:Connect(function()
+    setclipboard("https://payomboyz.rexzy.xyz/home")
+    statusText.TextColor3 = COLORS.highlight
+    statusText.Text = "✅ คัดลอกลิ้งค์ร้านค้าแล้ว นำไปวางในเบราว์เซอร์ได้เลย!"
+end)
+
+discordBtn.MouseButton1Click:Connect(function()
+    setclipboard("https://discord.gg/GBKDAe23C")
+    statusText.TextColor3 = Color3.fromRGB(88, 101, 242)
+    statusText.Text = "✅ คัดลอกลิ้งค์ Discord แล้ว!"
+end)
+
+loginBtn.MouseButton1Click:Connect(function()
+    local inputKey = keyInput.Text
+    local currentTime = os.time()
+    
+    -- 1. ตรวจสอบคีย์ทดลอง (2 ชั่วโมง)
+    if inputKey == trialKey then
+        local myHWID = getMachineHWID()
+        
+        if isfile and isfile(trialFileName) then
+            local data = readfile(trialFileName)
+            local savedHWID, endTrialStr, nextPlayStr = string.match(data, "(.-)|(.-)|(.+)")
+            local endTrialTime = tonumber(endTrialStr) or 0
+            local nextPlayTime = tonumber(nextPlayStr) or 0
+            
+            if myHWID == savedHWID then
+                -- ถ้ารอจนเลย 24 ชั่วโมงแล้ว -> รีเซ็ตให้เล่นใหม่ได้
+                if currentTime >= nextPlayTime then
+                    local newEndTrial = currentTime + trialDuration
+                    local newNextPlay = currentTime + cooldownDuration
+                    writefile(trialFileName, myHWID .. "|" .. tostring(newEndTrial) .. "|" .. tostring(newNextPlay))
+                    
+                    statusText.TextColor3 = COLORS.primary
+                    statusText.Text = "✅ รีเซ็ตเวลาให้ใหม่ เริ่มต้นทดลองใช้ 2 ชั่วโมง!"
+                    task.wait(1)
+                    gui:Destroy()
+                    task.spawn(function()
+                        task.wait(trialDuration)
+                        TriggerCustomKick(newNextPlay)
+                    end)
+                    loadstring(game:HttpGet("https://raw.githubusercontent.com/aslamdunk7/PayomboyZKnowledge/refs/heads/main/AIsrc.lua"))()
+                    return
+                end
+                
+                -- ถ้ายังไม่ถึงเวลารีเซ็ต แต่หมด 2 ชั่วโมงไปแล้ว
+                if currentTime >= endTrialTime then
+                    statusText.TextColor3 = COLORS.danger
+                    statusText.Text = "❌ หมดเวลา 2 ชั่วโมงแล้วจ้า! พรุ่งนี้ค่อยมาใหม่"
+                    shakeUI()
+                    task.wait(1.5)
+                    TriggerCustomKick(nextPlayTime)
+                    return
+                else
+                    -- ยังอยู่ในช่วง 2 ชั่วโมง
+                    local timeLeft = math.floor((endTrialTime - currentTime) / 60)
+                    local timeSeconds = endTrialTime - currentTime
+                    
+                    statusText.TextColor3 = COLORS.primary
+                    statusText.Text = "✅ ทดลองใช้ต่อ (เหลือ " .. timeLeft .. " นาที)"
+                    task.wait(1)
+                    gui:Destroy()
+                    task.spawn(function()
+                        task.wait(timeSeconds)
+                        TriggerCustomKick(nextPlayTime)
+                    end)
+                    loadstring(game:HttpGet("https://raw.githubusercontent.com/aslamdunk7/PayomboyZKnowledge/refs/heads/main/AIsrc.lua"))()
+                    return
+                end
+            else
+                statusText.TextColor3 = COLORS.danger
+                statusText.Text = "❌ คีย์ทดลองนี้ถูกใช้ด้วยเครื่องอื่นไปแล้ว!"
+                shakeUI()
+                return
+            end
+        else
+            -- เข้าใช้งานครั้งแรกด้วยคีย์ทดลอง
+            if writefile then
+                local endTrialTime = currentTime + trialDuration
+                local nextPlayTime = currentTime + cooldownDuration
+                writefile(trialFileName, myHWID .. "|" .. tostring(endTrialTime) .. "|" .. tostring(nextPlayTime))
+                
+                statusText.TextColor3 = COLORS.primary
+                statusText.Text = "✅ เริ่มต้นทดลองใช้งาน 2 ชั่วโมง!"
+                task.wait(1)
+                gui:Destroy()
+                task.spawn(function()
+                    task.wait(trialDuration)
+                    TriggerCustomKick(nextPlayTime)
+                end)
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/aslamdunk7/PayomboyZKnowledge/refs/heads/main/AIsrc.lua"))()
+                return
+            else
+                statusText.TextColor3 = COLORS.danger
+                statusText.Text = "❌ Executor ของคุณไม่รองรับระบบบันทึกเวลา"
+                shakeUI()
+                return
+            end
+        end
+    end
+    
+    -- 2. เช็คคีย์ปกติ 50 คีย์ (ไม่มีหมดอายุ)
+    local isValid = false
+    for _, key in ipairs(validKeys) do
+        if inputKey == key then
+            isValid = true
+            break
+        end
+    end
+    
+    if isValid then
+        statusText.TextColor3 = COLORS.primary
+        statusText.Text = "✅ คีย์ถูกต้อง กำลังโหลดฮับ..."
+        task.wait(1)
+        gui:Destroy()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/aslamdunk7/PayomboyZKnowledge/refs/heads/main/AIsrc.lua"))()
+    else
+        statusText.TextColor3 = COLORS.danger
+        statusText.Text = "ควยอย่าเดารหัส"
+        shakeUI()
+    end
+end)
