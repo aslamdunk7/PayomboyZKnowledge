@@ -1802,13 +1802,18 @@ function ObsidianGlassEngine:CreateWindow(cfg)
             local titleKey = bCfg.TitleKey
             local title = titleKey and GetText(titleKey) or bCfg.Title or "Button"
             local cb = bCfg.Callback or function() end
+            local isPrimary = string.find(title, "⚡") or string.find(title, "🚀") or string.find(title, "🔍") or bCfg.Style == "primary"
+
+            local normalBg = isPrimary and Color3.fromRGB(0, 140, 80) or Color3.fromRGB(14, 34, 22)
+            local hoverBg = isPrimary and Color3.fromRGB(0, 180, 100) or Color3.fromRGB(22, 58, 36)
+            local pressBg = isPrimary and Color3.fromRGB(0, 110, 60) or Color3.fromRGB(8, 22, 14)
 
             local btn = Instance.new("TextButton")
             btn.Size = UDim2.new(1, -10, 0, 40)
-            btn.BackgroundColor3 = COLORS.btnRed
-            btn.BackgroundTransparency = 0.18
+            btn.BackgroundColor3 = normalBg
+            btn.BackgroundTransparency = 0.15
             btn.Text = title
-            btn.TextColor3 = Color3.fromRGB(255, 242, 245)
+            btn.TextColor3 = Color3.fromRGB(240, 255, 245)
             btn.Font = Enum.Font.GothamBold
             btn.TextSize = 13
             btn.Parent = pageScroll
@@ -1822,24 +1827,24 @@ function ObsidianGlassEngine:CreateWindow(cfg)
             bCorner.Parent = btn
 
             local bStroke = Instance.new("UIStroke")
-            bStroke.Color = COLORS.btnRedStroke
+            bStroke.Color = isPrimary and COLORS.primary or Color3.fromRGB(24, 80, 48)
             bStroke.Thickness = 1
             bStroke.Parent = btn
 
             btn.MouseEnter:Connect(function()
-                TweenService:Create(btn, TweenInfo.new(0.18), {BackgroundColor3 = COLORS.btnRedHover}):Play()
+                TweenService:Create(btn, TweenInfo.new(0.18), {BackgroundColor3 = hoverBg}):Play()
             end)
 
             btn.MouseLeave:Connect(function()
-                TweenService:Create(btn, TweenInfo.new(0.18), {BackgroundColor3 = COLORS.btnRed}):Play()
+                TweenService:Create(btn, TweenInfo.new(0.18), {BackgroundColor3 = normalBg}):Play()
             end)
 
             btn.MouseButton1Down:Connect(function()
-                TweenService:Create(btn, TweenInfo.new(0.08), {BackgroundColor3 = COLORS.btnRedPressed}):Play()
+                TweenService:Create(btn, TweenInfo.new(0.08), {BackgroundColor3 = pressBg}):Play()
             end)
 
             btn.MouseButton1Up:Connect(function()
-                TweenService:Create(btn, TweenInfo.new(0.08), {BackgroundColor3 = COLORS.btnRedHover}):Play()
+                TweenService:Create(btn, TweenInfo.new(0.08), {BackgroundColor3 = hoverBg}):Play()
             end)
 
             btn.MouseButton1Click:Connect(function()
@@ -2736,17 +2741,17 @@ ExplorerTab:AddButton({
 
 
 -----------------------------------------------------------------------------------------
--- 📡 REMOTE SPY ENGINE (Extracted from nokey.luau)
+-- 📡 REMOTE SPY ENGINE (Enhanced Dual-Hook & Explorer Card Style)
 -----------------------------------------------------------------------------------------
 
 local SpyEnabled = false
 local SpyCalls = {}
-local SpySkipText = "sync,update,heartbeat,tick,ping,replicate,stream,position,character,camera,move,cframe"
+local SpySkipText = "ping,heartbeat"
 local OldNamecall = nil
-local SpyLogBox = nil
 
-local spyNeedsUpdate = false
-local spyBatchLoopRunning = false
+local spyScroll = nil
+local spyCountLabel = nil
+local hooksInstalled = false
 
 local function shouldSkipRemote(name)
     name = tostring(name or ""):lower()
@@ -2758,62 +2763,253 @@ end
 
 local function formatRemoteCall(remote, method, args)
     local parts = {}
-    for i = 1, args.n or #args do parts[#parts + 1] = SerializationEngine.Serialize(args[i]) end
+    local argCount = args.n or #args
+    for i = 1, argCount do
+        parts[#parts + 1] = SerializationEngine.Serialize(args[i])
+    end
     return string.format("%s:%s(%s)", remote:GetFullName(), method, table.concat(parts, ", "))
 end
 
-local function startSpyBatchLoop()
-    if spyBatchLoopRunning then return end
-    spyBatchLoopRunning = true
-    task.spawn(function()
-        while SpyEnabled and getgenv()._PayomboyZ_RemoteSpyEnabled do
-            if spyNeedsUpdate and SpyLogBox and SpyLogBox.Parent then
-                spyNeedsUpdate = false
-                local lines = {}
-                local first = math.max(1, #SpyCalls - 49)
-                for i = first, #SpyCalls do
-                    lines[#lines + 1] = SpyCalls[i].Source
-                end
-                SpyLogBox.Text = table.concat(lines, "\n")
-            end
-            task.wait(0.15)
+local function renderSpyLogs()
+    if not spyScroll then return end
+    spyScroll:ClearAllChildren()
+
+    local layout = Instance.new("UIListLayout")
+    layout.SortOrder = Enum.SortOrder.LayoutOrder
+    layout.Padding = UDim.new(0, 6)
+    layout.Parent = spyScroll
+
+    local pad = Instance.new("UIPadding")
+    pad.PaddingTop = UDim.new(0, 4)
+    pad.PaddingLeft = UDim.new(0, 4)
+    pad.PaddingRight = UDim.new(0, 4)
+    pad.PaddingBottom = UDim.new(0, 4)
+    pad.Parent = spyScroll
+
+    if spyCountLabel then
+        spyCountLabel.Text = string.format("📊 CAPTURED LOGS: %d Calls  •  Status: %s", #SpyCalls, SpyEnabled and "🟢 LOGGING" or "🔴 PAUSED")
+    end
+
+    if #SpyCalls == 0 then
+        local emptyLabel = Instance.new("TextLabel")
+        emptyLabel.Size = UDim2.new(1, 0, 0, 60)
+        emptyLabel.BackgroundTransparency = 1
+        emptyLabel.Text = "-- No remote calls captured yet. Turn ON Remote Spy and trigger in-game actions --"
+        emptyLabel.TextColor3 = COLORS.textFaint
+        emptyLabel.Font = Enum.Font.GothamSemibold
+        emptyLabel.TextSize = 11
+        emptyLabel.Parent = spyScroll
+        return
+    end
+
+    for idx, entry in ipairs(SpyCalls) do
+        if idx > 60 then break end
+
+        local itemCard = Instance.new("Frame")
+        itemCard.Size = UDim2.new(1, -6, 0, 68)
+        itemCard.BackgroundColor3 = COLORS.surface
+        itemCard.BackgroundTransparency = 0.20
+        itemCard.BorderSizePixel = 0
+        itemCard.LayoutOrder = idx
+        itemCard.Parent = spyScroll
+
+        local icCorner = Instance.new("UICorner")
+        icCorner.CornerRadius = UDim.new(0, 6)
+        icCorner.Parent = itemCard
+
+        local icStroke = Instance.new("UIStroke")
+        icStroke.Color = COLORS.glassBorder
+        icStroke.Thickness = 1
+        icStroke.Parent = itemCard
+
+        local titleLbl = Instance.new("TextLabel")
+        titleLbl.Size = UDim2.new(1, -12, 0, 16)
+        titleLbl.Position = UDim2.new(0, 8, 0, 4)
+        titleLbl.BackgroundTransparency = 1
+        titleLbl.Text = string.format("[%d] 📡 %s (%s)  •  %s  •  %s", idx, entry.Name or "Remote", entry.Class or "RemoteEvent", entry.Method or "FireServer", entry.Time or "")
+        titleLbl.TextColor3 = COLORS.cyan
+        titleLbl.Font = Enum.Font.GothamBold
+        titleLbl.TextSize = 10
+        titleLbl.TextXAlignment = Enum.TextXAlignment.Left
+        titleLbl.Parent = itemCard
+
+        local codeLbl = Instance.new("TextLabel")
+        codeLbl.Size = UDim2.new(1, -12, 0, 18)
+        codeLbl.Position = UDim2.new(0, 8, 0, 20)
+        codeLbl.BackgroundTransparency = 1
+        codeLbl.Text = entry.Source
+        codeLbl.TextColor3 = Color3.fromRGB(150, 240, 200)
+        codeLbl.Font = Enum.Font.Code
+        codeLbl.TextSize = 10
+        codeLbl.TextXAlignment = Enum.TextXAlignment.Left
+        codeLbl.Parent = itemCard
+
+        local actBox = Instance.new("Frame")
+        actBox.Size = UDim2.new(1, -16, 0, 20)
+        actBox.Position = UDim2.new(0, 8, 0, 42)
+        actBox.BackgroundTransparency = 1
+        actBox.Parent = itemCard
+
+        local actLayout = Instance.new("UIListLayout")
+        actLayout.FillDirection = Enum.FillDirection.Horizontal
+        actLayout.Padding = UDim.new(0, 4)
+        actLayout.Parent = actBox
+
+        local function makeSmallBtn(btnText, btnColor, onClick)
+            local b = Instance.new("TextButton")
+            b.Size = UDim2.new(0, 82, 1, 0)
+            b.BackgroundColor3 = btnColor
+            b.BackgroundTransparency = 0.2
+            b.Text = btnText
+            b.TextColor3 = Color3.fromRGB(255, 255, 255)
+            b.Font = Enum.Font.GothamBold
+            b.TextSize = 9
+            b.Parent = actBox
+            local bc = Instance.new("UICorner")
+            bc.CornerRadius = UDim.new(0, 4)
+            bc.Parent = b
+            b.MouseButton1Click:Connect(function()
+                playClickSound()
+                onClick()
+            end)
         end
-        spyBatchLoopRunning = false
-    end)
+
+        makeSmallBtn("📋 Copy Code", COLORS.primary, function()
+            if typeof(setclipboard) == "function" then
+                setclipboard(entry.Source)
+                ObsidianGlassEngine:Notify({ Title = "Copied Code", Content = "Copied executable remote call!", Duration = 2 })
+            end
+        end)
+
+        makeSmallBtn("📋 Copy Path", COLORS.secondary, function()
+            if typeof(setclipboard) == "function" then
+                setclipboard(entry.Path)
+                ObsidianGlassEngine:Notify({ Title = "Copied Path", Content = entry.Path, Duration = 2 })
+            end
+        end)
+
+        makeSmallBtn("⚡ Re-Fire", Color3.fromRGB(180, 100, 0), function()
+            task.spawn(function()
+                if entry.Remote and entry.Remote.Parent then
+                    if entry.Method == "FireServer" then
+                        entry.Remote:FireServer(unpack(entry.Args))
+                        ObsidianGlassEngine:Notify({ Title = "Fired Remote", Content = "Fired " .. entry.Name, Duration = 2 })
+                    elseif entry.Method == "InvokeServer" then
+                        entry.Remote:InvokeServer(unpack(entry.Args))
+                        ObsidianGlassEngine:Notify({ Title = "Invoked Remote", Content = "Invoked " .. entry.Name, Duration = 2 })
+                    end
+                else
+                    ObsidianGlassEngine:Notify({ Title = "Error", Content = "Remote instance no longer exists!", Duration = 3 })
+                end
+            end)
+        end)
+
+        makeSmallBtn("🧠 Add AI", COLORS.glassRaised, function()
+            local added = AIContextEngine:AddContext(entry.Name, entry.Class, entry.Path, "RemoteSpy")
+            if added then
+                ObsidianGlassEngine:Notify({ Title = "Context Bound", Content = "Added " .. entry.Name .. " to AI Generator!", Duration = 2 })
+            else
+                ObsidianGlassEngine:Notify({ Title = "Already Bound", Content = "Already in AI Context.", Duration = 2 })
+            end
+        end)
+
+        makeSmallBtn("👁️ Preview", COLORS.accent, function()
+            setPreviewData(entry.Source, entry.Name)
+            if PreviewTab and PreviewTab.Select then pcall(function() PreviewTab:Select() end) end
+            ObsidianGlassEngine:Notify({ Title = "Sent to Preview", Content = "Opened remote call in Preview tab!", Duration = 2 })
+        end)
+    end
 end
 
-local function updateSpyLogUI()
-    spyNeedsUpdate = true
-    startSpyBatchLoop()
-end
+local lastLogSig = ""
+local lastLogTime = 0
 
 local function addSpyCall(remote, method, args)
-    if not SpyEnabled or not getgenv()._PayomboyZ_RemoteSpyEnabled or shouldSkipRemote(remote.Name) then return end
+    if not SpyEnabled or not getgenv()._PayomboyZ_RemoteSpyEnabled then return end
+    if not remote or typeof(remote) ~= "Instance" then return end
+
+    local rName = remote.Name
+    local rFullName = remote:GetFullName()
+    if shouldSkipRemote(rName) or shouldSkipRemote(rFullName) then return end
+
+    local argCount = args.n or #args
+    local argList = {}
+    for i = 1, argCount do argList[i] = args[i] end
+
+    local callSig = rFullName .. ":" .. tostring(method) .. "(" .. tostring(argList[1]) .. ")"
+    local now = os.clock()
+    if callSig == lastLogSig and (now - lastLogTime) < 0.015 then
+        return
+    end
+    lastLogSig = callSig
+    lastLogTime = now
+
     local entry = {
         Remote = remote,
+        Name = rName,
+        Class = remote.ClassName,
+        Path = rFullName,
         Method = method,
-        Args = args,
-        Time = os.time(),
-        Source = formatRemoteCall(remote, method, args),
+        Args = argList,
+        Time = os.date("%H:%M:%S"),
+        Source = formatRemoteCall(remote, method, argList),
     }
-    SpyCalls[#SpyCalls + 1] = entry
-    while #SpyCalls > 200 do table.remove(SpyCalls, 1) end
-    spyNeedsUpdate = true
-    startSpyBatchLoop()
+
+    table.insert(SpyCalls, 1, entry)
+    while #SpyCalls > 200 do table.remove(SpyCalls) end
+
+    task.defer(renderSpyLogs)
 end
 
 local function installRemoteSpy()
     getgenv()._PayomboyZ_RemoteSpyEnabled = true
-    if not getgenv()._PayomboyZ_OldNamecall and type(hookmetamethod) == "function" and type(getnamecallmethod) == "function" then
-        getgenv()._PayomboyZ_OldNamecall = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
-            local method = getnamecallmethod()
-            if getgenv()._PayomboyZ_RemoteSpyEnabled and (method == "FireServer" or method == "InvokeServer") then
-                local okRemote = pcall(function() return self:IsA("RemoteEvent") or self:IsA("RemoteFunction") end)
-                if okRemote then addSpyCall(self, method, table.pack(...)) end
+    if hooksInstalled then return end
+    hooksInstalled = true
+
+    if type(hookmetamethod) == "function" and type(getnamecallmethod) == "function" then
+        if not getgenv()._PayomboyZ_OldNamecall then
+            getgenv()._PayomboyZ_OldNamecall = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
+                local method = getnamecallmethod()
+                if getgenv()._PayomboyZ_RemoteSpyEnabled and (method == "FireServer" or method == "fireServer" or method == "InvokeServer" or method == "invokeServer") then
+                    local okRemote, isRemote = pcall(function()
+                        return typeof(self) == "Instance" and (self:IsA("RemoteEvent") or self:IsA("RemoteFunction") or self:IsA("UnreliableRemoteEvent"))
+                    end)
+                    if okRemote and isRemote then
+                        addSpyCall(self, method, table.pack(...))
+                    end
+                end
+                return getgenv()._PayomboyZ_OldNamecall(self, ...)
+            end))
+            OldNamecall = getgenv()._PayomboyZ_OldNamecall
+        end
+    end
+
+    if type(hookfunction) == "function" then
+        pcall(function()
+            local dummyEvent = Instance.new("RemoteEvent")
+            local dummyFunc = Instance.new("RemoteFunction")
+
+            if not getgenv()._PayomboyZ_OldFireServer then
+                getgenv()._PayomboyZ_OldFireServer = hookfunction(dummyEvent.FireServer, newcclosure(function(self, ...)
+                    if getgenv()._PayomboyZ_RemoteSpyEnabled and typeof(self) == "Instance" then
+                        addSpyCall(self, "FireServer", table.pack(...))
+                    end
+                    return getgenv()._PayomboyZ_OldFireServer(self, ...)
+                end))
             end
-            return getgenv()._PayomboyZ_OldNamecall(self, ...)
-        end))
-        OldNamecall = getgenv()._PayomboyZ_OldNamecall
+
+            if not getgenv()._PayomboyZ_OldInvokeServer then
+                getgenv()._PayomboyZ_OldInvokeServer = hookfunction(dummyFunc.InvokeServer, newcclosure(function(self, ...)
+                    if getgenv()._PayomboyZ_RemoteSpyEnabled and typeof(self) == "Instance" then
+                        addSpyCall(self, "InvokeServer", table.pack(...))
+                    end
+                    return getgenv()._PayomboyZ_OldInvokeServer(self, ...)
+                end))
+            end
+
+            dummyEvent:Destroy()
+            dummyFunc:Destroy()
+        end)
     end
 end
 
@@ -2825,6 +3021,7 @@ SpyTab:AddSection("REMOTE SPY MONITORING & HOOKING")
 
 local spyToggleBtn = SpyTab:AddButton({
     Title = "🔴 [OFF] Remote Spy Status (Click to Enable)",
+    Style = "primary",
     Callback = function() end
 })
 
@@ -2835,9 +3032,11 @@ spyToggleBtn.MouseButton1Click:Connect(function()
     if SpyEnabled then
         installRemoteSpy()
         spyToggleBtn.Text = "🟢 [ON] Remote Spy Logging Active"
+        renderSpyLogs()
         ObsidianGlassEngine:Notify({ Title = "Remote Spy", Content = "Logging active! FireServer/InvokeServer monitored.", Duration = 4 })
     else
         spyToggleBtn.Text = "🔴 [OFF] Remote Spy Status (Click to Enable)"
+        renderSpyLogs()
         ObsidianGlassEngine:Notify({ Title = "Remote Spy", Content = "Logging paused.", Duration = 3 })
     end
 end)
@@ -2886,6 +3085,7 @@ FilterInput.Parent = filterCard
 
 FilterInput.FocusLost:Connect(function()
     SpySkipText = FilterInput.Text
+    renderSpyLogs()
     ObsidianGlassEngine:Notify({ Title = "Filter Updated", Content = "Remote Spy blacklist keywords updated.", Duration = 2 })
 end)
 
@@ -2899,8 +3099,35 @@ fiPad.Parent = FilterInput
 
 SpyTab:AddSection("CAPTURED REMOTE CALL LOGS")
 
+local spyStatusCard = Instance.new("Frame")
+spyStatusCard.Size = UDim2.new(1, -10, 0, 28)
+spyStatusCard.BackgroundColor3 = COLORS.glassDeep
+spyStatusCard.BackgroundTransparency = 0.18
+spyStatusCard.BorderSizePixel = 0
+spyStatusCard.Parent = SpyTab.page
+
+local sscCorner = Instance.new("UICorner")
+sscCorner.CornerRadius = UDim.new(0, 6)
+sscCorner.Parent = spyStatusCard
+
+local sscStroke = Instance.new("UIStroke")
+sscStroke.Color = COLORS.surface
+sscStroke.Thickness = 1
+sscStroke.Parent = spyStatusCard
+
+spyCountLabel = Instance.new("TextLabel")
+spyCountLabel.Size = UDim2.new(1, -20, 1, 0)
+spyCountLabel.Position = UDim2.new(0, 10, 0, 0)
+spyCountLabel.BackgroundTransparency = 1
+spyCountLabel.Text = "📊 CAPTURED LOGS: 0 Calls  •  Status: 🔴 PAUSED"
+spyCountLabel.TextColor3 = COLORS.cyan
+spyCountLabel.Font = Enum.Font.GothamBold
+spyCountLabel.TextSize = 10
+spyCountLabel.TextXAlignment = Enum.TextXAlignment.Left
+spyCountLabel.Parent = spyStatusCard
+
 local spyLogCard = Instance.new("Frame")
-spyLogCard.Size = UDim2.new(1, -10, 0, 180)
+spyLogCard.Size = UDim2.new(1, -10, 0, 240)
 spyLogCard.BackgroundColor3 = COLORS.glassDeep
 spyLogCard.BackgroundTransparency = 0.18
 spyLogCard.BorderSizePixel = 0
@@ -2915,7 +3142,7 @@ slcStroke.Color = COLORS.surface
 slcStroke.Thickness = 1
 slcStroke.Parent = spyLogCard
 
-local spyScroll = Instance.new("ScrollingFrame")
+spyScroll = Instance.new("ScrollingFrame")
 spyScroll.Size = UDim2.new(1, -12, 1, -12)
 spyScroll.Position = UDim2.new(0, 6, 0, 6)
 spyScroll.BackgroundColor3 = COLORS.input
@@ -2931,28 +3158,29 @@ local spysCorner = Instance.new("UICorner")
 spysCorner.CornerRadius = UDim.new(0, 6)
 spysCorner.Parent = spyScroll
 
-SpyLogBox = Instance.new("TextBox")
-SpyLogBox.Size = UDim2.new(1, -10, 1, 0)
-SpyLogBox.Position = UDim2.new(0, 5, 0, 0)
-SpyLogBox.BackgroundTransparency = 1
-SpyLogBox.PlaceholderText = "-- RemoteSpy live logs will appear here when enabled..."
-SpyLogBox.Text = ""
-SpyLogBox.Font = Enum.Font.Code
-SpyLogBox.TextSize = 11
-SpyLogBox.TextColor3 = Color3.fromRGB(120, 220, 255)
-SpyLogBox.MultiLine = true
-SpyLogBox.ClearTextOnFocus = false
-SpyLogBox.TextXAlignment = Enum.TextXAlignment.Left
-SpyLogBox.TextYAlignment = Enum.TextYAlignment.Top
-SpyLogBox.AutomaticSize = Enum.AutomaticSize.Y
-SpyLogBox.Parent = spyScroll
-
-local slbPad = Instance.new("UIPadding")
-slbPad.PaddingLeft = UDim.new(0, 4)
-slbPad.PaddingTop = UDim.new(0, 4)
-slbPad.Parent = SpyLogBox
+renderSpyLogs()
 
 SpyTab:AddSection("REMOTE LOG CONTROLS & EXPORT")
+
+SpyTab:AddButton({
+    Title = "📋 Copy All Remote Logs to Clipboard",
+    Style = "primary",
+    Callback = function()
+        if #SpyCalls == 0 then
+            ObsidianGlassEngine:Notify({ Title = "Warning", Content = "Log buffer is empty!", Duration = 2 })
+            return
+        end
+        local lines = {}
+        for _, entry in ipairs(SpyCalls) do
+            lines[#lines + 1] = entry.Source
+        end
+        local fullText = table.concat(lines, "\n")
+        if typeof(setclipboard) == "function" then
+            pcall(function() setclipboard(fullText) end)
+            ObsidianGlassEngine:Notify({ Title = "Copied", Content = "Copied " .. #SpyCalls .. " logged remote calls to clipboard!", Duration = 3 })
+        end
+    end
+})
 
 SpyTab:AddButton({
     Title = "🧠 Bind Captured Remotes to AI Context",
@@ -2975,15 +3203,15 @@ SpyTab:AddButton({
 })
 
 SpyTab:AddButton({
-    Title = "💾 Save Remote Logs to File & Clipboard",
+    Title = "💾 Save Remote Logs to File",
     Callback = function()
         if #SpyCalls == 0 then
             ObsidianGlassEngine:Notify({ Title = "Warning", Content = "No remote calls captured yet!", Duration = 3 })
             return
         end
-        local folderName = "ValenHub_Dumps/RemoteSpy"
+        local folderName = "PAYOMBOYDumps/RemoteSpy"
         if typeof(makefolder) == "function" then
-            pcall(function() makefolder("ValenHub_Dumps") end)
+            pcall(function() makefolder("PAYOMBOYDumps") end)
             pcall(function() makefolder(folderName) end)
         end
         local fileName = folderName .. "/RemoteSpy_" .. os.date("%Y%m%d_%H%M%S") .. ".lua"
@@ -2999,7 +3227,7 @@ SpyTab:AddButton({
         end
         local fullCode = table.concat(lines, "\n")
         if typeof(writefile) == "function" then pcall(function() writefile(fileName, fullCode) end) end
-        if typeof(setclipboard) == "function" then pcall(function() setclipboard(fullCode) end) end
+        if typeof(setclipboard) == "function" then pcall(function() setclipboard(fileName) end) end
         
         ObsidianGlassEngine:Notify({
             Title = "Saved Logs",
@@ -3010,24 +3238,10 @@ SpyTab:AddButton({
 })
 
 SpyTab:AddButton({
-    Title = "📋 Copy Log Output to Clipboard",
-    Callback = function()
-        if SpyLogBox and SpyLogBox.Text ~= "" then
-            if typeof(setclipboard) == "function" then
-                pcall(function() setclipboard(SpyLogBox.Text) end)
-                ObsidianGlassEngine:Notify({ Title = "Copied", Content = "Copied remote log buffer to clipboard!", Duration = 3 })
-            end
-        else
-            ObsidianGlassEngine:Notify({ Title = "Warning", Content = "Log buffer is empty!", Duration = 2 })
-        end
-    end
-})
-
-SpyTab:AddButton({
     Title = "🗑️ Clear Remote Log Buffer",
     Callback = function()
         SpyCalls = {}
-        if SpyLogBox then SpyLogBox.Text = "" end
+        renderSpyLogs()
         ObsidianGlassEngine:Notify({ Title = "Cleared", Content = "Remote Spy log buffer cleared.", Duration = 2 })
     end
 })
@@ -3115,12 +3329,32 @@ local LastServiceDumpPath = nil
 
 local PreviewCodeBox = nil
 local previewScroll = nil
+local PreviewStatusText = nil
 
-local function setPreviewData(text)
-    if not text then return end
+local function setPreviewData(text, targetName)
+    if not text or text == "" then return end
     LastServiceDumpData = text
+    targetName = targetName or ServiceTargetName or "Target"
+    
+    local charCount = #text
+    local lineCount = 1
+    for _ in string.gmatch(text, "\n") do
+        lineCount = lineCount + 1
+    end
+    local sizeKB = string.format("%.2f KB", charCount / 1024)
+    
+    if PreviewStatusText then
+        PreviewStatusText.Text = string.format("📊 STATUS: LOADED  •  Target: %s  •  Lines: %d  •  Size: %s", targetName, lineCount, sizeKB)
+    end
+    
     if PreviewCodeBox then
-        PreviewCodeBox.Text = text
+        if charCount > 25000 then
+            local snippet = string.sub(text, 1, 25000)
+            PreviewCodeBox.Text = snippet .. string.format("\n\n-- [⚠️ PREVIEW TRUNCATED FOR UI DISPLAY PERFORMANCE]\n-- Full Dump Size: %s (%d lines, %d characters).\n-- The complete untruncated content is ready to be saved to file or copied to clipboard!", sizeKB, lineCount, charCount)
+        else
+            PreviewCodeBox.Text = text
+        end
+        
         task.defer(function()
             if PreviewCodeBox and previewScroll then
                 local textHeight = math.max(260, PreviewCodeBox.TextBounds.Y + 30)
@@ -3220,24 +3454,26 @@ local function performServiceDump(saveToFile, showPreview)
         return
     end
     
-    setPreviewData(data)
+    setPreviewData(data, serviceName)
 
     if showPreview then
-        ObsidianGlassEngine:Notify({Title = "Preview Loaded", Content = "Dumped " .. serviceName .. " (" .. #data .. " chars)! View in Preview tab.", Duration = 4})
+        if PreviewTab and PreviewTab.Select then pcall(function() PreviewTab:Select() end) end
+        ObsidianGlassEngine:Notify({Title = "Preview Loaded", Content = "Dumped " .. serviceName .. " (" .. #data .. " chars)! Navigated to Preview tab.", Duration = 4})
     end
 
     if saveToFile then
         if typeof(makefolder) == "function" then
-            pcall(function() makefolder("ValenHub_Dumps") end)
-            pcall(function() makefolder("ValenHub_Dumps/Dump") end)
+            pcall(function() makefolder("PAYOMBOYDumps") end)
+            pcall(function() makefolder("PAYOMBOYDumps/Dump") end)
         end
         local name = (ServiceDumpFileName and ServiceDumpFileName ~= "") and ServiceDumpFileName or (serviceName .. "_" .. os.date("%Y%m%d_%H%M%S"))
         name = name:gsub("[^%w_%- ]", "_")
         local ext = ServiceDumpOptions.SourceFormat and ".lua" or ".txt"
-        LastServiceDumpPath = "ValenHub_Dumps/Dump/" .. name .. ext
+        LastServiceDumpPath = "PAYOMBOYDumps/Dump/" .. name .. ext
         if typeof(writefile) == "function" then pcall(function() writefile(LastServiceDumpPath, data) end) end
         if typeof(setclipboard) == "function" then pcall(function() setclipboard(data) end) end
-        ObsidianGlassEngine:Notify({Title = "Dump Saved", Content = "Saved dump to " .. LastServiceDumpPath, Duration = 4})
+        if PreviewTab and PreviewTab.Select then pcall(function() PreviewTab:Select() end) end
+        ObsidianGlassEngine:Notify({Title = "Dump Saved", Content = "Saved dump file to: " .. LastServiceDumpPath, Duration = 5})
     end
 end
 
@@ -3336,7 +3572,78 @@ end
 -- 📦 INSTANCE & SERVICE DUMPER TAB BUILDER
 -- ======================================================================================
 
-DumpTab:AddSection("QUICK SELECT TARGET SERVICE (FROM nokey.luau ARCHITECTURE)")
+DumpTab:AddSection("EXPORT FILENAME & SAVE CONFIGURATION")
+
+local filenameCard = Instance.new("Frame")
+filenameCard.Size = UDim2.new(1, -10, 0, 85)
+filenameCard.BackgroundColor3 = COLORS.glassDeep
+filenameCard.BackgroundTransparency = 0.18
+filenameCard.BorderSizePixel = 0
+filenameCard.Parent = DumpTab.page
+
+local fnCorner = Instance.new("UICorner")
+fnCorner.CornerRadius = UDim.new(0, 8)
+fnCorner.Parent = filenameCard
+
+local fnStroke = Instance.new("UIStroke")
+fnStroke.Color = COLORS.surface
+fnStroke.Thickness = 1
+fnStroke.Parent = filenameCard
+
+local fnLbl1 = Instance.new("TextLabel")
+fnLbl1.Size = UDim2.new(1, -24, 0, 16)
+fnLbl1.Position = UDim2.new(0, 12, 0, 6)
+fnLbl1.BackgroundTransparency = 1
+fnLbl1.Text = "CUSTOM EXPORT FILE NAME (OPTIONAL)"
+fnLbl1.TextColor3 = COLORS.textMuted
+fnLbl1.Font = Enum.Font.GothamBold
+fnLbl1.TextSize = 10
+fnLbl1.TextXAlignment = Enum.TextXAlignment.Left
+fnLbl1.Parent = filenameCard
+
+local DumpFileNameInput = Instance.new("TextBox")
+DumpFileNameInput.Size = UDim2.new(1, -24, 0, 26)
+DumpFileNameInput.Position = UDim2.new(0, 12, 0, 24)
+DumpFileNameInput.BackgroundColor3 = COLORS.input
+DumpFileNameInput.BackgroundTransparency = 0.20
+DumpFileNameInput.Text = ServiceDumpFileName
+DumpFileNameInput.PlaceholderText = "Leave empty for auto-generated timestamp name..."
+DumpFileNameInput.Font = Enum.Font.GothamSemibold
+DumpFileNameInput.TextSize = 11
+DumpFileNameInput.TextColor3 = COLORS.cyan
+DumpFileNameInput.ClearTextOnFocus = false
+DumpFileNameInput.TextXAlignment = Enum.TextXAlignment.Left
+DumpFileNameInput.Parent = filenameCard
+
+local dfniCorner = Instance.new("UICorner")
+dfniCorner.CornerRadius = UDim.new(0, 5)
+dfniCorner.Parent = DumpFileNameInput
+
+local dfniPad = Instance.new("UIPadding")
+dfniPad.PaddingLeft = UDim.new(0, 6)
+dfniPad.Parent = DumpFileNameInput
+
+local savePathStatusLbl = Instance.new("TextLabel")
+savePathStatusLbl.Size = UDim2.new(1, -24, 0, 24)
+savePathStatusLbl.Position = UDim2.new(0, 12, 0, 54)
+savePathStatusLbl.BackgroundTransparency = 1
+savePathStatusLbl.Text = "📁 Output Path: workspace/ValenHub_Dumps/Dump/" .. ((ServiceDumpFileName ~= "") and ServiceDumpFileName or "<AutoName>") .. ".txt"
+savePathStatusLbl.TextColor3 = Color3.fromRGB(0, 220, 160)
+savePathStatusLbl.Font = Enum.Font.Code
+savePathStatusLbl.TextSize = 10
+savePathStatusLbl.TextXAlignment = Enum.TextXAlignment.Left
+savePathStatusLbl.Parent = filenameCard
+
+local function updateFileNameState()
+    ServiceDumpFileName = DumpFileNameInput.Text:gsub("^%s+", ""):gsub("%s+$", "")
+    local dispName = (ServiceDumpFileName ~= "") and ServiceDumpFileName or (ServiceTargetName .. "_<Timestamp>")
+    savePathStatusLbl.Text = "📁 Output Path: workspace/ValenHub_Dumps/Dump/" .. dispName .. ".txt"
+end
+
+DumpFileNameInput:GetPropertyChangedSignal("Text"):Connect(updateFileNameState)
+DumpFileNameInput.FocusLost:Connect(updateFileNameState)
+
+DumpTab:AddSection("QUICK SELECT TARGET SERVICE")
 
 local quickServiceFrame = Instance.new("Frame")
 quickServiceFrame.Size = UDim2.new(1, -10, 0, 80)
@@ -3378,10 +3685,10 @@ local quickServices = {
 for idx, sName in ipairs(quickServices) do
     local sBtn = Instance.new("TextButton")
     sBtn.Size = UDim2.new(1, 0, 1, 0)
-    sBtn.BackgroundColor3 = COLORS.btnRed
+    sBtn.BackgroundColor3 = Color3.fromRGB(14, 34, 22)
     sBtn.BackgroundTransparency = 0.15
     sBtn.Text = sName
-    sBtn.TextColor3 = Color3.fromRGB(255, 240, 245)
+    sBtn.TextColor3 = Color3.fromRGB(240, 255, 245)
     sBtn.Font = Enum.Font.GothamSemibold
     sBtn.TextSize = 9
     sBtn.LayoutOrder = idx
@@ -3392,14 +3699,22 @@ for idx, sName in ipairs(quickServices) do
     sCorner.Parent = sBtn
 
     local sBtnStroke = Instance.new("UIStroke")
-    sBtnStroke.Color = COLORS.btnRedStroke
+    sBtnStroke.Color = Color3.fromRGB(24, 80, 48)
     sBtnStroke.Thickness = 1
     sBtnStroke.Parent = sBtn
+
+    sBtn.MouseEnter:Connect(function()
+        sBtn.BackgroundColor3 = Color3.fromRGB(22, 58, 36)
+    end)
+    sBtn.MouseLeave:Connect(function()
+        sBtn.BackgroundColor3 = Color3.fromRGB(14, 34, 22)
+    end)
 
     sBtn.MouseButton1Click:Connect(function()
         playClickSound()
         ServiceTargetName = sName
         if ServiceInput then ServiceInput.Text = sName end
+        updateFileNameState()
         ObsidianGlassEngine:Notify({ Title = "Target Selected", Content = "Service set to: " .. sName, Duration = 2 })
     end)
 end
@@ -3456,9 +3771,11 @@ siPad.Parent = ServiceInput
 
 ServiceInput:GetPropertyChangedSignal("Text"):Connect(function()
     ServiceTargetName = ServiceInput.Text
+    updateFileNameState()
 end)
 ServiceInput.FocusLost:Connect(function()
     ServiceTargetName = ServiceInput.Text
+    updateFileNameState()
 end)
 
 local sicLbl2 = Instance.new("TextLabel")
@@ -3568,6 +3885,7 @@ DumpTab:AddSection("SERVICE DUMP ACTIONS")
 
 DumpTab:AddButton({
     Title = "💾 Dump Service to File",
+    Style = "primary",
     Callback = function()
         task.spawn(function()
             performServiceDump(true, false)
@@ -3577,6 +3895,7 @@ DumpTab:AddButton({
 
 DumpTab:AddButton({
     Title = "👁️ Dump Service & Send to Preview Tab",
+    Style = "primary",
     Callback = function()
         task.spawn(function()
             performServiceDump(false, true)
@@ -3593,21 +3912,28 @@ local dumpCharacters = false
 
 DumpTab:AddButton({
     Title = "🚀 RUN r101 INSTANCE RECONSTRUCTION DUMP",
+    Style = "primary",
     Callback = function()
         local targetInst = (selectedTarget == "Workspace") and workspace or game:GetService("ReplicatedStorage")
-        local folderName = selectedTarget .. "Dump_" .. os.date("%Y%m%d_%H%M%S")
+        local folderName = (ServiceDumpFileName and ServiceDumpFileName ~= "") and ServiceDumpFileName or (selectedTarget .. "Dump_" .. os.date("%Y%m%d_%H%M%S"))
         
         task.spawn(function()
             local scriptText, instanceCount = generateDumpScript(targetInst, folderName, dumpTerrain, dumpScripts, dumpCharacters)
             if scriptText and instanceCount > 0 then
-                setPreviewData(scriptText)
-                if typeof(makefolder) == "function" then pcall(function() makefolder("ValenHub_Dumps") end) end
-                if typeof(writefile) == "function" then pcall(function() writefile("ValenHub_Dumps/" .. folderName .. ".lua", scriptText) end) end
+                setPreviewData(scriptText, folderName)
+                if PreviewTab and PreviewTab.Select then pcall(function() PreviewTab:Select() end) end
+                if typeof(makefolder) == "function" then
+                    pcall(function() makefolder("PAYOMBOYDumps") end)
+                    pcall(function() makefolder("PAYOMBOYDumps/Dump") end)
+                end
+                local savePath = "PAYOMBOYDumps/Dump/" .. folderName .. ".lua"
+                LastServiceDumpPath = savePath
+                if typeof(writefile) == "function" then pcall(function() writefile(savePath, scriptText) end) end
                 if typeof(setclipboard) == "function" then pcall(function() setclipboard(scriptText) end) end
                 
                 ObsidianGlassEngine:Notify({
                     Title = "r101 Dump Completed",
-                    Content = "Dumped " .. instanceCount .. " instances! View in Preview tab.",
+                    Content = "Dumped " .. instanceCount .. " instances! Saved to " .. savePath,
                     Duration = 5
                 })
             end
@@ -3621,8 +3947,35 @@ DumpTab:AddButton({
 
 PreviewTab:AddSection("SERVICE DUMP PREVIEW TERMINAL")
 
+local previewHeaderCard = Instance.new("Frame")
+previewHeaderCard.Size = UDim2.new(1, -10, 0, 32)
+previewHeaderCard.BackgroundColor3 = COLORS.glassDeep
+previewHeaderCard.BackgroundTransparency = 0.18
+previewHeaderCard.BorderSizePixel = 0
+previewHeaderCard.Parent = PreviewTab.page
+
+local phcCorner = Instance.new("UICorner")
+phcCorner.CornerRadius = UDim.new(0, 8)
+phcCorner.Parent = previewHeaderCard
+
+local phcStroke = Instance.new("UIStroke")
+phcStroke.Color = COLORS.surface
+phcStroke.Thickness = 1
+phcStroke.Parent = previewHeaderCard
+
+PreviewStatusText = Instance.new("TextLabel")
+PreviewStatusText.Size = UDim2.new(1, -20, 1, 0)
+PreviewStatusText.Position = UDim2.new(0, 10, 0, 0)
+PreviewStatusText.BackgroundTransparency = 1
+PreviewStatusText.Text = "📊 STATUS: WAITING  •  No dump data loaded yet. Perform a dump to view content."
+PreviewStatusText.TextColor3 = COLORS.cyan
+PreviewStatusText.Font = Enum.Font.GothamBold
+PreviewStatusText.TextSize = 10
+PreviewStatusText.TextXAlignment = Enum.TextXAlignment.Left
+PreviewStatusText.Parent = previewHeaderCard
+
 local previewCard = Instance.new("Frame")
-previewCard.Size = UDim2.new(1, -10, 0, 280)
+previewCard.Size = UDim2.new(1, -10, 0, 260)
 previewCard.BackgroundColor3 = COLORS.glassDeep
 previewCard.BackgroundTransparency = 0.18
 previewCard.BorderSizePixel = 0
@@ -3645,7 +3998,7 @@ previewScroll.BackgroundTransparency = 0.30
 previewScroll.BorderSizePixel = 0
 previewScroll.ScrollBarThickness = 6
 previewScroll.ScrollBarImageColor3 = COLORS.primary
-previewScroll.CanvasSize = UDim2.new(0, 0, 0, 260)
+previewScroll.CanvasSize = UDim2.new(0, 0, 0, 240)
 previewScroll.Parent = previewCard
 
 local psCorner = Instance.new("UICorner")
@@ -3653,10 +4006,10 @@ psCorner.CornerRadius = UDim.new(0, 6)
 psCorner.Parent = previewScroll
 
 PreviewCodeBox = Instance.new("TextBox")
-PreviewCodeBox.Size = UDim2.new(1, -10, 0, 260)
+PreviewCodeBox.Size = UDim2.new(1, -10, 0, 240)
 PreviewCodeBox.Position = UDim2.new(0, 5, 0, 0)
 PreviewCodeBox.BackgroundTransparency = 1
-PreviewCodeBox.PlaceholderText = "-- Dumped data preview will appear here. Go to 'Instance Dumper' and press Dump & Send to Preview."
+PreviewCodeBox.PlaceholderText = "-- Dumped data preview will appear here live. Select a service in 'Instance Dumper' and click Dump & Send to Preview."
 PreviewCodeBox.Text = ""
 PreviewCodeBox.Font = Enum.Font.Code
 PreviewCodeBox.TextSize = 11
@@ -3676,7 +4029,7 @@ pcbPad.Parent = PreviewCodeBox
 PreviewCodeBox:GetPropertyChangedSignal("Text"):Connect(function()
     task.defer(function()
         if PreviewCodeBox and previewScroll then
-            local textHeight = math.max(260, PreviewCodeBox.TextBounds.Y + 30)
+            local textHeight = math.max(240, PreviewCodeBox.TextBounds.Y + 30)
             PreviewCodeBox.Size = UDim2.new(1, -10, 0, textHeight)
             previewScroll.CanvasSize = UDim2.new(0, 0, 0, textHeight + 20)
         end
@@ -3684,16 +4037,38 @@ PreviewCodeBox:GetPropertyChangedSignal("Text"):Connect(function()
 end)
 
 if LastServiceDumpData then
-    setPreviewData(LastServiceDumpData)
+    setPreviewData(LastServiceDumpData, ServiceTargetName)
 end
 
 PreviewTab:AddSection("PREVIEW ACTIONS & EXPORT")
 
 PreviewTab:AddButton({
+    Title = "💾 Save Full Preview Data to File",
+    Style = "primary",
+    Callback = function()
+        if LastServiceDumpData and LastServiceDumpData ~= "" then
+            if typeof(makefolder) == "function" then
+                pcall(function() makefolder("PAYOMBOYDumps") end)
+                pcall(function() makefolder("PAYOMBOYDumps/Dump") end)
+            end
+            local name = (ServiceDumpFileName and ServiceDumpFileName ~= "") and ServiceDumpFileName or (ServiceTargetName .. "_Preview_" .. os.date("%Y%m%d_%H%M%S"))
+            name = name:gsub("[^%w_%- ]", "_")
+            local ext = (ServiceDumpOptions.SourceFormat or LastServiceDumpData:sub(1, 50):find("local")) and ".lua" or ".txt"
+            LastServiceDumpPath = "PAYOMBOYDumps/Dump/" .. name .. ext
+            if typeof(writefile) == "function" then pcall(function() writefile(LastServiceDumpPath, LastServiceDumpData) end) end
+            if typeof(setclipboard) == "function" then pcall(function() setclipboard(LastServiceDumpData) end) end
+            ObsidianGlassEngine:Notify({ Title = "Preview Saved", Content = "Saved full dump to " .. LastServiceDumpPath, Duration = 4 })
+        else
+            ObsidianGlassEngine:Notify({ Title = "Warning", Content = "No preview dump data available!", Duration = 3 })
+        end
+    end
+})
+
+PreviewTab:AddButton({
     Title = "🔄 Refresh Dump Preview Data",
     Callback = function()
         if LastServiceDumpData then
-            setPreviewData(LastServiceDumpData)
+            setPreviewData(LastServiceDumpData, ServiceTargetName)
             ObsidianGlassEngine:Notify({ Title = "Refreshed", Content = "Dump preview refreshed!", Duration = 2 })
         else
             ObsidianGlassEngine:Notify({ Title = "Warning", Content = "No dump data available yet.", Duration = 3 })
@@ -3702,12 +4077,12 @@ PreviewTab:AddButton({
 })
 
 PreviewTab:AddButton({
-    Title = "📋 Copy Preview Code to Clipboard",
+    Title = "📋 Copy Full Preview Code to Clipboard",
     Callback = function()
-        if PreviewCodeBox and PreviewCodeBox.Text ~= "" then
+        if LastServiceDumpData and LastServiceDumpData ~= "" then
             if typeof(setclipboard) == "function" then
-                pcall(function() setclipboard(PreviewCodeBox.Text) end)
-                ObsidianGlassEngine:Notify({ Title = "Copied", Content = "Copied preview text to clipboard!", Duration = 3 })
+                pcall(function() setclipboard(LastServiceDumpData) end)
+                ObsidianGlassEngine:Notify({ Title = "Copied", Content = "Copied full untruncated preview text to clipboard!", Duration = 3 })
             end
         else
             ObsidianGlassEngine:Notify({ Title = "Warning", Content = "Preview buffer is empty!", Duration = 3 })
