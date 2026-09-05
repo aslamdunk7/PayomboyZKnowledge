@@ -95,3 +95,57 @@ PREFER: Throttled `Heartbeat` loops over raw unthrottled frame loops for non-vis
 AVOID: Heavy string operations or instance creation inside raw frame events.
 DO_NOT_ASSUME: `PreRender` can be used on the Server.
 RELATED_KNOWLEDGE: roblox/services, patterns/cleanup, patterns/event-driven
+
+TITLE: Roblox Data Types
+CATEGORY: roblox
+PRIORITY: A
+SOURCE: Roblox Creator Docs
+VERSION: 2026-v1
+LAST_REVIEWED: 2026-08-31
+CONFIDENCE: HIGH (100%)
+
+DESCRIPTION:
+Roblox engine data types (`Vector3`, `CFrame`, `Color3`, `UDim2`, `TweenInfo`, `RaycastParams`, `Enum`) represent spatial vectors, 3D transformations, colors, UI dimensions, and collision parameters.
+
+DATATYPE MATRIX:
+
+Vector3:
+  Constructors: `Vector3.new(x, y, z)`, `Vector3.zero`, `Vector3.one`
+  Key Methods: `.Magnitude` (distance), `.Unit` (direction), `:Dot()`, `:Cross()`
+
+CFrame (Coordinate Frame):
+  Constructors: `CFrame.new(x, y, z)`, `CFrame.lookAt(eye, target)`, `CFrame.Angles(rx, ry, rz)`
+  Key Methods: `cf * CFrame.new(0,0,-5)` (relative forward translation), `:Inverse()`, `:Lerp(target, alpha)`
+
+Color3:
+  Constructors: `Color3.fromRGB(r, g, b)` [0..255], `Color3.new(r, g, b)` [0..1], `Color3.fromHSV(h, s, v)`
+
+UDim2:
+  Constructors: `UDim2.new(scaleX, offsetX, scaleY, offsetY)`, `UDim2.fromScale(sx, sy)`, `UDim2.fromOffset(ox, oy)`
+
+TweenInfo:
+  Constructor: `TweenInfo.new(time, easingStyle, easingDirection, repeatCount, reverses, delayTime)`
+
+RaycastParams:
+  Constructor: `RaycastParams.new()` -> `.FilterDescendantsInstances`, `.FilterType`, `.IgnoreWater`
+
+WHEN_TO_USE:
+- Position, rotation, UI sizing, color styling, raycasting, and property animations.
+
+WHEN_NOT_TO_USE:
+- Do not use manual math equations when engine vector methods like `.Magnitude` or `:Lerp()` exist.
+
+CORE_RULES:
+- Use `CFrame.lookAt(eye, target)` instead of deprecated `CFrame.new(eye, target)`.
+- Use `Color3.fromRGB(r, g, b)` [0..255] for visual clarity.
+- Use `UDim2.fromScale()` or `UDim2.fromOffset()` shorthand constructors for single-dimension UI definitions.
+- CFrame multiplication (`cfA * cfB`) is non-commutative; order of multiplication matters!
+
+HALLUCINATION_RESISTANCE_MATRIX:
+  KNOWN: `Vector3`, `CFrame`, `Color3`, `UDim2`, `UDim`, `TweenInfo`, `RaycastParams`, `OverlapParams`, `Enum`.
+  CONTEXT_DEPENDENT: `RaycastParams.FilterType` uses `Enum.RaycastFilterType.Exclude` (or `Include`).
+  DO_NOT_ASSUME: `cfA * cfB` equals `cfB * cfA` (matrix multiplication is order-sensitive!).
+
+ANTI_PATTERNS:
+
+BAD:
