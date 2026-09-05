@@ -144,3 +144,26 @@ HALLUCINATION_RESISTANCE_MATRIX:
 ANTI_PATTERNS:
 
 BAD:
+
+WHY_BAD: Character model spawns asynchronously AFTER the Player instance is created.
+BETTER: Listen to `player.CharacterAdded` and use `WaitForChild("HumanoidRootPart")`.
+
+PERFORMANCE:
+Cache player references and HumanoidRootPart references during character lifetime rather than calling `workspace:FindFirstChild(player.Name)` every frame.
+
+SECURITY_AND_TRUST_BOUNDARY:
+Server scripts must validate player ownership and distance before executing actions requested by clients.
+
+LIFECYCLE_AND_CLEANUP:
+Disconnect character-bound event listeners on `CharacterRemoving` to prevent dangling listener leaks.
+
+RELATED:
+roblox/services
+roblox/instances
+patterns/cleanup
+patterns/cache
+patterns/state-machine
+
+EXAMPLE:
+WHEN_THIS_PATTERN_APPLIES: Safe player tracking on Server or Client.
+WHEN_THIS_PATTERN_DOES_NOT_APPLY: Non-player NPC handling.
