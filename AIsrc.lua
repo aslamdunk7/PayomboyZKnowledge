@@ -1,2 +1,5201 @@
--- This script was generated using MoonVeil 2.0.23 [https://moonveil.cc]
-return({J=function(a,b,c,d)a.H[d]=b-a.a(c,0xe48)return a.H[d]end,G=function(B,w)return function(H,j)local e,n,D,J,m,a,u,f,g,I,G,s,p,y,d,q,h,E,z,k,_,v,i,l,t,x,A,C,r,c,b v=0x6a repeat if v>=0b10011001 then if v<=0b10111001 then if v>0xab then if v<0xb8 then if v>0xb2 then J,f=0b110101,m[0xc895]z,J,g=m[0xfdbf],w[0b101][0b11][w[0b101][0b10]],f-J f=J[z]v,H[g]=0b10010111,f f,J=m[0x5209],0b101111 z,J,g=m[0xa63b],w[0b101][0b11][w[0b101][0b10]],f-J f=J[z]H[g]=f else v,D,I=0x80,g+p,1 b=D-I end elseif v<=0xb8 then g=0x15 v=a<g and 0x3308/v or 0x3af0/v else c=B.c(c(_,C,n))return B.d(c)end elseif v>0b10100001 then if v<=0b10101001 then l,A=w[1][0b11][w[1][0b10]],H[g]I,p,e,D=H,A,1,w[0b10][0b11][w[0b10][0b10]]v,e,i=v+-0xa0,g+z,g+e else v,f,J=0b10010111,m[0xc895],0x34 g,f=f-J,m[0xfdbf]H[g]=f end elseif v<=0x9d then if v>0x9a then A=1 v,z=0b10101001,f-A elseif v>0b10011001 then l,A=w[1][0b11][w[1][0b10]],H[g]e,p,D,I=1,A,w[0b10][0b11][w[0b10][0b10]],H v,e,i=0b100110010-v,g+z,g+e else _,c,D,v,i,I,e=H,g,w[0b100][0b11][w[0b100][0b10]],v+-0b1100011,1,l,p end else D=1 v,p=v+-0b1000,J-D end elseif v<0b11011110 then if v>0b11001000 then v,c=0xde,1 e=I-c elseif v<=0b11000010 then if v<=0b10111100 then v,D,I=0x705c/v,g+p,1 b=D-I else v,p=0b111010,B.c(p(B.d(D)))end else l,p=l(B.d(p))D=0 v=J==D and 0b10110010 or 0b111 end elseif v>=0xf1 then if v>=0b11110100 then if v>0b11110100 then A=1 z=f-A v=u<A and 0x515c/v or v+-0b1100100 else v,p=0xc8,B.c(p(B.d(D)))end else z,A=m[0xc895],0b100110 z,A,g=m[0x5209],0x39,z-A f,A,z=z-A,0x11,m[0xedde]A,J=0,z-A z=f==A v=z and 0b10010101 or 0b11101010 end elseif v<=0xde then c,n,C,r,_=w[0b10][0b11][w[0b10][0b10]],D+e,D,1,H v,n=v+-0b100101,n-r else v=z and 0x193-v or 0b10011101 end elseif v>0x47 then if v>=0x80 then if v>0x95 then if v>0b10010111 then v,D=v+0x5c,B.c(D(I,i,e))else m=y[G]a,g=m[0x2c91],1 G,g=G+g,0b101110 v=a<g and 0xb8 or 0x69 end elseif v<0x87 then _,I,v,D,c,i,e=H,l,0x4380/v,w[0b100][0b11][w[0b100][0b10]],g,1,p elseif v<=0x87 then D(I,i,e,c,_)I,i=m[0xa162],0x1b e,D,i=0b11001,I-i,m[0x4760]I,e=i-e,1 e,i,c=nil,I-e,-1 v=i==c and v+-0x86 or 0xd0 else v,z=0b101111111-v,b-g end elseif v<=0b1101001 then if v>=0b1011011 then if v>0b1011011 then g,d=0xa2,0xd6 v=a>g and 0x62d9/v or 0x1d else k=0b111101 v=z and v+0b111111 or 0b101011001-v end else g=0b10101 v=a<=g and 0x74-v or 0b10101011 end else v,G,t,s,b=0b101011,1,w[0b110][0b11][w[0b110][0b10]],{},-1 q,s=s,w[0b111][0b11][w[0b111][0b10]]end elseif v<=0x2b then if v<0x1d then if v<=0b111 then if v<=1 then v,_,c=0b11011110,1,b-D e=c+_ else D=1 p=J-D v=k>=D and v+0x79 or 0b10110010 end else v,D=0x6d2/v,B.c(D(I,i,e))end elseif v<=0x22 then if v<=0b11101 then g=0x2e v=a>g and v+0b1111010 or 0b10110101 else J,g,z=m[0x5209],m[0xc895],0x2a v,f,J=0x140e/v,J-z,m[0xfdbf]l,z=1,H[f]A=g+l H[A]=z A=z[J]H[g]=A end else t=t(q,s)s=w[0b11][0b11][w[0b11][0b10]]h,q=s,s[0x23f1]x,v,E=s,0x97,h[0x2e2e]a,y,m=nil,x[0x1b42],nil end elseif v<0x3a then if v>0x31 then D(I,i,e,c,_)v=d>=i and v+0x61 or 0b10011001 else v,z=0x5b,b-g end elseif v>0b111010 then A,z,u=0x32,m[0xc895],0b10010011 z,A,g=m[0x5209],0x19,z-A z,A,f=m[0xedde],0x2d,z-A A,J=0,z-A z=f==A v=z and 0b1111000-v or 0x193d/v else l,p=l(B.d(p))D=0 v=J==D and 0b10111100 or 0b10100001 end until false end end,e=function(e,f,...)local h={...}local d=select("#",...)for i=1,d do e[f+i-1]=h[i]end end,h=function(_,n)return function(k,j)local d,p,q,c,a,o,l,i,e,h,m,b p=0b1011100 while true do if p<=0b1101010 then if p>0x42 then if p>=0b1011100 then if p<=0b1011100 then b,l,e,o="",0,#k,1 c,q=e-o,o p=c~=c and 0xa3 or 0xe4 else p=q<=0 and 0b1000010 or 0x71 end elseif p<=0b1001110 then p,o=p+0b111000,_.c(o(h,_.d(i)))else p=l>c and 0b10100011 or 0b1111 end elseif p>=0x2f then if p>=0x32 then if p>0x32 then p=l<c and 0xe5-p or 0x1d22/p else h=h(i,d)d,a,i=j,#j,n[0b11][0b11][n[0b11][0b10]]m,a=l%a,1 p,m=0b11110010,m+a end else l=l+q p=q>0 and 0x59 or 0x3e-p end elseif p>0b1111 then p=l<c and 0xc6-p or 0x77 else p=q<=0 and 0x20d/p or p+0x68 end elseif p>=0b10100011 then if p>=0xe6 then if p<=0b11100110 then p=q~=q and 0b1000010 or 0b101010000-p else p,i=0b1001110,_.c(i(d,m))end elseif p>0xa3 then p=q>0 and 0x97 or 0xe6 else return b end elseif p<=0b10000110 then if p>0b1110111 then p,e=0x2f,e(_.d(o))b=b..e elseif p<=0b1110001 then d,h,o,i,e=1,n[0b11][0b11][n[0b11][0b10]],n[0b10][0b11][n[0b10][0b10]],k,n[1][0b11][n[1][0b10]]p,d=0x1612/p,l+d else p=q~=q and 0b10100011 or 0x3487/p end else p=l>c and 0b10100011 or 0xe6 end end end end,g=function(_)local e,h,a,b e=string h,e,a=e.char,bit32,e.byte b=e.bxor h={[0b10]=1,[1]=h}h[0b11]=h a={[0b10]=1,[1]=a}a[0b11]=a b={[0b10]=1,[1]=b}b[0b11]=b e=_:h{h,b,a}return e end,o=function(_,n)return function(k)local e,u,c,v,d,i,a,b,m,r,o,q,s,j,g,f,h,t v=0x45 repeat if v<0x63 then if v>0x3d then if v<=0x53 then if v>0b1000101 then d,g,m,a=n[0b10][0b11][n[0b10][0b10]],b,">I2",k d=d(m,a,g)v,m=0xc7,0b10 o,g,a,b,f=0b101,n[0b100][0b11][n[0b100][0b10]],#t,b+m,d g=g(f,o)g,f,m,o=n[0b11][0b11][n[0b11][0b10]],d,a-g,0x1f g=g(f,o)f=0b11 f,g,a,o=t,n[1][0b11][n[1][0b10]],g+f,m c,e=1,m+a e=e-c g=g(f,o,e)i=g else b=n[0b110][0b11][n[0b110][0b10]]j=b[k]v=j and 0b11011111 or 0x94 end else a,m=1,#u v,d=0b10000110,m+a u[d]=i d,a,m=n[1][0b11][n[1][0b10]],-0x800,t..i d=d(m,a)t=d end elseif v>0b110110 then d,a,g,m=n[1][0b11][n[1][0b10]],b,b,k d=d(m,a,g)d,i=1,d v,b=0b11000111,b+d elseif v>=0x2e then if v>0x2e then s,r,q=k,b,n[0b111][0b11][n[0b111][0b10]]q=q(s,r)s=1 h,b,r=s,b+s,0b1000 v=(r~=r or h>0 and s>r or(h<=0 or h~=h)and s<r)and 0xbd or 0b101110 else m,i,d,a=q,nil,n[0b11][0b11][n[0b11][0b10]],1 d=d(m,a)m=0 v=d~=m and 0x63 or v+-0b1110 end else m=1 m,d=#k,b+m v=d<=m and 0x53 or 0b11000111 end elseif v<=0b10010100 then if v>0b10010000 then t,v,b={},v+0x29,1 t,u="",t elseif v>0x86 then q,s=n[0b101][0b11][n[0b101][0b10]],u q=q(s)s=n[0b110][0b11][n[0b110][0b10]]s[k]=q return q elseif v>0b1100011 then s=s+h v=(h>0 and s>r or h<=0 and s<r or h~=h)and 0xbd or 0x1814/v else d=#k v=b<=d and v+-0b100110 or 0x4cf5/v end elseif v>0b11000111 then return j elseif v>0b10111101 then d,m,a=n[0b100][0b11][n[0b100][0b10]],q,1 d=d(m,a)q=d v=i and 0b1011010 or 0b10000110 else q=#k v=b<=q and 0b11110011-v or 0x14d-v end until false end end,D=function(_,d)return function(...)local b,g,e,h,a g=_.H[-0x8fc]or _:J(0x24c9,0x2db4,-0x8fc)repeat if g<0xcd then a=_.c(a(b,_.d(e)))return h,_.d(a)else b,g,e={},_.H[0x5620]or _:J(0x59d4,0x57db,0x5620),_.c(...)_.e(b,1,_.d(e))b,a,h,e="#",d[1][0b11][d[1][0b10]],b,_.c(...)end until false end end,E=function(_,n)return function(...)local k,b,g,l,j,f,o,e,d,h,c,i g=0b1011001 repeat if g>0x6e then if g>=0b11101010 then if g>0xf0 then f,e=l[0b10],n[0b11][0b11][n[0b11][0b10]]o,g,h=f,0xe0,0 elseif g>0xea then l,c=l(_.d(c))f=l[1]g=f and 0b1110 or 0xff else f=n[0b1001][0b11][n[0b1001][0b10]]c,e=f[0xd413],1 g,f,l,o=0b1011100,k.n,c+e,n[0b1001][0b11][n[0b1001][0b10]]e=o[0xd413]c=f-e b[0xb93d]=c f,d,i,e,o=n[1][0b11][n[1][0b10]],1,l+c,k,l i,d,h=d,b[0xaa0f],i-d end elseif g<0xbe then g,k=0x3810/g,k(_.d(j))b,j=n[0b1001][0b11][n[0b1001][0b10]],n[0b111][0b11][n[0b111][0b10]]b=b[0xe2b7]elseif g>0b10111110 then e=_.c(e(o,h))return _.d(e)else l(c,f,e,o,h)c=n[0b1001][0b11][n[0b1001][0b10]]f,l=k.n,c[0xd413]g=l<f and 0x1a8-g or 0b1001010 end elseif g<=0b1011100 then if g<0x59 then if g>0b1110 then l,f,e,g,o,c=n[0b10][0b11][n[0b10][0b10]],n[0b101][0b11][n[0b101][0b10]],j,0x6e,b,n[0b100][0b11][n[0b100][0b10]]else f,h,e,g,o=n[0b110][0b11][n[0b110][0b10]],c,l,0x66,0b10 end elseif g>0b1011001 then g=0x4a f(e,o,h,i,d)else j,g,k=_.c(...),0b10001010,n[0b1000][0b11][n[0b1000][0b10]]end elseif g>0x68 then g,c=0x6720/g,_.c(c(f,e,o))elseif g<=0b1100110 then f=_.c(f(e,o,h))return _.d(f)else j=j(b)l,f={},{}c=f l[0xaa0f]=c c=0 l[0xb93d]=c o,f,c,b,l=n[0b1001][0b11][n[0b1001][0b10]],1,k,l,n[1][0b11][n[1][0b10]]o,e,g,h=f,o[0xd413],0x4d30/g,j end until false end end,l=function(_,d)return function(k)local j,a,g,e,f,l,b,c g=0b101001 repeat if g<0x9f then if g>0x29 then g=f and 0x753c/g or 0b101011000-g elseif g>0x1d then l,b=0b101,#k b,j=0,b%l g=j>b and 0x9f or 0b11101 else c,b,f,l=".....",d[0b100][0b11][d[0b100][0b10]],_:m{d[0b10],d[0b11],d[1]},k b=b(l,c,f)f,c=0,1 f=j>f g=f and 0xdb or 0x7b end elseif g>0xdd then l,b=b,b.sub b=_.c(b(l,c,f))return _.d(b)elseif g<=0b11011011 then if g>0b10011111 then g,a=0x6939/g,0b101 e=a-j e,f=1,-e f=f-e else c,b=0b101,"~"c,b,l=c-j,b.rep,b b=b(l,c)g,k=0x1203/g,k..b end else g,f=0b11110100,-1 end until false end end,n=function(_)local l,c,k,a,f,b,e,j a=string j,a,k,b=a.sub,bit32,a.unpack,a.byte a,l,c=table,a.rshift,a.band a,f={},a.concat e=a k={[0b10]=1,[1]=k}k[0b11]=k j={[0b10]=1,[1]=j}j[0b11]=j b={[0b10]=1,[1]=b}b[0b11]=b l={[0b10]=1,[1]=l}l[0b11]=l c={[0b10]=1,[1]=c}c[0b11]=c f={[0b10]=1,[1]=f}f[0b11]=f e={[0b10]=1,[1]=e}e[0b11]=e a=_:o{j,k,c,l,f,e,b}return a end,I=function(a,b,c,d)a.H[d]=a.g(b,c)return a.H[d]end,a=bit32 .bxor,d=(function()local function m(i,j,k)if j>k then return end return i[j],m(i,j+1,k)end return function(o)return m(o[1],1,o[0b10])end end)(),z=function(B)local q,x,k,l,p,e,g,y,h,m,b,f,A,r,u,s,n,c,a,d,z,t,i,o,j k=B k={[0b10]=1,[1]=k}k[0b11]=k j,b=type,pcall b={[0b10]=1,[1]=b}b[0b11]=b u=error u={[0b10]=1,[1]=u}u[0b11]=u q,s,t=pairs,select,tonumber s={[0b10]=1,[1]=s}s[0b11]=s r=setmetatable r={[0b10]=1,[1]=r}r[0b11]=r h,x,m=getmetatable,{},B.H[-0x5e35]or B:I(B.k"vbO",B.k"!~",-0x5e35)x[B.H[-0x70c1]or B:I(B.k"Qh7*XLO=",B.k"4JIW",-0x70c1)]=m y=x y={[0b10]=1,[1]=y}y[0b11]=y m=string x=m[B.H[-0x839]or B:I(B.k"*BtP}5$g",B.k"qH=%",-0x839)]x={[0b10]=1,[1]=x}x[0b11]=x a=m m,g=a[B.H[0x3ef0]or B:I(B.k"poX@Z",B.k"!v6",0x3ef0)],a a,f=g[B.H[0x5875]or B:I(B.k"o#UVR",B.k"{)+",0x5875)],g g,o=f[B.H[0x24d0]or B:I(B.k"3LqjGE-L",B.k"ZB0V",0x24d0)],table f=o[B.H[0x5dd7]or B:I(B.k"!wlF4",B.k"u44",0x5dd7)]f={[0b10]=1,[1]=f}f[0b11]=f z=o o=z[B.H[-0x63b3]or B:I(B.k"-~Y_@",B.k"ubu",-0x63b3)]o={[0b10]=1,[1]=o}o[0b11]=o A=z z=A[B.H[-0x5045]or B:I(B.k"T|97KI&c",B.k"K28+",-0x5045)]z={[0b10]=1,[1]=z}z[0b11]=z l=A A=l[B.H[0x351a]or B:I(B.k"4YJq)uHO",B.k"WZbI",0x351a)]A={[0b10]=1,[1]=A}A[0b11]=A l=getfenv l={[0b10]=1,[1]=l}l[0b11]=l n=bit32 p=n[B.H[0x3e19]or B:I(B.k"x4Ne",B.k")c",0x3e19)]p={[0b10]=1,[1]=p}p[0b11]=p d=n n,i=d[B.H[0x50e7]or B:I(B.k"v(diW",B.k"(Ww",0x50e7)],d d=i[B.H[0xdb4]or B:I(B.k"Fo`^j",B.k"Qs@",0xdb4)]d={[0b10]=1,[1]=d}d[0b11]=d e=i i=e[B.H[0x6e8]or B:I(B.k"<?Z6?^8",B.k"hnW",0x6e8)]i={[0b10]=1,[1]=i}i[0b11]=i c=e e=c[B.H[0x810]or B:I(B.k"&_2M`E8G",B.k"yiKS",0x810)]e={[0b10]=1,[1]=e}e[0b11]=e c=B:A{d,i,s,u,x,A,f,p,k,y,r,b,z,e,o,l}return c end,L=function(a,...)a.g,a.k,a.n=a:g(),a:k(),a:n()a.z=a:z()return a:f()(...)end,H={},F=function(_,d)return function(k,j,b)local g,f,l,c,a,e g=_.H[0x19db]or _:J(0x2e2,0xc25,0x19db)while true do if g<0x2d then if g>0b1111 then return else c=_.c(c(f,e,a))return l,_.d(c)end elseif g<=0x2d then l,a,f,c=k[j],1,k,d[1][0b11][d[1][0b10]]e,g,a=j+a,0x3c-g,b else g=j>b and(_.H[-0x685b]or _:K(0x3dca7,0x5bcb,-0x685b))or _.H[-0x34fd]or _:J(0x5b5,0xbc0,-0x34fd)end end end end,B=function(B,w)return function()local I,o,b,G,fa,r,ga,c,E,v,d,q,h,S,M,F,i,P,W,T,V,u,_,U,L,ia,Q,m,k,f,g,da,l,Y,ba,O,J,K,D,j,R,H,C,aa,s,y,e,t,n,_a,ca,A,N,ea,x,X,p,z,a Y=B.H[-0x2251]or B:K(0xde0b0,0x5925,-0x2251)repeat if Y<0x17e then if Y<0b10100110 then if Y>0x56 then if Y>0b10000101 then if Y>=0x94 then if Y<=0x9d then if Y>0b10011010 then if Y>0b10011100 then R[0xa63b]=fa A,Y,X,l,M=w[0b1000][0b11][w[0b1000][0b10]],B.H[0x3eeb]or B:J(0x2afa,0x297a,0x3eeb),w[0b1001][0b11][w[0b1001][0b10]],"B",w[0b111][0b11][w[0b111][0b10]]else Q,m,Y,x,g=w[0b111][0b11][w[0b111][0b10]],"B",Y+0x269,w[0b1000][0b11][w[0b1000][0b10]],w[0b1001][0b11][w[0b1001][0b10]]end elseif Y>0b10011000 then Y=q<=0 and(B.H[0x946]or B:K(0x19e38ee,0x34d4,0x946))or B.H[0x4a5e]or B:K(0x10f070c,0x470,0x4a5e)elseif Y<=0x95 then if Y<=0x94 then j,q=0b111101,0 s,aa,W=q,0b100,1 Y=aa~=aa and(B.H[-0x253a]or B:J(0x7b17,0x7419,-0x253a))or B.H[0x7587]or B:K(0x4f4d92,0x54fa,0x7587)else fa=0b111000 Y=f>fa and 0x4e93/Y or Y+0b1001000 end else Y=Q>g and(B.H[0x4b29]or B:J(0x13c3,0x1cac,0x4b29))or 0x20ce0/Y end elseif Y<=0xa3 then if Y>=0xa1 then if Y<=0xa1 then Y=f>R and(B.H[-0x45e4]or B:J(0x7b76,0x7487,-0x45e4))or B.H[0x18a8]or B:K(0x182536,0x6dca,0x18a8)else M,Y,l,A,X=w[0b111][0b11][w[0b111][0b10]],0x14c5e/Y,"B",w[0b1000][0b11][w[0b1000][0b10]],w[0b1001][0b11][w[0b1001][0b10]]end else g=0 Y=Q==g and(B.H[-0x6502]or B:K(0x3ecc65,0x103f,-0x6502))or 0xa6-Y end else Y=W>V and(B.H[0x2b16]or B:J(0x3bc,0xd58,0x2b16))or B.H[-0x3c4e]or B:J(0x30cf,0x21a4,-0x3c4e)end elseif Y>=0b10001101 then if Y<=0b10001111 then if Y<=0b10001110 then if Y>0b10001101 then Y=ba<t and Y+0x30 or 0x7f06/Y else Y,x,W,m,V=B.H[-0x32b4]or B:J(0x865,0x8f9,-0x32b4),w[0b111][0b11][w[0b111][0b10]],w[0b1000][0b11][w[0b1000][0b10]],w[0b1001][0b11][w[0b1001][0b10]],B.H[0x592a]or B:I(B.k"^Q!",B.k"&j",0x592a)end else Y,_a=B.H[0x6482]or B:J(0x62dd,0x6cdd,0x6482),""end elseif Y>0x90 then Y=ba>t and 0b11000000-Y or B.H[0x494d]or B:J(0x54b2,0x5f39,0x494d)else q,t=0,{}t[0xe2b7]=q t[0xd413]=q t[0x7faf]=q s={}q=s t[0x1b42]=q s={}q=s t[0x23f1]=q s={}q=s t[0x2e2e]=q t[0xc21c]=_a t[0xf0b7]=b ba=t return ba end elseif Y<0b10001000 then if Y<=0b10000110 then R=R(fa,A)f=not R Y=f and 0x764c/Y or 0b101000000-Y else M,Y,A,l,X=w[0b111][0b11][w[0b111][0b10]],0x1c25a/Y,w[0b1000][0b11][w[0b1000][0b10]],"B",w[0b1001][0b11][w[0b1001][0b10]]end elseif Y<=0x8b then if Y<=0x88 then V,o,r=0,0xfd,0x26 Y=W==V and 0x1a90/Y or 0x1980/Y else Y,V,S,x=B.H[-0x2a6a]or B:J(0x6b47,0x6781,-0x2a6a),w[0b110][0b11][w[0b110][0b10]],0xef,W end else Y,g,R,Q,f=Y+0x30e,"B",w[0b1001][0b11][w[0b1001][0b10]],w[0b1000][0b11][w[0b1000][0b10]],w[0b111][0b11][w[0b111][0b10]]end elseif Y<=0x6c then if Y<0b1011111 then if Y>=0b1011100 then if Y<=0b1011101 then if Y<=0b1011100 then O,ia,l,e,X,Y,M=A,w[0b100][0b11][w[0b100][0b10]],w[1][0b11][w[1][0b10]],0x7f,w[0b10][0b11][w[0b10][0b10]],B.H[-0x31e0]or B:J(0x70e7,0x60fb,-0x31e0),g else Y,m,V,W,x=B.H[-0x61f2]or B:K(0x1d7076,0x47e2,-0x61f2),w[0b1001][0b11][w[0b1001][0b10]],"B",w[0b1000][0b11][w[0b1000][0b10]],w[0b111][0b11][w[0b111][0b10]]end else u,a,ba,Y,h,b=0b10101000,0b10111110,_a,0x314-Y,0x4c,w[0b110][0b11][w[0b110][0b10]]end elseif Y>=0x59 then if Y>0b1011001 then Y,f=B.H[-0x7cf0]or B:K(0x252f4e,0x3a5e,-0x7cf0),0x54 else g=w[0b11][0b11][w[0b11][0b10]]Q=g[m]aa[W]=Q Y=h<a and Y+0b1111100 or 0x9846/Y end else W=0b110 Y=s==W and 0b11000100-Y or 0b10000001-Y end elseif Y>=0x68 then if Y<0x69 then Y,aa=Y+-0x3e,1/-0 elseif Y<=0x69 then m,x=W,1 Q=x Y=m~=m and(B.H[0x7169]or B:K(0x23e6c3,0x1555,0x7169))or B.H[0xca5]or B:J(0x1222,0x1e0b,0xca5)else Y,aa=B.H[-0x5c1c]or B:K(0x1405c0,0x30cd,-0x5c1c),1/0 end elseif Y>=0x61 then if Y>0x61 then m=0 Q,f,g=m,1,0b100 Y=g~=g and Y+-0x29 or B.H[-0x4887]or B:J(0x2750,0x2b0c,-0x4887)else A,f,Y,fa,R=w[0b1001][0b11][w[0b1001][0b10]],w[0b1000][0b11][w[0b1000][0b10]],0x8135/Y,w[0b111][0b11][w[0b111][0b10]],"B"end else Q,f,g,Y,R,A,fa=w[1][0b11][w[1][0b10]],w[0b10][0b11][w[0b10][0b10]],aa,B.H[0x6d59]or B:J(0x1a2e,0x192b,0x6d59),w[0b100][0b11][w[0b100][0b10]],0b1111111,m end elseif Y<=0x7d then if Y>=0x77 then if Y>=0b1111001 then if Y<=0b1111001 then f=0 Y=y>f and Y+-0x3c or 0x41b3/Y else V,n,C=0,0b10010110,0b11010011 Q,m,x=1,0b100,V Y=m~=m and 0x6e5a/Y or 0x1126a/Y end else W,I=V,0xf8 Y=ca>U and(B.H[0x1f46]or B:K(0xb0b0e,0x583e,0x1f46))or 0x418b/Y end elseif Y>=0x72 then if Y>0b1110010 then y=0x56 Y=f and(B.H[-0x2935]or B:J(0x2577,0x2b72,-0x2935))or B.H[-0x178]or B:K(0x1478c0,0x6140,-0x178)else Y,t=B.H[0x7415]or B:J(0x5ec2,0x523a,0x7415),"c"t,ba=w[0b1000][0b11][w[0b1000][0b10]],t..b aa,s,q=w[0b1001][0b11][w[0b1001][0b10]],w[0b111][0b11][w[0b111][0b10]],ba end else aa=0/0 Y=k<d and(B.H[-0x5c1c]or B:J(0x2a9a,0x2438,-0x5c1c))or Y+0x84 end elseif Y<0b10000011 then if Y<=0x7e then f=f+fa Y=fa>0 and 0x11f-Y or B.H[0x18a8]or B:J(0x501e,0x4114,0x18a8)else fa,Y,A,f,R=w[0b111][0b11][w[0b111][0b10]],B.H[0x7b27]or B:J(0x2512,0x2f10,0x7b27),w[0b1001][0b11][w[0b1001][0b10]],w[0b1000][0b11][w[0b1000][0b10]],"B"end elseif Y<=0x83 then W=0b100 Y=s==W and(B.H[-0x4003]or B:J(0x1416,0x1de6,-0x4003))or 0b11011010-Y else Y,f=0x2a15/Y,0b11010010 end elseif Y<0b100101 then if Y>0x12 then if Y>0x1e then if Y<=0b100010 then if Y>=0x21 then if Y<=0x21 then Y,ba=B.H[0x739d]or B:K(0x174c02,0x1a44,0x739d),t else R=0xa2 Y=g<R and Y+0b11001101 or B.H[0x331e]or B:J(0x5568,0x5aeb,0x331e)end else Y,R[0xc895]=B.H[0x5526]or B:J(0x27c7,0x2b43,0x5526),fa A,X,M,l=w[0b1000][0b11][w[0b1000][0b10]],w[0b1001][0b11][w[0b1001][0b10]],w[0b111][0b11][w[0b111][0b10]],"B"end else g=V[x]fa,R=0,g[0xfdbf]f=R~=fa Y=f and 0x604/Y or 0xfb9/Y end elseif Y<0x1c then if Y<0b11010 then b=ba Y=c>=_ and Y+0xc7 or B.H[0x56c4]or B:K(0x1e5dc1,0x6dc1,0x56c4)elseif Y>0b11010 then R=0x15 Y=g>R and 0x999/Y or 0x1368/Y else R[0x5209]=fa l,X,M,Y,A="B",w[0b1001][0b11][w[0b1001][0b10]],w[0b111][0b11][w[0b111][0b10]],0x5056/Y,w[0b1000][0b11][w[0b1000][0b10]]end elseif Y>=0x1d then if Y>0b11101 then aa,V,x,Y,W=w[0b1000][0b11][w[0b1000][0b10]],w[0b111][0b11][w[0b111][0b10]],w[0b1001][0b11][w[0b1001][0b10]],0x1bd-Y,"B"else Y,R=0x1d0/Y,g[0xa63b]f=b[R]end else M,A,fa,Y,l=w[0b1001][0b11][w[0b1001][0b10]],"B",w[0b1000][0b11][w[0b1000][0b10]],Y+0x233,w[0b111][0b11][w[0b111][0b10]]end elseif Y>=0b1100 then if Y>0x10 then if Y>0x11 then Y,A,l,M,X=B.H[-0x6743]or B:K(0x734d72,0x5392,-0x6743),w[0b1000][0b11][w[0b1000][0b10]],"B",w[0b111][0b11][w[0b111][0b10]],w[0b1001][0b11][w[0b1001][0b10]]else Y,f=B.H[-0x7cf0]or B:J(0x399f,0x3706,-0x7cf0),0xa3 end elseif Y>=0b1110 then if Y<=0b1110 then R[0xfdbf]=fa l,Y,M,X,A="B",0b110100001-Y,w[0b111][0b11][w[0b111][0b10]],w[0b1001][0b11][w[0b1001][0b10]],w[0b1000][0b11][w[0b1000][0b10]]else Y=f and 0b11011-Y or 0x66-Y end elseif Y>0b1100 then Y,R[0xc895]=0x1cb-Y,fa l,X,M,A="B",w[0b1001][0b11][w[0b1001][0b10]],w[0b111][0b11][w[0b111][0b10]],w[0b1000][0b11][w[0b1000][0b10]]else A,Y,X,M,l=w[0b1000][0b11][w[0b1000][0b10]],B.H[0x1e9a]or B:K(0x4b012c,0x6278,0x1e9a),w[0b1001][0b11][w[0b1001][0b10]],w[0b111][0b11][w[0b111][0b10]],"B"end elseif Y<=0b1001 then if Y>0b111 then A,R,Y,fa,l,M,f=w[0b100][0b11][w[0b100][0b10]],V,B.H[-0x16b0]or B:K(0x41d16e,0x5ce0,-0x16b0),w[0b10][0b11][w[0b10][0b10]],g,0x7f,w[1][0b11][w[1][0b10]]elseif Y>=1 then if Y>1 then f="c"Y,g,f=0x24a-Y,f..Q,w[0b1000][0b11][w[0b1000][0b10]]R,A,fa=g,w[0b1001][0b11][w[0b1001][0b10]],w[0b111][0b11][w[0b111][0b10]]else g=0 R,fa,f=0b100,1,g Y=R~=R and Y+0b10100110 or B.H[0x5ef3]or B:K(0xabd10,0x45d0,0x5ef3)end else Q,V,x,W,Y,g,m=aa,ba,w[0b10][0b11][w[0b10][0b10]],w[1][0b11][w[1][0b10]],0b110100110-Y,0x7f,w[0b100][0b11][w[0b100][0b10]]end elseif Y>0b1010 then Y,g[0xa63b]=0x1a2/Y,f else Q,Y,m=x,B.H[0x4c57]or B:J(0x7657,0x7d06,0x4c57),w[0b110][0b11][w[0b110][0b10]]end elseif Y>=0x3d then if Y<=0x4a then if Y>0b1000110 then if Y>0b1001000 then s,Y,E=aa,0x10e-Y,0xbe else t=0 aa,q,s=1,t,0b100 Y=s~=s and(B.H[0xff4]or B:J(0x1609,0x1ba0,0xff4))or B.H[-0x701e]or B:J(0x67de,0x6b0a,-0x701e)end elseif Y<0b1000101 then if Y<=0b111101 then g[0xfdbf]=f fa,R=0,g[0xa63b]f=R~=fa Y=f and 0b1011010-Y or B.H[0x228d]or B:J(0x6b53,0x650b,0x228d)else x=m Y=N<=ea and(B.H[-0x7b57]or B:J(0x1e6c,0x102a,-0x7b57))or B.H[-0x3e2c]or B:K(0x2de9a0,0x36af,-0x3e2c)end elseif Y>0b1000101 then t=0 Y=ba==t and(B.H[0x76ff]or B:K(0xa9ef0,0x6858,0x76ff))or B.H[-0x52f0]or B:K(0x28bb6e,0x747a,-0x52f0)else Y,b=B.H[-0x6143]or B:J(0x3298,0x3c40,-0x6143),""end elseif Y<=0b1010001 then if Y>0b1001111 then fa={}fa[0x2c91]=g A=0 fa[0xc895]=A fa[0x5209]=A fa[0xedde]=A fa[0xa162]=A Y,fa[0x4760]=B.H[0x5ad7]or B:J(0x75dd,0x7cc8,0x5ad7),A fa[0xfdbf]=A fa[0xa63b]=A fa[0xe885]=A fa[0xf280]=A fa[0x43b8]=A fa[0x64bd]=A fa[0xc6ad]=A R,fa,A=fa,w[0b1011][0b11][w[0b1011][0b10]],V l=R elseif Y<=0b1001011 then _a=0x69 Y=H~=_a and 0b1110000-Y or B.H[-0x77f1]or B:J(0x6ab2,0x67ff,-0x77f1)else R[0x5209]=fa l,A,X,Y,M="B",w[0b1000][0b11][w[0b1000][0b10]],w[0b1001][0b11][w[0b1001][0b10]],B.H[-0x3d47]or B:K(0x22a9c2,0x4264,-0x3d47),w[0b111][0b11][w[0b111][0b10]]end elseif Y>0b1010010 then f=0 Y=j>=f and(B.H[-0x103b]or B:J(0x741f,0x7a5c,-0x103b))or Y+-0x45 else x=x+Q Y=Q>0 and(B.H[0x76d]or B:K(0xf4ebb2,0x2ea,0x76d))or 0xaca6/Y end elseif Y>=0b101110 then if Y>0x34 then if Y<=0b111010 then ba=ba+q Y=q>0 and 0x384-Y or B.H[-0x58e4]or B:J(0x327a,0x3fa8,-0x58e4)else x,m,V,Y,Q="B",w[0b111][0b11][w[0b111][0b10]],w[0b1000][0b11][w[0b1000][0b10]],B.H[-0x63eb]or B:K(0x11f8b44,0x20e8,-0x63eb),w[0b1001][0b11][w[0b1001][0b10]]end elseif Y>0b110010 then Y,R[0xc895]=0x3e4-Y,fa elseif Y<=0x30 then if Y<=0x2e then q,Y,aa,s,v,t="B",Y+0x24f,w[0b1001][0b11][w[0b1001][0b10]],w[0b111][0b11][w[0b111][0b10]],0x10,w[0b1000][0b11][w[0b1000][0b10]]else x="c"Y,V,x=B.H[-0x4086]or B:J(0x37c3,0x3a82,-0x4086),x..W,w[0b1000][0b11][w[0b1000][0b10]]Q,m,g=w[0b111][0b11][w[0b111][0b10]],V,w[0b1001][0b11][w[0b1001][0b10]]end else Y,aa=Y+-0b1000,""end elseif Y>=0x28 then if Y>=0x2a then if Y>0b101010 then R=g[0xfdbf]f=b[R]Y=J<i and Y+0b1000111 or B.H[-0x7f28]or B:J(0x65fe,0x6b86,-0x7f28)else Y,b[ba]=0x102-Y,aa end else Y,s,aa,V,W=Y+0x2e2,w[0b1000][0b11][w[0b1000][0b10]],"B",w[0b1001][0b11][w[0b1001][0b10]],w[0b111][0b11][w[0b111][0b10]]end elseif Y<=0b100101 then ba=0 t,s,q=ba,1,0b100 Y=q~=q and 0x353/Y or B.H[0x1386]or B:K(0x836ea0,0b11000100,0x1386)else x=x+Q Y=Q>0 and(B.H[-0x7c1a]or B:J(0x252d,0x2df6,-0x7c1a))or 0xf9-Y end elseif Y>0xe3 then if Y<=0x121 then if Y>=0xf9 then if Y<=0x105 then if Y<=0xfd then if Y>0b11111011 then W=W+x Y=x>0 and(B.H[0x1866]or B:K(0x94e8dc,0x1250,0x1866))or B.H[-0x3502]or B:K(0xb1a8a6,0x2374,-0x3502)elseif Y<0xfa then t=t+s Y=s>0 and 0x381c3/Y or B.H[-0x3f09]or B:J(0x7e0,0x8e6,-0x3f09)elseif Y>0b11111010 then L,b,G=0b11100100,0,0xcb t,q,ba=0b100,1,b Y=t~=t and(B.H[-0x18cd]or B:K(0x5d3c18,0x3343,-0x18cd))or B.H[-0x31fc]or B:J(0x5f88,0x52ed,-0x31fc)else M,Y,l,X,A=w[0b111][0b11][w[0b111][0b10]],0x484-Y,"B",w[0b1001][0b11][w[0b1001][0b10]],w[0b1000][0b11][w[0b1000][0b10]]end elseif Y<=0b11111110 then z,fa,p=0b10011011,0b11001101,0b101110 Y=f<=fa and(B.H[0x6da8]or B:K(0x151be,0x540e,0x6da8))or Y+-0b100 else W=W(V,B.d(x))x,V,ba,Y,m=aa,w[0b101][0b11][w[0b101][0b10]],W,Y+0xe3,0x80 end elseif Y>=0x117 then if Y<0b100011101 then Y,V=B.H[0x3579]or B:K(0x3e97bc,0x5ef3,0x3579),B.c(V(x,m))elseif Y<=0x11d then Y=x<=0 and 0x481-Y or 0b100011110-Y else Y,m=B.H[-0x6b46]or B:K(0x4039cc,0x5d00,-0x6b46),B.c(m(Q,g))end elseif Y<=0x108 then Y=t<q and(B.H[-0x165d]or B:J(0x6cce,0x62ff,-0x165d))or 0x3b2-Y else Y=q>0 and(B.H[-0x269c]or B:K(0x1cd838,0x7ce5,-0x269c))or 0x37b92/Y end elseif Y>=0b11101101 then if Y>0b11110001 then if Y>0xf5 then s=s+W Y=W>0 and 0x2ae01/Y or Y+0x97 else f=0b111000 Y=v>f and(B.H[0x7169]or B:K(0x18377f,0x7039,0x7169))or 0b101000110-Y end elseif Y>=0xf0 then if Y>0b11110000 then ba=0 Y=b==ba and(B.H[0x699b]or B:J(0x7d08,0x7231,0x699b))or B.H[-0x88d]or B:J(0x2e6e,0x23b4,-0x88d)else q=q+aa Y=aa>0 and 0x20760/Y or 0x20490/Y end elseif Y<=0b11101101 then W=0b10 Y=s==W and(B.H[-0x3760]or B:K(0x8a5f6,0x5ee8,-0x3760))or Y+-0x6a else f=0b100110 Y=K>=f and 0x4b9f/Y or B.H[0x70ed]or B:J(0x1e2d,0x1065,0x70ed)end elseif Y>0b11101000 then if Y>0b11101001 then X,Y,l,ia,M=w[0b111][0b11][w[0b111][0b10]],B.H[0x3806]or B:J(0x22d9,0x111b,0x3806),w[0b1000][0b11][w[0b1000][0b10]],w[0b1001][0b11][w[0b1001][0b10]],"B"else A,fa,Y,R,f=w[0b1001][0b11][w[0b1001][0b10]],w[0b111][0b11][w[0b111][0b10]],B.H[-0x133b]or B:J(0x29fa,0x283d,-0x133b),"B",w[0b1000][0b11][w[0b1000][0b10]]end elseif Y<=0b11100111 then if Y>0xe5 then Q=Q+f Y=f>0 and(B.H[-0b100001110]or B:K(0xc4a146,0x71f6,-0b100001110))or 0x36dfb/Y else V,W,x,Y,aa=w[0b111][0b11][w[0b111][0b10]],"B",w[0b1001][0b11][w[0b1001][0b10]],0x2eb-Y,w[0b1000][0b11][w[0b1000][0b10]]end else W,k,d=0b101,0b111,0x6c Y=s==W and(B.H[-0x15d7]or B:J(0x36e0,0x3863,-0x15d7))or B.H[-0x3305]or B:K(0x5ba0bc,0x2fe4,-0x3305)end elseif Y<0x158 then if Y<0x13d then if Y>0b100101010 then if Y<=0x131 then R[0xfdbf]=fa Y=T<P and(B.H[0x1028]or B:J(0x58c2,0x56de,0x1028))or Y+0x27f else Y=s<=0 and(B.H[0x6f86]or B:J(0x36f8,0x3bb8,0x6f86))or Y+0b101111000 end elseif Y>=0x129 then if Y>0b100101001 then A=A(l,M)l=0b111 Y,l=B.H[0x1908]or B:J(0x3d56,0x35a8,0x1908),x*l else Y=fa>0 and(B.H[-0x2b2c]or B:K(0x245caa,0x7ada,-0x2b2c))or 0x30a-Y end else fa=fa(A,B.d(l))M,m,Y,A,l=0x80,fa,0x2f680/Y,w[0b101][0b11][w[0b101][0b10]],R end elseif Y<0b101001111 then if Y<=0b100111101 then Y=x<m and(B.H[-0x44c4]or B:J(0xfc4,0b100000101,-0x44c4))or Y+-0x54 else Y=x<m and 0x12354/Y or 0x28afa/Y end elseif Y<0x152 then Y=Q<g and(B.H[0x4b29]or B:K(0x5d3adf,0x2611,0x4b29))or B.H[0x3007]or B:J(0x38a9,0x3bd2,0x3007)elseif Y<=0b101010010 then W=W(V,x)aa=not W Y=aa and Y+-0b10010100 or B.H[0x371d]or B:J(0x1e75,0x1073,0x371d)else f=f(R,fa,A)fa,R=1,A R=R+fa g,w[0b1001][0b11][w[0b1001][0b10]]=f,R Y=S>=fa and(B.H[-0x9e8]or B:K(0x575302,0x276d,-0x9e8))or B.H[-0x2902]or B:K(0x16a2ee,0x5ad9,-0x2902)end elseif Y<=0x170 then if Y>0b101100101 then if Y>0b101101111 then Y,x=B.H[0x7a62]or B:K(0x7fee7d,0x399b,0x7a62),x(m,Q)m=0b111 m=ba*m else Y=x>m and(B.H[0x7169]or B:J(0x5da,0xb3b,0x7169))or B.H[0x332f]or B:K(0x2c61ce,0x7bfe,0x332f)end elseif Y>=0b101011010 then if Y>0x15a then Y=Q~=Q and(B.H[0x6132]or B:K(0x6fe010,0x1768,0x6132))or 0x3e3b2/Y else Y=q<=0 and 0b111101000-Y or 0x23f-Y end elseif Y<=0b101011000 then Y=f~=f and(B.H[0x6088]or B:J(0x7dea,0x7274,0x6088))or Y+0x27f else Y,x=B.H[-0x6b2e]or B:K(0x667fd8,0x2980,-0x6b2e),B.c(x(m,Q))end elseif Y<0b101110100 then if Y<=0x172 then Y,R[0xc895]=0x522-Y,fa else Y=Q<g and Y+-0x94 or 0x13a7b/Y end elseif Y<0b101110110 then g=g(f,R)f=0b111 Y,f=B.H[-0x6168]or B:K(0x5dc5d1,0x64ff,-0x6168),s*f elseif Y<=0x176 then Y,fa=Y+0x25c,B.c(fa(A,l))else Y=q<s and Y+-0x15c or B.H[0x6967]or B:J(0x3dad,0x333a,0x6967)end elseif Y<0xc4 then if Y>0xb5 then if Y<=0b10111100 then if Y>=0xba then if Y<=0b10111011 then if Y>0b10111010 then Y,R,f,fa,l,A,M=Y+0x6f,V,w[1][0b11][w[1][0b10]],w[0b10][0b11][w[0b10][0b10]],g,w[0b100][0b11][w[0b100][0b10]],0x7f else x=x+Q Y=Q>0 and(B.H[-0x6c31]or B:K(0x7886e,0x4e55,-0x6c31))or B.H[-0x3bf9]or B:J(0x5099,0x415b,-0x3bf9)end else Y,R[0xa162]=B.H[-0x7c36]or B:J(0x801a,0x7229,-0x7c36),fa A,l,M,X=w[0b1000][0b11][w[0b1000][0b10]],"B",w[0b111][0b11][w[0b111][0b10]],w[0b1001][0b11][w[0b1001][0b10]]end elseif Y<=0xb8 then if Y<=0b10110110 then Y=x~=x and(B.H[0x56e2]or B:J(0x17da,0x1a3e,0x56e2))or 0x1d3-Y else R=0b10 Y=g>R and(B.H[-0x46e0]or B:K(0x4721b,0x77b,-0x46e0))or B.H[-0x2dc2]or B:J(0x7e07,0x731c,-0x2dc2)end else x=x(m,Q)V=not x Y=V and(B.H[0xff4]or B:J(0xb06,0x4ad,0xff4))or B.H[-0x2902]or B:K(0x6e759e,0x3b3c,-0x2902)end elseif Y>=0xc1 then if Y<=0b11000001 then Y,Q=B.H[-0x5a24]or B:J(0x2b6f,0x29f9,-0x5a24),Q(g,B.d(f))g,R,f,aa=w[0b101][0b11][w[0b101][0b10]],0x80,m,Q else Y=fa<=0 and 0x2ffaa/Y or 0x9b5a/Y end elseif Y>0xbd then da,_a,Y,ca,U=0x75,b,B.H[-0x3e2c]or B:K(0x1ed1b2,0x1f14,-0x3e2c),0b110101,0x34 else A=A(l,M,X)M,l=1,X l=l+M w[0b1001][0b11][w[0b1001][0b10]],fa=l,A Y=I<=M and Y+-0x10 or Y+0x1c5 end elseif Y>=0xad then if Y<0b10110011 then if Y>0b10101110 then Y,R[0xc895]=0x2d3-Y,fa X,A,M,l=w[0b1001][0b11][w[0b1001][0b10]],w[0b1000][0b11][w[0b1000][0b10]],w[0b111][0b11][w[0b111][0b10]],"B"elseif Y>0b10101101 then aa,W=nil,0b11 Y=s==W and(B.H[0x12a5]or B:K(0x369f60,0x2f78,0x12a5))or 0x9222/Y else x=B.H[0x69a7]or B:I(B.k"h0p",B.k"xc",0x69a7)x,V=w[0b1000][0b11][w[0b1000][0b10]],x..W Q,m,Y,g=w[0b111][0b11][w[0b111][0b10]],V,B.H[-0x43fb]or B:J(0x5616,0x5c27,-0x43fb),w[0b1001][0b11][w[0b1001][0b10]]end elseif Y>=0xb4 then if Y>0b10110100 then m,V,x,Y,Q=w[0b111][0b11][w[0b111][0b10]],w[0b1000][0b11][w[0b1000][0b10]],"B",0x29ef9/Y,w[0b1001][0b11][w[0b1001][0b10]]else q="c"q,t=w[0b1000][0b11][w[0b1000][0b10]],q..ba Y,aa,s,W=0x476-Y,w[0b111][0b11][w[0b111][0b10]],t,w[0b1001][0b11][w[0b1001][0b10]]end else f=0b11001101 Y=D<=f and(B.H[-0x7cf0]or B:K(0x277bc1,0x3361,-0x7cf0))or B.H[-0x5183]or B:J(0x5fd,0xbb9,-0x5183)end elseif Y>=0xaa then if Y<=0xab then if Y>0xaa then Y,m=0x104-Y,""else ba,b,_a,_,t,Y,F,c,ga,K=w[0b111][0b11][w[0b111][0b10]],"B",w[0b1000][0b11][w[0b1000][0b10]],0b1101011,w[0b1001][0b11][w[0b1001][0b10]],B.H[-0b11110100]or B:J(0xe2b,0x5c3,-0xf4),0b10,0x44,0b11111110,0x90 end else V,J,i,ea,N=0,0b11111,0b11110110,0b11110101,0b10011001 Q,m,x=1,0b100,V Y=m~=m and(B.H[-0x44c4]or B:K(0x35876d,0x3f2b,-0x44c4))or B.H[0x6de2]or B:J(0x70a4,0x6337,0x6de2)end elseif Y>=0xa7 then if Y<=0xa7 then Q=g Y=F>ga and(B.H[-0x103b]or B:K(0x1b432,0x560a,-0x103b))or Y+-0b1000 else Y=f>R and(B.H[-0x45e4]or B:J(0x6f7,0x818,-0x45e4))or 0x28a-Y end else Y,X,l,M,ia,fa,A=B.H[-0x2457]or B:J(0x5936,0x5b18,-0x2457),R,w[0b10][0b11][w[0b10][0b10]],w[0b100][0b11][w[0b100][0b10]],0b1111111,w[1][0b11][w[1][0b10]],m end elseif Y<0b11010111 then if Y<=0b11001100 then if Y>0b11000111 then if Y<=0b11001011 then aa,V,Y,x,m,W,Q=w[1][0b11][w[1][0b10]],w[0b10][0b11][w[0b10][0b10]],0x23b-Y,w[0b100][0b11][w[0b100][0b10]],s,b,0x7f else Y=x>m and Y+-0x63 or 0x14b80/Y end elseif Y<=0b11000110 then if Y>=0xc5 then if Y>0xc5 then Y,t=0x1ef0/Y,q else R=0b10100010 Y=g>R and(B.H[0x1605]or B:K(0x10059c,0x5294,0x1605))or 0xbc89/Y end else Y,W,aa,D=B.H[-0x6616]or B:K(0x27930d,0x47f1,-0x6616),s,w[0b110][0b11][w[0b110][0b10]],0b10010010 end else aa=0 x,V,W=1,0b100,aa Y=V~=V and Y+-0x7d or B.H[0x13fe]or B:K(0x22dd26,0x5e7c,0x13fe)end elseif Y>=0b11010011 then if Y<=0xd4 then if Y>0xd3 then R,P,T=0x2e,0b110,0b10110001 Y=g<R and 0b11101111-Y or Y+-0xb2 else Y=Q<=0 and(B.H[-0x1260]or B:K(0x8113a5,0x7713,-0x1260))or 0x2f648/Y end else W=W+x Y=x>0 and 0x8874/Y or B.H[-0x3c4e]or B:K(0x471d6b,0x1dc9,-0x3c4e)end elseif Y>0b11001101 then x,Q,m,R,f,Y,g=w[1][0b11][w[1][0b10]],w[0b10][0b11][w[0b10][0b10]],q,0x7f,V,B.H[-0x493c]or B:K(0x55e4fa,0x77bb,-0x493c),w[0b100][0b11][w[0b100][0b10]]else Y=fa~=fa and 0x174-Y or 0xbb62/Y end elseif Y<=0xdd then if Y>0b11011010 then if Y<=0b11011011 then fa=0b111000 Y=f<fa and Y+-0x38 or B.H[0x550a]or B:K(0x1ab9ca,0x618a,0x550a)else l,X,A,Y,M="B",w[0b1001][0b11][w[0b1001][0b10]],w[0b1000][0b11][w[0b1000][0b10]],B.H[-0x76ea]or B:J(0x2627,0x2dce,-0x76ea),w[0b111][0b11][w[0b111][0b10]]end elseif Y>=0xd9 then if Y<=0b11011001 then Y,R=0x39e-Y,w[0b1010][0b11][w[0b1010][0b10]]else fa=0b1010100 Y=f>fa and Y+-0b11001110 or B.H[0x75d2]or B:K(0x2f5127,0x7ab5,0x75d2)end elseif Y>0xd7 then ba=ba+q Y=q>0 and Y+0xfe or 0x389-Y else W=1 Y=s==W and Y+-0x5a or B.H[-0x3e7f]or B:J(0x2ba4,0x24f4,-0x3e7f)end elseif Y>0xe0 then if Y<=0xe2 then W=V Y=C>=n and(B.H[0x7688]or B:J(0x6054,0x5184,0x7688))or Y+0x1a0 else Y=x<=0 and(B.H[-0x14c7]or B:K(0x98a09,0x4f39,-0x14c7))or B.H[0x7fcc]or B:J(0x505d,0x4235,0x7fcc)end elseif Y>0b11011111 then Q,m,V,Y,f,x,g=w[0b100][0b11][w[0b100][0b10]],w[0b10][0b11][w[0b10][0b10]],w[1][0b11][w[1][0b10]],0x1d5e0/Y,0b1111111,t,W elseif Y<=0xde then Q=Q+f Y=f>0 and Y+0x319 or 0x2f352/Y else g={}g[0xe2b7]=t g[0xd413]=q g[0x7faf]=ba g[0x1b42]=V g[0x23f1]=m g[0x2e2e]=aa f=0 g[0xc21c]=f g[0xf0b7]=f Q=g return Q end elseif Y>=0x2ea then if Y>=0x385 then if Y<=0x3c2 then if Y<=0x3a7 then if Y<0x398 then if Y>=0x393 then if Y>=0x396 then if Y<=0x396 then Y,R[0x4760]=Y+0b11010,fa else Y=s~=s and(B.H[-0x7174]or B:J(0xe7b,0x23c,-0x7174))or 0x544-Y end else Y,f=Y+-0x2d2,B.c(f(R,fa))end elseif Y<0x386 then f=f(R,fa,A)R,fa=A,1 R=R+fa w[0b1001][0b11][w[0b1001][0b10]],g=R,f Y=L>fa and(B.H[-0b111001111]or B:K(0x1f070,0x6570,-0b111001111))or B.H[0x739d]or B:J(0x2134,0x2ea6,0x739d)elseif Y>0x386 then A=A(l,M,X)M,l=1,X Y,l=0x26ee0/Y,l+M fa,w[0b1001][0b11][w[0b1001][0b10]]=A,l else l=l(M,X,ia)M,X=ia,1 Y,M=B.H[-0x1217]or B:K(0x27bcf6,0x2180,-0x1217),M+X A,w[0b1001][0b11][w[0b1001][0b10]]=l,M end elseif Y>=0x39b then if Y>0x39c then Y,x=B.H[-0x5c1c]or B:K(0x4b1ba,0x5434,-0x5c1c),x(m,Q,g)m=g m=m+W w[0b1001][0b11][w[0b1001][0b10]],aa=m,x elseif Y>0x39b then Y=W>V and(B.H[0xfe3]or B:K(0x1d9c02,0x2908,0xfe3))or B.H[-0x636d]or B:J(0x79a,0xac6,-0x636d)else Y=t>q and Y+-0x384 or B.H[-0x3f09]or B:K(0x62f71c,0x1f37,-0x3f09)end elseif Y<=0x399 then if Y<=0x398 then Y=Q~=Q and 0x3ff-Y or Y+-0x375 else Y=x>0 and(B.H[0x67bd]or B:J(0x3a59,0x3942,0x67bd))or Y+-0x2e3 end else Q=Q(g,f,R)f,g=1,R g=g+f w[0b1001][0b11][w[0b1001][0b10]],m=g,Q Y=u>f and(B.H[0x2c5b]or B:K(0x49cb7,0x47b9,0x2c5b))or B.H[-0x3a03]or B:K(0x4028a,0x17aa,-0x3a03)end elseif Y<0x3b8 then if Y>=0x3b0 then if Y<=0x3b5 then if Y>0x3b0 then V=V(x,m,Q)Y,x,m=B.H[0x4334]or B:J(0x3952,0x36ed,0x4334),Q,1 x=x+m W,w[0b1001][0b11][w[0b1001][0b10]]=V,x else x=x+Q Y=Q>0 and(B.H[-0x344c]or B:K(0x2ae5f2,0x783f,-0x344c))or 0x550-Y end else Y=q~=q and Y+-0x2f9 or Y+-0x2d2 end elseif Y<=0x3ac then R[0x5209]=fa X,l,Y,M,A=w[0b1001][0b11][w[0b1001][0b10]],"B",0x588-Y,w[0b111][0b11][w[0b111][0b10]],w[0b1000][0b11][w[0b1000][0b10]]else aa=aa(W)W,V=1,s x=W Y=V~=V and Y+-0x301 or 0xd3965/Y end elseif Y>0x3bd then if Y<=0x3be then g=g(f,R)Q=not g Y=Q and 0x114ec/Y or B.H[0x7e43]or B:K(0x1e3396,0x5266,0x7e43)else q=q(s,aa,W)s=W s=s+ba w[0b1001][0b11][w[0b1001][0b10]],Y,b=s,0x21d20/Y,q end elseif Y>=0x3ba then if Y>0x3ba then A=A(l,M,X)l,M=X,1 l=l+M Y,fa,w[0b1001][0b11][w[0b1001][0b10]]=B.H[-0x6f04]or B:J(0x8cf,0x6e7,-0x6f04),A,l else f=f(R,fa,A)fa,R=1,A R=R+fa g,Y,w[0b1001][0b11][w[0b1001][0b10]]=f,B.H[-0x50b2]or B:K(0x58a68e,0x35be,-0x50b2),R end elseif Y>0x3b8 then A=A(l,M,X)M,l=1,X Y,l=0x56f-Y,l+M fa,w[0b1001][0b11][w[0b1001][0b10]]=A,l else Y,A=B.H[0x2db7]or B:J(0x3a8f,0x38d8,0x2db7),A(l,M)l=0b111 l=x*l end elseif Y>=0x3e1 then if Y<=0x3ef then if Y>=0x3e7 then if Y>=0x3e8 then if Y<=0x3e8 then Y=Q>0 and 0x7d9-Y or Y+-0x22c else V=V(x,B.d(m))t,m,Y,Q,x=V,W,B.H[-0x6faa]or B:J(0x1fb8,0x10b7,-0x6faa),0b10000000,w[0b101][0b11][w[0b101][0b10]]end else Y=W<V and(B.H[0xfe3]or B:K(0x360b4,0x40af,0xfe3))or B.H[-0x59ea]or B:J(0x1af7,0x16d2,-0x59ea)end elseif Y>0x3e4 then M=M(X,ia)Y,X=Y+-0b110011110,0b111 X=Q*X elseif Y>0x3e1 then Y=s>aa and 0x30258/Y or B.H[-0x740e]or B:J(0x4985,0x48ef,-0x740e)else Y=W<V and 0x48d-Y or 0xf07e0/Y end elseif Y>0x3f5 then if Y<=0x3f7 then Y=Q>g and(B.H[0x4b29]or B:K(0x63889b,0x3cd5,0x4b29))or 0xd7d61/Y else Y,fa=B.H[0x1c3c]or B:K(0xcfd8ae,0x353e,0x1c3c),B.c(fa(A,l))end elseif Y<0x3f2 then Y=x>m and 0x19dd9/Y or Y+-0x235 elseif Y<=0x3f2 then Y,R[0xfdbf]=B.H[-0x4053]or B:K(0x37343c,0x604,-0x4053),fa M,X,l,A=w[0b111][0b11][w[0b111][0b10]],w[0b1001][0b11][w[0b1001][0b10]],"B",w[0b1000][0b11][w[0b1000][0b10]]else Y=f<R and(B.H[-0x45e4]or B:K(0x31651e,0b111001110,-0x45e4))or 0x4c2-Y end elseif Y<0x3d2 then if Y<0x3ca then if Y<=0x3c4 then Y=ba<t and(B.H[0x7ca8]or B:J(0x149f,0x1a39,0x7ca8))or 0x70f8/Y else A=A(l,M,X)l,M=X,1 l=l+M Y,w[0b1001][0b11][w[0b1001][0b10]],fa=Y+-0b11100,l,A end elseif Y>0x3cc then Y=f<=0 and 0x6c0-Y or 0x744-Y elseif Y<=0x3ca then Y=W<=0 and 0x7a8-Y or B.H[-0x7f7a]or B:J(0x1b40,0x14ec,-0x7f7a)else Y=Q~=Q and 0x1c3d4/Y or Y+-0x2e3 end elseif Y>=0x3db then if Y>0x3de then Y=x~=x and(B.H[0x2b16]or B:J(0x1b4a,0x14d6,0x2b16))or 0x3e0/Y elseif Y<=0x3db then Y=fa<=0 and(B.H[0x4f1e]or B:K(0x1544522,0x38f4,0x4f1e))or Y+-0x2f1 else Y=s<aa and 0x4a4-Y or B.H[-0x7f7a]or B:K(0x2769ca,0xce5,-0x7f7a)end elseif Y<=0x3d2 then Y,f=B.H[0x2dec]or B:J(0x64db,0x6a1d,0x2dec),f(R,B.d(fa))A,R,V,fa=0b10000000,w[0b101][0b11][w[0b101][0b10]],f,g else Y=f<=0 and 0x67322/Y or B.H[0x3b19]or B:K(0xb10b6,0x2410,0x3b19)end elseif Y<=0x327 then if Y<=0x30f then if Y<=0x304 then if Y>0x2f7 then if Y>0x2fb then Y=s<aa and(B.H[-0x253a]or B:K(0x20c7e2,0x64b4,-0x253a))or Y+-0xa4 elseif Y<=0x2f9 then x=x(m,Q,g)m=g m=m+W w[0b1001][0b11][w[0b1001][0b10]],aa=m,x Y=r<=o and(B.H[-0x5c1c]or B:K(0x49a4c,0x551b,-0x5c1c))or 0xaea4c/Y else Y=Q<=0 and(B.H[0x567a]or B:J(0x6956,0x6984,0x567a))or B.H[-0x53fc]or B:K(0x1c5f01,0x776f,-0x53fc)end elseif Y>0x2f4 then Y=x<m and 0x160d1/Y or 0x6c3-Y elseif Y<=0x2f3 then if Y<=0x2ea then Y=t>q and 0x301-Y or B.H[0b100101111]or B:J(0x654,0xcf5,0x12f)else Y=Q<g and(B.H[0x6bcb]or B:J(0x405a,0x4e54,0x6bcb))or 0x66a-Y end else Y=ba<t and(B.H[0x7ca8]or B:J(0x3037,0x3e41,0x7ca8))or 0x776ac/Y end elseif Y<0x30a then if Y>0x305 then m=m(Q)g,Q=x,1 f=Q Y=g~=g and(B.H[0x4b29]or B:J(0x510a,0x5e63,0x4b29))or B.H[0x41d]or B:K(0xfa5724,0x2cd4,0x41d)else x=x(m,Q,g)m,Y,Q=g,Y+-0x234,1 m=m+Q V,w[0b1001][0b11][w[0b1001][0b10]]=x,m end elseif Y<0x30c then s=s(aa,W,V)W,aa=1,V Y,aa=0x25cc6/Y,aa+W w[0b1001][0b11][w[0b1001][0b10]],q=aa,s elseif Y<=0x30c then Y=x~=x and 0x504-Y or B.H[0x1880]or B:J(0x1a10,0x18d9,0x1880)else Y=f~=f and(B.H[0x4b29]or B:J(0x5140,0x5e29,0x4b29))or B.H[0x6464]or B:K(0x534124,0x2f84,0x6464)end elseif Y>=0x31f then if Y<0x321 then if Y>0x31f then Y=x<m and(B.H[-0x3299]or B:K(0xb4b5c,0x51bc,-0x3299))or Y+-0x2bf else Y=W>0 and Y+0b11000101 or B.H[-0x740e]or B:J(0x8015,0x737f,-0x740e)end elseif Y>=0x325 then if Y>0x325 then Y=Q<=0 and 0x593-Y or 0x6e55/Y else Y=Q>0 and 0x562-Y or 0x46299/Y end else Y,X=B.H[-0x4f5e]or B:K(0xbaf08e,0x833,-0x4f5e),B.c(X(ia,O))end elseif Y>0x317 then if Y>0x319 then Y=x>m and 0x13f76/Y or 0x67a-Y else Y=Q~=Q and(B.H[-0x3299]or B:J(0x35d0,0x3b2f,-0x3299))or B.H[-0x30b2]or B:K(0x8e633,0x5b03,-0x30b2)end elseif Y<=0x313 then if Y<=0x310 then R[0x5209]=fa X,Y,A,M,l=w[0b1001][0b11][w[0b1001][0b10]],B.H[0x4990]or B:J(0x4362,0x4eab,0x4990),w[0b1000][0b11][w[0b1000][0b10]],w[0b111][0b11][w[0b111][0b10]],"B"else Y=x>m and(B.H[-0x44c4]or B:J(0xdd9,0x32a,-0x44c4))or 0x67901/Y end else Y,A=0x891ca/Y,A(l,M,X)M,l=1,X l=l+M fa,w[0b1001][0b11][w[0b1001][0b10]]=A,l end elseif Y<0x35d then if Y<0x341 then if Y>0x336 then if Y>0x33d then Y=x>m and Y+-0x25d or Y+-0x18d else Y=Q>g and 0xc8c6/Y or B.H[0x229]or B:J(0x559d,0x5f98,0x229)end elseif Y<0x32f then aa=aa(W,B.d(V))x,Y,V,b,W=0b10000000,0x47c-Y,s,aa,w[0b101][0b11][w[0b101][0b10]]elseif Y>0x32f then Y=aa~=aa and Y+-0b110111001 or B.H[-0x3ffa]or B:J(0x760d,0x7a3b,-0x3ffa)else Y=Q>g and(B.H[0x6bcb]or B:J(0x100,0xe8a,0x6bcb))or 0x44728/Y end elseif Y<=0x34c then if Y<=0x34a then if Y>0x341 then Y=ba>t and(B.H[-0x18cd]or B:J(0x2410,0x2d1a,-0x18cd))or Y+-0x2b0 else Y=q~=q and Y+0x83 or 0x599-Y end else R=R(fa,A)f=not R Y=f and 0x18854/Y or B.H[-0x5373]or B:J(0x7ff0,0x71d6,-0x5373)end elseif Y>0x34f then A=A(l,M,X)M,l=1,X l=l+M w[0b1001][0b11][w[0b1001][0b10]],Y,fa=l,B.H[0x488d]or B:K(0x4c88c,0x391,0x488d),A else Y=W>V and(B.H[0x2b16]or B:J(0x8087,0x7193,0x2b16))or 0x25a2a/Y end elseif Y<=0x368 then if Y<=0x364 then if Y>=0x363 then if Y>0x363 then Y=W<V and(B.H[0x2b16]or B:K(0x3fff02,0x1333,0x2b16))or 0x364/Y else Y=Q<=0 and 0xa9560/Y or B.H[-0x30b2]or B:J(0x4730,0x4887,-0x30b2)end elseif Y<=0x35d then fa(A,l)fa=0xa3 Y=f>fa and 0x35646/Y or B.H[0x41c3]or B:J(0x25b3,0x2a91,0x41c3)else Y=Q~=Q and 0x82c80/Y or B.H[-0x276]or B:K(0x16397d0,0x3dcc,-0x276)end elseif Y>0x367 then Y=ba<t and 0x426-Y or B.H[0x4a5e]or B:J(0x6366,0x51e7,0x4a5e)else Y=f<=0 and(B.H[0x5ae1]or B:K(0x1fffcf,0x5a91,0x5ae1))or 0x676-Y end elseif Y<0x374 then if Y>0x36e then Y=q<s and(B.H[0xff4]or B:K(0x73785,0x76f5,0xff4))or 0x5fb-Y else Y=q>s and 0x38f-Y or Y+-0b111000 end elseif Y>=0x377 then if Y<=0x377 then Y=f~=f and 0xd6d2/Y or 0x6104/Y else Y=x<=0 and 0x577-Y or 0x40b-Y end else Y=f~=f and(B.H[0x381c]or B:J(0x4109,0x31de,0x381c))or B.H[0x4ae5]or B:K(0xb3feae,0x213c,0x4ae5)end elseif Y>=0x234 then if Y>0x290 then if Y>0x2bc then if Y>0x2cd then if Y>=0x2e3 then if Y>0x2e3 then Y=f<R and 0x1e40a/Y or B.H[-0x100b]or B:J(0x72b4,0x7f82,-0x100b)else Y=q>0 and(B.H[-0x4d06]or B:J(0x1d58,0x15da,-0x4d06))or 0x6e0e6/Y end elseif Y<=0x2d6 then Y,W=B.H[0x70ed]or B:J(0x1741,0x1909,0x70ed),W(V,x,m)V,x=m,1 V=V+x aa,w[0b1001][0b11][w[0b1001][0b10]]=W,V else Y=W~=W and Y+0x100 or B.H[-0x74bc]or B:K(0x1ac49c6,0x3c42,-0x74bc)end elseif Y>0x2ca then if Y<=0x2cb then R=R(fa,A)Y,fa=B.H[0x6443]or B:J(0x4423,0x4ed8,0x6443),0b111 fa=W*fa else Y=x<m and 0x12615/Y or 0x5e6-Y end elseif Y<=0x2c7 then if Y>=0x2c6 then if Y>0x2c6 then Y=s>aa and(B.H[-0x253a]or B:J(0x184c,0x19ce,-0x253a))or B.H[-0x7fd8]or B:K(0x80be7a,0x1f00,-0x7fd8)else R[0xedde]=fa Y=p<=z and Y+0b11101010 or Y+-0x1ef end else Y,R=0x3a3-Y,R()m[Q]=R end else Y=Q<=0 and Y+-0x18d or 0x289da/Y end elseif Y<=0x2aa then if Y>0x2a0 then if Y>0x2a1 then Y=s~=s and 0x2c1-Y or 0x307-Y else A=A(l,M,X)l,M=X,1 Y,l=0x88b4/Y,l+M fa,w[0b1001][0b11][w[0b1001][0b10]]=A,l end elseif Y<0x29f then if Y<=0x291 then Y=f>0 and(B.H[0x2290]or B:K(0x761c6,0x4003,0x2290))or Y+0xe3 else Y=aa>0 and 0x60a-Y or B.H[0x2e4b]or B:K(0x1a749c,0x450d,0x2e4b)end elseif Y>0x29f then _a=_a(b,ba,t)b,ba=t,1 Y,b=B.H[0x4a86]or B:K(0x176786,0x1c86,0x4a86),b+ba w[0b1001][0b11][w[0b1001][0b10]],H=b,_a else Y,V=B.H[0x3e7f]or B:K(0x2faf1e,0x789b,0x3e7f),V(x,m,Q)x,m=Q,1 x=x+m W,w[0b1001][0b11][w[0b1001][0b10]]=V,x end elseif Y>=0x2b6 then if Y>=0x2bb then if Y<=0x2bb then M=M(X,ia)l=not M Y=l and(B.H[-0x45e4]or B:K(0x30e616,0x736,-0x45e4))or B.H[0x3e83]or B:J(0x4c40,0x458a,0x3e83)else A=A(l,M,X)M,Y,l=1,0x20210/Y,X l=l+M w[0b1001][0b11][w[0b1001][0b10]],fa=l,A end else b=b(ba)t,ba=_a,1 q=ba Y=t~=t and(B.H[0x7ca8]or B:J(0x1c65,0x127f,0x7ca8))or B.H[-0x61f3]or B:J(0x3a8a,0x3730,-0x61f3)end elseif Y<=0x2b0 then Y,l=B.H[0x6964]or B:J(0x645d,0x6fea,0x6964),l(M,B.d(X))ia,X,M,g=0x80,A,w[0b101][0b11][w[0b101][0b10]],l else Y=q<=0 and 0x7f2b4/Y or Y+-0x2a end elseif Y<0x260 then if Y>=0x246 then if Y>0x250 then if Y>0x258 then Y=x~=x and 0xaee2/Y or 0x2e9-Y else Y=q<=0 and(B.H[-0x4575]or B:J(0x40ea,0x336e,-0x4575))or Y+-0x23a end elseif Y<=0x24f then if Y>=0x248 then if Y<=0x248 then Y,l=B.H[-0x895]or B:K(0x6ae2be,0x1176,-0x895),B.c(l(M,X))else fa=fa(A,l,M)l,Y,A=1,0x2f5-Y,M A=A+l R,w[0b1001][0b11][w[0b1001][0b10]]=fa,A end else A=A(l,M,X)M,l=1,X l=l+M w[0b1001][0b11][w[0b1001][0b10]],Y,fa=l,B.H[-0x3a03]or B:K(0x11d6c,0x50b4,-0x3a03),A end else t=t(q,s,aa)Y,q=B.H[0x6482]or B:K(0x39a4e,0x47d8,0x6482),aa q=q+b _a,w[0b1001][0b11][w[0b1001][0b10]]=t,q end elseif Y<=0x23d then if Y>0x237 then Y=x>m and(B.H[-0x44c4]or B:K(0x24a736,0x96,-0x44c4))or Y+-0b11011000 elseif Y>0x234 then Y=x<m and 0x29e-Y or 0x7f5a8/Y else ia=ia(O,e)O=0b111 Y,O=0x555-Y,f*O end elseif Y>0x23f then f=f(R,fa,A)R=A R=R+Q Y,m,w[0b1001][0b11][w[0b1001][0b10]]=0xc94b/Y,f,R else Y,Q=B.H[0x3a5b]or B:K(0x89e02f,0x7af7,0x3a5b),B.c(Q(g,f))end elseif Y<=0x27d then if Y<=0x26c then if Y<0x263 then if Y<=0x260 then Y=W~=W and(B.H[-0x253a]or B:J(0x7c96,0x7598,-0x253a))or 0x2fc-Y else Y=q~=q and(B.H[-0x2995]or B:K(0x251a30,0xecf,-0x2995))or B.H[0x4999]or B:J(0xef7,0x3d5,0x4999)end elseif Y<=0x263 then m=m(Q,g)x=not m Y=x and 0x329-Y or 0x24d85/Y else Y=x<m and(B.H[0x7169]or B:J(0x4ec5,0x4016,0x7169))or B.H[-0x52a]or B:K(0x1040be,0x362e,-0x52a)end elseif Y>0x279 then t=t(q,s,aa)q,s=aa,1 Y,q=Y+-0b111101001,q+s w[0b1001][0b11][w[0b1001][0b10]],ba=q,t else Y,x=B.H[-0x1b8f]or B:K(0x26e083,0x5d71,-0x1b8f),x(m,B.d(Q))m,Q,g,q=w[0b101][0b11][w[0b101][0b10]],V,0x80,x end elseif Y<0x287 then if Y>0x27f then Y,R[0xc895]=B.H[-0x1b45]or B:K(0x370b1e,0x427c,-0x1b45),fa else A=A(l,M,X)l,M=X,1 l=l+M fa,Y,w[0b1001][0b11][w[0b1001][0b10]]=A,0x615-Y,l end elseif Y<0x288 then Y=q~=q and(B.H[0x7ca8]or B:K(0x1098e6,0x147a,0x7ca8))or B.H[-0xc16]or B:J(0x1c1,0xfeb,-0xc16)elseif Y<=0x288 then Y=aa~=aa and(B.H[0xff4]or B:K(0xacc79,0x1d49,0xff4))or B.H[0x6967]or B:J(0x239c,0x2d29,0x6967)else A=A(l,M)fa=not A Y=fa and(B.H[0x6bcb]or B:K(0x1357d0,0x1ca7,0x6bcb))or Y+-0x1a9 end elseif Y<=0x1be then if Y<=0x1a6 then if Y>0b110011010 then if Y>0b110011111 then if Y<=0x1a0 then Y=Q<=0 and(B.H[-0x5417]or B:K(0xe73426,0x1fd6,-0x5417))or 0x4b9-Y else m=m(Q,g)Y,Q=B.H[0x6b0]or B:K(0x84400a,0x2ffa,0x6b0),0b111 Q=t*Q end elseif Y<=0b110011100 then if Y>0b110011011 then Y=x<=0 and Y+0x24b or B.H[-0x59ea]or B:J(0x66de,0x6ac9,-0x59ea)else A=A(l,M,X)M,l=1,X l=l+M w[0b1001][0b11][w[0b1001][0b10]],fa=l,A Y=E<M and(B.H[-0x7808]or B:K(0x7986ae,0x33fe,-0x7808))or 0x7ed5/Y end else aa=aa(W,V,x)W,V=x,1 Y,W=B.H[-0x3887]or B:K(0x501f40,0x3b17,-0x3887),W+V w[0b1001][0b11][w[0b1001][0b10]],s=W,aa end elseif Y>0b110001110 then if Y<0b110010011 then Y=W>V and(B.H[0xfe3]or B:J(0x2406,0x2df4,0xfe3))or 0x28224/Y elseif Y<=0b110010011 then A=A(l,M,X)M,l=1,X l=l+M w[0b1001][0b11][w[0b1001][0b10]],Y,fa=l,Y+-0b100001,A else Y=aa<=0 and(B.H[-0x68d1]or B:K(0x52e447,0x7a03,-0x68d1))or 0x5e7e/Y end elseif Y<=0x18a then if Y>=0x186 then if Y<=0b110000110 then Y=Q<=0 and Y+-0x3c or 0x30156/Y else Y=x<m and(B.H[-0x1791]or B:K(0x395606,0xc12,-0x1791))or 0xc376/Y end else V=V(x)m,x=W,1 Q=x Y=m~=m and 0x9cae/Y or Y+0x26a end else Y=W<=0 and(B.H[0x57d5]or B:K(0x8f4db6,0x62dc,0x57d5))or 0x3ee-Y end elseif Y>0b110110100 then if Y>0b110111100 then A=A(l,M,X)M,l=1,X l=l+M fa,w[0b1001][0b11][w[0b1001][0b10]]=A,l Y=G<=M and(B.H[0xff4]or B:J(0x54cc,0x5ae3,0xff4))or 0x2ef-Y elseif Y<=0b110111001 then if Y<=0x1b6 then Y,R[0xedde]=Y+0b1101000,fa M,l,A,X=w[0b111][0b11][w[0b111][0b10]],"B",w[0b1000][0b11][w[0b1000][0b10]],w[0b1001][0b11][w[0b1001][0b10]]else f=f(R,B.d(fa))Y,A,fa,R,V=B.H[-0x1025]or B:K(0x13f843a,0x2da5,-0x1025),0b10000000,g,w[0b101][0b11][w[0b101][0b10]],f end else Y=Q~=Q and 0x4dc-Y or 0x51f-Y end elseif Y>=0b110110010 then if Y>0b110110011 then Y,W=0x4788/Y,W(V,x,m)V,x=m,0b1000 V=V+x aa,w[0b1001][0b11][w[0b1001][0b10]]=W,V elseif Y>0b110110010 then Y=s>0 and(B.H[0x5630]or B:J(0x7742,0x7a10,0x5630))or B.H[0b100101111]or B:J(0x7e4b,0x74fc,0x12f)else Y=Q~=Q and 0x33c-Y or 0x4ad-Y end elseif Y>=0x1ad then if Y<=0b110101101 then Y=s<=0 and Y+0x5a or Y+-0b101010000 else Y=Q<g and Y+-0b101110000 or 0b111001010-Y end else Y=f<=0 and(B.H[0x381c]or B:K(0x9a26a6,0x27a6,0x381c))or B.H[0x6464]or B:K(0x1924d0,0x5330,0x6464)end elseif Y>0x207 then if Y>=0x223 then if Y>=0x22a then if Y<0x230 then Y=q>s and(B.H[0xff4]or B:K(0x3eefb,0x578b,0xff4))or B.H[0x2228]or B:J(0x42cd,0x4eee,0x2228)elseif Y<=0x230 then Y=x>m and 0x312-Y or Y+-0b10101010 else Y=Q>0 and(B.H[-0x165e]or B:J(0xdf5,0x4fe,-0x165e))or 0x3b8c4/Y end elseif Y>0x223 then Y=aa<=0 and(B.H[0x2405]or B:K(0x22c2fc,0x4498,0x2405))or B.H[0x4090]or B:K(0xa4d23e,0xd86,0x4090)else A=A(l,M,X)Y,M,l=Y+-0x209,1,X l=l+M fa,w[0b1001][0b11][w[0b1001][0b10]]=A,l end elseif Y>=0x219 then if Y<=0x21b then if Y<=0x219 then Q=Q(g,f)g=0b111 Y,g=Y+-0xf8,q*g else Y=Q<=0 and 0x512-Y or 0x5e7-Y end else A=A(l,M,X)l,M=X,1 Y,l=B.H[-0x196e]or B:J(0x30dd,0x2385,-0x196e),l+M w[0b1001][0b11][w[0b1001][0b10]],fa=l,A end elseif Y>0x20a then Y=f>0 and 0x53b-Y or B.H[0x7b5f]or B:J(0x9c8,0x638,0x7b5f)else Y,A=Y+-0b101101101,A(l,M,X)M,l=1,X l=l+M w[0b1001][0b11][w[0b1001][0b10]],fa=l,A end elseif Y<=0x1e1 then if Y>0b111011100 then if Y<=0x1df then Y=Q>0 and(B.H[-0x3534]or B:J(0xfd9,0x2f7,-0x3534))or B.H[0x5c0d]or B:J(0xa6e,0x946,0x5c0d)else Y=fa~=fa and(B.H[0x4f1e]or B:J(0x708b,0x63ed,0x4f1e))or 0x5bc-Y end elseif Y<0x1d6 then if Y>0x1c6 then Y=x>0 and(B.H[0x5618]or B:K(0x10107fe,0xa0e,0x5618))or 0x57990/Y else Y=ba>t and(B.H[-0x18cd]or B:J(0x6f4c,0x60c6,-0x18cd))or Y+0x9c end elseif Y<=0x1d6 then Y=ba>t and(B.H[0x7ca8]or B:J(0x35c1,0x3bdb,0x7ca8))or B.H[-0x1de7]or B:J(0x7f81,0x7298,-0x1de7)else A=A(l,M,X)l,M=X,1 l=l+M fa,w[0b1001][0b11][w[0b1001][0b10]]=A,l Y=da<M and(B.H[-0x6143]or B:K(0x5cc4e,0x4415,-0x6143))or 0x755f8/Y end elseif Y>0b111111001 then if Y>0x206 then Y=t<q and(B.H[-0x165d]or B:J(0x20c0,0x2ee1,-0x165d))or B.H[-0x45b2]or B:K(0x1be0a4,0x6cc,-0x45b2)else Y,aa=B.H[0x47e8]or B:J(0x2a11,0x270e,0x47e8),aa(W,V,x)W,V=x,1 W=W+V s,w[0b1001][0b11][w[0b1001][0b10]]=aa,W end elseif Y>0b111111000 then Y=Q~=Q and(B.H[-0x1791]or B:J(0x3e50,0x3326,-0x1791))or Y+-0x17a elseif Y>0x1e8 then Y=W<V and(B.H[0xfe3]or B:K(0x1d918a,0x291c,0xfe3))or 0x113a0/Y else V=V(x,m)W=not V Y=W and(B.H[-0x165d]or B:K(0x97368,0x2334,-0x165d))or B.H[0x64b4]or B:K(0x7664d8,0x3738,0x64b4)end until false end end,k=function(_)local c,i,h,a,b b=string h,a=b.char,b.gsub h={[0b10]=1,[1]=h}h[0b11]=h a={[0b10]=1,[1]=a}a[0b11]=a c=bit32 i,b=c.band,c.rshift b={[0b10]=1,[1]=b}b[0b11]=b i={[0b10]=1,[1]=i}i[0b11]=i c=_:l{i,h,b,a}return c end,C=function(_,d)return function(h,j)local i,f,c,b h={[0b10]=1,[1]=h}h[0b11]=h b=_:D{d[0b1000]}b={[0b10]=1,[1]=b}b[0b11]=b i=nil i={[0b10]=1,[1]=i}i[0b11]=i i[0b11][i[0b10]]=_:F{i}c={[0b10]=1,[1]=c}c[0b11]=c c[0b11][c[0b10]]=_:G{b,i,h,d[0b111],d[0b1001],d[1],d[0b10]}f=_:E{d[0b111],b,d[0b100],d[0b101],c,i,d[0b110],d[0b11],h}return f end end,K=function(a,b,c,d)a.H[d]=a.a(b,0x997e)/a.a(c,0x4d6e)return a.H[d]end,f=function(a,b)return a.z(a.n(a.k"|7ipP3T$s-WdCz?a%pa70R;bNVQpmrO=xugbZ~PzFE4Uo|938DX>@3HV*hn>WpZP0Zgl@;ZgehVZ*4FCVRLL@ZDe(B|7$WaFK}UbZ~tv#Z+T}ga%JCUb1!IR3BWIH|6yrvFF{FAa_?^e2S^FPM`d*X00aO41}*|I{{c1{12`2d0{;ZbC_E9#CprHU0y7*g8X5o"),b)end,A=function(_,d)return function(k,j)local i,c,g,e,f,b g=0b110000 repeat if g>0b10001101 then if g<=0b11011001 then g,e=0b1110100,e()k=e else b=b()b={[0b10]=1,[1]=b}b[0b11]=b i[0b11][i[0b10]]=_:C{d[0b1011],d[0b1010],d[0b1111],d[0b100],d[0b1100],d[0b1101],d[0b111],d[0b11],b}e,g,c[0b11][c[0b10]],f[0b11][f[0b10]]=j,0x8d,i[0b11][i[0b10]],k end elseif g>0x74 then c[0b11][c[0b10]]=c[0b11][c[0b10]](f[0b11][f[0b10]],e)return c[0b11][c[0b10]]elseif g>0x30 then g,b=0x6838/g,d[0b10000][0b11][d[0b10000][0b10]]else b=k i=b i={[0b10]=1,[1]=i}i[0b11]=i c=1 c={[0b10]=1,[1]=c}c[0b11]=c f=nil g,f=0xd9,{[0b10]=1,[1]=f}f[0b11]=f f[0b11][f[0b10]]=_:B{d[0b1000],d[0b1110],d[0b1001],d[1],d[0b10],d[0b1101],i,d[0b101],c,f,d[0b110]}e=f[0b11][f[0b10]]end until false end end,c=function(...)return{[1]={...},[0b10]=select("#",...)}end,m=function(_,n)return function(k)local d,i,h,o,a,m,l,j,f,b,e,p,c p=0b110000 while true do if p>0x98 then o=0x55 i,e,a,m,d,o=k.sub,j*o,b,b,k,"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!#$%&()*+-;<=>?@^_`{|}~"i=i(d,m,a)h,o,m,d=o,o.find,true,1 p,o=0x12f-p,o(h,i,d,m)f,e=e+o,1 j=f-e elseif p>0b1110100 then l,c,b,f=n[0b10][0b11][n[0b10][0b10]],j,n[1][0b11][n[1][0b10]],0b11000 l=l(c,f)c,f,e,o=n[0b11][0b11][n[0b11][0b10]],n[0b10][0b11][n[0b10][0b10]],j,0b10000 f=f(e,o)e=0b11111111 c=c(f,e)h,f,o,e=0b1000,n[0b11][0b11][n[0b11][0b10]],j,n[0b10][0b11][n[0b10][0b10]]e=e(o,h)o=0b11111111 f=f(e,o)o,e,h=j,n[0b11][0b11][n[0b11][0b10]],0b11111111 e=_.c(e(o,h))b=_.c(b(l,c,f,_.d(e)))return _.d(b)elseif p<=0b110000 then j,b,l=0,1,0b101 c=b p=(l~=l or c>0 and b>l or(c<=0 or c~=c)and b<l)and 0x98 or 0xbb else b=b+c p=(c>0 and b>l or c<=0 and b<l or c~=c)and 0x98 or 0b100101111-p end end end end}):L(...)
+-- ======================================================================================
+-- [[ PAYOMBOYZ AI GENERATE - OBSIDIAN GLASSMORPHIC 2 ENGINE ]]
+-- ======================================================================================
+
+-----------------------------------------------------------------------------------------
+-- 🔒 AUTHENTICATION & DIRECT EXECUTION GUARD
+-- บังคับเช็คคีย์จาก Loader (start.txt บน Github) ก่อนเท่านั้น ไม่สามารถเข้าใช้งานจาก AIsrc.lua โดยตรงได้
+-----------------------------------------------------------------------------------------
+local START_LOADER_URL = "https://github.com/aslamdunk21/AIPayomboyG/tree/main/PayomboyZKnowledge-main/refs/heads/main/loader"
+local SAVED_KEY_FILE = "PayomboyZ_AI_Hub_Key.txt"
+local SPECIAL_KEY_VVIP = "PAYOMVVIP280342PBGZ19"
+
+local SPECIAL_CUSTOMER_KEYS = {
+    ["PaYoMbOyZhUbF6F6F6F6F"] = true, ["PaYoMbOyZhUbG7G7G7G7G"] = true,
+    ["PaYoMbOyZhUbH8H8H8H8H"] = true, ["PaYoMbOyZhUbI9I9I9I9I"] = true,
+    ["PaYoMbOyZhUbJ0J0J0J0J"] = true, ["PaYoMbOyZhUbK1K2K3K4K"] = true,
+    ["PaYoMbOyZhUbL9L8L7L6L"] = true, ["PaYoMbOyZhUbM1M3M5M7M"] = true,
+    ["PaYoMbOyZhUbN2N4N6N8N"] = true, ["PaYoMbOyZhUbO9O7O5O3O"] = true,
+    ["PaYoMbOyZhUbP0P2P4P6P"] = true, ["PaYoMbOyZhUbQ1Q5Q9Q3Q"] = true,
+    ["PaYoMbOyZhUbR2R6R0R4R"] = true, ["PaYoMbOyZhUbS3S7S1S5S"] = true,
+    ["PaYoMbOyZhUbT4T8T2T6T"] = true,
+}
+
+local function ClearSessionKeys()
+    pcall(function()
+        local del = (type(delfile) == "function" and delfile) or (type(deletefile) == "function" and deletefile)
+        if del and isfile and isfile(SAVED_KEY_FILE) then del(SAVED_KEY_FILE) end
+    end)
+    if getgenv then
+        getgenv().PayomboyZ_Authenticated = nil
+        getgenv().PayomboyZ_InputKey = nil
+        getgenv().script_key = nil
+        getgenv().PayomboyZ_VerifiedKey = nil
+        getgenv().PayomboyZ_LoaderLoaded = nil
+    end
+end
+
+local function RedirectToStartLoader(reason)
+    ClearSessionKeys()
+    pcall(function()
+        if getgenv and getgenv().PayomboyZ_ShowToast then
+            getgenv().PayomboyZ_ShowToast("🔒 Security Guard", reason or "กรุณาเข้าใช้งานผ่าน PayomboyZ Loader (Start.txt) เท่านั้น!", "error", 5)
+        end
+    end)
+    task.spawn(function()
+        task.wait(0.2)
+        loadstring(game:HttpGet(START_LOADER_URL .. "?t=" .. tostring(tick())))()
+    end)
+end
+
+-- 1. ตรวจสอบสถานะการเชื่อมต่อผ่าน Loader (start.txt)
+local isAuthFlag = (getgenv and getgenv().PayomboyZ_Authenticated == true) or (getgenv and getgenv().PayomboyZ_LoaderLoaded == true)
+local currentKey = (getgenv and getgenv().PayomboyZ_InputKey) or (getgenv and getgenv().script_key) or (_G and _G.script_key)
+
+-- อ่านจากไฟล์เซฟถ้าย้อนเข้า
+if (not currentKey or currentKey == "") and isfile and readfile and isfile(SAVED_KEY_FILE) then
+    pcall(function()
+        local saved = readfile(SAVED_KEY_FILE)
+        if saved and #saved > 0 then currentKey = saved:gsub("%s+", "") end
+    end)
+end
+
+-- 2. หากไม่มีคีย์ หรือไม่ได้ผ่าน Loader มา -> Redirect กลับ Loader (Start.txt) ทันที
+if not isAuthFlag and (not currentKey or currentKey == "") then
+    RedirectToStartLoader("❌ ตรวจพบการรัน AIsrc.lua โดยตรง! กรุณากรอกคีย์ผ่าน Loader บน ")
+    return
+end
+
+-- 3. ตรวจสอบความถูกต้องของคีย์
+local isKeyValid = false
+if currentKey then
+    if currentKey == SPECIAL_KEY_VVIP or SPECIAL_CUSTOMER_KEYS[currentKey] then
+        isKeyValid = true
+    elseif #currentKey >= 8 then
+        isKeyValid = true
+    end
+end
+
+if not isKeyValid then
+    RedirectToStartLoader("❌ คีย์ไม่ถูกต้องหรือไม่พบข้อมูลการยืนยันตัวตน!")
+    return
+end
+
+-- ตั้งค่ายืนยันตัวตนสำเร็จ
+if getgenv then
+    getgenv().PayomboyZ_Authenticated = true
+    getgenv().PayomboyZ_VerifiedKey = currentKey
+end
+
+-----------------------------------------------------------------------------------------
+-- 🧹 CONNECTION & CLEANUP MANAGER
+-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
+-- 🧹 CONNECTION & CLEANUP MANAGER (MAID PATTERN & GLOBAL HOOK SINGLETON)
+-----------------------------------------------------------------------------------------
+local Maid = {}
+Maid.Connections = {}
+
+function Maid:Give(conn)
+    if conn then
+        table.insert(self.Connections, conn)
+    end
+    return conn
+end
+
+function Maid:Cleanup()
+    for i, conn in ipairs(self.Connections) do
+        pcall(function()
+            if conn and conn.Disconnect then
+                conn:Disconnect()
+            end
+        end)
+        self.Connections[i] = nil
+    end
+    table.clear(self.Connections)
+end
+
+local TrackedConnections = Maid.Connections
+local function TrackConnection(conn)
+    return Maid:Give(conn)
+end
+
+local function CleanupConnections()
+    Maid:Cleanup()
+end
+
+-- Global singleton state for Remote Spy Hook
+if getgenv()._PayomboyZ_RemoteSpyEnabled ~= nil then
+    getgenv()._PayomboyZ_RemoteSpyEnabled = false
+end
+
+-- Clean up any existing UI instances and active connections
+local parentGui = (typeof(gethui) == "function") and gethui() or game:GetService("CoreGui")
+if getgenv()._PayomboyZ_Maid then
+    pcall(function() getgenv()._PayomboyZ_Maid:Cleanup() end)
+end
+getgenv()._PayomboyZ_Maid = Maid
+
+if parentGui:FindFirstChild("ObsidianGlass2_UI") then
+    parentGui.ObsidianGlass2_UI:Destroy()
+end
+if parentGui:FindFirstChild("AtmosphereSystemHub") then
+    parentGui.AtmosphereSystemHub:Destroy()
+end
+
+-----------------------------------------------------------------------------------------
+-- 🐛 DEBUG LOGGING ENGINE
+-----------------------------------------------------------------------------------------
+local DebugLogs = {}
+local DebugConsoleBox = nil
+
+local function DebugLog(level, category, message)
+    local timestamp = os.date("%H:%M:%S")
+    local raw = string.format("[%s] %-7s [%s] %s", timestamp, level, category, message)
+    table.insert(DebugLogs, { Level = level, Category = category, Message = message, Time = timestamp, Raw = raw })
+    if #DebugLogs > 400 then table.remove(DebugLogs, 1) end
+    
+    if DebugConsoleBox then
+        local currentText = DebugConsoleBox.Text
+        if currentText == "" then
+            DebugConsoleBox.Text = raw
+        else
+            DebugConsoleBox.Text = currentText .. "\n" .. raw
+        end
+    end
+end
+
+-----------------------------------------------------------------------------------------
+-- 🧠 AI CONTEXT ENGINE (CONTEXT-AWARE CODE SYNTHESIS)
+-----------------------------------------------------------------------------------------
+local AIContextEngine = {
+    BoundItems = {},
+    AddContext = function(self, name, className, fullName, category)
+        for _, item in ipairs(self.BoundItems) do
+            if item.FullName == fullName then return false end
+        end
+        table.insert(self.BoundItems, { Name = name, ClassName = className, FullName = fullName, Category = category or "Explorer" })
+        DebugLog("INFO", "AI_CONTEXT", "Bound " .. className .. ": " .. fullName)
+        return true
+    end,
+    RemoveContext = function(self, fullName)
+        for i, item in ipairs(self.BoundItems) do
+            if item.FullName == fullName then
+                table.remove(self.BoundItems, i)
+                DebugLog("INFO", "AI_CONTEXT", "Removed bound context: " .. fullName)
+                return true
+            end
+        end
+        return false
+    end,
+    ClearContext = function(self)
+        self.BoundItems = {}
+        DebugLog("INFO", "AI_CONTEXT", "Cleared all bound AI game contexts")
+    end,
+    GetSummaryText = function(self)
+        if #self.BoundItems == 0 then return "-- No game context bound yet. Add items from '🔎 Game Explorer' or '📡 Remote Spy'." end
+        local lines = { "-- [[ ACTIVE GAME CONTEXT (" .. #self.BoundItems .. " INSTANCES BOUND) ]]" }
+        for i, item in ipairs(self.BoundItems) do
+            lines[#lines + 1] = string.format("-- [%d] %s (%s) -> %s", i, item.Name, item.ClassName, item.FullName)
+        end
+        return table.concat(lines, "\n")
+    end
+}
+
+-----------------------------------------------------------------------------------------
+-- 🌐 GITHUB KNOWLEDGE RETRIEVAL & INTEGRATION ENGINE
+-----------------------------------------------------------------------------------------
+local KnowledgeEngine = {
+    Enabled = true,
+    RawRepoBaseUrl = "https://github.com/aslamdunk21/AIPayomboyG/tree/main/PayomboyZKnowledge-main",
+    CacheFolder = "PayomboyZ_KnowledgeCache",
+    ManifestEntries = {},
+    DocCache = {},
+    IsLoaded = false,
+    LastSyncTime = "Never",
+    
+    -- Thai Synonym dictionary for semantic query expansion
+    ThaiSynonyms = {
+        ["ผู้เล่น"] = {"player", "players", "character", "humanoid"},
+        ["ตัวละคร"] = {"character", "humanoid", "humanoidrootpart", "rig"},
+        ["เก็บข้อมูล"] = {"cache", "store", "storage", "table"},
+        ["ล้าง"] = {"cleanup", "clear", "disconnect", "maid", "destroy"},
+        ["วาป"] = {"teleport", "cframe", "position", "moveto"},
+        ["วาร์ป"] = {"teleport", "cframe", "position", "moveto"},
+        ["ย้าย"] = {"teleport", "cframe", "position"},
+        ["เหตุการณ์"] = {"event", "signal", "callback", "bindable"},
+        ["รีโมท"] = {"remote", "remoteevent", "remotefunction"},
+        ["หน่วง"] = {"lag", "performance", "optimization", "task"},
+        ["กระเป๋า"] = {"backpack", "inventory", "tool"},
+        ["อาวุธ"] = {"weapon", "tool", "sword", "gun"},
+        ["ดักจับ"] = {"spy", "remote", "hook", "intercept"},
+        ["สแกน"] = {"scan", "anticheat", "ac", "heuristic"},
+        ["สถานะ"] = {"state", "statemachine", "fsm", "condition"},
+        ["วนลูป"] = {"runservice", "heartbeat", "renderstepped", "stepped", "loop"},
+        ["หน่วยความจำ"] = {"cleanup", "disconnect", "memory", "leak"},
+        ["ข้อผิดพลาด"] = {"error", "pcall", "xpcall", "assert"},
+        ["โมดูล"] = {"module", "modulescript", "require"},
+        -- THAI COMMAND SYNONYMS
+        ["บิน"] = {"fly", "noclip", "speed", "movement"},
+        ["เหาะ"] = {"fly", "noclip", "movement"},
+        ["ลอย"] = {"fly", "hover", "movement"},
+        ["ลอยตัว"] = {"fly", "hover", "movement"},
+        ["มองทะลุ"] = {"esp", "box", "highlight", "visuals", "xray"},
+        ["มองคน"] = {"esp", "players", "highlight", "visuals"},
+        ["กล่อง"] = {"chest", "box", "esp"},
+        ["แร่"] = {"ore", "esp", "mine"},
+        ["อมตะ"] = {"god", "health", "maxhealth", "utilities"},
+        ["ไม่ตาย"] = {"god", "health", "maxhealth"},
+        ["วิ่งเร็ว"] = {"speed", "walkspeed", "sprint", "movement"},
+        ["เดินเร็ว"] = {"speed", "walkspeed", "movement"},
+        ["กระโดดสูง"] = {"jump", "jumppower", "movement"},
+        ["ฟาร์ม"] = {"farm", "collect", "automation"},
+        ["ออโต้ฟาร์ม"] = {"farm", "collect", "automation"},
+        ["เก็บของ"] = {"collect", "pickup", "proximityprompt"},
+        ["ล็อกเป้า"] = {"aim", "lock", "fov", "hitbox", "combat"},
+        ["ล็อกหัว"] = {"aim", "lock", "fov", "hitbox", "combat"},
+        ["ยิงหัว"] = {"aim", "lock", "hitbox", "combat"},
+        ["ดาบ"] = {"sword", "katana", "blade", "weapon"},
+        ["ปืน"] = {"gun", "blaster", "rifle", "weapon"},
+        ["เสก"] = {"weapon", "tool", "synthesizer"},
+        ["ทะลุกำแพง"] = {"noclip", "cancollide", "movement"}
+    }
+}
+
+function KnowledgeEngine:EnsureCacheFolder()
+    if typeof(makefolder) == "function" then
+        pcall(function() makefolder(self.CacheFolder) end)
+    end
+end
+
+function KnowledgeEngine:LoadManifest(forceRefresh)
+    self:EnsureCacheFolder()
+    local manifestContent = nil
+    local manifestCacheFile = self.CacheFolder .. "/manifest.txt"
+
+    if not forceRefresh and typeof(readfile) == "function" and typeof(isfile) == "function" and isfile(manifestCacheFile) then
+        pcall(function() manifestContent = readfile(manifestCacheFile) end)
+    end
+
+    if not manifestContent or manifestContent == "" or forceRefresh then
+        local ok, body = pcall(function()
+            return game:HttpGet(self.RawRepoBaseUrl .. "manifest.txt")
+        end)
+        if ok and body and #body > 0 then
+            manifestContent = body
+            if typeof(writefile) == "function" then
+                pcall(function() writefile(manifestCacheFile, body) end)
+            end
+            self.LastSyncTime = os.date("%H:%M:%S")
+            DebugLog("INFO", "KNOWLEDGE", "Fetched manifest.txt from GitHub")
+        else
+            DebugLog("WARN", "KNOWLEDGE", "Failed to fetch manifest.txt from GitHub, fallback to local if available")
+        end
+    end
+
+    if not manifestContent or manifestContent == "" then
+        DebugLog("ERROR", "KNOWLEDGE", "Manifest data unavailable")
+        return false
+    end
+
+    table.clear(self.ManifestEntries)
+    for line in string.gmatch(manifestContent, "[^\r\n]+") do
+        line = string.gsub(line, "^%s*(.-)%s*$", "%1")
+        if line ~= "" and not string.find(line, "^#") then
+            -- Schema: PATH|TITLE|KEYWORDS|PRIORITY
+            local parts = {}
+            for part in string.gmatch(line, "[^|]+") do
+                table.insert(parts, part)
+            end
+            if #parts >= 3 then
+                local path = parts[1]
+                local title = parts[2]
+                local rawKw = parts[3]
+                local priority = parts[4] or "MEDIUM"
+                
+                local kwList = {}
+                for kw in string.gmatch(rawKw, "[^,]+") do
+                    local cleanKw = string.lower(string.gsub(kw, "^%s*(.-)%s*$", "%1"))
+                    if cleanKw ~= "" then
+                        table.insert(kwList, cleanKw)
+                    end
+                end
+
+                table.insert(self.ManifestEntries, {
+                    Path = path,
+                    Title = title,
+                    Keywords = kwList,
+                    Priority = string.upper(priority)
+                })
+            end
+        end
+    end
+
+    self.IsLoaded = true
+    DebugLog("INFO", "KNOWLEDGE", string.format("Parsed %d entries from manifest.txt", #self.ManifestEntries))
+    return true
+end
+
+function KnowledgeEngine:GetDocument(path)
+    if self.DocCache[path] then
+        return self.DocCache[path]
+    end
+
+    self:EnsureCacheFolder()
+    local safePath = string.gsub(path, "[/\\]", "_")
+    local cacheFilePath = self.CacheFolder .. "/" .. safePath
+    local content = nil
+
+    if typeof(readfile) == "function" and typeof(isfile) == "function" and isfile(cacheFilePath) then
+        pcall(function() content = readfile(cacheFilePath) end)
+    end
+
+    if not content or content == "" then
+        local ok, body = pcall(function()
+            return game:HttpGet(self.RawRepoBaseUrl .. path)
+        end)
+        if ok and body and #body > 0 then
+            content = body
+            if typeof(writefile) == "function" then
+                pcall(function() writefile(cacheFilePath, body) end)
+            end
+            DebugLog("INFO", "KNOWLEDGE", "Downloaded doc: " .. path)
+        end
+    end
+
+    if content then
+        self.DocCache[path] = content
+        return content
+    end
+
+    return nil
+end
+
+function KnowledgeEngine:ExpandQuery(userPrompt)
+    local tokens = {}
+    local lowerPrompt = string.lower(userPrompt or "")
+    
+    for word in string.gmatch(lowerPrompt, "[%w%z\128-\255]+") do
+        if #word > 1 then
+            table.insert(tokens, word)
+        end
+    end
+
+    local expanded = {}
+    local seen = {}
+    for _, t in ipairs(tokens) do
+        if not seen[t] then
+            seen[t] = true
+            table.insert(expanded, t)
+        end
+        if self.ThaiSynonyms[t] then
+            for _, syn in ipairs(self.ThaiSynonyms[t]) do
+                if not seen[syn] then
+                    seen[syn] = true
+                    table.insert(expanded, syn)
+                end
+            end
+        end
+    end
+
+    return expanded
+end
+
+function KnowledgeEngine:Search(userPrompt, maxResults)
+    maxResults = maxResults or 3
+    if not self.IsLoaded then
+        self:LoadManifest(false)
+    end
+
+    if #self.ManifestEntries == 0 then
+        return {}
+    end
+
+    local expandedQuery = self:ExpandQuery(userPrompt)
+    local lowerPrompt = string.lower(userPrompt or "")
+    local priorityWeights = { S = 40, CRITICAL = 40, A = 30, HIGH = 30, B = 20, MEDIUM = 20, C = 10, LOW = 10 }
+
+    local scoredResults = {}
+
+    for _, entry in ipairs(self.ManifestEntries) do
+        local score = 0
+        local entryTitleLower = string.lower(entry.Title)
+
+        if string.find(lowerPrompt, entryTitleLower, 1, true) then
+            score = score + 50
+        else
+            for _, qTerm in ipairs(expandedQuery) do
+                if string.find(entryTitleLower, qTerm, 1, true) then
+                    score = score + 15
+                end
+            end
+        end
+
+        for _, kw in ipairs(entry.Keywords) do
+            for _, qTerm in ipairs(expandedQuery) do
+                if kw == qTerm then
+                    score = score + 25
+                elseif string.find(kw, qTerm, 1, true) or string.find(qTerm, kw, 1, true) then
+                    score = score + 10
+                end
+            end
+        end
+
+        if score > 0 then
+            local pWeight = priorityWeights[entry.Priority] or 10
+            score = score + pWeight
+            table.insert(scoredResults, {
+                Path = entry.Path,
+                Title = entry.Title,
+                Score = score,
+                Priority = entry.Priority
+            })
+        end
+    end
+
+    table.sort(scoredResults, function(a, b) return a.Score > b.Score end)
+
+    local finalResults = {}
+    for i = 1, math.min(maxResults, #scoredResults) do
+        table.insert(finalResults, scoredResults[i])
+    end
+
+    return finalResults
+end
+
+function KnowledgeEngine:BuildContext(userPrompt)
+    local results = self:Search(userPrompt, 3)
+    if #results == 0 then
+        return "-- [[ GITHUB KNOWLEDGE: No specific architectural patterns matched for prompt ]]"
+    end
+
+    local contextLines = {
+        "-- [[ GITHUB KNOWLEDGE RETRIEVAL (" .. #results .. " DOCUMENTS MATCHED) ]]"
+    }
+
+    for i, res in ipairs(results) do
+        local docContent = self:GetDocument(res.Path)
+        if docContent then
+            contextLines[#contextLines + 1] = string.format("-- [%d] %s (%s) [Score: %d | Priority: %s]", i, res.Title, res.Path, res.Score, res.Priority)
+            
+            local guidance = string.match(docContent, "##%s*AI_GUIDANCE(.-)##") or string.match(docContent, "##%s*AI_GUIDANCE(.*)")
+            if guidance then
+                guidance = string.gsub(guidance, "^%s*(.-)%s*$", "%1")
+                contextLines[#contextLines + 1] = "-- AI Guidance Rules:\n-- " .. string.gsub(guidance, "\n", "\n-- ")
+            else
+                local summary = string.sub(docContent, 1, 350)
+                contextLines[#contextLines + 1] = "-- Content Snippet:\n-- " .. string.gsub(summary, "\n", "\n-- ")
+            end
+            contextLines[#contextLines + 1] = ""
+        end
+    end
+
+    DebugLog("INFO", "KNOWLEDGE", string.format("Built Knowledge Context (%d docs) for query: '%s'", #results, userPrompt))
+    return table.concat(contextLines, "\n")
+end
+
+function KnowledgeEngine:Refresh()
+    self.DocCache = {}
+    self:LoadManifest(true)
+    DebugLog("INFO", "KNOWLEDGE", "Refreshed Knowledge Engine manifest and cleared document cache")
+end
+
+function KnowledgeEngine:Initialize()
+    task.spawn(function()
+        self:LoadManifest(false)
+    end)
+end
+
+-- Initialize Knowledge Engine automatically
+KnowledgeEngine:Initialize()
+
+local CoreGui = game:GetService("CoreGui")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer or Players.PlayerAdded:Wait()
+local UserInputService = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+local RunService = game:GetService("RunService")
+local Stats = game:GetService("Stats")
+local SoundService = game:GetService("SoundService")
+
+local SessionRegistry = {
+    Macros = {
+        {
+            Name = "PayomboyZ Anime Card Farm",
+            Code = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/payomboyz333/Anime-Card-Farm/refs/heads/main/start.txt"))()'
+        },
+        {
+            Name = "Dex Debugging Explorer",
+            Code = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/main/dex.lua"))()'
+        },
+        {
+            Name = "Infinite Yield Admin Tools",
+            Code = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()'
+        }
+    }
+}
+local MacroCounter = 4
+
+-----------------------------------------------------------------------------------------
+-- 🧬 UNIFIED SERIALIZATION ENGINE (SINGLETON TYPE SERIALIZER)
+-----------------------------------------------------------------------------------------
+local SerializationEngine = {}
+
+function SerializationEngine.Serialize(value)
+    local kind = typeof(value)
+    if kind == "string" then 
+        return string.format("%q", value) 
+    elseif kind == "number" or kind == "boolean" then 
+        return tostring(value) 
+    elseif kind == "nil" then 
+        return "nil" 
+    elseif kind == "Vector3" then 
+        return string.format("Vector3.new(%.3f, %.3f, %.3f)", value.X, value.Y, value.Z) 
+    elseif kind == "Vector2" then 
+        return string.format("Vector2.new(%.3f, %.3f)", value.X, value.Y) 
+    elseif kind == "Color3" then 
+        return string.format("Color3.fromRGB(%d, %d, %d)", math.floor(value.R * 255), math.floor(value.G * 255), math.floor(value.B * 255)) 
+    elseif kind == "CFrame" then
+        local components = {value:GetComponents()}
+        for i, n in ipairs(components) do components[i] = string.format("%.3f", n) end
+        return "CFrame.new(" .. table.concat(components, ", ") .. ")"
+    elseif kind == "EnumItem" then 
+        return tostring(value) 
+    elseif kind == "UDim" then
+        return string.format("UDim.new(%.3f, %d)", value.Scale, value.Offset)
+    elseif kind == "UDim2" then
+        return string.format("UDim2.new(%.3f, %d, %.3f, %d)", value.X.Scale, value.X.Offset, value.Y.Scale, value.Y.Offset)
+    elseif kind == "BrickColor" then
+        return string.format("BrickColor.new(%q)", value.Name)
+    elseif kind == "Instance" then 
+        local ok, path = pcall(function() return value:GetFullName() end)
+        return ok and string.format("%q", path) or "<Instance>"
+    elseif kind == "table" then
+        local parts = {}
+        local count = 0
+        for k, v in pairs(value) do
+            count = count + 1
+            if count > 20 then table.insert(parts, "..."); break end
+            table.insert(parts, string.format("[%s] = %s", SerializationEngine.Serialize(k), SerializationEngine.Serialize(v)))
+        end
+        return "{" .. table.concat(parts, ", ") .. "}"
+    else
+        return string.format("%q", tostring(value))
+    end
+end
+
+local function literal(val)
+    return SerializationEngine.Serialize(val)
+end
+
+-----------------------------------------------------------------------------------------
+-- 🎨 COLOR PALETTE SPECIFICATION
+-----------------------------------------------------------------------------------------
+local COLORS = {
+    backdrop = Color3.fromRGB(5, 14, 8),
+    shell = Color3.fromRGB(8, 20, 12),
+    glass = Color3.fromRGB(12, 28, 16),
+    glassDeep = Color3.fromRGB(8, 22, 12),
+    glassRaised = Color3.fromRGB(16, 40, 22),
+    userPanel = Color3.fromRGB(10, 24, 14),
+    surface = Color3.fromRGB(14, 34, 20),
+    surfaceRaised = Color3.fromRGB(18, 48, 26),
+    surfaceHover = Color3.fromRGB(24, 64, 34),
+    surfacePressed = Color3.fromRGB(10, 26, 15),
+    input = Color3.fromRGB(6, 16, 9),
+    inputFocus = Color3.fromRGB(12, 38, 20),
+    divider = Color3.fromRGB(30, 140, 60),
+    primary = Color3.fromRGB(0, 230, 118),
+    primaryHover = Color3.fromRGB(45, 255, 145),
+    primaryPressed = Color3.fromRGB(0, 180, 90),
+    secondary = Color3.fromRGB(12, 36, 20),
+    text = Color3.fromRGB(240, 255, 245),
+    textMuted = Color3.fromRGB(140, 210, 165),
+    textFaint = Color3.fromRGB(80, 140, 100),
+    cyan = Color3.fromRGB(0, 255, 170),
+    success = Color3.fromRGB(0, 230, 118),
+    warning = Color3.fromRGB(240, 200, 50),
+    danger = Color3.fromRGB(255, 65, 80),
+    disabled = Color3.fromRGB(15, 35, 22),
+    btnRed = Color3.fromRGB(80, 18, 24),
+    btnRedHover = Color3.fromRGB(130, 28, 38),
+    btnRedPressed = Color3.fromRGB(55, 12, 16),
+    btnRedStroke = Color3.fromRGB(255, 65, 80),
+}
+
+-----------------------------------------------------------------------------------------
+-- 🌐 LOCALIZATION ENGINE (THAI & ENGLISH SUPPORT)
+-----------------------------------------------------------------------------------------
+local CurrentLanguage = "TH" -- Default Language is Thai ("TH" or "EN")
+local RegisteredLabels = {}
+
+local I18N_DICT = {
+    TH = {
+        WINDOW_TITLE = "PayomboyZ สคริปต์ฮับ",
+        WINDOW_SUBTITLE = "ระบบประมวลผล Obsidian Glassmorphic 2 Core Architecture",
+        NAV_HEADER = "หมวดหมู่ระบบ / SYSTEM MODULES",
+        STATUS_ACTIVE = "✅ PayomboyZ ทำงานปกติ",
+        ACTIVE_SERVICE = "สถานะเซิร์ฟเวอร์",
+        SYSTEM_VERIFIED = "🛡️ ผ่านการตรวจสอบแล้ว",
+        SERVICE_SUB = "ระบบสคริปต์พรีเมียม • ทำงานเต็มประสิทธิภาพ",
+
+        -- Tabs
+        TAB_AI = "✨ สร้างโค้ด AI",
+        TAB_EXPLORER = "🔎 สำรวจโครงสร้างเกม",
+        TAB_SPY = "📡 ดักจับ Remote Spy",
+        TAB_AC = "🛡️ สแกน Anti-Cheat",
+        TAB_DUMP = "📦 เครื่องมือ Dump",
+        TAB_PREVIEW = "👁️ ตัวอย่างไฟล์ Dump",
+        TAB_DEBUG = "🐛 เทอร์มินัลระบบ (Debug)",
+        TAB_MATRIX = "📁 คลังคำสั่ง (Matrix)",
+        TAB_SETTINGS = "⚙️ ตั้งค่าระบบ",
+
+        -- AI Tab
+        AI_TITLE = "🤖 PayomboyZ AI สร้างโค้ด Luau",
+        AI_DESC = "พิมพ์ความต้องการของคุณ (เช่น 'ระบบฟาร์มเวลอัตโนมัติ' หรือ 'ระบบวาปไปเกาะ') ระบบ AI จะรวมโหนดคำสั่งและผูกข้อมูล Instance ในเกมให้อัตโนมัติ",
+        AI_PLACEHOLDER = "พิมพ์คำสั่งสร้างสคริปต์ที่นี่...",
+        AI_SYNTHESIZE_BTN = "⚡ ประมวลผลสร้างโค้ดด้วย AI",
+        AI_COPY_BTN = "📋 คัดลอกโค้ดทั้งหมด",
+        AI_CLEAR_BTN = "🧹 ล้างหน้าจอโค้ด",
+        AI_SAVE_MATRIX_BTN = "💾 บันทึกลงคลังคำสั่ง",
+
+        -- Explorer Tab
+        EXPLORER_SEARCH_LABEL = "🔎 ค้นหา Instance ข้าม Services ในเกม:",
+        EXPLORER_SEARCH_PLACEHOLDER = "พิมพ์ชื่อวัตถุ Script, Remote, Module...",
+        EXPLORER_REFRESH_BTN = "🔄 รีเฟรชการค้นหา",
+        EXPLORER_BIND_CONTEXT_BTN = "🧠 ผูก Instance ที่เลือกเข้าสมอง AI",
+
+        -- Remote Spy Tab
+        SPY_FILTER_LABEL = "🚫 คำสั่ง/รีโมทที่จะข้าม (เว้นด้วยเครื่องหมายจุลภาค ,):",
+        SPY_CLEAR_BTN = "🧹 ล้างประวัติ Remote",
+        SPY_COPY_LOG_BTN = "📋 คัดลอก Log ทั้งหมด",
+        SPY_BIND_AI_BTN = "🧠 ผูก Remote ทั้งหมดเข้าสมอง AI",
+
+        -- AC Scanner Tab
+        AC_SECTION = "🛡️ ระบบควบคุมเอนจินสแกน",
+        AC_RUN_SCAN_BTN = "🔍 เริ่มสแกน Anti-Cheat ทั่วทั้งเกม",
+        AC_SAVE_LOG_BTN = "💾 บันทึก Log สแกนลงไฟล์",
+        AC_CLEAR_LOG_BTN = "🧹 ล้างหน้าจอ Log",
+
+        -- Instance Dumper Tab
+        DUMP_SECTION = "📦 ตั้งค่าการส่งออกไฟล์และ DUMP DATA",
+        DUMP_TARGET_LABEL = "🎯 เลือก Service เป้าหมาย:",
+        DUMP_FOLDER_LABEL = "📁 ชื่อโฟลเดอร์สำหรับบันทึก:",
+        DUMP_OPT_TERRAIN = "🌐 รวม Terrain",
+        DUMP_OPT_SCRIPTS = "📜 รวม Script (Decompile)",
+        DUMP_OPT_CHARS = "👤 รวมตัวละครผู้เล่น (Character)",
+        DUMP_START_BTN = "🚀 เริ่มกระบวนการ Dump Instance",
+        DUMP_WORKSPACE_BTN = "🏢 Dump ทั้งหมดใน Workspace",
+        DUMP_REPLICATED_BTN = "📦 Dump ทั้งหมดใน ReplicatedStorage",
+
+        -- Dump Preview Tab
+        PREVIEW_CLEAR_BTN = "🧹 ล้างหน้าจอ Preview",
+        PREVIEW_COPY_BTN = "📋 คัดลอกเนื้อหา Preview",
+        PREVIEW_SAVE_BTN = "💾 บันทึกเป็นไฟล์ .txt",
+
+        -- Debug Console Tab
+        DEBUG_CLEAR_BTN = "🧹 ล้าง Debug Log",
+        DEBUG_COPY_BTN = "📋 คัดลอก Log ทั้งหมด",
+        DEBUG_SAVE_BTN = "💾 บันทึก Log ลงไฟล์",
+
+        -- Command Matrix Tab
+        MATRIX_SECTION = "📁 คลังไมโครโมดูลและสคริปต์สำเร็จรูป",
+
+        -- Settings Tab
+        LANG_SECTION = "🌐 เลือกภาษาใช้งาน (LANGUAGE / สลับภาษา)",
+        LANG_SWITCH_TH = "🇹🇭 ภาษาไทย (Thai - ใช้งานอยู่)",
+        LANG_SWITCH_EN = "🇬🇧 Switch to English",
+
+        SCALE_SECTION = "🖥️ ปรับขนาดหน้าจอ UI",
+        SCALE_STD = "🖥️ ขนาดมาตรฐาน (1.0x Scale)",
+        SCALE_MOBILE = "📱 ขนาดพกพาสำหรับมือถือ (0.75x Scale)",
+
+        EXT_SECTION = "🛠️ สคริปต์ภายนอกและเครื่องมือพรีเมียม",
+        EXT_ANIME_CARD = "🎴 เปิดสคริปต์ PayomboyZ Script HUB",
+        EXT_DEX = "🛠️ เปิด Dex Debugging Explorer",
+        EXT_IY = "⚡ เปิด Infinite Yield Admin Tools",
+
+        CONFIG_SECTION = "💾 จัดการโปรไฟล์การตั้งค่า",
+        CONFIG_SAVE_BTN = "💾 บันทึกโปรไฟล์ปัจจุบัน",
+        CONFIG_LOAD_BTN = "📂 โหลดโปรไฟล์ที่บันทึกไว้",
+
+        DIAG_SECTION = "📊 ติดตามประสิทธิภาพและสถานะระบบ",
+        CONTROL_SECTION = "❌ ควบคุมระบบ",
+        NOTIF_TEST_BTN = "🔔 ทดสอบระบบแจ้งเตือน",
+        UNLOAD_HUB_BTN = "❌ ปิดการทำงาน PayomboyZ Hub UI และคืนค่าความจำ",
+
+        -- Notifications
+        NOTIF_TITLE = "PayomboyZ สคริปต์ฮับ",
+        NOTIF_LOADED = "โหลดระบบประมวลผล Obsidian Glassmorphic 2 เรียบร้อยแล้ว!",
+        NOTIF_LANG_CHANGED = "เปลี่ยนภาษาเป็นภาษาไทยเรียบร้อยแล้ว!",
+    },
+    EN = {
+        WINDOW_TITLE = "PayomboyZ Script HUB",
+        WINDOW_SUBTITLE = "Obsidian Glassmorphic 2 Core Architecture",
+        NAV_HEADER = "SYSTEM MODULES / CATEGORIES",
+        STATUS_ACTIVE = "✅ PayomboyZ Active",
+        ACTIVE_SERVICE = "ACTIVE SERVICE",
+        SYSTEM_VERIFIED = "🛡️ SYSTEM VERIFIED",
+        SERVICE_SUB = "Verified client delivery • Premium Automation",
+
+        -- Tabs
+        TAB_AI = "✨ Deep AI Engine",
+        TAB_EXPLORER = "🔎 Game Explorer",
+        TAB_SPY = "📡 Remote Spy",
+        TAB_AC = "🛡️ AC Scanner",
+        TAB_DUMP = "📦 Instance Dumper",
+        TAB_PREVIEW = "👁️ Dump Preview",
+        TAB_DEBUG = "🐛 Debug Console",
+        TAB_MATRIX = "📁 Command Matrix",
+        TAB_SETTINGS = "⚙️ Hub Settings",
+
+        -- AI Tab
+        AI_TITLE = "🤖 PayomboyZ Luau Code Synthesizer",
+        AI_DESC = "Enter your requirements (e.g. 'Auto farm level' or 'Teleport system'). The AI engine will assemble composite code modules and bind bound game context instances automatically.",
+        AI_PLACEHOLDER = "Type code generation prompt here...",
+        AI_SYNTHESIZE_BTN = "⚡ Synthesize Luau Code with AI",
+        AI_COPY_BTN = "📋 Copy Full Compiled Code",
+        AI_CLEAR_BTN = "🧹 Clear Terminal Window",
+        AI_SAVE_MATRIX_BTN = "💾 Save to Command Matrix",
+
+        -- Explorer Tab
+        EXPLORER_SEARCH_LABEL = "🔎 Search Instances Across Game Services:",
+        EXPLORER_SEARCH_PLACEHOLDER = "Type Script, Remote, or Module name...",
+        EXPLORER_REFRESH_BTN = "🔄 Refresh Search Results",
+        EXPLORER_BIND_CONTEXT_BTN = "🧠 Bind Selected Instance to AI Context",
+
+        -- Remote Spy Tab
+        SPY_FILTER_LABEL = "🚫 Skip Remotes/Keywords (Comma separated ,):",
+        SPY_CLEAR_BTN = "🧹 Clear Remote Logs",
+        SPY_COPY_LOG_BTN = "📋 Copy All Remote Logs",
+        SPY_BIND_AI_BTN = "🧠 Bind Captured Remotes to AI Context",
+
+        -- AC Scanner Tab
+        AC_SECTION = "🛡️ SCAN ENGINE CONTROLS",
+        AC_RUN_SCAN_BTN = "🔍 RUN UNIVERSAL ANTI-CHEAT SCAN",
+        AC_SAVE_LOG_BTN = "💾 SAVE SCAN LOG TO FILE",
+        AC_CLEAR_LOG_BTN = "🧹 CLEAR SCAN TERMINAL",
+
+        -- Instance Dumper Tab
+        DUMP_SECTION = "📦 DUMP DATA & EXPORT SETTINGS",
+        DUMP_TARGET_LABEL = "🎯 Select Target Service:",
+        DUMP_FOLDER_LABEL = "📁 Export Folder Name:",
+        DUMP_OPT_TERRAIN = "🌐 Include Terrain",
+        DUMP_OPT_SCRIPTS = "📜 Include Scripts (Decompile)",
+        DUMP_OPT_CHARS = "👤 Include Player Characters",
+        DUMP_START_BTN = "🚀 Start Instance Dumping Process",
+        DUMP_WORKSPACE_BTN = "🏢 Dump Workspace Completely",
+        DUMP_REPLICATED_BTN = "📦 Dump ReplicatedStorage Completely",
+
+        -- Dump Preview Tab
+        PREVIEW_CLEAR_BTN = "🧹 Clear Preview Terminal",
+        PREVIEW_COPY_BTN = "📋 Copy Preview Content",
+        PREVIEW_SAVE_BTN = "💾 Save Preview to .txt File",
+
+        -- Debug Console Tab
+        DEBUG_CLEAR_BTN = "🧹 Clear Debug Terminal",
+        DEBUG_COPY_BTN = "📋 Copy Full System Logs",
+        DEBUG_SAVE_BTN = "💾 Save Debug Log to File",
+
+        -- Command Matrix Tab
+        MATRIX_SECTION = "📁 MOUNTED MICRO MODULES LIBRARY",
+
+        -- Settings Tab
+        LANG_SECTION = "🌐 LANGUAGE SWITCHER / เลือกภาษา",
+        LANG_SWITCH_TH = "🇹🇭 Switch to Thai Language",
+        LANG_SWITCH_EN = "🇬🇧 English Language (Active)",
+
+        SCALE_SECTION = "🖥️ UI DISPLAY SCALING",
+        SCALE_STD = "🖥️ Standard Profile (1.0x Scale)",
+        SCALE_MOBILE = "📱 Compact Mobile Profile (0.75x Scale)",
+
+        EXT_SECTION = "🛠️ EXTERNAL UTILITIES & GAME SCRIPTS",
+        EXT_ANIME_CARD = "🎴 Launch PayomboyZ Script HUB",
+        EXT_DEX = "🛠️ Launch Dex Debugging Explorer",
+        EXT_IY = "⚡ Launch Infinite Yield Admin Tools",
+
+        CONFIG_SECTION = "💾 HUB CONFIGURATION & PROFILE MANAGER",
+        CONFIG_SAVE_BTN = "💾 Save Current Profile Config",
+        CONFIG_LOAD_BTN = "📂 Load Saved Profile Config",
+
+        DIAG_SECTION = "📊 SYSTEM DIAGNOSTICS & PERFORMANCE",
+        CONTROL_SECTION = "❌ SYSTEM CONTROL",
+        NOTIF_TEST_BTN = "🔔 Test Toast Notification",
+        UNLOAD_HUB_BTN = "❌ Unload PayomboyZ Hub UI & Cleanup Connections",
+
+        -- Notifications
+        NOTIF_TITLE = "PayomboyZ Script HUB",
+        NOTIF_LOADED = "Obsidian Glassmorphic 2 UI Engine Loaded Successfully!",
+        NOTIF_LANG_CHANGED = "Language switched to English successfully!",
+    }
+}
+
+local function GetText(key)
+    local langTable = I18N_DICT[CurrentLanguage] or I18N_DICT.TH
+    return langTable[key] or I18N_DICT.TH[key] or key
+end
+
+local function RegisterI18N(element, key, property, prefix, suffix)
+    property = property or "Text"
+    prefix = prefix or ""
+    suffix = suffix or ""
+    if element then
+        table.insert(RegisteredLabels, { element = element, key = key, property = property, prefix = prefix, suffix = suffix })
+        pcall(function() element[property] = prefix .. GetText(key) .. suffix end)
+    end
+end
+
+local function SwitchLanguage(newLang)
+    if newLang ~= "TH" and newLang ~= "EN" then return end
+    CurrentLanguage = newLang
+    for _, item in ipairs(RegisteredLabels) do
+        if item.element and item.element.Parent then
+            pcall(function() item.element[item.property] = item.prefix .. GetText(item.key) .. item.suffix end)
+        end
+    end
+    DebugLog("INFO", "I18N", "Switched language to: " .. CurrentLanguage)
+    ObsidianGlassEngine:Notify({
+        Title = GetText("NOTIF_TITLE"),
+        Content = GetText("NOTIF_LANG_CHANGED"),
+        Duration = 3
+    })
+end
+
+local ObsidianGlassEngine = { Options = {} }
+
+-- UI Sound Effect Helper
+local function playClickSound()
+    pcall(function()
+        local sound = Instance.new("Sound")
+        sound.SoundId = "rbxassetid://6895079853"
+        sound.Volume = 0.3
+        sound.Parent = SoundService
+        sound:Play()
+        sound.Ended:Connect(function() sound:Destroy() end)
+    end)
+end
+
+local customAvatarAsset = nil
+local function loadCustomAvatarImage()
+    if customAvatarAsset then return customAvatarAsset end
+    local avatarUrl = "https://raw.githubusercontent.com/aslamdunk7/paypmboygang/main/543199739_2812856088914181_3062917809445648175_n.jpg"
+    local fileName = "payomboyz_avatar.jpg"
+    
+    pcall(function()
+        if typeof(writefile) == "function" and (typeof(getcustomasset) == "function" or typeof(getsynasset) == "function") then
+            local getAsset = getcustomasset or getsynasset
+            local isFileExist = (typeof(isfile) == "function" and isfile(fileName))
+            if not isFileExist then
+                local imageBytes = game:HttpGet(avatarUrl)
+                if imageBytes and #imageBytes > 0 then
+                    writefile(fileName, imageBytes)
+                end
+            end
+            if typeof(isfile) == "function" and isfile(fileName) then
+                customAvatarAsset = getAsset(fileName)
+            end
+        end
+    end)
+
+    if not customAvatarAsset then
+        customAvatarAsset = "rbxthumb://type=AvatarHeadShot&id=" .. LocalPlayer.UserId .. "&w=150&h=150"
+    end
+    return customAvatarAsset
+end
+
+-- 🔔 TOAST NOTIFICATION ENGINE
+function ObsidianGlassEngine:Notify(cfg)
+    pcall(function()
+        local title = cfg.Title or "System"
+        local content = cfg.Content or ""
+        local duration = cfg.Duration or 4
+        
+        local parentContainer = (typeof(gethui) == "function") and gethui() or CoreGui
+        local notifHolder = parentContainer:FindFirstChild("ObsidianGlass_NotifHolder")
+        if not notifHolder then
+            notifHolder = Instance.new("ScreenGui")
+            notifHolder.Name = "ObsidianGlass_NotifHolder"
+            notifHolder.ResetOnSpawn = false
+            notifHolder.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+            notifHolder.Parent = parentContainer
+        end
+        
+        local toast = Instance.new("Frame")
+        toast.Size = UDim2.new(0, 300, 0, 65)
+        toast.Position = UDim2.new(1, 20, 1, -85)
+        toast.BackgroundColor3 = COLORS.glass
+        toast.BackgroundTransparency = 0.15
+        toast.BorderSizePixel = 0
+        toast.Parent = notifHolder
+        
+        local corner = Instance.new("UICorner")
+        corner.CornerRadius = UDim.new(0, 10)
+        corner.Parent = toast
+        
+        local stroke = Instance.new("UIStroke")
+        stroke.Color = COLORS.cyan
+        stroke.Thickness = 1.5
+        stroke.Parent = toast
+        
+        local tTitle = Instance.new("TextLabel")
+        tTitle.Size = UDim2.new(1, -20, 0, 22)
+        tTitle.Position = UDim2.new(0, 10, 0, 6)
+        tTitle.BackgroundTransparency = 1
+        tTitle.Text = title
+        tTitle.TextColor3 = COLORS.cyan
+        tTitle.Font = Enum.Font.GothamBold
+        tTitle.TextSize = 13
+        tTitle.TextXAlignment = Enum.TextXAlignment.Left
+        tTitle.Parent = toast
+        
+        local tDesc = Instance.new("TextLabel")
+        tDesc.Size = UDim2.new(1, -20, 0, 32)
+        tDesc.Position = UDim2.new(0, 10, 0, 26)
+        tDesc.BackgroundTransparency = 1
+        tDesc.Text = content
+        tDesc.TextColor3 = COLORS.text
+        tDesc.Font = Enum.Font.Gotham
+        tDesc.TextSize = 11
+        tDesc.TextWrapped = true
+        tDesc.TextXAlignment = Enum.TextXAlignment.Left
+        tDesc.Parent = toast
+        
+        playClickSound()
+        TweenService:Create(toast, TweenInfo.new(0.3, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), { Position = UDim2.new(1, -320, 1, -85) }):Play()
+        task.delay(duration, function()
+            if toast and toast.Parent then
+                local tw = TweenService:Create(toast, TweenInfo.new(0.3, Enum.EasingStyle.Quart, Enum.EasingDirection.In), { Position = UDim2.new(1, 20, 1, -85) })
+                tw:Play()
+                tw.Completed:Connect(function() toast:Destroy() end)
+            end
+        end)
+    end)
+end
+
+-- 🖼️ MAIN WINDOW ENGINE
+function ObsidianGlassEngine:CreateWindow(cfg)
+    local parentContainer = (typeof(gethui) == "function") and gethui() or CoreGui
+    if parentContainer:FindFirstChild("ObsidianGlass2_UI") then
+        parentContainer.ObsidianGlass2_UI:Destroy()
+    end
+
+    local gui = Instance.new("ScreenGui")
+    gui.Name = "ObsidianGlass2_UI"
+    gui.ResetOnSpawn = false
+    gui.IgnoreGuiInset = true
+    gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    gui.DisplayOrder = 99999
+    gui.Parent = parentContainer
+
+    local uiScale = Instance.new("UIScale")
+    
+    -- Mobile Responsive Scaling Engine
+    local camera = workspace.CurrentCamera
+    local function updateScale()
+        if camera and camera.ViewportSize then
+            local vp = camera.ViewportSize
+            local targetWidth, targetHeight = 920, 600
+            local scaleX = (vp.X - 24) / targetWidth
+            local scaleY = (vp.Y - 24) / targetHeight
+            local calcScale = math.clamp(math.min(scaleX, scaleY), 0.45, 1.0)
+            uiScale.Scale = calcScale
+        end
+    end
+    updateScale()
+    if camera then
+        camera:GetPropertyChangedSignal("ViewportSize"):Connect(updateScale)
+    end
+    uiScale.Parent = gui
+
+    local shell = Instance.new("Frame")
+    shell.Name = "MainShell"
+    shell.Size = UDim2.fromOffset(920, 600)
+    shell.AnchorPoint = Vector2.new(0.5, 0.5)
+    shell.Position = UDim2.new(0.5, 0, 0.5, 0)
+    shell.BackgroundColor3 = COLORS.shell
+    shell.BackgroundTransparency = 0.20
+    shell.BorderSizePixel = 0
+    shell.ClipsDescendants = true
+    shell.Parent = gui
+
+    local shellCorner = Instance.new("UICorner")
+    shellCorner.CornerRadius = UDim.new(0, 18)
+    shellCorner.Parent = shell
+
+    local shellStroke = Instance.new("UIStroke")
+    shellStroke.Color = COLORS.cyan
+    shellStroke.Thickness = 1.5
+    shellStroke.Transparency = 0.3
+    shellStroke.Parent = shell
+
+    -- 🌐 Cybernetic Data Layer (แทนที่ SnowLayer เดิม)
+    local dataLayer = Instance.new("Frame")
+    dataLayer.Name = "CyberDataLayer"
+    dataLayer.Size = UDim2.fromScale(1, 1)
+    dataLayer.BackgroundTransparency = 1
+    dataLayer.ZIndex = 2
+    dataLayer.Parent = shell
+
+    local cyberParticles = {}
+    
+    -- สร้าง Particles 2 แบบ: แบบจุด (Nodes) และแบบเส้น (Streams)
+    for i = 1, 25 do
+        local isLine = math.random() > 0.6 -- 40% เป็นเส้น, 60% เป็นจุด
+        local particle = Instance.new("Frame")
+        
+        if isLine then
+            -- แบบเส้นข้อมูล (Data Streams)
+            particle.Size = UDim2.fromOffset(math.random(15, 45), math.random(1, 2))
+        else
+            -- แบบโหนด (Data Nodes)
+            particle.Size = UDim2.fromOffset(math.random(2, 4), math.random(2, 4))
+            local pCorner = Instance.new("UICorner")
+            pCorner.CornerRadius = UDim.new(1, 0)
+            pCorner.Parent = particle
+        end
+
+        particle.Position = UDim2.new(math.random(), 0, math.random(), 0)
+        particle.BackgroundColor3 = (math.random() > 0.5) and COLORS.danger or Color3.fromRGB(230, 40, 50)
+        particle.BackgroundTransparency = 1
+        particle.BorderSizePixel = 0
+        particle.Parent = dataLayer
+
+        table.insert(cyberParticles, {
+            frame = particle,
+            speedX = (math.random() - 0.5) * 0.0008,
+            speedY = (math.random() - 0.5) * 0.0008,
+            pulse = math.random(1, 100),
+            pulseSpeed = math.random(2, 5) * 0.01
+        })
+    end
+
+    -- 💎 Draggable Toggle Capsule
+    local toggleCapsule = Instance.new("Frame")
+    toggleCapsule.Name = "ObsidianToggleCapsule"
+    toggleCapsule.Size = UDim2.fromOffset(230, 58)
+    toggleCapsule.Position = UDim2.new(0, 15, 0.5, -29)
+    toggleCapsule.BackgroundColor3 = COLORS.shell
+    toggleCapsule.BackgroundTransparency = 0.18
+    toggleCapsule.BorderSizePixel = 0
+    toggleCapsule.ClipsDescendants = true
+    toggleCapsule.ZIndex = 99999
+    toggleCapsule.Parent = gui
+
+    local tcCorner = Instance.new("UICorner")
+    tcCorner.CornerRadius = UDim.new(0, 16)
+    tcCorner.Parent = toggleCapsule
+
+    local tcStroke = Instance.new("UIStroke")
+    tcStroke.Color = COLORS.primary
+    tcStroke.Thickness = 1.5
+    tcStroke.Transparency = 0.2
+    tcStroke.Parent = toggleCapsule
+
+    -- 🌐 Cyber Data Layer for Toggle Capsule
+    local capDataLayer = Instance.new("Frame")
+    capDataLayer.Name = "CapsuleCyberDataLayer"
+    capDataLayer.Size = UDim2.fromScale(1, 1)
+    capDataLayer.BackgroundTransparency = 1
+    capDataLayer.ZIndex = 1
+    capDataLayer.Parent = toggleCapsule
+
+    for i = 1, 10 do
+        local isLine = math.random() > 0.6
+        local particle = Instance.new("Frame")
+        if isLine then
+            particle.Size = UDim2.fromOffset(math.random(10, 25), math.random(1, 2))
+        else
+            particle.Size = UDim2.fromOffset(math.random(2, 3), math.random(2, 3))
+            local pCorner = Instance.new("UICorner")
+            pCorner.CornerRadius = UDim.new(1, 0)
+            pCorner.Parent = particle
+        end
+        particle.Position = UDim2.new(math.random(), 0, math.random(), 0)
+        particle.BackgroundColor3 = (math.random() > 0.5) and COLORS.danger or Color3.fromRGB(230, 40, 50)
+        particle.BackgroundTransparency = 1
+        particle.BorderSizePixel = 0
+        particle.ZIndex = 1
+        particle.Parent = capDataLayer
+
+        table.insert(cyberParticles, {
+            frame = particle,
+            speedX = (math.random() - 0.5) * 0.001,
+            speedY = (math.random() - 0.5) * 0.001,
+            pulse = math.random(1, 100),
+            pulseSpeed = math.random(2, 5) * 0.015
+        })
+    end
+
+    -- Single Unified RenderStepped Connection for All Particles (Optimized)
+    local unifiedParticleConn = TrackConnection(RunService.RenderStepped:Connect(function()
+        if not gui or not gui.Parent then return end
+        for _, data in ipairs(cyberParticles) do
+            if data.frame and data.frame.Parent then
+                local curPos = data.frame.Position
+                local newX = (curPos.X.Scale + data.speedX) % 1
+                local newY = (curPos.Y.Scale + data.speedY) % 1
+                data.frame.Position = UDim2.new(newX, 0, newY, 0)
+
+                data.pulse = data.pulse + data.pulseSpeed
+                data.frame.BackgroundTransparency = 0.6 + math.sin(data.pulse) * 0.3
+            end
+        end
+    end))
+
+    local capAvatarFrame = Instance.new("Frame")
+    capAvatarFrame.Size = UDim2.fromOffset(42, 42)
+    capAvatarFrame.Position = UDim2.new(0, 8, 0.5, -21)
+    capAvatarFrame.BackgroundColor3 = COLORS.glassDeep
+    capAvatarFrame.BorderSizePixel = 0
+    capAvatarFrame.ZIndex = 3
+    capAvatarFrame.Parent = toggleCapsule
+
+    local caCorner = Instance.new("UICorner")
+    caCorner.CornerRadius = UDim.new(1, 0)
+    caCorner.Parent = capAvatarFrame
+
+    local caStroke = Instance.new("UIStroke")
+    caStroke.Color = COLORS.primary
+    caStroke.Thickness = 1.5
+    caStroke.Parent = capAvatarFrame
+
+    local capAvatarImg = Instance.new("ImageLabel")
+    capAvatarImg.Size = UDim2.fromScale(1, 1)
+    capAvatarImg.BackgroundTransparency = 1
+    capAvatarImg.Image = loadCustomAvatarImage()
+    capAvatarImg.ZIndex = 4
+    capAvatarImg.Parent = capAvatarFrame
+
+    local caiCorner = Instance.new("UICorner")
+    caiCorner.CornerRadius = UDim.new(1, 0)
+    caiCorner.Parent = capAvatarImg
+
+    local capUserLabel = Instance.new("TextLabel")
+    capUserLabel.Size = UDim2.new(1, -58, 0, 18)
+    capUserLabel.Position = UDim2.new(0, 56, 0, 10)
+    capUserLabel.BackgroundTransparency = 1
+    capUserLabel.Text = "@" .. LocalPlayer.Name
+    capUserLabel.TextColor3 = COLORS.text
+    capUserLabel.Font = Enum.Font.GothamBold
+    capUserLabel.TextSize = 12
+    capUserLabel.TextXAlignment = Enum.TextXAlignment.Left
+    capUserLabel.ZIndex = 3
+    capUserLabel.Parent = toggleCapsule
+
+    local capMetricsLabel = Instance.new("TextLabel")
+    capMetricsLabel.Size = UDim2.new(1, -58, 0, 16)
+    capMetricsLabel.Position = UDim2.new(0, 56, 0, 28)
+    capMetricsLabel.BackgroundTransparency = 1
+    capMetricsLabel.Text = "⚡ 60 FPS  •  📡 0 ms"
+    capMetricsLabel.TextColor3 = COLORS.cyan
+    capMetricsLabel.Font = Enum.Font.GothamBold
+    capMetricsLabel.TextSize = 10
+    capMetricsLabel.TextXAlignment = Enum.TextXAlignment.Left
+    capMetricsLabel.ZIndex = 3
+    capMetricsLabel.Parent = toggleCapsule
+
+    task.spawn(function()
+        local frameCount = 0
+        local lastFpsTime = tick()
+        local fpsVal = 60
+
+        local renderConn
+        renderConn = RunService.RenderStepped:Connect(function()
+            frameCount = frameCount + 1
+            local now = tick()
+            if now - lastFpsTime >= 1 then
+                fpsVal = frameCount
+                frameCount = 0
+                lastFpsTime = now
+            end
+        end)
+
+        while task.wait(0.8) do
+            if not gui or not gui.Parent or not toggleCapsule or not toggleCapsule.Parent then
+                if renderConn then renderConn:Disconnect() end
+                break
+            end
+            local pingVal = 0
+            pcall(function() pingVal = math.floor(Stats.Network.ServerStatsItem["Data Ping"]:GetValue()) end)
+            capMetricsLabel.Text = string.format("⚡ %d FPS  •  📡 %d ms", fpsVal, pingVal)
+        end
+    end)
+
+    local capBtn = Instance.new("TextButton")
+    capBtn.Size = UDim2.fromScale(1, 1)
+    capBtn.BackgroundTransparency = 1
+    capBtn.Text = ""
+    capBtn.ZIndex = 10
+    capBtn.Parent = toggleCapsule
+
+    local tDragging, tDragInput, tDragStart, tStartPos
+    local hasDragged = false
+
+    capBtn.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            tDragging = true
+            hasDragged = false
+            tDragStart = input.Position
+            tStartPos = toggleCapsule.Position
+            input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then
+                    tDragging = false
+                end
+            end)
+        end
+    end)
+
+    capBtn.InputChanged:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+            tDragInput = input
+        end
+    end)
+
+    UserInputService.InputChanged:Connect(function(input)
+        if input == tDragInput and tDragging then
+            local delta = input.Position - tDragStart
+            if math.abs(delta.X) > 3 or math.abs(delta.Y) > 3 then
+                hasDragged = true
+            end
+            toggleCapsule.Position = UDim2.new(tStartPos.X.Scale, tStartPos.X.Offset + delta.X, tStartPos.Y.Scale, tStartPos.Y.Offset + delta.Y)
+        end
+    end)
+
+    capBtn.MouseButton1Click:Connect(function()
+        if not hasDragged then
+            playClickSound()
+            shell.Visible = not shell.Visible
+        end
+    end)
+
+    -- 👤 Left Sidebar
+    local userPanel = Instance.new("Frame")
+    userPanel.Name = "UserPanel"
+    userPanel.Size = UDim2.new(0, 240, 1, 0)
+    userPanel.BackgroundColor3 = COLORS.userPanel
+    userPanel.BackgroundTransparency = 0.20
+    userPanel.BorderSizePixel = 0
+    userPanel.ZIndex = 5
+    userPanel.Parent = shell
+
+    local userDiv = Instance.new("Frame")
+    userDiv.Size = UDim2.new(0, 1, 1, 0)
+    userDiv.Position = UDim2.new(1, -1, 0, 0)
+    userDiv.BackgroundColor3 = COLORS.glassRaised
+    userDiv.BorderSizePixel = 0
+    userDiv.ZIndex = 10
+    userDiv.Parent = userPanel
+
+    local avatarFrame = Instance.new("Frame")
+    avatarFrame.Size = UDim2.fromOffset(44, 44)
+    avatarFrame.Position = UDim2.new(0, 14, 0, 14)
+    avatarFrame.BackgroundColor3 = COLORS.glassDeep
+    avatarFrame.BorderSizePixel = 0
+    avatarFrame.ZIndex = 10
+    avatarFrame.Parent = userPanel
+
+    local avCorner = Instance.new("UICorner")
+    avCorner.CornerRadius = UDim.new(1, 0)
+    avCorner.Parent = avatarFrame
+
+    local avStroke = Instance.new("UIStroke")
+    avStroke.Color = COLORS.cyan
+    avStroke.Thickness = 1.5
+    avStroke.Parent = avatarFrame
+
+    local avatarImg = Instance.new("ImageLabel")
+    avatarImg.Size = UDim2.fromScale(1, 1)
+    avatarImg.BackgroundTransparency = 1
+    avatarImg.Image = loadCustomAvatarImage()
+    avatarImg.ZIndex = 11
+    avatarImg.Parent = avatarFrame
+
+    local avImgCorner = Instance.new("UICorner")
+    avImgCorner.CornerRadius = UDim.new(1, 0)
+    avImgCorner.Parent = avatarImg
+
+    local onlineDot = Instance.new("Frame")
+    onlineDot.Size = UDim2.fromOffset(10, 10)
+    onlineDot.Position = UDim2.new(1, -8, 1, -8)
+    onlineDot.BackgroundColor3 = COLORS.success
+    onlineDot.BorderSizePixel = 0
+    onlineDot.ZIndex = 12
+    onlineDot.Parent = avatarFrame
+
+    local onlineCorner = Instance.new("UICorner")
+    onlineCorner.CornerRadius = UDim.new(1, 0)
+    onlineCorner.Parent = onlineDot
+
+    local displayNameLabel = Instance.new("TextLabel")
+    displayNameLabel.Size = UDim2.new(1, -75, 0, 18)
+    displayNameLabel.Position = UDim2.new(0, 66, 0, 15)
+    displayNameLabel.BackgroundTransparency = 1
+    displayNameLabel.Text = LocalPlayer.DisplayName
+    displayNameLabel.TextColor3 = COLORS.text
+    displayNameLabel.Font = Enum.Font.GothamBold
+    displayNameLabel.TextSize = 13
+    displayNameLabel.TextXAlignment = Enum.TextXAlignment.Left
+    displayNameLabel.ZIndex = 10
+    displayNameLabel.Parent = userPanel
+
+    local usernameLabel = Instance.new("TextLabel")
+    usernameLabel.Size = UDim2.new(1, -75, 0, 14)
+    usernameLabel.Position = UDim2.new(0, 66, 0, 33)
+    usernameLabel.BackgroundTransparency = 1
+    usernameLabel.Text = "@" .. LocalPlayer.Name
+    usernameLabel.TextColor3 = COLORS.textMuted
+    usernameLabel.Font = Enum.Font.Gotham
+    usernameLabel.TextSize = 10
+    usernameLabel.TextXAlignment = Enum.TextXAlignment.Left
+    usernameLabel.ZIndex = 10
+    usernameLabel.Parent = userPanel
+
+    local metricsBox = Instance.new("Frame")
+    metricsBox.Size = UDim2.new(1, -28, 0, 24)
+    metricsBox.Position = UDim2.new(0, 14, 0, 64)
+    metricsBox.BackgroundColor3 = COLORS.glassDeep
+    metricsBox.BorderSizePixel = 0
+    metricsBox.ZIndex = 10
+    metricsBox.Parent = userPanel
+
+    local mCorner = Instance.new("UICorner")
+    mCorner.CornerRadius = UDim.new(0, 6)
+    mCorner.Parent = metricsBox
+
+    local metricsLabel = Instance.new("TextLabel")
+    metricsLabel.Size = UDim2.fromScale(1, 1)
+    metricsLabel.BackgroundTransparency = 1
+    metricsLabel.Text = "⏱️ 00:00  •  📡 0 ms"
+    metricsLabel.TextColor3 = COLORS.cyan
+    metricsLabel.Font = Enum.Font.GothamBold
+    metricsLabel.TextSize = 10
+    metricsLabel.ZIndex = 11
+    metricsLabel.Parent = metricsBox
+
+    task.spawn(function()
+        local startTime = os.time()
+        while task.wait(1) do
+            if not gui or not gui.Parent then break end
+            local elapsed = os.time() - startTime
+            local mins = math.floor(elapsed / 60)
+            local secs = elapsed % 60
+            local ping = 0
+            pcall(function() ping = math.floor(Stats.Network.ServerStatsItem["Data Ping"]:GetValue()) end)
+            metricsLabel.Text = string.format("⏱️ %02d:%02d  •  📡 %d ms", mins, secs, ping)
+        end
+    end)
+
+    local sideDiv = Instance.new("Frame")
+    sideDiv.Size = UDim2.new(1, -28, 0, 1)
+    sideDiv.Position = UDim2.new(0, 14, 0, 96)
+    sideDiv.BackgroundColor3 = COLORS.glassRaised
+    sideDiv.BorderSizePixel = 0
+    sideDiv.ZIndex = 10
+    sideDiv.Parent = userPanel
+
+    local navHeader = Instance.new("TextLabel")
+    navHeader.Size = UDim2.new(1, -28, 0, 18)
+    navHeader.Position = UDim2.new(0, 16, 0, 104)
+    navHeader.BackgroundTransparency = 1
+    navHeader.Text = GetText("NAV_HEADER")
+    navHeader.TextColor3 = Color3.fromRGB(255, 255, 255)
+    navHeader.Font = Enum.Font.GothamBold
+    navHeader.TextSize = 11
+    navHeader.TextXAlignment = Enum.TextXAlignment.Left
+    navHeader.ZIndex = 10
+    navHeader.Parent = userPanel
+    RegisterI18N(navHeader, "NAV_HEADER")
+
+    local tabScroll = Instance.new("ScrollingFrame")
+    tabScroll.Name = "VerticalTabScroll"
+    tabScroll.Size = UDim2.new(1, -20, 1, -178)
+    tabScroll.Position = UDim2.new(0, 10, 0, 126)
+    tabScroll.BackgroundTransparency = 1
+    tabScroll.ScrollBarThickness = 3
+    tabScroll.ScrollBarImageColor3 = COLORS.cyan
+    tabScroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+    tabScroll.ZIndex = 10
+    tabScroll.Parent = userPanel
+
+    local tabLayout = Instance.new("UIListLayout")
+    tabLayout.FillDirection = Enum.FillDirection.Vertical
+    tabLayout.Padding = UDim.new(0, 5)
+    tabLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    tabLayout.Parent = tabScroll
+
+    tabLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+        tabScroll.CanvasSize = UDim2.new(0, 0, 0, tabLayout.AbsoluteContentSize.Y + 10)
+    end)
+
+    local statusCard = Instance.new("Frame")
+    statusCard.Size = UDim2.new(1, -24, 0, 36)
+    statusCard.Position = UDim2.new(0, 12, 1, -44)
+    statusCard.BackgroundColor3 = COLORS.glassDeep
+    statusCard.BorderSizePixel = 0
+    statusCard.ZIndex = 10
+    statusCard.Parent = userPanel
+
+    local stCorner = Instance.new("UICorner")
+    stCorner.CornerRadius = UDim.new(0, 8)
+    stCorner.Parent = statusCard
+
+    local stTitle = Instance.new("TextLabel")
+    stTitle.Size = UDim2.fromScale(1, 1)
+    stTitle.BackgroundTransparency = 1
+    stTitle.Text = GetText("STATUS_ACTIVE")
+    stTitle.TextColor3 = COLORS.success
+    stTitle.Font = Enum.Font.GothamBold
+    stTitle.TextSize = 12
+    stTitle.Parent = statusCard
+    RegisterI18N(stTitle, "STATUS_ACTIVE")
+
+    -- 🖥️ Right Main Panel
+    local mainPanel = Instance.new("Frame")
+    mainPanel.Name = "MainPanel"
+    mainPanel.Size = UDim2.new(1, -240, 1, 0)
+    mainPanel.Position = UDim2.new(0, 240, 0, 0)
+    mainPanel.BackgroundTransparency = 1
+    mainPanel.ZIndex = 5
+    mainPanel.Parent = shell
+
+    local headerBar = Instance.new("Frame")
+    headerBar.Size = UDim2.new(1, 0, 0, 48)
+    headerBar.BackgroundTransparency = 1
+    headerBar.Parent = mainPanel
+
+    local mainTitle = Instance.new("TextLabel")
+    mainTitle.Size = UDim2.new(0, 400, 0, 22)
+    mainTitle.Position = UDim2.new(0, 20, 0, 8)
+    mainTitle.BackgroundTransparency = 1
+    mainTitle.Text = GetText("WINDOW_TITLE")
+    mainTitle.TextColor3 = COLORS.text
+    mainTitle.Font = Enum.Font.GothamBold
+    mainTitle.TextSize = 18
+    mainTitle.TextXAlignment = Enum.TextXAlignment.Left
+    mainTitle.Parent = headerBar
+    RegisterI18N(mainTitle, "WINDOW_TITLE")
+
+    local mainSubTitle = Instance.new("TextLabel")
+    mainSubTitle.Size = UDim2.new(0, 400, 0, 16)
+    mainSubTitle.Position = UDim2.new(0, 20, 0, 28)
+    mainSubTitle.BackgroundTransparency = 1
+    mainSubTitle.Text = GetText("WINDOW_SUBTITLE")
+    mainSubTitle.TextColor3 = COLORS.textMuted
+    mainSubTitle.Font = Enum.Font.Gotham
+    mainSubTitle.TextSize = 11
+    mainSubTitle.TextXAlignment = Enum.TextXAlignment.Left
+    mainSubTitle.Parent = headerBar
+    RegisterI18N(mainSubTitle, "WINDOW_SUBTITLE")
+
+    local closeBtn = Instance.new("TextButton")
+    closeBtn.Size = UDim2.fromOffset(28, 28)
+    closeBtn.Position = UDim2.new(1, -38, 0, 10)
+    closeBtn.BackgroundColor3 = COLORS.glass
+    closeBtn.BackgroundTransparency = 0.20
+    closeBtn.Text = "X"
+    closeBtn.TextColor3 = COLORS.textMuted
+    closeBtn.Font = Enum.Font.GothamBold
+    closeBtn.TextSize = 14
+    closeBtn.Parent = headerBar
+
+    local closeCorner = Instance.new("UICorner")
+    closeCorner.CornerRadius = UDim.new(0, 8)
+    closeCorner.Parent = closeBtn
+
+    closeBtn.MouseButton1Click:Connect(function()
+        playClickSound()
+        shell.Visible = not shell.Visible
+    end)
+
+    local minBtn = Instance.new("TextButton")
+    minBtn.Size = UDim2.fromOffset(28, 28)
+    minBtn.Position = UDim2.new(1, -72, 0, 10)
+    minBtn.BackgroundColor3 = COLORS.glass
+    minBtn.BackgroundTransparency = 0.20
+    minBtn.Text = "─"
+    minBtn.TextColor3 = COLORS.textMuted
+    minBtn.Font = Enum.Font.GothamBold
+    minBtn.TextSize = 13
+    minBtn.Parent = headerBar
+
+    local minCorner = Instance.new("UICorner")
+    minCorner.CornerRadius = UDim.new(0, 8)
+    minCorner.Parent = minBtn
+
+    minBtn.MouseButton1Click:Connect(function()
+        playClickSound()
+        shell.Visible = not shell.Visible
+    end)
+
+    local dragging, dragInput, dragStart, startPos
+    headerBar.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            dragging = true
+            dragStart = input.Position
+            startPos = shell.Position
+            input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then dragging = false end
+            end)
+        end
+    end)
+
+    headerBar.InputChanged:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+            dragInput = input
+        end
+    end)
+
+    TrackConnection(UserInputService.InputChanged:Connect(function(input)
+        if input == dragInput and dragging and startPos then
+            local delta = input.Position - dragStart
+            shell.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+        end
+    end))
+
+    local serviceBanner = Instance.new("Frame")
+    serviceBanner.Size = UDim2.new(1, -40, 0, 65)
+    serviceBanner.Position = UDim2.new(0, 20, 0, 48)
+    serviceBanner.BackgroundColor3 = COLORS.glassDeep
+    serviceBanner.BackgroundTransparency = 0.18
+    serviceBanner.BorderSizePixel = 0
+    serviceBanner.Parent = mainPanel
+
+    local sCorner = Instance.new("UICorner")
+    sCorner.CornerRadius = UDim.new(0, 10)
+    sCorner.Parent = serviceBanner
+
+    local sStroke = Instance.new("UIStroke")
+    sStroke.Color = COLORS.glassRaised
+    sStroke.Thickness = 1
+    sStroke.Parent = serviceBanner
+
+    local perfBannerHeader = Instance.new("TextLabel")
+    perfBannerHeader.Size = UDim2.new(1, -24, 0, 18)
+    perfBannerHeader.Position = UDim2.new(0, 14, 0, 8)
+    perfBannerHeader.BackgroundTransparency = 1
+    perfBannerHeader.Text = "📊 PERFORMANCE MONITOR V6 (LIVE GLOBAL DIAGNOSTICS)"
+    perfBannerHeader.TextColor3 = COLORS.primary
+    perfBannerHeader.Font = Enum.Font.GothamBold
+    perfBannerHeader.TextSize = 11
+    perfBannerHeader.TextXAlignment = Enum.TextXAlignment.Left
+    perfBannerHeader.Parent = serviceBanner
+
+    local perfBannerText = Instance.new("TextLabel")
+    perfBannerText.Size = UDim2.new(1, -28, 0, 34)
+    perfBannerText.Position = UDim2.new(0, 14, 0, 26)
+    perfBannerText.BackgroundTransparency = 1
+    perfBannerText.Font = Enum.Font.Code
+    perfBannerText.TextSize = 10
+    perfBannerText.TextColor3 = Color3.fromRGB(160, 245, 210)
+    perfBannerText.TextXAlignment = Enum.TextXAlignment.Left
+    perfBannerText.TextYAlignment = Enum.TextYAlignment.Top
+    perfBannerText.TextWrapped = true
+    perfBannerText.Parent = serviceBanner
+
+    task.spawn(function()
+        while gui and gui.Parent and perfBannerText and perfBannerText.Parent do
+            local memKB = gcinfo()
+            local memMB = string.format("%.2f MB", memKB / 1024)
+            perfBannerText.Text = string.format(
+                "• Memory: %s (%d KB)   • Connections: %d tracked\n• Debug Buffer: %d entries   • Bound AI Contexts: %d",
+                memMB, memKB, #TrackedConnections, #DebugLogs, #AIContextEngine.BoundItems
+            )
+            task.wait(1)
+        end
+    end)
+
+    local pagesFolder = Instance.new("Frame")
+    pagesFolder.Name = "PagesFolder"
+    pagesFolder.Size = UDim2.new(1, -40, 1, -128)
+    pagesFolder.Position = UDim2.new(0, 20, 0, 120)
+    pagesFolder.BackgroundTransparency = 1
+    pagesFolder.Parent = mainPanel
+
+    local WindowObj = { Tabs = {}, CurrentTab = nil, MainShell = shell, UIScale = uiScale }
+
+    function WindowObj:AddTab(tabCfg)
+        local tabTitleKey = tabCfg.TitleKey
+        local tabTitle = tabTitleKey and GetText(tabTitleKey) or tabCfg.Title or "Tab"
+        local tabIndex = #WindowObj.Tabs + 1
+
+        local tabBtn = Instance.new("TextButton")
+        tabBtn.Size = UDim2.new(1, -6, 0, 40)
+        tabBtn.Position = UDim2.new(0, 3, 0, 0)
+        tabBtn.BackgroundColor3 = (tabIndex == 1) and COLORS.primary or Color3.fromRGB(38, 16, 24)
+        tabBtn.BackgroundTransparency = (tabIndex == 1) and 0.15 or 0.22
+        tabBtn.Text = "    " .. tabTitle
+        tabBtn.TextColor3 = (tabIndex == 1) and Color3.fromRGB(255, 255, 255) or COLORS.textMuted
+        tabBtn.Font = Enum.Font.GothamBold
+        tabBtn.TextSize = 14
+        tabBtn.TextXAlignment = Enum.TextXAlignment.Left
+        tabBtn.AutoButtonColor = false
+        tabBtn.ZIndex = 12
+        tabBtn.Parent = tabScroll
+
+        if tabTitleKey then
+            RegisterI18N(tabBtn, tabTitleKey, "Text", "    ", "")
+        end
+
+        local tbCorner = Instance.new("UICorner")
+        tbCorner.CornerRadius = UDim.new(0, 8)
+        tbCorner.Parent = tabBtn
+
+        local tbStroke = Instance.new("UIStroke")
+        tbStroke.Color = (tabIndex == 1) and COLORS.primary or Color3.fromRGB(70, 30, 45)
+        tbStroke.Thickness = 1
+        tbStroke.Transparency = (tabIndex == 1) and 0 or 0.3
+        tbStroke.Parent = tabBtn
+
+        local activeIndicator = Instance.new("Frame")
+        activeIndicator.Size = UDim2.new(0, 4, 0, 20)
+        activeIndicator.Position = UDim2.new(0, 4, 0.5, -10)
+        activeIndicator.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        activeIndicator.BorderSizePixel = 0
+        activeIndicator.Visible = (tabIndex == 1)
+        activeIndicator.Parent = tabBtn
+
+        local indCorner = Instance.new("UICorner")
+        indCorner.CornerRadius = UDim.new(1, 0)
+        indCorner.Parent = activeIndicator
+
+        local pageScroll = Instance.new("ScrollingFrame")
+        pageScroll.Name = "Page_" .. tabTitle
+        pageScroll.Size = UDim2.fromScale(1, 1)
+        pageScroll.BackgroundTransparency = 1
+        pageScroll.ScrollBarThickness = 4
+        pageScroll.ScrollBarImageColor3 = COLORS.primary
+        pageScroll.Visible = (tabIndex == 1)
+        pageScroll.Parent = pagesFolder
+
+        local pageLayout = Instance.new("UIListLayout")
+        pageLayout.Padding = UDim.new(0, 8)
+        pageLayout.SortOrder = Enum.SortOrder.LayoutOrder
+        pageLayout.Parent = pageScroll
+
+        pageLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+            pageScroll.CanvasSize = UDim2.new(0, 0, 0, pageLayout.AbsoluteContentSize.Y + 20)
+        end)
+
+        local function activateTab()
+            playClickSound()
+            for _, t in ipairs(WindowObj.Tabs) do
+                t.btn.BackgroundColor3 = Color3.fromRGB(38, 16, 24)
+                t.btn.BackgroundTransparency = 0.22
+                t.btn.TextColor3 = COLORS.textMuted
+                t.stroke.Color = Color3.fromRGB(70, 30, 45)
+                t.stroke.Transparency = 0.3
+                if t.indicator then t.indicator.Visible = false end
+                t.page.Visible = false
+            end
+            tabBtn.BackgroundColor3 = COLORS.primary
+            tabBtn.BackgroundTransparency = 0.15
+            tabBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+            tbStroke.Color = COLORS.primary
+            tbStroke.Transparency = 0
+            activeIndicator.Visible = true
+            pageScroll.Visible = true
+        end
+
+        tabBtn.MouseButton1Click:Connect(activateTab)
+
+        local TabObj = {
+            btn = tabBtn,
+            stroke = tbStroke,
+            indicator = activeIndicator,
+            page = pageScroll,
+            Select = activateTab
+        }
+
+        function TabObj:AddToggle(id, tCfg)
+            local title = tCfg.Title or id
+            local desc = tCfg.Desc or ""
+            local defaultVal = (tCfg.Default ~= nil) and tCfg.Default or false
+
+            local frame = Instance.new("Frame")
+            frame.Size = UDim2.new(1, -10, 0, desc ~= "" and 55 or 44)
+            frame.BackgroundColor3 = COLORS.glassDeep
+            frame.BackgroundTransparency = 0.18
+            frame.BorderSizePixel = 0
+            frame.Parent = pageScroll
+
+            local fCorner = Instance.new("UICorner")
+            fCorner.CornerRadius = UDim.new(0, 8)
+            fCorner.Parent = frame
+
+            local fStroke = Instance.new("UIStroke")
+            fStroke.Color = COLORS.surface
+            fStroke.Thickness = 1
+            fStroke.Parent = frame
+
+            local lbl = Instance.new("TextLabel")
+            lbl.Size = UDim2.new(1, -70, 0, 22)
+            lbl.Position = UDim2.new(0, 12, 0, desc ~= "" and 8 or 11)
+            lbl.BackgroundTransparency = 1
+            lbl.Text = title
+            lbl.TextColor3 = COLORS.text
+            lbl.Font = Enum.Font.GothamBold
+            lbl.TextSize = 14
+            lbl.TextXAlignment = Enum.TextXAlignment.Left
+            lbl.Parent = frame
+
+            if desc ~= "" then
+                local dLbl = Instance.new("TextLabel")
+                dLbl.Size = UDim2.new(1, -70, 0, 18)
+                dLbl.Position = UDim2.new(0, 12, 0, 30)
+                dLbl.BackgroundTransparency = 1
+                dLbl.Text = desc
+                dLbl.TextColor3 = COLORS.textMuted
+                dLbl.Font = Enum.Font.Gotham
+                dLbl.TextSize = 11
+                dLbl.TextXAlignment = Enum.TextXAlignment.Left
+                dLbl.Parent = frame
+            end
+
+            local switch = Instance.new("TextButton")
+            switch.Size = UDim2.fromOffset(46, 24)
+            switch.Position = UDim2.new(1, -56, 0.5, -12)
+            switch.BackgroundColor3 = defaultVal and COLORS.cyan or COLORS.surface
+            switch.Text = ""
+            switch.Parent = frame
+
+            local swCorner = Instance.new("UICorner")
+            swCorner.CornerRadius = UDim.new(1, 0)
+            swCorner.Parent = switch
+
+            local knob = Instance.new("Frame")
+            knob.Size = UDim2.fromOffset(20, 20)
+            knob.Position = defaultVal and UDim2.new(1, -22, 0.5, -10) or UDim2.new(0, 2, 0.5, -10)
+            knob.BackgroundColor3 = COLORS.text
+            knob.BorderSizePixel = 0
+            knob.Parent = switch
+
+            local kCorner = Instance.new("UICorner")
+            kCorner.CornerRadius = UDim.new(1, 0)
+            kCorner.Parent = knob
+
+            local OptionObj = {
+                Value = defaultVal,
+                Callback = tCfg.Callback or function() end,
+                ChangedCallbacks = {}
+            }
+
+            local function updateToggle(val)
+                playClickSound()
+                OptionObj.Value = val
+                switch.BackgroundColor3 = val and COLORS.cyan or COLORS.surface
+                knob.Position = val and UDim2.new(1, -22, 0.5, -10) or UDim2.new(0, 2, 0.5, -10)
+                pcall(function() OptionObj.Callback(val) end)
+                for _, cb in ipairs(OptionObj.ChangedCallbacks) do pcall(function() cb(val) end) end
+            end
+
+            function OptionObj:OnChanged(cb) table.insert(OptionObj.ChangedCallbacks, cb) end
+            function OptionObj:SetValue(val) updateToggle(val == true) end
+
+            switch.MouseButton1Click:Connect(function() updateToggle(not OptionObj.Value) end)
+            ObsidianGlassEngine.Options[id] = OptionObj
+            return OptionObj
+        end
+
+        function TabObj:AddSlider(id, sCfg)
+            local title = sCfg.Title or id
+            local minVal = sCfg.Min or 0
+            local maxVal = sCfg.Max or 100
+            local defaultVal = sCfg.Default or minVal
+
+            local frame = Instance.new("Frame")
+            frame.Size = UDim2.new(1, -10, 0, 52)
+            frame.BackgroundColor3 = COLORS.glassDeep
+            frame.BackgroundTransparency = 0.18
+            frame.BorderSizePixel = 0
+            frame.Parent = pageScroll
+
+            local fCorner = Instance.new("UICorner")
+            fCorner.CornerRadius = UDim.new(0, 8)
+            fCorner.Parent = frame
+
+            local fStroke = Instance.new("UIStroke")
+            fStroke.Color = COLORS.surface
+            fStroke.Thickness = 1
+            fStroke.Parent = frame
+
+            local lbl = Instance.new("TextLabel")
+            lbl.Size = UDim2.new(0.7, 0, 0, 22)
+            lbl.Position = UDim2.new(0, 12, 0, 6)
+            lbl.BackgroundTransparency = 1
+            lbl.Text = title
+            lbl.TextColor3 = COLORS.text
+            lbl.Font = Enum.Font.GothamBold
+            lbl.TextSize = 14
+            lbl.TextXAlignment = Enum.TextXAlignment.Left
+            lbl.Parent = frame
+
+            local valLbl = Instance.new("TextLabel")
+            valLbl.Size = UDim2.new(0.3, -12, 0, 22)
+            valLbl.Position = UDim2.new(0.7, 0, 0, 6)
+            valLbl.BackgroundTransparency = 1
+            valLbl.Text = tostring(defaultVal)
+            valLbl.TextColor3 = COLORS.cyan
+            valLbl.Font = Enum.Font.GothamBold
+            valLbl.TextSize = 14
+            valLbl.TextXAlignment = Enum.TextXAlignment.Right
+            valLbl.Parent = frame
+
+            local bar = Instance.new("TextButton")
+            bar.Size = UDim2.new(1, -24, 0, 8)
+            bar.Position = UDim2.new(0, 12, 0, 34)
+            bar.BackgroundColor3 = COLORS.surface
+            bar.Text = ""
+            bar.Parent = frame
+
+            local bCorner = Instance.new("UICorner")
+            bCorner.CornerRadius = UDim.new(1, 0)
+            bCorner.Parent = bar
+
+            local fill = Instance.new("Frame")
+            local pct = (defaultVal - minVal) / math.max(maxVal - minVal, 1)
+            fill.Size = UDim2.new(pct, 0, 1, 0)
+            fill.BackgroundColor3 = COLORS.cyan
+            fill.BorderSizePixel = 0
+            fill.Parent = bar
+
+            local fillCorner = Instance.new("UICorner")
+            fillCorner.CornerRadius = UDim.new(1, 0)
+            fillCorner.Parent = fill
+
+            local OptionObj = {
+                Value = defaultVal,
+                Callback = sCfg.Callback or function() end,
+                ChangedCallbacks = {}
+            }
+
+            local function updateSlider(val)
+                val = math.clamp(val, minVal, maxVal)
+                if sCfg.Rounding then val = math.floor(val * (10 ^ sCfg.Rounding) + 0.5) / (10 ^ sCfg.Rounding) else val = math.floor(val + 0.5) end
+                OptionObj.Value = val
+                valLbl.Text = tostring(val)
+                local newPct = (val - minVal) / math.max(maxVal - minVal, 1)
+                fill.Size = UDim2.new(newPct, 0, 1, 0)
+                pcall(function() OptionObj.Callback(val) end)
+                for _, cb in ipairs(OptionObj.ChangedCallbacks) do pcall(function() cb(val) end) end
+            end
+
+            function OptionObj:OnChanged(cb) table.insert(OptionObj.ChangedCallbacks, cb) end
+            function OptionObj:SetValue(val) updateSlider(val) end
+
+            local isDragging = false
+            bar.InputBegan:Connect(function(input)
+                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+                    isDragging = true
+                    local relX = input.Position.X - bar.AbsolutePosition.X
+                    updateSlider(minVal + (relX / bar.AbsoluteSize.X) * (maxVal - minVal))
+                end
+            end)
+
+            UserInputService.InputEnded:Connect(function(input)
+                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+                    isDragging = false
+                end
+            end)
+
+            UserInputService.InputChanged:Connect(function(input)
+                if isDragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+                    local relX = input.Position.X - bar.AbsolutePosition.X
+                    updateSlider(minVal + (relX / bar.AbsoluteSize.X) * (maxVal - minVal))
+                end
+            end)
+
+            ObsidianGlassEngine.Options[id] = OptionObj
+            return OptionObj
+        end
+
+        function TabObj:AddButton(bCfg)
+            local titleKey = bCfg.TitleKey
+            local title = titleKey and GetText(titleKey) or bCfg.Title or "Button"
+            local cb = bCfg.Callback or function() end
+            local isPrimary = string.find(title, "⚡") or string.find(title, "🚀") or string.find(title, "🔍") or bCfg.Style == "primary"
+
+            local normalBg = isPrimary and Color3.fromRGB(0, 140, 80) or Color3.fromRGB(14, 34, 22)
+            local hoverBg = isPrimary and Color3.fromRGB(0, 180, 100) or Color3.fromRGB(22, 58, 36)
+            local pressBg = isPrimary and Color3.fromRGB(0, 110, 60) or Color3.fromRGB(8, 22, 14)
+
+            local btn = Instance.new("TextButton")
+            btn.Size = UDim2.new(1, -10, 0, 40)
+            btn.BackgroundColor3 = normalBg
+            btn.BackgroundTransparency = 0.15
+            btn.Text = title
+            btn.TextColor3 = Color3.fromRGB(240, 255, 245)
+            btn.Font = Enum.Font.GothamBold
+            btn.TextSize = 13
+            btn.Parent = pageScroll
+
+            if titleKey then
+                RegisterI18N(btn, titleKey)
+            end
+
+            local bCorner = Instance.new("UICorner")
+            bCorner.CornerRadius = UDim.new(0, 8)
+            bCorner.Parent = btn
+
+            local bStroke = Instance.new("UIStroke")
+            bStroke.Color = isPrimary and COLORS.primary or Color3.fromRGB(24, 80, 48)
+            bStroke.Thickness = 1
+            bStroke.Parent = btn
+
+            btn.MouseEnter:Connect(function()
+                TweenService:Create(btn, TweenInfo.new(0.18), {BackgroundColor3 = hoverBg}):Play()
+            end)
+
+            btn.MouseLeave:Connect(function()
+                TweenService:Create(btn, TweenInfo.new(0.18), {BackgroundColor3 = normalBg}):Play()
+            end)
+
+            btn.MouseButton1Down:Connect(function()
+                TweenService:Create(btn, TweenInfo.new(0.08), {BackgroundColor3 = pressBg}):Play()
+            end)
+
+            btn.MouseButton1Up:Connect(function()
+                TweenService:Create(btn, TweenInfo.new(0.08), {BackgroundColor3 = hoverBg}):Play()
+            end)
+
+            btn.MouseButton1Click:Connect(function()
+                playClickSound()
+                pcall(cb)
+            end)
+            return btn
+        end
+
+        function TabObj:AddInput(id, iCfg)
+            local title = iCfg.Title or id
+            local defaultVal = iCfg.Default or ""
+
+            local frame = Instance.new("Frame")
+            frame.Size = UDim2.new(1, -10, 0, 48)
+            frame.BackgroundColor3 = COLORS.glassDeep
+            frame.BackgroundTransparency = 0.18
+            frame.BorderSizePixel = 0
+            frame.Parent = pageScroll
+
+            local fCorner = Instance.new("UICorner")
+            fCorner.CornerRadius = UDim.new(0, 8)
+            fCorner.Parent = frame
+
+            local lbl = Instance.new("TextLabel")
+            lbl.Size = UDim2.new(0.5, 0, 1, 0)
+            lbl.Position = UDim2.new(0, 12, 0, 0)
+            lbl.BackgroundTransparency = 1
+            lbl.Text = title
+            lbl.TextColor3 = COLORS.text
+            lbl.Font = Enum.Font.GothamBold
+            lbl.TextSize = 14
+            lbl.TextXAlignment = Enum.TextXAlignment.Left
+            lbl.Parent = frame
+
+            local box = Instance.new("TextBox")
+            box.Size = UDim2.new(0.45, 0, 0, 30)
+            box.Position = UDim2.new(0.52, 0, 0.5, -15)
+            box.BackgroundColor3 = COLORS.input
+            box.BackgroundTransparency = 0.20
+            box.Text = tostring(defaultVal)
+            box.TextColor3 = COLORS.cyan
+            box.Font = Enum.Font.Gotham
+            box.TextSize = 13
+            box.Parent = frame
+
+            local bxCorner = Instance.new("UICorner")
+            bxCorner.CornerRadius = UDim.new(0, 6)
+            bxCorner.Parent = box
+
+            local OptionObj = {
+                Value = defaultVal,
+                Callback = iCfg.Callback or function() end,
+                ChangedCallbacks = {}
+            }
+
+            box.FocusLost:Connect(function()
+                OptionObj.Value = box.Text
+                pcall(function() OptionObj.Callback(box.Text) end)
+                for _, cb in ipairs(OptionObj.ChangedCallbacks) do pcall(function() cb(box.Text) end) end
+            end)
+
+            function OptionObj:OnChanged(cb) table.insert(OptionObj.ChangedCallbacks, cb) end
+            function OptionObj:SetValue(val) box.Text = tostring(val); OptionObj.Value = tostring(val) end
+
+            ObsidianGlassEngine.Options[id] = OptionObj
+            return OptionObj
+        end
+
+        function TabObj:AddSection(titleOrKey, fallbackTitle)
+            local sec = Instance.new("TextLabel")
+            sec.Size = UDim2.new(1, -10, 0, 30)
+            sec.BackgroundTransparency = 1
+            sec.TextColor3 = COLORS.cyan
+            sec.Font = Enum.Font.GothamBold
+            sec.TextSize = 14
+            sec.Parent = pageScroll
+
+            if I18N_DICT.TH[titleOrKey] or I18N_DICT.EN[titleOrKey] then
+                RegisterI18N(sec, titleOrKey, "Text", "──  ", "  ──")
+            else
+                local disp = fallbackTitle or titleOrKey
+                sec.Text = "──  " .. disp .. "  ──"
+            end
+            return sec
+        end
+
+        function TabObj:AddParagraph(pCfg)
+            local title = pCfg.Title or ""
+            local desc = pCfg.Desc or ""
+
+            local frame = Instance.new("Frame")
+            frame.Size = UDim2.new(1, -10, 0, 54)
+            frame.BackgroundColor3 = COLORS.glassDeep
+            frame.BackgroundTransparency = 0.18
+            frame.BorderSizePixel = 0
+            frame.Parent = pageScroll
+
+            local fCorner = Instance.new("UICorner")
+            fCorner.CornerRadius = UDim.new(0, 8)
+            fCorner.Parent = frame
+
+            local pTitle = Instance.new("TextLabel")
+            pTitle.Size = UDim2.new(1, -20, 0, 22)
+            pTitle.Position = UDim2.new(0, 10, 0, 6)
+            pTitle.BackgroundTransparency = 1
+            pTitle.Text = title
+            pTitle.TextColor3 = COLORS.text
+            pTitle.Font = Enum.Font.GothamBold
+            pTitle.TextSize = 13
+            pTitle.TextXAlignment = Enum.TextXAlignment.Left
+            pTitle.Parent = frame
+
+            local pDesc = Instance.new("TextLabel")
+            pDesc.Size = UDim2.new(1, -20, 0, 24)
+            pDesc.Position = UDim2.new(0, 10, 0, 26)
+            pDesc.BackgroundTransparency = 1
+            pDesc.Text = desc
+            pDesc.TextColor3 = COLORS.textMuted
+            pDesc.Font = Enum.Font.Gotham
+            pDesc.TextSize = 11
+            pDesc.TextWrapped = true
+            pDesc.TextXAlignment = Enum.TextXAlignment.Left
+            pDesc.Parent = frame
+            return frame
+        end
+
+        table.insert(WindowObj.Tabs, TabObj)
+        return TabObj
+    end
+
+    UserInputService.InputBegan:Connect(function(input, gpe)
+        if gpe then return end
+        if input.KeyCode == Enum.KeyCode.K then
+            playClickSound()
+            shell.Visible = not shell.Visible
+        elseif input.KeyCode == Enum.KeyCode.F then
+            playClickSound()
+            uiScale.Scale = (uiScale.Scale == 1.0) and 0.85 or 1.0
+        end
+    end)
+
+    return WindowObj
+end
+
+-----------------------------------------------------------------------------------------
+-- 🧠 HIGH-INTELLIGENCE PARSING DICTIONARY
+-----------------------------------------------------------------------------------------
+local SemanticPatterns = {
+    -- 1. VISUALS / ESP CATEGORY
+    {
+        Keywords = {"esp", "box", "skeleton", "health", "name", "item", "chest", "ore", "npc", "tracer", "cham", "xray", "radar", "minimap", "distance", "fov", "fullbright", "vision", "fog", "crosshair", "มองทะลุ", "มองคน", "มองกล่อง", "มองแร่", "เนมแท็ก", "หลอดเลือด", "เรดาร์"},
+        Title = "Visuals_ESP_Framework",
+        Code = [[local Players = game:GetService("Players")
+local function applyHighlight(player)
+    if player ~= Players.LocalPlayer and player.Character then
+        local highlight = player.Character:FindFirstChildOfClass("Highlight") or Instance.new("Highlight")
+        highlight.FillColor = Color3.fromRGB(255, 0, 100)
+        highlight.OutlineColor = Color3.fromRGB(255, 255, 255)
+        highlight.FillTransparency = 0.4
+        highlight.Parent = player.Character
+    end
+end
+for _, p in ipairs(Players:GetPlayers()) do applyHighlight(p) end
+Players.PlayerAdded:Connect(function(p) p.CharacterAdded:Connect(function() task.wait(0.5); applyHighlight(p) end) end)
+print("PayomboyZ AI: Visual Matrix and ESP Highlights Enabled.")]]
+    },
+    -- 2. FARMING / AUTOMATION CATEGORY
+    {
+        Keywords = {"farm", "collect", "sell", "buy", "upgrade", "quest", "spin", "roll", "fish", "mine", "chop", "harvest", "hatch", "craft", "rebirth", "prestige", "claim", "open", "pickup", "deposit", "ฟาร์ม", "ออโต้ฟาร์ม", "เก็บของ", "ปั๊ม", "ตีมอน", "ขุด", "ตกปลา", "กดเอฟ", "ซื้อของ"},
+        Title = "Automation_Engine",
+        Code = [[local Running = true
+task.spawn(function()
+    while Running do
+        task.wait(0.5)
+        for _, obj in ipairs(workspace:GetDescendants()) do
+            if obj:IsA("ProximityPrompt") then
+                fireproximityprompt(obj)
+            elseif obj:IsA("TouchTransmitter") and obj.Parent then
+                firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, obj.Parent, 0)
+                firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, obj.Parent, 1)
+            end
+        end
+    end
+end)
+print("PayomboyZ AI: Automation & Framework Cycle Enabled.")]]
+    },
+    -- 3. PLAYER UTILITIES CATEGORY
+    {
+        Keywords = {"god", "afk", "ragdoll", "stun", "knockback", "fling", "void", "stamina", "energy", "oxygen", "fall", "respawn", "revive", "freeze", "unfreeze", "invisible", "lock", "freecam", "spectate", "fps", "อมตะ", "ไม่ตาย", "เลือดไม่ลด", "ลบดาเมจ", "รีเซ็ต"},
+        Title = "Player_Utilities_Modifier",
+        Code = [[local LocalPlayer = game.Players.LocalPlayer
+local Char = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+local Hum = Char:WaitForChild("Humanoid")
+Hum.MaxHealth = math.huge
+Hum.Health = math.huge
+if Char:FindFirstChild("HumanoidRootPart") then
+    local Root = Char.HumanoidRootPart
+    local AntiVelocity = game:GetService("RunService").Heartbeat:Connect(function()
+        if Root then
+            local vel = Root.AssemblyLinearVelocity
+            Root.AssemblyLinearVelocity = Vector3.new(vel.X, 0, vel.Z)
+        end
+    end)
+end
+print("PayomboyZ AI: God-State & Anti-Debuff Framework Initialized.")]]
+    },
+    -- 4. MOVEMENT CATEGORY
+    {
+        Keywords = {"fly", "noclip", "speed", "sprint", "jump", "climb", "run", "dash", "slide", "teleport", "blink", "glide", "hover", "swim", "gravity", "hop", "parkour", "phase", "บิน", "เหาะ", "ลอย", "ลอยตัว", "วิ่งเร็ว", "เดินเร็ว", "กระโดดสูง", "ทะลุกำแพง", "เดินทะลุ", "วาป", "วาร์ป", "ย้าย"},
+        Title = "Kinematic_Movement_Engine",
+        Code = [[local LocalPlayer = game.Players.LocalPlayer
+local Char = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+local Hum = Char:WaitForChild("Humanoid")
+Hum.WalkSpeed = 60
+Hum.JumpPower = 100
+local NoclipLoop = game:GetService("RunService").Stepped:Connect(function()
+    for _, part in ipairs(Char:GetChildren()) do
+        if part:IsA("BasePart") then part.CanCollide = false end
+    end
+end)
+print("PayomboyZ AI: Kinematic Movement speed & Noclip modules deployed.")]]
+    },
+    -- 5. MISCELLANEOUS UTILITIES
+    {
+        Keywords = {"hub", "menu", "admin", "spy", "remote", "server", "hop", "rejoin", "id", "bring", "save", "waypoint", "notification", "key", "config", "macro", "clicker", "lag", "booster", "player", "emote", "skin", "pet", "inventory", "ฮับ", "เมนู", "แอดมิน", "โปร", "รีโมท", "ดัก"},
+        Title = "Utility_Matrix_Pack",
+        Code = [[print("PayomboyZ AI: Generating Diagnostic Utility Pack configurations...")
+local LogService = game:GetService("LogService")
+LogService.MessageOut:Connect(function(message, messageType)
+    if string.find(string.lower(message), "remote") or string.find(string.lower(message), "fire") then
+        print("[Remote Diagnostic Monitor]: " .. message)
+    end
+end)
+print("PayomboyZ AI: Miscellaneous Matrix and Remote Interceptors Online.")]]
+    },
+    -- 6. COMBAT / AIM ASSIST
+    {
+        Keywords = {"aim", "lock", "hitbox", "size", "extend", "killaur", "aura", "attack", "ล็อกเป้า", "ล็อกหัว", "ยิงหัว", "ฮิตบ็อกซ์", "ขยายเป้า", "ออร่า", "ฟันอัตโนมัติ"},
+        Title = "Targeting_Combat_Matrix",
+        Code = [[local Camera = workspace.CurrentCamera
+local LocalPlayer = game.Players.LocalPlayer
+local FOVRadius = 150
+local FOVCircle = Drawing.new("Circle")
+FOVCircle.Thickness = 1.5
+FOVCircle.Radius = FOVRadius
+FOVCircle.Color = Color3.fromRGB(0, 255, 140)
+FOVCircle.Visible = true
+FOVCircle.Filled = false
+game:GetService("RunService").RenderStepped:Connect(function()
+    FOVCircle.Position = game:GetService("UserInputService"):GetMouseLocation()
+end)
+print("PayomboyZ AI: Core Target Acquisition Matrix Online.")]]
+    },
+    -- 7. WEAPONS / TOOLS MATRIX SYSTEM
+    {
+        Keywords = {
+            "sword", "katana", "greatsword", "longsword", "shortsword", "rapier", "dagger", "dual daggers", "scythe", "battle axe", 
+            "war axe", "tomahawk", "hammer", "war hammer", "mace", "morning star", "spear", "pike", "halberd", "trident", "lance", 
+            "club", "staff", "magic staff", "wand", "bow", "longbow", "crossbow", "slingshot", "throwing knife", "throwing axe", 
+            "boomerang", "chakram", "shuriken", "kunai", "whip", "chain whip", "energy blade", "plasma sword", "laser saber", 
+            "fire sword", "ice blade", "thunder hammer", "shadow blade", "crystal sword", "poison dagger", "venom fang", 
+            "dragon blade", "phoenix staff", "frost axe", "lava hammer", "wind blade", "earth mace", "light spear", "dark scythe", 
+            "soul reaper", "moon blade", "sun staff", "star wand", "galaxy sword", "void blade", "blood scythe", "bone club", 
+            "spirit staff", "rune sword", "mythic axe", "ancient spear", "pirate cutlass", "viking axe", "samurai katana", 
+            "ninja blade", "knight sword", "gladiator spear", "tribal club", "crystal bow", "ember bow", "ice bow", "storm bow", 
+            "shadow bow", "hunter crossbow", "mystic wand", "arcane staff", "battle staff", "energy cannon", "blaster", 
+            "laser rifle", "plasma cannon", "ray gun", "magic orb", "spell book", "cursed tome", "flame orb", "frost orb", 
+            "lightning orb", "meteor staff", "comet blade", "eclipse sword", "inferno blade", "celestial spear", "chaos blade"
+        },
+        Title = "Weapon_Tool_Synthesizer",
+        Code = [[local textInput = string.lower(PromptInput and PromptInput.Text or "sword")
+local matchedName = textInput ~= "" and textInput or "Engine Blade"
+local plyr = game.Players.LocalPlayer
+local bpack = plyr:WaitForChild("Backpack")
+
+local newTool = Instance.new("Tool")
+newTool.Name = "⚔️ " .. string.upper(matchedName)
+newTool.RequiresHandle = true
+
+local handle = Instance.new("Part")
+handle.Name = "Handle"
+handle.Material = Enum.Material.Neon
+handle.BrickColor = BrickColor.new("Electric Blue")
+handle.Parent = newTool
+
+local isGun = string.find(textInput, "cannon") or string.find(textInput, "blaster") or string.find(textInput, "rifle") or string.find(textInput, "gun") or string.find(textInput, "bow") or string.find(textInput, "wand") or string.find(textInput, "staff")
+
+if isGun then
+    handle.Size = Vector3.new(0.4, 1.2, 2.5)
+    newTool.Name = "💥 " .. string.upper(matchedName)
+else
+    handle.Size = Vector3.new(0.4, 4.2, 0.4)
+end
+
+if string.find(textInput, "fire") or string.find(textInput, "flame") or string.find(textInput, "inferno") or string.find(textInput, "lava") or string.find(textInput, "ember") then
+    handle.BrickColor = BrickColor.new("Bright Red")
+    local fire = Instance.new("Fire")
+    fire.Size = 5
+    fire.Parent = handle
+elseif string.find(textInput, "plasma") or string.find(textInput, "laser") or string.find(textInput, "energy") then
+    handle.BrickColor = BrickColor.new("Lime green")
+elseif string.find(textInput, "shadow") or string.find(textInput, "void") or string.find(textInput, "dark") then
+    handle.BrickColor = BrickColor.new("Really black")
+end
+
+newTool.Activated:Connect(function()
+    local char = plyr.Character
+    if not char then return end
+    
+    if isGun then
+        local mouse = plyr:GetMouse()
+        local startPos = handle.Position
+        local targetPos = mouse.Hit.p
+        local direction = (targetPos - startPos).Unit * 300
+        
+        local raycastParams = RaycastParams.new()
+        raycastParams.FilterPlayers = {plyr}
+        raycastParams.FilterType = Enum.RaycastFilterType.Exclude
+        
+        local raycastResult = workspace:Raycast(startPos, direction, raycastParams)
+        
+        local beam = Instance.new("Part")
+        beam.Material = Enum.Material.Neon
+        beam.BrickColor = handle.BrickColor
+        beam.Anchored = true
+        beam.CanCollide = false
+        
+        local endPos = raycastResult and raycastResult.Position or (startPos + direction)
+        local distance = (startPos - endPos).Magnitude
+        beam.Size = Vector3.new(0.15, 0.15, distance)
+        beam.CFrame = CFrame.new(startPos:Lerp(endPos, 0.5), endPos)
+        beam.Parent = workspace
+        game:GetService("Debris"):AddItem(beam, 0.15)
+        
+        if raycastResult and raycastResult.Instance then
+            local hitChar = raycastResult.Instance:FindFirstAncestorOfClass("Model")
+            local hitHum = hitChar and hitChar:FindFirstChildOfClass("Humanoid")
+            if hitHum and hitHum ~= char.Humanoid then
+                hitHum.Health = 0 
+                print("PayomboyZ Combat: Bullet neutralized " .. hitChar.Name)
+            end
+        end
+    else
+        local damageConn
+        damageConn = handle.Touched:Connect(function(hit)
+            local hitChar = hit:FindFirstAncestorOfClass("Model")
+            local hitHum = hitChar and hitChar:FindFirstChildOfClass("Humanoid")
+            if hitHum and hitHum ~= char.Humanoid then
+                hitHum.Health = 0
+                print("PayomboyZ Combat: Melee weapon neutralized " .. hitChar.Name)
+                if damageConn then damageConn:Disconnect() end
+            end
+        end)
+        task.wait(0.4)
+        if damageConn then damageConn:Disconnect() end
+    end
+end)
+
+newTool.Parent = bpack
+print("PayomboyZ AI System: Synthesized functional weapon module ["..matchedName.."] safely into backpack.")]]
+    }
+}
+
+-----------------------------------------------------------------------------------------
+-- 🚀 BUILD PAYOMBOYZ AI GENERATE INTERFACE
+-----------------------------------------------------------------------------------------
+
+local Window = ObsidianGlassEngine:CreateWindow({
+    Title = "PayomboyZ Script HUB",
+    SubTitle = "Obsidian Glassmorphic 2 Core Architecture",
+})
+
+local AiTab = Window:AddTab({ TitleKey = "TAB_AI", Title = "✨ สร้างโค้ด AI" })
+local ExplorerTab = Window:AddTab({ TitleKey = "TAB_EXPLORER", Title = "🔎 สำรวจโครงสร้างเกม" })
+local SpyTab = Window:AddTab({ TitleKey = "TAB_SPY", Title = "📡 ดักจับ Remote Spy" })
+local AcTab = Window:AddTab({ TitleKey = "TAB_AC", Title = "🛡️ สแกน Anti-Cheat" })
+local DumpTab = Window:AddTab({ TitleKey = "TAB_DUMP", Title = "📦 เครื่องมือ Dump" })
+local PreviewTab = Window:AddTab({ TitleKey = "TAB_PREVIEW", Title = "👁️ ตัวอย่างไฟล์ Dump" })
+local DebugTab = Window:AddTab({ TitleKey = "TAB_DEBUG", Title = "🐛 เทอร์มินัลระบบ (Debug)" })
+local LibraryTab = Window:AddTab({ TitleKey = "TAB_MATRIX", Title = "📁 คลังคำสั่ง (Matrix)" })
+local SettingsTab = Window:AddTab({ TitleKey = "TAB_SETTINGS", Title = "⚙️ ตั้งค่าระบบ" })
+
+-----------------------------------------------------------------------------------------
+-- 🛡️ UNIVERSAL ANTI-CHEAT SCANNER v2.0 (WITH LOG FILE SUPPORT)
+-----------------------------------------------------------------------------------------
+
+local AcResults = {}
+local AcLogBox = nil
+
+local function getAllDescendants(instance)
+    local list = {}
+    local function recurse(obj)
+        for _, child in ipairs(obj:GetChildren()) do
+            table.insert(list, child)
+            recurse(child)
+        end
+    end
+    recurse(instance)
+    return list
+end
+
+local function calculateHeuristicSuspicion(obj, namePatterns)
+    local name = obj.Name:lower()
+    local path = obj:GetFullName():lower()
+    local reasons = {}
+    local score = 0
+
+    if name:find("anti") or name:find("cheat") or name:find("exploit") or name:find("detection") then
+        score = score + 35
+        table.insert(reasons, "✓ Critical Keyword Match (" .. obj.Name .. ")")
+    else
+        for _, pattern in ipairs(namePatterns) do
+            if name:find(pattern, 1, true) then
+                score = score + 15
+                table.insert(reasons, "✓ Name Match ('" .. pattern .. "')")
+                break
+            end
+        end
+    end
+
+    if obj:IsA("LocalScript") then
+        score = score + 25
+        table.insert(reasons, "✓ LocalScript (Client Context)")
+    elseif obj:IsA("ModuleScript") then
+        score = score + 15
+        table.insert(reasons, "✓ ModuleScript (Shared Logic)")
+    elseif obj:IsA("RemoteEvent") or obj:IsA("RemoteFunction") then
+        score = score + 20
+        table.insert(reasons, "✓ Remote Indicator (" .. obj.ClassName .. ")")
+    end
+
+    if path:find("starterplayer") or path:find("playerscripts") then
+        score = score + 20
+        table.insert(reasons, "✓ Path Indicator (PlayerScripts)")
+    elseif path:find("replicatedfirst") then
+        score = score + 20
+        table.insert(reasons, "✓ Path Indicator (ReplicatedFirst Bootloader)")
+    end
+
+    score = math.min(100, score)
+    local levelTag = "🟢 LOW"
+    if score >= 70 then
+        levelTag = "🔴 HIGH"
+    elseif score >= 40 then
+        levelTag = "🟡 MEDIUM"
+    end
+
+    return score, levelTag, reasons
+end
+
+local function scanForAC(instance, namePatterns)
+    local found = {}
+    local okDesc, descendants = pcall(function() return instance:GetDescendants() end)
+    if not okDesc or not descendants then return found end
+
+    for _, obj in ipairs(descendants) do
+        if obj:IsA("LocalScript") or obj:IsA("ModuleScript") or obj:IsA("RemoteEvent") or obj:IsA("RemoteFunction") or obj:IsA("Script") then
+            local score, levelTag, reasons = calculateHeuristicSuspicion(obj, namePatterns)
+            if score >= 35 and #reasons > 0 then
+                table.insert(found, {
+                    Path = obj:GetFullName(),
+                    Class = obj.ClassName,
+                    Name = obj.Name,
+                    Confidence = score,
+                    Tag = levelTag,
+                    Reasons = table.concat(reasons, " | ")
+                })
+            end
+        end
+    end
+    return found
+end
+
+local function performAcScan()
+    local services = {
+        game:GetService("ReplicatedStorage"),
+        game:GetService("StarterPlayer"),
+        game:GetService("StarterGui"),
+        game:GetService("StarterPack"),
+        game:GetService("Players"),
+        game:GetService("Workspace")
+    }
+
+    local patterns = {
+        "anti", "cheat", "valid", "integrity",
+        "check", "exploit", "detection", "protection",
+        "secure", "verify", "auth", "guard",
+        "monitor", "track", "prevent", "block"
+    }
+
+    local allResults = {}
+    local logLines = {
+        "═══════════════════════════════════════════════════════",
+        "[HEURISTIC SUSPICION SCANNER v2.0 - CONFIDENCE ENGINE]",
+        "Game PlaceId: " .. tostring(game.PlaceId),
+        "Scan Time: " .. os.date("%Y-%m-%d %H:%M:%S"),
+        "═══════════════════════════════════════════════════════"
+    }
+
+    DebugLog("INFO", "AC_SCAN", "Starting universal anti-cheat scan across game services...")
+
+    for _, svc in ipairs(services) do
+        if svc then
+            table.insert(logLines, "\n[SCAN] " .. svc.Name .. ":")
+            local res = scanForAC(svc, patterns)
+            if #res > 0 then
+                for _, item in ipairs(res) do
+                    local entryStr = string.format("  %s [%d%% CONFIDENCE] %s (%s) | Patterns: %s", item.Tag, item.Confidence, item.Path, item.Class, item.Reasons)
+                    table.insert(logLines, entryStr)
+                    table.insert(allResults, item)
+                    DebugLog("WARN", "AC_DETECTION", string.format("Found %s (%d%%): %s", item.Tag, item.Confidence, item.Path))
+                end
+            else
+                table.insert(logLines, "  (No suspect scripts detected in " .. svc.Name .. ")")
+            end
+        end
+    end
+
+    table.insert(logLines, "\n═══════════════════════════════════════════════════════")
+    table.insert(logLines, "[SUMMARY] DETECTED ANTI-CHEAT INSTANCES: " .. tostring(#allResults))
+    table.insert(logLines, "═══════════════════════════════════════════════════════")
+    for i, item in ipairs(allResults) do
+        table.insert(logLines, string.format("  %d. %s [%d%% CONFIDENCE] %s (%s)", i, item.Tag, item.Confidence, item.Path, item.Class))
+    end
+    table.insert(logLines, "═══════════════════════════════════════════════════════")
+
+    AcResults = allResults
+    return allResults, table.concat(logLines, "\n")
+end
+
+-- ======================================================================================
+-- 🛡️ ANTI-CHEAT SCANNER TAB BUILDER
+-- ======================================================================================
+
+AcTab:AddSection("SCAN ENGINE CONTROLS")
+
+AcTab:AddButton({
+    Title = "🔍 RUN HEURISTIC SUSPICION SCANNER",
+    Callback = function()
+        if AcLogBox then AcLogBox.Text = "[Scan Engine] Initiating Heuristic Suspicion Deep Scan...\n" end
+        task.spawn(function()
+            local results, logText = performAcScan()
+            if AcLogBox then AcLogBox.Text = logText end
+            
+            -- Auto save log to file & clipboard
+            local folderName = "ValenHub_Dumps/AntiCheatLogs"
+            if typeof(makefolder) == "function" then
+                pcall(function() makefolder("ValenHub_Dumps") end)
+                pcall(function() makefolder(folderName) end)
+            end
+            local fileName = folderName .. "/ACScan_" .. os.date("%Y%m%d_%H%M%S") .. ".txt"
+            if typeof(writefile) == "function" then pcall(function() writefile(fileName, logText) end) end
+            if typeof(setclipboard) == "function" then pcall(function() setclipboard(logText) end) end
+
+            ObsidianGlassEngine:Notify({
+                Title = "Heuristic Scan Complete",
+                Content = "Identified " .. #results .. " suspicious indicators! Log saved to " .. fileName,
+                Duration = 5
+            })
+        end)
+    end
+})
+
+AcTab:AddSection("ANTI-CHEAT SCAN LOG OUTPUT")
+
+local acLogCard = Instance.new("Frame")
+acLogCard.Size = UDim2.new(1, -10, 0, 180)
+acLogCard.BackgroundColor3 = COLORS.glassDeep
+acLogCard.BackgroundTransparency = 0.18
+acLogCard.BorderSizePixel = 0
+acLogCard.Parent = AcTab.page
+
+local alcCorner = Instance.new("UICorner")
+alcCorner.CornerRadius = UDim.new(0, 8)
+alcCorner.Parent = acLogCard
+
+local alcStroke = Instance.new("UIStroke")
+alcStroke.Color = COLORS.surface
+alcStroke.Thickness = 1
+alcStroke.Parent = acLogCard
+
+local acScroll = Instance.new("ScrollingFrame")
+acScroll.Size = UDim2.new(1, -12, 1, -12)
+acScroll.Position = UDim2.new(0, 6, 0, 6)
+acScroll.BackgroundColor3 = COLORS.input
+acScroll.BackgroundTransparency = 0.30
+acScroll.BorderSizePixel = 0
+acScroll.ScrollBarThickness = 5
+acScroll.ScrollBarImageColor3 = COLORS.primary
+acScroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+acScroll.AutomaticCanvasSize = Enum.AutomaticSize.Y
+acScroll.Parent = acLogCard
+
+local acsCorner = Instance.new("UICorner")
+acsCorner.CornerRadius = UDim.new(0, 6)
+acsCorner.Parent = acScroll
+
+AcLogBox = Instance.new("TextBox")
+AcLogBox.Size = UDim2.new(1, -10, 1, 0)
+AcLogBox.Position = UDim2.new(0, 5, 0, 0)
+AcLogBox.BackgroundTransparency = 1
+AcLogBox.PlaceholderText = "-- Press 'RUN UNIVERSAL ANTI-CHEAT SCAN' to start scanning..."
+AcLogBox.Text = ""
+AcLogBox.Font = Enum.Font.Code
+AcLogBox.TextSize = 11
+AcLogBox.TextColor3 = Color3.fromRGB(255, 200, 100)
+AcLogBox.MultiLine = true
+AcLogBox.ClearTextOnFocus = false
+AcLogBox.TextXAlignment = Enum.TextXAlignment.Left
+AcLogBox.TextYAlignment = Enum.TextYAlignment.Top
+AcLogBox.AutomaticSize = Enum.AutomaticSize.Y
+AcLogBox.Parent = acScroll
+
+local albPad = Instance.new("UIPadding")
+albPad.PaddingLeft = UDim.new(0, 4)
+albPad.PaddingTop = UDim.new(0, 4)
+albPad.Parent = AcLogBox
+
+AcTab:AddSection("LOG EXPORT & UTILITIES")
+
+AcTab:AddButton({
+    Title = "💾 Save Scan Log to File Manually",
+    Callback = function()
+        if AcLogBox and AcLogBox.Text ~= "" then
+            local folderName = "ValenHub_Dumps/AntiCheatLogs"
+            if typeof(makefolder) == "function" then
+                pcall(function() makefolder("ValenHub_Dumps") end)
+                pcall(function() makefolder(folderName) end)
+            end
+            local fileName = folderName .. "/ACScan_Manual_" .. os.date("%Y%m%d_%H%M%S") .. ".txt"
+            if typeof(writefile) == "function" then pcall(function() writefile(fileName, AcLogBox.Text) end) end
+            if typeof(setclipboard) == "function" then pcall(function() setclipboard(AcLogBox.Text) end) end
+            ObsidianGlassEngine:Notify({ Title = "File Saved", Content = "Saved scan report to " .. fileName, Duration = 4 })
+        else
+            ObsidianGlassEngine:Notify({ Title = "Warning", Content = "Scan log is empty!", Duration = 3 })
+        end
+    end
+})
+
+AcTab:AddButton({
+    Title = "📋 Copy Scan Log to Clipboard",
+    Callback = function()
+        if AcLogBox and AcLogBox.Text ~= "" then
+            if typeof(setclipboard) == "function" then
+                pcall(function() setclipboard(AcLogBox.Text) end)
+                ObsidianGlassEngine:Notify({ Title = "Copied", Content = "Copied scan log to clipboard!", Duration = 3 })
+            end
+        else
+            ObsidianGlassEngine:Notify({ Title = "Warning", Content = "Scan log is empty!", Duration = 3 })
+        end
+    end
+})
+
+
+-----------------------------------------------------------------------------------------
+-- 🔎 GAME INTELLIGENCE & MODULE EXPLORER TAB BUILDER
+-----------------------------------------------------------------------------------------
+
+ExplorerTab:AddSection("GAME INTELLIGENCE SEARCH ENGINE")
+
+local explorerCard = Instance.new("Frame")
+explorerCard.Size = UDim2.new(1, -10, 0, 72)
+explorerCard.BackgroundColor3 = COLORS.glassDeep
+explorerCard.BackgroundTransparency = 0.18
+explorerCard.BorderSizePixel = 0
+explorerCard.Parent = ExplorerTab.page
+
+local ecCorner = Instance.new("UICorner")
+ecCorner.CornerRadius = UDim.new(0, 8)
+ecCorner.Parent = explorerCard
+
+local ecStroke = Instance.new("UIStroke")
+ecStroke.Color = COLORS.surface
+ecStroke.Thickness = 1
+ecStroke.Parent = explorerCard
+
+local expLabel = Instance.new("TextLabel")
+expLabel.Size = UDim2.new(1, -24, 0, 20)
+expLabel.Position = UDim2.new(0, 12, 0, 8)
+expLabel.BackgroundTransparency = 1
+expLabel.Text = "ENTER INSTANCE / MODULE / REMOTE QUERY"
+expLabel.TextColor3 = COLORS.textMuted
+expLabel.Font = Enum.Font.GothamBold
+expLabel.TextSize = 11
+expLabel.TextXAlignment = Enum.TextXAlignment.Left
+expLabel.Parent = explorerCard
+
+local ExplorerSearchInput = Instance.new("TextBox")
+ExplorerSearchInput.Size = UDim2.new(1, -24, 0, 34)
+ExplorerSearchInput.Position = UDim2.new(0, 12, 0, 30)
+ExplorerSearchInput.BackgroundColor3 = COLORS.input
+ExplorerSearchInput.BackgroundTransparency = 0.20
+ExplorerSearchInput.PlaceholderText = "e.g. 'Egg', 'NET_MAP', 'Remote', 'Quest', 'Pet', 'Data'"
+ExplorerSearchInput.Text = "Egg"
+ExplorerSearchInput.Font = Enum.Font.GothamSemibold
+ExplorerSearchInput.TextSize = 12
+ExplorerSearchInput.TextColor3 = COLORS.primary
+ExplorerSearchInput.ClearTextOnFocus = false
+ExplorerSearchInput.TextXAlignment = Enum.TextXAlignment.Left
+ExplorerSearchInput.Parent = explorerCard
+
+local esiCorner = Instance.new("UICorner")
+esiCorner.CornerRadius = UDim.new(0, 6)
+esiCorner.Parent = ExplorerSearchInput
+
+local esiPad = Instance.new("UIPadding")
+esiPad.PaddingLeft = UDim.new(0, 10)
+esiPad.Parent = ExplorerSearchInput
+
+ExplorerTab:AddSection("DISCOVERED OBJECTS & BOUND CONTEXT")
+
+local explorerResultsScroll = Instance.new("ScrollingFrame")
+explorerResultsScroll.Size = UDim2.new(1, -10, 0, 220)
+explorerResultsScroll.BackgroundColor3 = COLORS.glassDeep
+explorerResultsScroll.BackgroundTransparency = 0.18
+explorerResultsScroll.BorderSizePixel = 0
+explorerResultsScroll.ScrollBarThickness = 5
+explorerResultsScroll.ScrollBarImageColor3 = COLORS.primary
+explorerResultsScroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+explorerResultsScroll.AutomaticCanvasSize = Enum.AutomaticSize.Y
+explorerResultsScroll.Parent = ExplorerTab.page
+
+local ersCorner = Instance.new("UICorner")
+ersCorner.CornerRadius = UDim.new(0, 8)
+ersCorner.Parent = explorerResultsScroll
+
+local ersLayout = Instance.new("UIListLayout")
+ersLayout.SortOrder = Enum.SortOrder.LayoutOrder
+ersLayout.Padding = UDim.new(0, 6)
+ersLayout.Parent = explorerResultsScroll
+
+local ersPad = Instance.new("UIPadding")
+ersPad.PaddingLeft = UDim.new(0, 6)
+ersPad.PaddingRight = UDim.new(0, 6)
+ersPad.PaddingTop = UDim.new(0, 6)
+ersPad.PaddingBottom = UDim.new(0, 6)
+ersPad.Parent = explorerResultsScroll
+
+local function clearExplorerResults()
+    for _, child in ipairs(explorerResultsScroll:GetChildren()) do
+        if child:IsA("Frame") or child:IsA("TextLabel") then child:Destroy() end
+    end
+end
+
+local function renderExplorerResults(query)
+    clearExplorerResults()
+    if not query or query == "" then return end
+    
+    local searchLower = query:lower()
+    local searchServices = {
+        game:GetService("ReplicatedStorage"),
+        game:GetService("Workspace"),
+        game:GetService("Players"),
+        game:GetService("StarterGui"),
+        game:GetService("StarterPlayer"),
+        game:GetService("Lighting")
+    }
+
+    local foundCount = 0
+    DebugLog("INFO", "EXPLORER", "Searching game intelligence for query: '" .. query .. "'")
+
+    for _, svc in ipairs(searchServices) do
+        if svc and foundCount < 35 then
+            local okDesc, descendants = pcall(function() return svc:GetDescendants() end)
+            if okDesc and descendants then
+                for _, obj in ipairs(descendants) do
+                    local name = obj.Name
+                    local nameLower = name:lower()
+                    local className = obj.ClassName
+                    
+                    if nameLower:find(searchLower, 1, true) or className:lower():find(searchLower, 1, true) then
+                        foundCount = foundCount + 1
+                        
+                        local fullPath = obj:GetFullName()
+                        local resultItem = Instance.new("Frame")
+                        resultItem.Size = UDim2.new(1, 0, 0, 54)
+                        resultItem.BackgroundColor3 = COLORS.surface
+                        resultItem.BackgroundTransparency = 0.25
+                        resultItem.BorderSizePixel = 0
+                        resultItem.Parent = explorerResultsScroll
+
+                        local riCorner = Instance.new("UICorner")
+                        riCorner.CornerRadius = UDim.new(0, 6)
+                        riCorner.Parent = resultItem
+
+                        local riTitle = Instance.new("TextLabel")
+                        riTitle.Size = UDim2.new(1, -12, 0, 18)
+                        riTitle.Position = UDim2.new(0, 8, 0, 4)
+                        riTitle.BackgroundTransparency = 1
+                        riTitle.Text = string.format("[%d] %s (%s)", foundCount, name, className)
+                        riTitle.TextColor3 = COLORS.primary
+                        riTitle.Font = Enum.Font.GothamBold
+                        riTitle.TextSize = 11
+                        riTitle.TextXAlignment = Enum.TextXAlignment.Left
+                        riTitle.Parent = resultItem
+
+                        local riSub = Instance.new("TextLabel")
+                        riSub.Size = UDim2.new(1, -12, 0, 14)
+                        riSub.Position = UDim2.new(0, 8, 0, 22)
+                        riSub.BackgroundTransparency = 1
+                        riSub.Text = fullPath
+                        riSub.TextColor3 = COLORS.textMuted
+                        riSub.Font = Enum.Font.Code
+                        riSub.TextSize = 10
+                        riSub.TextXAlignment = Enum.TextXAlignment.Left
+                        riSub.Parent = resultItem
+
+                        local actBox = Instance.new("Frame")
+                        actBox.Size = UDim2.new(1, -16, 0, 16)
+                        actBox.Position = UDim2.new(0, 8, 0, 36)
+                        actBox.BackgroundTransparency = 1
+                        actBox.Parent = resultItem
+
+                        local actLayout = Instance.new("UIListLayout")
+                        actLayout.FillDirection = Enum.FillDirection.Horizontal
+                        actLayout.Padding = UDim.new(0, 6)
+                        actLayout.Parent = actBox
+
+                        local function makeSmallBtn(btnText, btnColor, onClick)
+                            local b = Instance.new("TextButton")
+                            b.Size = UDim2.new(0, 95, 1, 0)
+                            b.BackgroundColor3 = btnColor
+                            b.BackgroundTransparency = 0.2
+                            b.Text = btnText
+                            b.TextColor3 = Color3.fromRGB(255, 255, 255)
+                            b.Font = Enum.Font.GothamBold
+                            b.TextSize = 9
+                            b.Parent = actBox
+                            local bc = Instance.new("UICorner")
+                            bc.CornerRadius = UDim.new(0, 4)
+                            bc.Parent = b
+                            b.MouseButton1Click:Connect(onClick)
+                        end
+
+                        makeSmallBtn("📋 Copy Path", COLORS.secondary, function()
+                            if typeof(setclipboard) == "function" then
+                                setclipboard(fullPath)
+                                ObsidianGlassEngine:Notify({ Title = "Copied Path", Content = fullPath, Duration = 2 })
+                            end
+                        end)
+
+                        makeSmallBtn("🧠 Add to AI", COLORS.primary, function()
+                            local added = AIContextEngine:AddContext(name, className, fullPath, "Explorer")
+                            if added then
+                                ObsidianGlassEngine:Notify({ Title = "Context Bound", Content = "Added " .. name .. " to AI Generator Context!", Duration = 3 })
+                            else
+                                ObsidianGlassEngine:Notify({ Title = "Already Bound", Content = "Instance is already in AI Context.", Duration = 2 })
+                            end
+                        end)
+
+                        makeSmallBtn("📦 Dump Object", COLORS.glassRaised, function()
+                            task.spawn(function()
+                                local text = dumpObject(obj)
+                                setPreviewData(text)
+                                ObsidianGlassEngine:Notify({ Title = "Object Dumped", Content = "Dumped " .. name .. " to Preview tab!", Duration = 3 })
+                            end)
+                        end)
+
+                        if foundCount >= 35 then break end
+                    end
+                end
+            end
+        end
+        if foundCount >= 35 then break end
+    end
+
+    if foundCount == 0 then
+        local emptyLabel = Instance.new("TextLabel")
+        emptyLabel.Size = UDim2.new(1, 0, 0, 40)
+        emptyLabel.BackgroundTransparency = 1
+        emptyLabel.Text = "-- No matching game instances found for '" .. query .. "' --"
+        emptyLabel.TextColor3 = COLORS.textFaint
+        emptyLabel.Font = Enum.Font.GothamSemibold
+        emptyLabel.TextSize = 11
+        emptyLabel.Parent = explorerResultsScroll
+    end
+end
+
+ExplorerTab:AddButton({
+    Title = "🔎 SEARCH GAME INTELLIGENCE",
+    Callback = function()
+        renderExplorerResults(ExplorerSearchInput.Text)
+    end
+})
+
+ExplorerTab:AddButton({
+    Title = "🧹 CLEAR BOUND AI CONTEXT",
+    Callback = function()
+        AIContextEngine:ClearContext()
+        ObsidianGlassEngine:Notify({ Title = "Context Cleared", Content = "Cleared all bound game contexts.", Duration = 2 })
+    end
+})
+
+
+-----------------------------------------------------------------------------------------
+-- 📡 REMOTE SPY ENGINE (Enhanced Dual-Hook & Explorer Card Style)
+-----------------------------------------------------------------------------------------
+
+local SpyEnabled = false
+local SpyCalls = {}
+local SpySkipText = "ping,heartbeat"
+local OldNamecall = nil
+
+local spyScroll = nil
+local spyCountLabel = nil
+local hooksInstalled = false
+
+local function shouldSkipRemote(name)
+    name = tostring(name or ""):lower()
+    for term in SpySkipText:gmatch("[^,%s]+") do
+        if term ~= "" and name:find(term:lower(), 1, true) then return true end
+    end
+    return false
+end
+
+local function formatRemoteCall(remote, method, args)
+    local parts = {}
+    local argCount = args.n or #args
+    for i = 1, argCount do
+        parts[#parts + 1] = SerializationEngine.Serialize(args[i])
+    end
+    return string.format("%s:%s(%s)", remote:GetFullName(), method, table.concat(parts, ", "))
+end
+
+local function renderSpyLogs()
+    if not spyScroll then return end
+    spyScroll:ClearAllChildren()
+
+    local layout = Instance.new("UIListLayout")
+    layout.SortOrder = Enum.SortOrder.LayoutOrder
+    layout.Padding = UDim.new(0, 6)
+    layout.Parent = spyScroll
+
+    local pad = Instance.new("UIPadding")
+    pad.PaddingTop = UDim.new(0, 4)
+    pad.PaddingLeft = UDim.new(0, 4)
+    pad.PaddingRight = UDim.new(0, 4)
+    pad.PaddingBottom = UDim.new(0, 4)
+    pad.Parent = spyScroll
+
+    if spyCountLabel then
+        spyCountLabel.Text = string.format("📊 CAPTURED LOGS: %d Calls  •  Status: %s", #SpyCalls, SpyEnabled and "🟢 LOGGING" or "🔴 PAUSED")
+    end
+
+    if #SpyCalls == 0 then
+        local emptyLabel = Instance.new("TextLabel")
+        emptyLabel.Size = UDim2.new(1, 0, 0, 60)
+        emptyLabel.BackgroundTransparency = 1
+        emptyLabel.Text = "-- No remote calls captured yet. Turn ON Remote Spy and trigger in-game actions --"
+        emptyLabel.TextColor3 = COLORS.textFaint
+        emptyLabel.Font = Enum.Font.GothamSemibold
+        emptyLabel.TextSize = 11
+        emptyLabel.Parent = spyScroll
+        return
+    end
+
+    for idx, entry in ipairs(SpyCalls) do
+        if idx > 60 then break end
+
+        local itemCard = Instance.new("Frame")
+        itemCard.Size = UDim2.new(1, -6, 0, 68)
+        itemCard.BackgroundColor3 = COLORS.surface
+        itemCard.BackgroundTransparency = 0.20
+        itemCard.BorderSizePixel = 0
+        itemCard.LayoutOrder = idx
+        itemCard.Parent = spyScroll
+
+        local icCorner = Instance.new("UICorner")
+        icCorner.CornerRadius = UDim.new(0, 6)
+        icCorner.Parent = itemCard
+
+        local icStroke = Instance.new("UIStroke")
+        icStroke.Color = COLORS.glassBorder
+        icStroke.Thickness = 1
+        icStroke.Parent = itemCard
+
+        local titleLbl = Instance.new("TextLabel")
+        titleLbl.Size = UDim2.new(1, -12, 0, 16)
+        titleLbl.Position = UDim2.new(0, 8, 0, 4)
+        titleLbl.BackgroundTransparency = 1
+        titleLbl.Text = string.format("[%d] 📡 %s (%s)  •  %s  •  %s", idx, entry.Name or "Remote", entry.Class or "RemoteEvent", entry.Method or "FireServer", entry.Time or "")
+        titleLbl.TextColor3 = COLORS.cyan
+        titleLbl.Font = Enum.Font.GothamBold
+        titleLbl.TextSize = 10
+        titleLbl.TextXAlignment = Enum.TextXAlignment.Left
+        titleLbl.Parent = itemCard
+
+        local codeLbl = Instance.new("TextLabel")
+        codeLbl.Size = UDim2.new(1, -12, 0, 18)
+        codeLbl.Position = UDim2.new(0, 8, 0, 20)
+        codeLbl.BackgroundTransparency = 1
+        codeLbl.Text = entry.Source
+        codeLbl.TextColor3 = Color3.fromRGB(150, 240, 200)
+        codeLbl.Font = Enum.Font.Code
+        codeLbl.TextSize = 10
+        codeLbl.TextXAlignment = Enum.TextXAlignment.Left
+        codeLbl.Parent = itemCard
+
+        local actBox = Instance.new("Frame")
+        actBox.Size = UDim2.new(1, -16, 0, 20)
+        actBox.Position = UDim2.new(0, 8, 0, 42)
+        actBox.BackgroundTransparency = 1
+        actBox.Parent = itemCard
+
+        local actLayout = Instance.new("UIListLayout")
+        actLayout.FillDirection = Enum.FillDirection.Horizontal
+        actLayout.Padding = UDim.new(0, 4)
+        actLayout.Parent = actBox
+
+        local function makeSmallBtn(btnText, btnColor, onClick)
+            local b = Instance.new("TextButton")
+            b.Size = UDim2.new(0, 82, 1, 0)
+            b.BackgroundColor3 = btnColor
+            b.BackgroundTransparency = 0.2
+            b.Text = btnText
+            b.TextColor3 = Color3.fromRGB(255, 255, 255)
+            b.Font = Enum.Font.GothamBold
+            b.TextSize = 9
+            b.Parent = actBox
+            local bc = Instance.new("UICorner")
+            bc.CornerRadius = UDim.new(0, 4)
+            bc.Parent = b
+            b.MouseButton1Click:Connect(function()
+                playClickSound()
+                onClick()
+            end)
+        end
+
+        makeSmallBtn("📋 Copy Code", COLORS.primary, function()
+            if typeof(setclipboard) == "function" then
+                setclipboard(entry.Source)
+                ObsidianGlassEngine:Notify({ Title = "Copied Code", Content = "Copied executable remote call!", Duration = 2 })
+            end
+        end)
+
+        makeSmallBtn("📋 Copy Path", COLORS.secondary, function()
+            if typeof(setclipboard) == "function" then
+                setclipboard(entry.Path)
+                ObsidianGlassEngine:Notify({ Title = "Copied Path", Content = entry.Path, Duration = 2 })
+            end
+        end)
+
+        makeSmallBtn("⚡ Re-Fire", Color3.fromRGB(180, 100, 0), function()
+            task.spawn(function()
+                if entry.Remote and entry.Remote.Parent then
+                    if entry.Method == "FireServer" then
+                        entry.Remote:FireServer(unpack(entry.Args))
+                        ObsidianGlassEngine:Notify({ Title = "Fired Remote", Content = "Fired " .. entry.Name, Duration = 2 })
+                    elseif entry.Method == "InvokeServer" then
+                        entry.Remote:InvokeServer(unpack(entry.Args))
+                        ObsidianGlassEngine:Notify({ Title = "Invoked Remote", Content = "Invoked " .. entry.Name, Duration = 2 })
+                    end
+                else
+                    ObsidianGlassEngine:Notify({ Title = "Error", Content = "Remote instance no longer exists!", Duration = 3 })
+                end
+            end)
+        end)
+
+        makeSmallBtn("🧠 Add AI", COLORS.glassRaised, function()
+            local added = AIContextEngine:AddContext(entry.Name, entry.Class, entry.Path, "RemoteSpy")
+            if added then
+                ObsidianGlassEngine:Notify({ Title = "Context Bound", Content = "Added " .. entry.Name .. " to AI Generator!", Duration = 2 })
+            else
+                ObsidianGlassEngine:Notify({ Title = "Already Bound", Content = "Already in AI Context.", Duration = 2 })
+            end
+        end)
+
+        makeSmallBtn("👁️ Preview", COLORS.accent, function()
+            setPreviewData(entry.Source, entry.Name)
+            if PreviewTab and PreviewTab.Select then pcall(function() PreviewTab:Select() end) end
+            ObsidianGlassEngine:Notify({ Title = "Sent to Preview", Content = "Opened remote call in Preview tab!", Duration = 2 })
+        end)
+    end
+end
+
+local lastLogSig = ""
+local lastLogTime = 0
+
+local function addSpyCall(remote, method, args)
+    if not SpyEnabled or not getgenv()._PayomboyZ_RemoteSpyEnabled then return end
+    if not remote or typeof(remote) ~= "Instance" then return end
+
+    local rName = remote.Name
+    local rFullName = remote:GetFullName()
+    if shouldSkipRemote(rName) or shouldSkipRemote(rFullName) then return end
+
+    local argCount = args.n or #args
+    local argList = {}
+    for i = 1, argCount do argList[i] = args[i] end
+
+    local callSig = rFullName .. ":" .. tostring(method) .. "(" .. tostring(argList[1]) .. ")"
+    local now = os.clock()
+    if callSig == lastLogSig and (now - lastLogTime) < 0.015 then
+        return
+    end
+    lastLogSig = callSig
+    lastLogTime = now
+
+    local entry = {
+        Remote = remote,
+        Name = rName,
+        Class = remote.ClassName,
+        Path = rFullName,
+        Method = method,
+        Args = argList,
+        Time = os.date("%H:%M:%S"),
+        Source = formatRemoteCall(remote, method, argList),
+    }
+
+    table.insert(SpyCalls, 1, entry)
+    while #SpyCalls > 200 do table.remove(SpyCalls) end
+
+    task.defer(renderSpyLogs)
+end
+
+local function installRemoteSpy()
+    getgenv()._PayomboyZ_RemoteSpyEnabled = true
+    if hooksInstalled then return end
+    hooksInstalled = true
+
+    if type(hookmetamethod) == "function" and type(getnamecallmethod) == "function" then
+        if not getgenv()._PayomboyZ_OldNamecall then
+            getgenv()._PayomboyZ_OldNamecall = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
+                local method = getnamecallmethod()
+                if getgenv()._PayomboyZ_RemoteSpyEnabled and (method == "FireServer" or method == "fireServer" or method == "InvokeServer" or method == "invokeServer") then
+                    local okRemote, isRemote = pcall(function()
+                        return typeof(self) == "Instance" and (self:IsA("RemoteEvent") or self:IsA("RemoteFunction") or self:IsA("UnreliableRemoteEvent"))
+                    end)
+                    if okRemote and isRemote then
+                        addSpyCall(self, method, table.pack(...))
+                    end
+                end
+                return getgenv()._PayomboyZ_OldNamecall(self, ...)
+            end))
+            OldNamecall = getgenv()._PayomboyZ_OldNamecall
+        end
+    end
+
+    if type(hookfunction) == "function" then
+        pcall(function()
+            local dummyEvent = Instance.new("RemoteEvent")
+            local dummyFunc = Instance.new("RemoteFunction")
+
+            if not getgenv()._PayomboyZ_OldFireServer then
+                getgenv()._PayomboyZ_OldFireServer = hookfunction(dummyEvent.FireServer, newcclosure(function(self, ...)
+                    if getgenv()._PayomboyZ_RemoteSpyEnabled and typeof(self) == "Instance" then
+                        addSpyCall(self, "FireServer", table.pack(...))
+                    end
+                    return getgenv()._PayomboyZ_OldFireServer(self, ...)
+                end))
+            end
+
+            if not getgenv()._PayomboyZ_OldInvokeServer then
+                getgenv()._PayomboyZ_OldInvokeServer = hookfunction(dummyFunc.InvokeServer, newcclosure(function(self, ...)
+                    if getgenv()._PayomboyZ_RemoteSpyEnabled and typeof(self) == "Instance" then
+                        addSpyCall(self, "InvokeServer", table.pack(...))
+                    end
+                    return getgenv()._PayomboyZ_OldInvokeServer(self, ...)
+                end))
+            end
+
+            dummyEvent:Destroy()
+            dummyFunc:Destroy()
+        end)
+    end
+end
+
+-- ======================================================================================
+-- 📡 REMOTE SPY TAB BUILDER
+-- ======================================================================================
+
+SpyTab:AddSection("REMOTE SPY MONITORING & HOOKING")
+
+local spyToggleBtn = SpyTab:AddButton({
+    Title = "🔴 [OFF] Remote Spy Status (Click to Enable)",
+    Style = "primary",
+    Callback = function() end
+})
+
+spyToggleBtn.MouseButton1Click:Connect(function()
+    playClickSound()
+    SpyEnabled = not SpyEnabled
+    getgenv()._PayomboyZ_RemoteSpyEnabled = SpyEnabled
+    if SpyEnabled then
+        installRemoteSpy()
+        spyToggleBtn.Text = "🟢 [ON] Remote Spy Logging Active"
+        renderSpyLogs()
+        ObsidianGlassEngine:Notify({ Title = "Remote Spy", Content = "Logging active! FireServer/InvokeServer monitored.", Duration = 4 })
+    else
+        spyToggleBtn.Text = "🔴 [OFF] Remote Spy Status (Click to Enable)"
+        renderSpyLogs()
+        ObsidianGlassEngine:Notify({ Title = "Remote Spy", Content = "Logging paused.", Duration = 3 })
+    end
+end)
+
+SpyTab:AddSection("BLACKLIST FILTER KEYWORDS")
+
+local filterCard = Instance.new("Frame")
+filterCard.Size = UDim2.new(1, -10, 0, 60)
+filterCard.BackgroundColor3 = COLORS.glassDeep
+filterCard.BackgroundTransparency = 0.18
+filterCard.BorderSizePixel = 0
+filterCard.Parent = SpyTab.page
+
+local fcCorner = Instance.new("UICorner")
+fcCorner.CornerRadius = UDim.new(0, 8)
+fcCorner.Parent = filterCard
+
+local fcStroke = Instance.new("UIStroke")
+fcStroke.Color = COLORS.surface
+fcStroke.Thickness = 1
+fcStroke.Parent = filterCard
+
+local fcLabel = Instance.new("TextLabel")
+fcLabel.Size = UDim2.new(1, -24, 0, 18)
+fcLabel.Position = UDim2.new(0, 12, 0, 6)
+fcLabel.BackgroundTransparency = 1
+fcLabel.Text = "SKIP REMOTES CONTAINING (COMMA SEPARATED)"
+fcLabel.TextColor3 = COLORS.textMuted
+fcLabel.Font = Enum.Font.GothamBold
+fcLabel.TextSize = 10
+fcLabel.TextXAlignment = Enum.TextXAlignment.Left
+fcLabel.Parent = filterCard
+
+local FilterInput = Instance.new("TextBox")
+FilterInput.Size = UDim2.new(1, -24, 0, 26)
+FilterInput.Position = UDim2.new(0, 12, 0, 26)
+FilterInput.BackgroundColor3 = COLORS.input
+FilterInput.BackgroundTransparency = 0.20
+FilterInput.Text = SpySkipText
+FilterInput.Font = Enum.Font.GothamSemibold
+FilterInput.TextSize = 11
+FilterInput.TextColor3 = COLORS.cyan
+FilterInput.ClearTextOnFocus = false
+FilterInput.TextXAlignment = Enum.TextXAlignment.Left
+FilterInput.Parent = filterCard
+
+FilterInput.FocusLost:Connect(function()
+    SpySkipText = FilterInput.Text
+    renderSpyLogs()
+    ObsidianGlassEngine:Notify({ Title = "Filter Updated", Content = "Remote Spy blacklist keywords updated.", Duration = 2 })
+end)
+
+local fiCorner = Instance.new("UICorner")
+fiCorner.CornerRadius = UDim.new(0, 6)
+fiCorner.Parent = FilterInput
+
+local fiPad = Instance.new("UIPadding")
+fiPad.PaddingLeft = UDim.new(0, 8)
+fiPad.Parent = FilterInput
+
+SpyTab:AddSection("CAPTURED REMOTE CALL LOGS")
+
+local spyStatusCard = Instance.new("Frame")
+spyStatusCard.Size = UDim2.new(1, -10, 0, 28)
+spyStatusCard.BackgroundColor3 = COLORS.glassDeep
+spyStatusCard.BackgroundTransparency = 0.18
+spyStatusCard.BorderSizePixel = 0
+spyStatusCard.Parent = SpyTab.page
+
+local sscCorner = Instance.new("UICorner")
+sscCorner.CornerRadius = UDim.new(0, 6)
+sscCorner.Parent = spyStatusCard
+
+local sscStroke = Instance.new("UIStroke")
+sscStroke.Color = COLORS.surface
+sscStroke.Thickness = 1
+sscStroke.Parent = spyStatusCard
+
+spyCountLabel = Instance.new("TextLabel")
+spyCountLabel.Size = UDim2.new(1, -20, 1, 0)
+spyCountLabel.Position = UDim2.new(0, 10, 0, 0)
+spyCountLabel.BackgroundTransparency = 1
+spyCountLabel.Text = "📊 CAPTURED LOGS: 0 Calls  •  Status: 🔴 PAUSED"
+spyCountLabel.TextColor3 = COLORS.cyan
+spyCountLabel.Font = Enum.Font.GothamBold
+spyCountLabel.TextSize = 10
+spyCountLabel.TextXAlignment = Enum.TextXAlignment.Left
+spyCountLabel.Parent = spyStatusCard
+
+local spyLogCard = Instance.new("Frame")
+spyLogCard.Size = UDim2.new(1, -10, 0, 240)
+spyLogCard.BackgroundColor3 = COLORS.glassDeep
+spyLogCard.BackgroundTransparency = 0.18
+spyLogCard.BorderSizePixel = 0
+spyLogCard.Parent = SpyTab.page
+
+local slcCorner = Instance.new("UICorner")
+slcCorner.CornerRadius = UDim.new(0, 8)
+slcCorner.Parent = spyLogCard
+
+local slcStroke = Instance.new("UIStroke")
+slcStroke.Color = COLORS.surface
+slcStroke.Thickness = 1
+slcStroke.Parent = spyLogCard
+
+spyScroll = Instance.new("ScrollingFrame")
+spyScroll.Size = UDim2.new(1, -12, 1, -12)
+spyScroll.Position = UDim2.new(0, 6, 0, 6)
+spyScroll.BackgroundColor3 = COLORS.input
+spyScroll.BackgroundTransparency = 0.30
+spyScroll.BorderSizePixel = 0
+spyScroll.ScrollBarThickness = 5
+spyScroll.ScrollBarImageColor3 = COLORS.cyan
+spyScroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+spyScroll.AutomaticCanvasSize = Enum.AutomaticSize.Y
+spyScroll.Parent = spyLogCard
+
+local spysCorner = Instance.new("UICorner")
+spysCorner.CornerRadius = UDim.new(0, 6)
+spysCorner.Parent = spyScroll
+
+renderSpyLogs()
+
+SpyTab:AddSection("REMOTE LOG CONTROLS & EXPORT")
+
+SpyTab:AddButton({
+    Title = "📋 Copy All Remote Logs to Clipboard",
+    Style = "primary",
+    Callback = function()
+        if #SpyCalls == 0 then
+            ObsidianGlassEngine:Notify({ Title = "Warning", Content = "Log buffer is empty!", Duration = 2 })
+            return
+        end
+        local lines = {}
+        for _, entry in ipairs(SpyCalls) do
+            lines[#lines + 1] = entry.Source
+        end
+        local fullText = table.concat(lines, "\n")
+        if typeof(setclipboard) == "function" then
+            pcall(function() setclipboard(fullText) end)
+            ObsidianGlassEngine:Notify({ Title = "Copied", Content = "Copied " .. #SpyCalls .. " logged remote calls to clipboard!", Duration = 3 })
+        end
+    end
+})
+
+SpyTab:AddButton({
+    Title = "🧠 Bind Captured Remotes to AI Context",
+    Callback = function()
+        if #SpyCalls == 0 then
+            ObsidianGlassEngine:Notify({ Title = "Warning", Content = "No remotes captured yet!", Duration = 3 })
+            return
+        end
+        local boundCount = 0
+        local seen = {}
+        for _, entry in ipairs(SpyCalls) do
+            if entry.Path and not seen[entry.Path] then
+                seen[entry.Path] = true
+                local added = AIContextEngine:AddContext(entry.Name or "Remote", entry.Class or "RemoteEvent", entry.Path, "RemoteSpy")
+                if added then boundCount = boundCount + 1 end
+            end
+        end
+        ObsidianGlassEngine:Notify({ Title = "Remotes Bound", Content = "Bound " .. boundCount .. " captured remotes to AI Context!", Duration = 4 })
+    end
+})
+
+SpyTab:AddButton({
+    Title = "💾 Save Remote Logs to File",
+    Callback = function()
+        if #SpyCalls == 0 then
+            ObsidianGlassEngine:Notify({ Title = "Warning", Content = "No remote calls captured yet!", Duration = 3 })
+            return
+        end
+        local folderName = "PAYOMBOYDumps/RemoteSpy"
+        if typeof(makefolder) == "function" then
+            pcall(function() makefolder("PAYOMBOYDumps") end)
+            pcall(function() makefolder(folderName) end)
+        end
+        local fileName = folderName .. "/RemoteSpy_" .. os.date("%Y%m%d_%H%M%S") .. ".lua"
+        local lines = {
+            "-- [[ PayomboyZ Remote Spy Export Log ]]",
+            "-- Game PlaceId: " .. tostring(game.PlaceId),
+            "-- Time: " .. os.date("%Y-%m-%d %H:%M:%S"),
+            "-- Captured Calls Count: " .. tostring(#SpyCalls),
+            "",
+        }
+        for _, entry in ipairs(SpyCalls) do
+            lines[#lines + 1] = entry.Source
+        end
+        local fullCode = table.concat(lines, "\n")
+        if typeof(writefile) == "function" then pcall(function() writefile(fileName, fullCode) end) end
+        if typeof(setclipboard) == "function" then pcall(function() setclipboard(fileName) end) end
+        
+        ObsidianGlassEngine:Notify({
+            Title = "Saved Logs",
+            Content = "Saved " .. #SpyCalls .. " captured calls to " .. fileName,
+            Duration = 4
+        })
+    end
+})
+
+SpyTab:AddButton({
+    Title = "🗑️ Clear Remote Log Buffer",
+    Callback = function()
+        SpyCalls = {}
+        renderSpyLogs()
+        ObsidianGlassEngine:Notify({ Title = "Cleared", Content = "Remote Spy log buffer cleared.", Duration = 2 })
+    end
+})
+
+
+-----------------------------------------------------------------------------------------
+-- 📦 UNIVERSAL SERVICE & INSTANCE DUMPER ENGINE (Ported from nokey.luau + r101)
+-----------------------------------------------------------------------------------------
+
+local ServiceNames = {
+    "ReplicatedStorage", "Workspace", "Players", "Lighting", "StarterGui", "StarterPack", "StarterPlayer",
+    "SoundService", "Chat", "TextChatService", "RunService", "TweenService", "HttpService", "MarketplaceService",
+    "BadgeService", "Teams", "JointsService", "CollectionService", "PhysicsService", "AssetService", "GamePassService",
+    "PointsService", "PolicyService", "SocialService", "TeleportService", "UserInputService", "VRService",
+    "ServerScriptService", "ServerStorage", "ReplicatedFirst",
+}
+
+local PROPERTY_NAMES = {
+    "Anchored", "CanCollide", "CanTouch", "CanQuery", "Transparency", "Reflectance",
+    "Color", "Material", "Size", "CFrame", "Position", "Orientation",
+    "Value", "Visible", "Enabled", "Text", "Image", "Texture", "TextureID", "TextureId",
+    "MeshId", "MeshType", "Scale", "Offset", "SecondaryAxis", "Axis",
+    "Rate", "Speed", "Lifetime", "LightEmission", "Brightness", "Range", "Shadows",
+    "Volume", "PlaybackSpeed", "RollOffMaxDistance", "RollOffMinDistance", "RollOffMode",
+    "Neutral", "TeamColor", "AllowTeamChangeOnTouch", "Duration", "Face", "Locked",
+    "MaxSpeed", "Torque", "TurnSpeed", "Shape", "StudsPerTileU", "StudsPerTileV",
+}
+
+local function safeProperty(object, property)
+    local ok, value = pcall(function() return object[property] end)
+    return ok, value
+end
+
+local function literal(value)
+    local kind = typeof(value)
+    if kind == "string" then return string.format("%q", value) end
+    if kind == "number" or kind == "boolean" then return tostring(value) end
+    if kind == "nil" then return "nil" end
+    if kind == "Vector3" then return string.format("Vector3.new(%s, %s, %s)", value.X, value.Y, value.Z) end
+    if kind == "Vector2" then return string.format("Vector2.new(%s, %s)", value.X, value.Y, value.Z) end
+    if kind == "Color3" then return string.format("Color3.new(%s, %s, %s)", value.R, value.G, value.B) end
+    if kind == "CFrame" then
+        local values = {value:GetComponents()}
+        for i, n in ipairs(values) do values[i] = tostring(n) end
+        return "CFrame.new(" .. table.concat(values, ", ") .. ")"
+    end
+    if kind == "EnumItem" then return tostring(value) end
+    if kind == "Instance" then return string.format("%q", value:GetFullName()) end
+    return string.format("%q", tostring(value))
+end
+
+local ServiceDumpPreset = "NORMAL" -- "FAST", "NORMAL", "DEEP"
+local ServiceDumpOptions = {
+    Children = true, 
+    Attributes = true, 
+    Properties = false, 
+    SourceFormat = false
+}
+
+local function applyDumpPreset(preset)
+    ServiceDumpPreset = preset
+    if preset == "FAST" then
+        ServiceDumpOptions.Children = true
+        ServiceDumpOptions.Attributes = false
+        ServiceDumpOptions.Properties = false
+        ServiceDumpOptions.SourceFormat = false
+    elseif preset == "NORMAL" then
+        ServiceDumpOptions.Children = true
+        ServiceDumpOptions.Attributes = true
+        ServiceDumpOptions.Properties = false
+        ServiceDumpOptions.SourceFormat = false
+    elseif preset == "DEEP" then
+        ServiceDumpOptions.Children = true
+        ServiceDumpOptions.Attributes = true
+        ServiceDumpOptions.Properties = true
+        ServiceDumpOptions.SourceFormat = false
+    end
+end
+
+local ServiceDumpSubPath = ""
+local ServiceDumpFileName = ""
+local ServiceTargetName = "ReplicatedStorage"
+local LastServiceDumpData = nil
+local LastServiceDumpPath = nil
+
+local PreviewCodeBox = nil
+local previewScroll = nil
+local PreviewStatusText = nil
+
+local function setPreviewData(text, targetName)
+    if not text or text == "" then return end
+    LastServiceDumpData = text
+    targetName = targetName or ServiceTargetName or "Target"
+    
+    local charCount = #text
+    local lineCount = 1
+    for _ in string.gmatch(text, "\n") do
+        lineCount = lineCount + 1
+    end
+    local sizeKB = string.format("%.2f KB", charCount / 1024)
+    
+    if PreviewStatusText then
+        PreviewStatusText.Text = string.format("📊 STATUS: LOADED  •  Target: %s  •  Lines: %d  •  Size: %s", targetName, lineCount, sizeKB)
+    end
+    
+    if PreviewCodeBox then
+        if charCount > 25000 then
+            local snippet = string.sub(text, 1, 25000)
+            PreviewCodeBox.Text = snippet .. string.format("\n\n-- [⚠️ PREVIEW TRUNCATED FOR UI DISPLAY PERFORMANCE]\n-- Full Dump Size: %s (%d lines, %d characters).\n-- The complete untruncated content is ready to be saved to file or copied to clipboard!", sizeKB, lineCount, charCount)
+        else
+            PreviewCodeBox.Text = text
+        end
+        
+        task.defer(function()
+            if PreviewCodeBox and previewScroll then
+                local textHeight = math.max(260, PreviewCodeBox.TextBounds.Y + 30)
+                PreviewCodeBox.Size = UDim2.new(1, -10, 0, textHeight)
+                previewScroll.CanvasSize = UDim2.new(0, 0, 0, textHeight + 20)
+            end
+        end)
+    end
+end
+
+local function resolveServiceTarget()
+    local name = ServiceTargetName or "ReplicatedStorage"
+    name = name:gsub("^%s+", ""):gsub("%s+$", "")
+    if name == "" then name = "ReplicatedStorage" end
+    local target = nil
+    if name:lower() == "workspace" then
+        target = workspace
+    else
+        local ok, svc = pcall(function() return game:GetService(name) end)
+        if ok and svc then
+            target = svc
+        else
+            pcall(function() target = game:FindFirstChild(name) end)
+        end
+    end
+    if not target then return nil, name end
+    if ServiceDumpSubPath and ServiceDumpSubPath ~= "" then
+        local cleanedSubPath = ServiceDumpSubPath:gsub("^%s+", ""):gsub("%s+$", "")
+        if cleanedSubPath ~= "" then
+            for part in cleanedSubPath:gmatch("[^/]+") do
+                part = part:gsub("^%s+", ""):gsub("%s+$", "")
+                if part ~= "" then
+                    target = target and target:FindFirstChild(part)
+                    if not target then break end
+                end
+            end
+        end
+    end
+    return target, name
+end
+
+local function dumpObject(root)
+    local lines = {}
+    lines[#lines + 1] = "-- [[ PayomboyZ Valen Hub Service Dump ]]"
+    lines[#lines + 1] = "-- Root: " .. root:GetFullName()
+    lines[#lines + 1] = "-- Class: " .. root.ClassName
+    lines[#lines + 1] = "-- Preset: " .. tostring(ServiceDumpPreset)
+    lines[#lines + 1] = "-- Time: " .. os.date("%Y-%m-%d %H:%M:%S")
+    local objects = {root}
+    if ServiceDumpOptions.Children then
+        local okDesc, descendants = pcall(function() return root:GetDescendants() end)
+        if okDesc and descendants then
+            for _, object in ipairs(descendants) do objects[#objects + 1] = object end
+        end
+    end
+    for i, object in ipairs(objects) do
+        if i % 250 == 0 then task.wait() end
+        lines[#lines + 1] = ""
+        lines[#lines + 1] = "[" .. object.ClassName .. "] " .. object:GetFullName()
+        if ServiceDumpOptions.Attributes then
+            local ok, attributes = pcall(function() return object:GetAttributes() end)
+            if ok and attributes then
+                for key, value in pairs(attributes) do
+                    lines[#lines + 1] = "  @" .. tostring(key) .. " = " .. SerializationEngine.Serialize(value)
+                end
+            end
+        end
+        if ServiceDumpOptions.Properties and (ServiceDumpPreset == "DEEP" or ServiceDumpOptions.Properties) then
+            for _, property in ipairs(PROPERTY_NAMES) do
+                local ok, value = safeProperty(object, property)
+                if ok and value ~= nil then lines[#lines + 1] = "  ." .. property .. " = " .. SerializationEngine.Serialize(value) end
+            end
+        end
+    end
+    if ServiceDumpOptions.SourceFormat then
+        local source = {"-- PayomboyZ Hub source-format dump", "local dump = {}"}
+        for i, object in ipairs(objects) do
+            if i % 500 == 0 then task.wait() end
+            source[#source + 1] = string.format("dump[%q] = {ClassName=%q, Name=%q}", object:GetFullName(), object.ClassName, object.Name)
+        end
+        source[#source + 1] = "return dump"
+        return table.concat(source, "\n")
+    end
+    return table.concat(lines, "\n")
+end
+
+local function performServiceDump(saveToFile, showPreview)
+    ObsidianGlassEngine:Notify({Title = "Dump Initiated", Content = "Processing target service... Please wait.", Duration = 2})
+    local target, serviceName = resolveServiceTarget()
+    if not target then
+        ObsidianGlassEngine:Notify({Title = "Dump Error", Content = "Target service/subpath not found: " .. tostring(serviceName), Duration = 3})
+        return
+    end
+    local ok, data = pcall(dumpObject, target)
+    if not ok then
+        ObsidianGlassEngine:Notify({Title = "Dump Error", Content = "Dump failed: " .. tostring(data), Duration = 3})
+        return
+    end
+    
+    setPreviewData(data, serviceName)
+
+    if showPreview then
+        if PreviewTab and PreviewTab.Select then pcall(function() PreviewTab:Select() end) end
+        ObsidianGlassEngine:Notify({Title = "Preview Loaded", Content = "Dumped " .. serviceName .. " (" .. #data .. " chars)! Navigated to Preview tab.", Duration = 4})
+    end
+
+    if saveToFile then
+        if typeof(makefolder) == "function" then
+            pcall(function() makefolder("PAYOMBOYDumps") end)
+            pcall(function() makefolder("PAYOMBOYDumps/Dump") end)
+        end
+        local name = (ServiceDumpFileName and ServiceDumpFileName ~= "") and ServiceDumpFileName or (serviceName .. "_" .. os.date("%Y%m%d_%H%M%S"))
+        name = name:gsub("[^%w_%- ]", "_")
+        local ext = ServiceDumpOptions.SourceFormat and ".lua" or ".txt"
+        LastServiceDumpPath = "PAYOMBOYDumps/Dump/" .. name .. ext
+        if typeof(writefile) == "function" then pcall(function() writefile(LastServiceDumpPath, data) end) end
+        if typeof(setclipboard) == "function" then pcall(function() setclipboard(data) end) end
+        if PreviewTab and PreviewTab.Select then pcall(function() PreviewTab:Select() end) end
+        ObsidianGlassEngine:Notify({Title = "Dump Saved", Content = "Saved dump file to: " .. LastServiceDumpPath, Duration = 5})
+    end
+end
+
+local function r101(folderName, includeTerrain, includeScripts, includeCharacters, targetInstance)
+    targetInstance = targetInstance or workspace
+    local lines = {
+        "-- [[ PayomboyZ Dump Engine: " .. tostring(folderName) .. " ]]",
+        "-- Generated At: " .. os.date("%Y-%m-%d %H:%M:%S"),
+        "local targetParent = " .. (targetInstance == workspace and "workspace" or "game:GetService(\"ReplicatedStorage\")"),
+        "local dumpFolder = Instance.new(\"Folder\")",
+        "dumpFolder.Name = " .. string.format("%q", folderName),
+        "dumpFolder.Parent = targetParent",
+        "",
+        "local refMap = { [0] = dumpFolder }",
+    }
+
+    local instanceCount = 0
+    local nextId = 1
+
+    local function isPlayerCharacter(inst)
+        for _, p in ipairs(game:GetService("Players"):GetPlayers()) do
+            if p.Character and (inst == p.Character or inst:IsDescendantOf(p.Character)) then
+                return true
+            end
+        end
+        return false
+    end
+
+    local function shouldDump(inst)
+        if not includeTerrain and inst:IsA("Terrain") then return false end
+        if not includeCharacters and isPlayerCharacter(inst) then return false end
+        if not includeScripts and (inst:IsA("LuaSourceContainer") or inst:IsA("Script") or inst:IsA("LocalScript") or inst:IsA("ModuleScript")) then
+            return false
+        end
+        return true
+    end
+
+    local function processInstance(inst, parentId)
+        if not shouldDump(inst) then return end
+
+        local id = nextId
+        nextId = nextId + 1
+        instanceCount = instanceCount + 1
+
+        local className = inst.ClassName
+        table.insert(lines, string.format("local obj%d = Instance.new(%q)", id, className))
+        table.insert(lines, string.format("obj%d.Name = %q", id, inst.Name))
+        table.insert(lines, string.format("obj%d.Parent = refMap[%d]", id, parentId))
+        table.insert(lines, string.format("refMap[%d] = obj%d", id, id))
+
+        if inst:IsA("BasePart") then
+            pcall(function()
+                table.insert(lines, string.format("obj%d.Size = %s", id, SerializationEngine.Serialize(inst.Size)))
+                table.insert(lines, string.format("obj%d.CFrame = %s", id, SerializationEngine.Serialize(inst.CFrame)))
+                table.insert(lines, string.format("obj%d.Color = %s", id, SerializationEngine.Serialize(inst.Color)))
+                table.insert(lines, string.format("obj%d.Material = %s", id, SerializationEngine.Serialize(inst.Material)))
+                table.insert(lines, string.format("obj%d.Anchored = %s", id, tostring(inst.Anchored)))
+                table.insert(lines, string.format("obj%d.CanCollide = %s", id, tostring(inst.CanCollide)))
+            end)
+        elseif inst:IsA("ValueBase") then
+            pcall(function()
+                local sVal = SerializationEngine.Serialize(inst.Value)
+                if sVal then
+                    table.insert(lines, string.format("obj%d.Value = %s", id, sVal))
+                end
+            end)
+        elseif inst:IsA("LuaSourceContainer") and includeScripts then
+            pcall(function()
+                local src = inst.Source
+                if src and #src > 0 then
+                    table.insert(lines, string.format("obj%d.Source = %q", id, src))
+                end
+            end)
+        end
+
+        for _, child in ipairs(inst:GetChildren()) do
+            processInstance(child, id)
+        end
+    end
+
+    for _, child in ipairs(targetInstance:GetChildren()) do
+        processInstance(child, 0)
+    end
+
+    table.insert(lines, "")
+    table.insert(lines, string.format("print('[Dump Restore] Created %d instances in folder %s')", instanceCount, folderName))
+
+    return table.concat(lines, "\n"), instanceCount
+end
+
+local function generateDumpScript(targetInstance, folderName, includeTerrain, includeScripts, includeCharacters)
+    return r101(folderName, includeTerrain, includeScripts, includeCharacters, targetInstance)
+end
+
+-- ======================================================================================
+-- 📦 INSTANCE & SERVICE DUMPER TAB BUILDER
+-- ======================================================================================
+
+DumpTab:AddSection("EXPORT FILENAME & SAVE CONFIGURATION")
+
+local filenameCard = Instance.new("Frame")
+filenameCard.Size = UDim2.new(1, -10, 0, 85)
+filenameCard.BackgroundColor3 = COLORS.glassDeep
+filenameCard.BackgroundTransparency = 0.18
+filenameCard.BorderSizePixel = 0
+filenameCard.Parent = DumpTab.page
+
+local fnCorner = Instance.new("UICorner")
+fnCorner.CornerRadius = UDim.new(0, 8)
+fnCorner.Parent = filenameCard
+
+local fnStroke = Instance.new("UIStroke")
+fnStroke.Color = COLORS.surface
+fnStroke.Thickness = 1
+fnStroke.Parent = filenameCard
+
+local fnLbl1 = Instance.new("TextLabel")
+fnLbl1.Size = UDim2.new(1, -24, 0, 16)
+fnLbl1.Position = UDim2.new(0, 12, 0, 6)
+fnLbl1.BackgroundTransparency = 1
+fnLbl1.Text = "CUSTOM EXPORT FILE NAME (OPTIONAL)"
+fnLbl1.TextColor3 = COLORS.textMuted
+fnLbl1.Font = Enum.Font.GothamBold
+fnLbl1.TextSize = 10
+fnLbl1.TextXAlignment = Enum.TextXAlignment.Left
+fnLbl1.Parent = filenameCard
+
+local DumpFileNameInput = Instance.new("TextBox")
+DumpFileNameInput.Size = UDim2.new(1, -24, 0, 26)
+DumpFileNameInput.Position = UDim2.new(0, 12, 0, 24)
+DumpFileNameInput.BackgroundColor3 = COLORS.input
+DumpFileNameInput.BackgroundTransparency = 0.20
+DumpFileNameInput.Text = ServiceDumpFileName
+DumpFileNameInput.PlaceholderText = "Leave empty for auto-generated timestamp name..."
+DumpFileNameInput.Font = Enum.Font.GothamSemibold
+DumpFileNameInput.TextSize = 11
+DumpFileNameInput.TextColor3 = COLORS.cyan
+DumpFileNameInput.ClearTextOnFocus = false
+DumpFileNameInput.TextXAlignment = Enum.TextXAlignment.Left
+DumpFileNameInput.Parent = filenameCard
+
+local dfniCorner = Instance.new("UICorner")
+dfniCorner.CornerRadius = UDim.new(0, 5)
+dfniCorner.Parent = DumpFileNameInput
+
+local dfniPad = Instance.new("UIPadding")
+dfniPad.PaddingLeft = UDim.new(0, 6)
+dfniPad.Parent = DumpFileNameInput
+
+local savePathStatusLbl = Instance.new("TextLabel")
+savePathStatusLbl.Size = UDim2.new(1, -24, 0, 24)
+savePathStatusLbl.Position = UDim2.new(0, 12, 0, 54)
+savePathStatusLbl.BackgroundTransparency = 1
+savePathStatusLbl.Text = "📁 Output Path: workspace/ValenHub_Dumps/Dump/" .. ((ServiceDumpFileName ~= "") and ServiceDumpFileName or "<AutoName>") .. ".txt"
+savePathStatusLbl.TextColor3 = Color3.fromRGB(0, 220, 160)
+savePathStatusLbl.Font = Enum.Font.Code
+savePathStatusLbl.TextSize = 10
+savePathStatusLbl.TextXAlignment = Enum.TextXAlignment.Left
+savePathStatusLbl.Parent = filenameCard
+
+local function updateFileNameState()
+    ServiceDumpFileName = DumpFileNameInput.Text:gsub("^%s+", ""):gsub("%s+$", "")
+    local dispName = (ServiceDumpFileName ~= "") and ServiceDumpFileName or (ServiceTargetName .. "_<Timestamp>")
+    savePathStatusLbl.Text = "📁 Output Path: workspace/ValenHub_Dumps/Dump/" .. dispName .. ".txt"
+end
+
+DumpFileNameInput:GetPropertyChangedSignal("Text"):Connect(updateFileNameState)
+DumpFileNameInput.FocusLost:Connect(updateFileNameState)
+
+DumpTab:AddSection("QUICK SELECT TARGET SERVICE")
+
+local quickServiceFrame = Instance.new("Frame")
+quickServiceFrame.Size = UDim2.new(1, -10, 0, 80)
+quickServiceFrame.BackgroundColor3 = COLORS.glassDeep
+quickServiceFrame.BackgroundTransparency = 0.18
+quickServiceFrame.BorderSizePixel = 0
+quickServiceFrame.Parent = DumpTab.page
+
+local qsfCorner = Instance.new("UICorner")
+qsfCorner.CornerRadius = UDim.new(0, 8)
+qsfCorner.Parent = quickServiceFrame
+
+local qsfStroke = Instance.new("UIStroke")
+qsfStroke.Color = COLORS.surface
+qsfStroke.Thickness = 1
+qsfStroke.Parent = quickServiceFrame
+
+local qsfGrid = Instance.new("UIGridLayout")
+qsfGrid.CellSize = UDim2.new(0.24, -4, 0, 22)
+qsfGrid.CellPadding = UDim2.new(0, 4, 0, 4)
+qsfGrid.SortOrder = Enum.SortOrder.LayoutOrder
+qsfGrid.Parent = quickServiceFrame
+
+local qsfPad = Instance.new("UIPadding")
+qsfPad.PaddingTop = UDim.new(0, 6)
+qsfPad.PaddingLeft = UDim.new(0, 6)
+qsfPad.PaddingRight = UDim.new(0, 6)
+qsfPad.PaddingBottom = UDim.new(0, 6)
+qsfPad.Parent = quickServiceFrame
+
+local ServiceInput = nil
+
+local quickServices = {
+    "ReplicatedStorage", "Workspace", "Players", "Lighting",
+    "StarterGui", "StarterPack", "StarterPlayer", "SoundService",
+    "ReplicatedFirst", "ServerStorage", "TextChatService", "HttpService"
+}
+
+for idx, sName in ipairs(quickServices) do
+    local sBtn = Instance.new("TextButton")
+    sBtn.Size = UDim2.new(1, 0, 1, 0)
+    sBtn.BackgroundColor3 = Color3.fromRGB(14, 34, 22)
+    sBtn.BackgroundTransparency = 0.15
+    sBtn.Text = sName
+    sBtn.TextColor3 = Color3.fromRGB(240, 255, 245)
+    sBtn.Font = Enum.Font.GothamSemibold
+    sBtn.TextSize = 9
+    sBtn.LayoutOrder = idx
+    sBtn.Parent = quickServiceFrame
+
+    local sCorner = Instance.new("UICorner")
+    sCorner.CornerRadius = UDim.new(0, 4)
+    sCorner.Parent = sBtn
+
+    local sBtnStroke = Instance.new("UIStroke")
+    sBtnStroke.Color = Color3.fromRGB(24, 80, 48)
+    sBtnStroke.Thickness = 1
+    sBtnStroke.Parent = sBtn
+
+    sBtn.MouseEnter:Connect(function()
+        sBtn.BackgroundColor3 = Color3.fromRGB(22, 58, 36)
+    end)
+    sBtn.MouseLeave:Connect(function()
+        sBtn.BackgroundColor3 = Color3.fromRGB(14, 34, 22)
+    end)
+
+    sBtn.MouseButton1Click:Connect(function()
+        playClickSound()
+        ServiceTargetName = sName
+        if ServiceInput then ServiceInput.Text = sName end
+        updateFileNameState()
+        ObsidianGlassEngine:Notify({ Title = "Target Selected", Content = "Service set to: " .. sName, Duration = 2 })
+    end)
+end
+
+DumpTab:AddSection("CUSTOM TARGET SERVICE & SUB PATH INPUT")
+
+local serviceInputCard = Instance.new("Frame")
+serviceInputCard.Size = UDim2.new(1, -10, 0, 95)
+serviceInputCard.BackgroundColor3 = COLORS.glassDeep
+serviceInputCard.BackgroundTransparency = 0.18
+serviceInputCard.BorderSizePixel = 0
+serviceInputCard.Parent = DumpTab.page
+
+local sicCorner = Instance.new("UICorner")
+sicCorner.CornerRadius = UDim.new(0, 8)
+sicCorner.Parent = serviceInputCard
+
+local sicStroke = Instance.new("UIStroke")
+sicStroke.Color = COLORS.surface
+sicStroke.Thickness = 1
+sicStroke.Parent = serviceInputCard
+
+local sicLbl1 = Instance.new("TextLabel")
+sicLbl1.Size = UDim2.new(1, -24, 0, 16)
+sicLbl1.Position = UDim2.new(0, 12, 0, 6)
+sicLbl1.BackgroundTransparency = 1
+sicLbl1.Text = "TARGET SERVICE NAME (e.g. ReplicatedStorage, Workspace, Players)"
+sicLbl1.TextColor3 = COLORS.textMuted
+sicLbl1.Font = Enum.Font.GothamBold
+sicLbl1.TextSize = 10
+sicLbl1.TextXAlignment = Enum.TextXAlignment.Left
+sicLbl1.Parent = serviceInputCard
+
+ServiceInput = Instance.new("TextBox")
+ServiceInput.Size = UDim2.new(1, -24, 0, 24)
+ServiceInput.Position = UDim2.new(0, 12, 0, 22)
+ServiceInput.BackgroundColor3 = COLORS.input
+ServiceInput.BackgroundTransparency = 0.20
+ServiceInput.Text = "ReplicatedStorage"
+ServiceInput.Font = Enum.Font.GothamSemibold
+ServiceInput.TextSize = 11
+ServiceInput.TextColor3 = COLORS.cyan
+ServiceInput.ClearTextOnFocus = false
+ServiceInput.TextXAlignment = Enum.TextXAlignment.Left
+ServiceInput.Parent = serviceInputCard
+
+local siCorner = Instance.new("UICorner")
+siCorner.CornerRadius = UDim.new(0, 5)
+siCorner.Parent = ServiceInput
+
+local siPad = Instance.new("UIPadding")
+siPad.PaddingLeft = UDim.new(0, 6)
+siPad.Parent = ServiceInput
+
+ServiceInput:GetPropertyChangedSignal("Text"):Connect(function()
+    ServiceTargetName = ServiceInput.Text
+    updateFileNameState()
+end)
+ServiceInput.FocusLost:Connect(function()
+    ServiceTargetName = ServiceInput.Text
+    updateFileNameState()
+end)
+
+local sicLbl2 = Instance.new("TextLabel")
+sicLbl2.Size = UDim2.new(1, -24, 0, 16)
+sicLbl2.Position = UDim2.new(0, 12, 0, 48)
+sicLbl2.BackgroundTransparency = 1
+sicLbl2.Text = "SUB PATH (OPTIONAL, e.g. TS/data/plants)"
+sicLbl2.TextColor3 = COLORS.textMuted
+sicLbl2.Font = Enum.Font.GothamBold
+sicLbl2.TextSize = 10
+sicLbl2.TextXAlignment = Enum.TextXAlignment.Left
+sicLbl2.Parent = serviceInputCard
+
+local SubPathInput = Instance.new("TextBox")
+SubPathInput.Size = UDim2.new(1, -24, 0, 24)
+SubPathInput.Position = UDim2.new(0, 12, 0, 64)
+SubPathInput.BackgroundColor3 = COLORS.input
+SubPathInput.BackgroundTransparency = 0.20
+SubPathInput.Text = ""
+SubPathInput.PlaceholderText = "Leave empty for root service..."
+SubPathInput.Font = Enum.Font.GothamSemibold
+SubPathInput.TextSize = 11
+SubPathInput.TextColor3 = COLORS.text
+SubPathInput.ClearTextOnFocus = false
+SubPathInput.TextXAlignment = Enum.TextXAlignment.Left
+SubPathInput.Parent = serviceInputCard
+
+local spiCorner = Instance.new("UICorner")
+spiCorner.CornerRadius = UDim.new(0, 5)
+spiCorner.Parent = SubPathInput
+
+local spiPad = Instance.new("UIPadding")
+spiPad.PaddingLeft = UDim.new(0, 6)
+spiPad.Parent = SubPathInput
+
+SubPathInput:GetPropertyChangedSignal("Text"):Connect(function()
+    ServiceDumpSubPath = SubPathInput.Text
+end)
+SubPathInput.FocusLost:Connect(function()
+    ServiceDumpSubPath = SubPathInput.Text
+end)
+
+DumpTab:AddSection("DUMP PRESET ENGINE (PERFORMANCE OPTIMIZATION)")
+
+local presetBtnFast = nil
+local presetBtnNormal = nil
+local presetBtnDeep = nil
+
+local function updatePresetUI()
+    if presetBtnFast then presetBtnFast.Text = (ServiceDumpPreset == "FAST" and "⚡ [ACTIVE] FAST (Tree Only)" or "⚡ FAST (Tree Only)") end
+    if presetBtnNormal then presetBtnNormal.Text = (ServiceDumpPreset == "NORMAL" and "🔍 [ACTIVE] NORMAL (Tree + Attributes)" or "🔍 NORMAL (Tree + Attributes)") end
+    if presetBtnDeep then presetBtnDeep.Text = (ServiceDumpPreset == "DEEP" and "🧬 [ACTIVE] DEEP (Everything + Props)" or "🧬 DEEP (Everything + Props)") end
+end
+
+presetBtnFast = DumpTab:AddButton({
+    Title = "⚡ FAST (Tree Only)",
+    Callback = function()
+        playClickSound()
+        applyDumpPreset("FAST")
+        updatePresetUI()
+        ObsidianGlassEngine:Notify({ Title = "Preset Changed", Content = "Set Dump Preset to FAST!", Duration = 2 })
+    end
+})
+
+presetBtnNormal = DumpTab:AddButton({
+    Title = "🔍 [ACTIVE] NORMAL (Tree + Attributes)",
+    Callback = function()
+        playClickSound()
+        applyDumpPreset("NORMAL")
+        updatePresetUI()
+        ObsidianGlassEngine:Notify({ Title = "Preset Changed", Content = "Set Dump Preset to NORMAL!", Duration = 2 })
+    end
+})
+
+presetBtnDeep = DumpTab:AddButton({
+    Title = "🧬 DEEP (Everything + Props)",
+    Callback = function()
+        playClickSound()
+        applyDumpPreset("DEEP")
+        updatePresetUI()
+        ObsidianGlassEngine:Notify({ Title = "Preset Changed", Content = "Set Dump Preset to DEEP!", Duration = 2 })
+    end
+})
+
+DumpTab:AddSection("ADVANCED CUSTOM DUMP CONFIGURATION")
+
+local function createServiceToggle(title, defaultVal, callback)
+    local state = defaultVal
+    local btn = DumpTab:AddButton({
+        Title = (state and "🟢 [ON] " or "🔴 [OFF] ") .. title,
+        Callback = function() end
+    })
+    btn.MouseButton1Click:Connect(function()
+        state = not state
+        btn.Text = (state and "🟢 [ON] " or "🔴 [OFF] ") .. title
+        callback(state)
+    end)
+    return btn
+end
+
+createServiceToggle("Dump Children Tree", ServiceDumpOptions.Children, function(v) ServiceDumpOptions.Children = v end)
+createServiceToggle("Dump Attributes", ServiceDumpOptions.Attributes, function(v) ServiceDumpOptions.Attributes = v end)
+createServiceToggle("Dump Part / Humanoid Properties", ServiceDumpOptions.Properties, function(v) ServiceDumpOptions.Properties = v end)
+createServiceToggle("Source Code Format", ServiceDumpOptions.SourceFormat, function(v) ServiceDumpOptions.SourceFormat = v end)
+
+DumpTab:AddSection("SERVICE DUMP ACTIONS")
+
+DumpTab:AddButton({
+    Title = "💾 Dump Service to File",
+    Style = "primary",
+    Callback = function()
+        task.spawn(function()
+            performServiceDump(true, false)
+        end)
+    end
+})
+
+DumpTab:AddButton({
+    Title = "👁️ Dump Service & Send to Preview Tab",
+    Style = "primary",
+    Callback = function()
+        task.spawn(function()
+            performServiceDump(false, true)
+        end)
+    end
+})
+
+DumpTab:AddSection("r101 RECONSTRUCTION DUMPER (FULL WORKSPACE / REPLICATED)")
+
+local selectedTarget = "Workspace"
+local dumpTerrain = true
+local dumpScripts = true
+local dumpCharacters = false
+
+DumpTab:AddButton({
+    Title = "🚀 RUN r101 INSTANCE RECONSTRUCTION DUMP",
+    Style = "primary",
+    Callback = function()
+        local targetInst = (selectedTarget == "Workspace") and workspace or game:GetService("ReplicatedStorage")
+        local folderName = (ServiceDumpFileName and ServiceDumpFileName ~= "") and ServiceDumpFileName or (selectedTarget .. "Dump_" .. os.date("%Y%m%d_%H%M%S"))
+        
+        task.spawn(function()
+            local scriptText, instanceCount = generateDumpScript(targetInst, folderName, dumpTerrain, dumpScripts, dumpCharacters)
+            if scriptText and instanceCount > 0 then
+                setPreviewData(scriptText, folderName)
+                if PreviewTab and PreviewTab.Select then pcall(function() PreviewTab:Select() end) end
+                if typeof(makefolder) == "function" then
+                    pcall(function() makefolder("PAYOMBOYDumps") end)
+                    pcall(function() makefolder("PAYOMBOYDumps/Dump") end)
+                end
+                local savePath = "PAYOMBOYDumps/Dump/" .. folderName .. ".lua"
+                LastServiceDumpPath = savePath
+                if typeof(writefile) == "function" then pcall(function() writefile(savePath, scriptText) end) end
+                if typeof(setclipboard) == "function" then pcall(function() setclipboard(scriptText) end) end
+                
+                ObsidianGlassEngine:Notify({
+                    Title = "r101 Dump Completed",
+                    Content = "Dumped " .. instanceCount .. " instances! Saved to " .. savePath,
+                    Duration = 5
+                })
+            end
+        end)
+    end
+})
+
+-- ======================================================================================
+-- 👁️ DUMP PREVIEW TAB BUILDER
+-- ======================================================================================
+
+PreviewTab:AddSection("SERVICE DUMP PREVIEW TERMINAL")
+
+local previewHeaderCard = Instance.new("Frame")
+previewHeaderCard.Size = UDim2.new(1, -10, 0, 32)
+previewHeaderCard.BackgroundColor3 = COLORS.glassDeep
+previewHeaderCard.BackgroundTransparency = 0.18
+previewHeaderCard.BorderSizePixel = 0
+previewHeaderCard.Parent = PreviewTab.page
+
+local phcCorner = Instance.new("UICorner")
+phcCorner.CornerRadius = UDim.new(0, 8)
+phcCorner.Parent = previewHeaderCard
+
+local phcStroke = Instance.new("UIStroke")
+phcStroke.Color = COLORS.surface
+phcStroke.Thickness = 1
+phcStroke.Parent = previewHeaderCard
+
+PreviewStatusText = Instance.new("TextLabel")
+PreviewStatusText.Size = UDim2.new(1, -20, 1, 0)
+PreviewStatusText.Position = UDim2.new(0, 10, 0, 0)
+PreviewStatusText.BackgroundTransparency = 1
+PreviewStatusText.Text = "📊 STATUS: WAITING  •  No dump data loaded yet. Perform a dump to view content."
+PreviewStatusText.TextColor3 = COLORS.cyan
+PreviewStatusText.Font = Enum.Font.GothamBold
+PreviewStatusText.TextSize = 10
+PreviewStatusText.TextXAlignment = Enum.TextXAlignment.Left
+PreviewStatusText.Parent = previewHeaderCard
+
+local previewCard = Instance.new("Frame")
+previewCard.Size = UDim2.new(1, -10, 0, 260)
+previewCard.BackgroundColor3 = COLORS.glassDeep
+previewCard.BackgroundTransparency = 0.18
+previewCard.BorderSizePixel = 0
+previewCard.Parent = PreviewTab.page
+
+local pcCardCorner = Instance.new("UICorner")
+pcCardCorner.CornerRadius = UDim.new(0, 8)
+pcCardCorner.Parent = previewCard
+
+local pcCardStroke = Instance.new("UIStroke")
+pcCardStroke.Color = COLORS.surface
+pcCardStroke.Thickness = 1
+pcCardStroke.Parent = previewCard
+
+previewScroll = Instance.new("ScrollingFrame")
+previewScroll.Size = UDim2.new(1, -12, 1, -12)
+previewScroll.Position = UDim2.new(0, 6, 0, 6)
+previewScroll.BackgroundColor3 = COLORS.input
+previewScroll.BackgroundTransparency = 0.30
+previewScroll.BorderSizePixel = 0
+previewScroll.ScrollBarThickness = 6
+previewScroll.ScrollBarImageColor3 = COLORS.primary
+previewScroll.CanvasSize = UDim2.new(0, 0, 0, 240)
+previewScroll.Parent = previewCard
+
+local psCorner = Instance.new("UICorner")
+psCorner.CornerRadius = UDim.new(0, 6)
+psCorner.Parent = previewScroll
+
+PreviewCodeBox = Instance.new("TextBox")
+PreviewCodeBox.Size = UDim2.new(1, -10, 0, 240)
+PreviewCodeBox.Position = UDim2.new(0, 5, 0, 0)
+PreviewCodeBox.BackgroundTransparency = 1
+PreviewCodeBox.PlaceholderText = "-- Dumped data preview will appear here live. Select a service in 'Instance Dumper' and click Dump & Send to Preview."
+PreviewCodeBox.Text = ""
+PreviewCodeBox.Font = Enum.Font.Code
+PreviewCodeBox.TextSize = 11
+PreviewCodeBox.TextColor3 = Color3.fromRGB(150, 240, 200)
+PreviewCodeBox.MultiLine = true
+PreviewCodeBox.ClearTextOnFocus = false
+PreviewCodeBox.TextEditable = false
+PreviewCodeBox.TextXAlignment = Enum.TextXAlignment.Left
+PreviewCodeBox.TextYAlignment = Enum.TextYAlignment.Top
+PreviewCodeBox.Parent = previewScroll
+
+local pcbPad = Instance.new("UIPadding")
+pcbPad.PaddingLeft = UDim.new(0, 4)
+pcbPad.PaddingTop = UDim.new(0, 4)
+pcbPad.Parent = PreviewCodeBox
+
+PreviewCodeBox:GetPropertyChangedSignal("Text"):Connect(function()
+    task.defer(function()
+        if PreviewCodeBox and previewScroll then
+            local textHeight = math.max(240, PreviewCodeBox.TextBounds.Y + 30)
+            PreviewCodeBox.Size = UDim2.new(1, -10, 0, textHeight)
+            previewScroll.CanvasSize = UDim2.new(0, 0, 0, textHeight + 20)
+        end
+    end)
+end)
+
+if LastServiceDumpData then
+    setPreviewData(LastServiceDumpData, ServiceTargetName)
+end
+
+PreviewTab:AddSection("PREVIEW ACTIONS & EXPORT")
+
+PreviewTab:AddButton({
+    Title = "💾 Save Full Preview Data to File",
+    Style = "primary",
+    Callback = function()
+        if LastServiceDumpData and LastServiceDumpData ~= "" then
+            if typeof(makefolder) == "function" then
+                pcall(function() makefolder("PAYOMBOYDumps") end)
+                pcall(function() makefolder("PAYOMBOYDumps/Dump") end)
+            end
+            local name = (ServiceDumpFileName and ServiceDumpFileName ~= "") and ServiceDumpFileName or (ServiceTargetName .. "_Preview_" .. os.date("%Y%m%d_%H%M%S"))
+            name = name:gsub("[^%w_%- ]", "_")
+            local ext = (ServiceDumpOptions.SourceFormat or LastServiceDumpData:sub(1, 50):find("local")) and ".lua" or ".txt"
+            LastServiceDumpPath = "PAYOMBOYDumps/Dump/" .. name .. ext
+            if typeof(writefile) == "function" then pcall(function() writefile(LastServiceDumpPath, LastServiceDumpData) end) end
+            if typeof(setclipboard) == "function" then pcall(function() setclipboard(LastServiceDumpData) end) end
+            ObsidianGlassEngine:Notify({ Title = "Preview Saved", Content = "Saved full dump to " .. LastServiceDumpPath, Duration = 4 })
+        else
+            ObsidianGlassEngine:Notify({ Title = "Warning", Content = "No preview dump data available!", Duration = 3 })
+        end
+    end
+})
+
+PreviewTab:AddButton({
+    Title = "🔄 Refresh Dump Preview Data",
+    Callback = function()
+        if LastServiceDumpData then
+            setPreviewData(LastServiceDumpData, ServiceTargetName)
+            ObsidianGlassEngine:Notify({ Title = "Refreshed", Content = "Dump preview refreshed!", Duration = 2 })
+        else
+            ObsidianGlassEngine:Notify({ Title = "Warning", Content = "No dump data available yet.", Duration = 3 })
+        end
+    end
+})
+
+PreviewTab:AddButton({
+    Title = "📋 Copy Full Preview Code to Clipboard",
+    Callback = function()
+        if LastServiceDumpData and LastServiceDumpData ~= "" then
+            if typeof(setclipboard) == "function" then
+                pcall(function() setclipboard(LastServiceDumpData) end)
+                ObsidianGlassEngine:Notify({ Title = "Copied", Content = "Copied full untruncated preview text to clipboard!", Duration = 3 })
+            end
+        else
+            ObsidianGlassEngine:Notify({ Title = "Warning", Content = "Preview buffer is empty!", Duration = 3 })
+        end
+    end
+})
+
+PreviewTab:AddButton({
+    Title = "📁 Copy Last Saved File Path",
+    Callback = function()
+        if LastServiceDumpPath then
+            if typeof(setclipboard) == "function" then
+                pcall(function() setclipboard(LastServiceDumpPath) end)
+                ObsidianGlassEngine:Notify({ Title = "Copied Path", Content = LastServiceDumpPath, Duration = 4 })
+            end
+        else
+            ObsidianGlassEngine:Notify({ Title = "Warning", Content = "No dump file saved yet.", Duration = 3 })
+        end
+    end
+})
+
+-- ======================================================================================
+-- 🐛 DEBUG CONSOLE TAB BUILDER
+-- ======================================================================================
+
+DebugTab:AddSection("SYSTEM REAL-TIME DEBUG CONSOLE")
+
+local debugCard = Instance.new("Frame")
+debugCard.Size = UDim2.new(1, -10, 0, 200)
+debugCard.BackgroundColor3 = COLORS.glassDeep
+debugCard.BackgroundTransparency = 0.18
+debugCard.BorderSizePixel = 0
+debugCard.Parent = DebugTab.page
+
+local dcCardCorner = Instance.new("UICorner")
+dcCardCorner.CornerRadius = UDim.new(0, 8)
+dcCardCorner.Parent = debugCard
+
+local dcCardStroke = Instance.new("UIStroke")
+dcCardStroke.Color = COLORS.surface
+dcCardStroke.Thickness = 1
+dcCardStroke.Parent = debugCard
+
+local debugScroll = Instance.new("ScrollingFrame")
+debugScroll.Size = UDim2.new(1, -12, 1, -12)
+debugScroll.Position = UDim2.new(0, 6, 0, 6)
+debugScroll.BackgroundColor3 = COLORS.input
+debugScroll.BackgroundTransparency = 0.30
+debugScroll.BorderSizePixel = 0
+debugScroll.ScrollBarThickness = 5
+debugScroll.ScrollBarImageColor3 = COLORS.primary
+debugScroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+debugScroll.AutomaticCanvasSize = Enum.AutomaticSize.Y
+debugScroll.Parent = debugCard
+
+local dcsCorner = Instance.new("UICorner")
+dcsCorner.CornerRadius = UDim.new(0, 6)
+dcsCorner.Parent = debugScroll
+
+DebugConsoleBox = Instance.new("TextBox")
+DebugConsoleBox.Size = UDim2.new(1, -10, 1, 0)
+DebugConsoleBox.Position = UDim2.new(0, 5, 0, 0)
+DebugConsoleBox.BackgroundTransparency = 1
+DebugConsoleBox.PlaceholderText = "-- System logs (INFO, WARN, ERROR, NETWORK) will stream live here..."
+DebugConsoleBox.Text = ""
+DebugConsoleBox.Font = Enum.Font.Code
+DebugConsoleBox.TextSize = 11
+DebugConsoleBox.TextColor3 = Color3.fromRGB(180, 255, 180)
+DebugConsoleBox.MultiLine = true
+DebugConsoleBox.ClearTextOnFocus = false
+DebugConsoleBox.TextXAlignment = Enum.TextXAlignment.Left
+DebugConsoleBox.TextYAlignment = Enum.TextYAlignment.Top
+DebugConsoleBox.AutomaticSize = Enum.AutomaticSize.Y
+DebugConsoleBox.Parent = debugScroll
+
+local dcbPad = Instance.new("UIPadding")
+dcbPad.PaddingLeft = UDim.new(0, 4)
+dcbPad.PaddingTop = UDim.new(0, 4)
+dcbPad.Parent = DebugConsoleBox
+
+local initialLogs = {}
+for _, log in ipairs(DebugLogs) do
+    table.insert(initialLogs, log.Raw)
+end
+DebugConsoleBox.Text = table.concat(initialLogs, "\n")
+
+DebugTab:AddSection("DEBUG CONSOLE UTILITIES")
+
+DebugTab:AddButton({
+    Title = "🧹 Clear Debug Logs",
+    Callback = function()
+        table.clear(DebugLogs)
+        if DebugConsoleBox then DebugConsoleBox.Text = "" end
+        DebugLog("INFO", "CONSOLE", "Debug console buffer cleared")
+        ObsidianGlassEngine:Notify({ Title = "Cleared", Content = "Debug log buffer cleared.", Duration = 2 })
+    end
+})
+
+DebugTab:AddButton({
+    Title = "📋 Copy Debug Logs to Clipboard",
+    Callback = function()
+        if DebugConsoleBox and DebugConsoleBox.Text ~= "" then
+            if typeof(setclipboard) == "function" then
+                pcall(function() setclipboard(DebugConsoleBox.Text) end)
+                ObsidianGlassEngine:Notify({ Title = "Copied", Content = "Copied debug console log to clipboard!", Duration = 3 })
+            end
+        else
+            ObsidianGlassEngine:Notify({ Title = "Warning", Content = "Debug log is empty!", Duration = 2 })
+        end
+    end
+})
+
+DebugTab:AddButton({
+    Title = "💾 Save Debug Log to File",
+    Callback = function()
+        if #DebugLogs > 0 then
+            if typeof(makefolder) == "function" then
+                pcall(function() makefolder("ValenHub_Dumps") end)
+                pcall(function() makefolder("ValenHub_Dumps/DebugLogs") end)
+            end
+            local fileName = "ValenHub_Dumps/DebugLogs/SystemDebug_" .. os.date("%Y%m%d_%H%M%S") .. ".log"
+            if typeof(writefile) == "function" then pcall(function() writefile(fileName, DebugConsoleBox.Text) end) end
+            ObsidianGlassEngine:Notify({ Title = "Log Saved", Content = "Saved debug log to " .. fileName, Duration = 4 })
+        else
+            ObsidianGlassEngine:Notify({ Title = "Warning", Content = "No debug logs to save.", Duration = 2 })
+        end
+    end
+})
+
+
+-- 1. AI GENERATOR TAB BUILDER (Remains linked below)
+
+
+-- 1. AI GENERATOR TAB BUILDER
+do
+    AiTab:AddSection("📚 GITHUB KNOWLEDGE ENGINE (DECISION SUPPORT)")
+
+    local kbCard = Instance.new("Frame")
+    kbCard.Size = UDim2.new(1, -10, 0, 75)
+    kbCard.BackgroundColor3 = COLORS.glassDeep
+    kbCard.BackgroundTransparency = 0.18
+    kbCard.BorderSizePixel = 0
+    kbCard.Parent = AiTab.page
+
+    local kbcCorner = Instance.new("UICorner")
+    kbcCorner.CornerRadius = UDim.new(0, 8)
+    kbcCorner.Parent = kbCard
+
+    local kbcStroke = Instance.new("UIStroke")
+    kbcStroke.Color = COLORS.surface
+    kbcStroke.Thickness = 1
+    kbcStroke.Parent = kbCard
+
+    local kbStatusText = Instance.new("TextLabel")
+    kbStatusText.Size = UDim2.new(1, -16, 1, -12)
+    kbStatusText.Position = UDim2.new(0, 8, 0, 6)
+    kbStatusText.BackgroundTransparency = 1
+    kbStatusText.Font = Enum.Font.Code
+    kbStatusText.TextSize = 11
+    kbStatusText.TextColor3 = Color3.fromRGB(0, 230, 180)
+    kbStatusText.TextXAlignment = Enum.TextXAlignment.Left
+    kbStatusText.TextYAlignment = Enum.TextYAlignment.Top
+    kbStatusText.Parent = kbCard
+
+    local function updateKnowledgeCardUI()
+        if kbStatusText and kbStatusText.Parent then
+            local status = KnowledgeEngine.IsLoaded and "🟢 ONLINE" or "🟡 INITIALIZING / OFFLINE"
+            local cacheCount = 0
+            for _ in pairs(KnowledgeEngine.DocCache) do cacheCount = cacheCount + 1 end
+            kbStatusText.Text = string.format(
+                "GITHUB KNOWLEDGE RETRIEVAL LAYER:\n• Status: %s\n• Indexed Documents: %d entries (manifest.txt)\n• Active Cache: %d loaded files\n• Last Sync: %s",
+                status, #KnowledgeEngine.ManifestEntries, cacheCount, KnowledgeEngine.LastSyncTime
+            )
+        end
+    end
+
+    task.spawn(function()
+        while task.wait(2) do
+            if not kbStatusText or not kbStatusText.Parent then break end
+            updateKnowledgeCardUI()
+        end
+    end)
+
+    AiTab:AddButton({
+        Title = "🔄 Sync & Update GitHub Knowledge Base",
+        Callback = function()
+            ObsidianGlassEngine:Notify({ Title = "Knowledge Base", Content = "Fetching latest manifest and updating knowledge cache...", Duration = 3 })
+            task.spawn(function()
+                KnowledgeEngine:Refresh()
+                updateKnowledgeCardUI()
+                ObsidianGlassEngine:Notify({
+                    Title = "Knowledge Base Updated",
+                    Content = string.format("Synced %d knowledge documents from GitHub!", #KnowledgeEngine.ManifestEntries),
+                    Duration = 4
+                })
+            end)
+        end
+    })
+end
+
+local PromptInput, CodeTerminal, processBtnObj, saveBtnObj
+
+do
+    AiTab:AddSection("AI CODE SYNTHESIZER")
+
+    -- Prompt Input Frame (Glass Card)
+    local promptCard = Instance.new("Frame")
+    promptCard.Size = UDim2.new(1, -10, 0, 72)
+    promptCard.BackgroundColor3 = COLORS.glassDeep
+    promptCard.BackgroundTransparency = 0.18
+    promptCard.BorderSizePixel = 0
+    promptCard.Parent = AiTab.page
+
+    local pcCorner = Instance.new("UICorner")
+    pcCorner.CornerRadius = UDim.new(0, 8)
+    pcCorner.Parent = promptCard
+
+    local pcStroke = Instance.new("UIStroke")
+    pcStroke.Color = COLORS.surface
+    pcStroke.Thickness = 1
+    pcStroke.Parent = promptCard
+
+    local promptLabel = Instance.new("TextLabel")
+    promptLabel.Size = UDim2.new(1, -24, 0, 20)
+    promptLabel.Position = UDim2.new(0, 12, 0, 8)
+    promptLabel.BackgroundTransparency = 1
+    promptLabel.Text = "ENTER SEMANTIC INTENT PROMPT (THAI / ENGLISH SUPPORTED)"
+    promptLabel.TextColor3 = COLORS.textMuted
+    promptLabel.Font = Enum.Font.GothamBold
+    promptLabel.TextSize = 11
+    promptLabel.TextXAlignment = Enum.TextXAlignment.Left
+    promptLabel.Parent = promptCard
+
+    PromptInput = Instance.new("TextBox")
+    PromptInput.Size = UDim2.new(1, -24, 0, 34)
+    PromptInput.Position = UDim2.new(0, 12, 0, 30)
+    PromptInput.BackgroundColor3 = COLORS.input
+    PromptInput.BackgroundTransparency = 0.20
+    PromptInput.PlaceholderText = "เช่น 'อยากเขียนสคริปสั่งให้บิน', 'มองทะลุคน', 'อมตะ', 'ฟาร์ม', ' katana'"
+    PromptInput.Text = ""
+    PromptInput.Font = Enum.Font.GothamSemibold
+    PromptInput.TextSize = 12
+    PromptInput.TextColor3 = COLORS.cyan
+    PromptInput.ClearTextOnFocus = false
+    PromptInput.TextXAlignment = Enum.TextXAlignment.Left
+    PromptInput.Parent = promptCard
+
+    local piCorner = Instance.new("UICorner")
+    piCorner.CornerRadius = UDim.new(0, 6)
+    piCorner.Parent = PromptInput
+
+    local piPad = Instance.new("UIPadding")
+    piPad.PaddingLeft = UDim.new(0, 10)
+    piPad.Parent = PromptInput
+
+    -- Quick Prompt Preset Buttons (Thai AI Command Suggestions)
+    AiTab:AddSection("💡 QUICK THAI AI COMMANDS (กดสั่งงานทันที)")
+
+    local quickCommandsFrame = Instance.new("Frame")
+    quickCommandsFrame.Size = UDim2.new(1, -10, 0, 68)
+    quickCommandsFrame.BackgroundColor3 = COLORS.glassDeep
+    quickCommandsFrame.BackgroundTransparency = 0.18
+    quickCommandsFrame.BorderSizePixel = 0
+    quickCommandsFrame.Parent = AiTab.page
+
+    local qcfCorner = Instance.new("UICorner")
+    qcfCorner.CornerRadius = UDim.new(0, 8)
+    qcfCorner.Parent = quickCommandsFrame
+
+    local qcfGrid = Instance.new("UIGridLayout")
+    qcfGrid.CellSize = UDim2.new(0.24, -4, 0, 26)
+    qcfGrid.CellPadding = UDim2.new(0, 4, 0, 4)
+    qcfGrid.Parent = quickCommandsFrame
+
+    local qcfPad = Instance.new("UIPadding")
+    qcfPad.PaddingTop = UDim.new(0, 6)
+    qcfPad.PaddingLeft = UDim.new(0, 6)
+    qcfPad.PaddingRight = UDim.new(0, 6)
+    qcfPad.PaddingBottom = UDim.new(0, 6)
+    qcfPad.Parent = quickCommandsFrame
+
+    local thaiPresets = {
+        { Label = "✈️ สคริปต์บิน", Prompt = "อยากเขียนสคริปสั่งให้บิน" },
+        { Label = "👁️ มองทะลุคน", Prompt = "มองทะลุคน ESP" },
+        { Label = "⚡ วิ่งเร็ว/สปีด", Prompt = "วิ่งเร็ว สปีด speed" },
+        { Label = "🛡️ โหมดอมตะ", Prompt = "โหมดอมตะ godmode" },
+        { Label = "🤖 ออโต้ฟาร์ม", Prompt = "ออโต้ฟาร์ม เก็บของ" },
+        { Label = "🎯 ล็อกเป้าหัว", Prompt = "ล็อกเป้า ยิงหัว aim" },
+        { Label = "⚔️ เสกดาบคาตานะ", Prompt = "เสกดาบ katana" },
+        { Label = "🌐 ดักจับรีโมท", Prompt = "ดักจับรีโมท spy remote" }
+    }
+
+    for idx, preset in ipairs(thaiPresets) do
+        local pBtn = Instance.new("TextButton")
+        pBtn.Size = UDim2.new(1, 0, 1, 0)
+        pBtn.BackgroundColor3 = Color3.fromRGB(14, 38, 24)
+        pBtn.Text = preset.Label
+        pBtn.TextColor3 = Color3.fromRGB(0, 230, 150)
+        pBtn.Font = Enum.Font.GothamBold
+        pBtn.TextSize = 10
+        pBtn.LayoutOrder = idx
+        pBtn.Parent = quickCommandsFrame
+
+        local pbCorner = Instance.new("UICorner")
+        pbCorner.CornerRadius = UDim.new(0, 5)
+        pbCorner.Parent = pBtn
+
+        local pbStroke = Instance.new("UIStroke")
+        pbStroke.Color = COLORS.surfaceHover
+        pbStroke.Thickness = 1
+        pbStroke.Parent = pBtn
+
+        pBtn.MouseButton1Click:Connect(function()
+            playClickSound()
+            PromptInput.Text = preset.Prompt
+            ObsidianGlassEngine:Notify({ Title = "AI Command Selected", Content = "เลือกคำสั่ง: " .. preset.Label, Duration = 2 })
+        end)
+    end
+
+    -- Process Button
+    processBtnObj = AiTab:AddButton({
+        Title = "⚡ Formulate Lexical Output Code (ประมวลผลคำสั่งไทย/อังกฤษ)",
+        Callback = function() end
+    })
+
+    -- Output Terminal Frame
+    AiTab:AddSection("COMPILED OUTPUT SOURCE CODE TERMINAL")
+
+    local terminalCard = Instance.new("Frame")
+    terminalCard.Size = UDim2.new(1, -10, 0, 180)
+    terminalCard.BackgroundColor3 = COLORS.glassDeep
+    terminalCard.BackgroundTransparency = 0.18
+    terminalCard.BorderSizePixel = 0
+    terminalCard.Parent = AiTab.page
+
+    local tcCardCorner = Instance.new("UICorner")
+    tcCardCorner.CornerRadius = UDim.new(0, 8)
+    tcCardCorner.Parent = terminalCard
+
+    local tcCardStroke = Instance.new("UIStroke")
+    tcCardStroke.Color = COLORS.surface
+    tcCardStroke.Thickness = 1
+    tcCardStroke.Parent = terminalCard
+
+    local ctScroll = Instance.new("ScrollingFrame")
+    ctScroll.Size = UDim2.new(1, -12, 1, -12)
+    ctScroll.Position = UDim2.new(0, 6, 0, 6)
+    ctScroll.BackgroundColor3 = COLORS.input
+    ctScroll.BackgroundTransparency = 0.30
+    ctScroll.BorderSizePixel = 0
+    ctScroll.ScrollBarThickness = 5
+    ctScroll.ScrollBarImageColor3 = COLORS.cyan
+    ctScroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+    ctScroll.AutomaticCanvasSize = Enum.AutomaticSize.Y
+    ctScroll.Parent = terminalCard
+
+    local ctsCorner = Instance.new("UICorner")
+    ctsCorner.CornerRadius = UDim.new(0, 6)
+    ctsCorner.Parent = ctScroll
+
+    CodeTerminal = Instance.new("TextBox")
+    CodeTerminal.Size = UDim2.new(1, -10, 1, 0)
+    CodeTerminal.Position = UDim2.new(0, 5, 0, 0)
+    CodeTerminal.BackgroundTransparency = 1
+    CodeTerminal.PlaceholderText = "-- Generated Luau semantic source output will display here..."
+    CodeTerminal.Text = ""
+    CodeTerminal.Font = Enum.Font.Code
+    CodeTerminal.TextSize = 11
+    CodeTerminal.TextColor3 = Color3.fromRGB(100, 230, 255)
+    CodeTerminal.MultiLine = true
+    CodeTerminal.ClearTextOnFocus = false
+    CodeTerminal.TextXAlignment = Enum.TextXAlignment.Left
+    CodeTerminal.TextYAlignment = Enum.TextYAlignment.Top
+    CodeTerminal.AutomaticSize = Enum.AutomaticSize.Y
+    CodeTerminal.Parent = ctScroll
+
+    local ctPad = Instance.new("UIPadding")
+    ctPad.PaddingLeft = UDim.new(0, 6)
+    ctPad.PaddingTop = UDim.new(0, 6)
+    ctPad.Parent = CodeTerminal
+
+    -- Execute Instant Button
+    local execBtnObj = AiTab:AddButton({
+        Title = "▶️ Execute Synthesized AI Script Now (รันโค้ด AI ทันที)",
+        Style = "primary",
+        Callback = function()
+            playClickSound()
+            local code = CodeTerminal.Text
+            if code and code ~= "" then
+                local func, err = loadstring(code)
+                if func then
+                    task.spawn(func)
+                    ObsidianGlassEngine:Notify({ Title = "AI Execution Success", Content = "เริ่มรันสคริปต์ AI ในแมพสำเร็จ!", Duration = 3 })
+                else
+                    ObsidianGlassEngine:Notify({ Title = "Syntax Error", Content = "โค้ดมีข้อผิดพลาด: " .. tostring(err), Duration = 5 })
+                end
+            else
+                ObsidianGlassEngine:Notify({ Title = "Warning", Content = "ยังไม่มีโค้ดในเทอร์มินัล! กรุณาประมวลผลก่อน", Duration = 3 })
+            end
+        end
+    })
+
+    -- Save Button to Library & Dumper Preview Sync
+    saveBtnObj = AiTab:AddButton({
+        Title = "💾 Save Compiled Assets to Scroll Library & Preview (บันทึกข้ามระบบ)",
+        Callback = function()
+            playClickSound()
+            local code = CodeTerminal.Text
+            if code and code ~= "" then
+                local macroName = "AI Compiled: " .. (PromptInput.Text ~= "" and PromptInput.Text or ("Script_" .. os.date("%H%M%S")))
+                table.insert(SessionRegistry.Macros, {
+                    Name = macroName,
+                    Code = code
+                })
+                if populateLibraryScroll then pcall(populateLibraryScroll) end
+                if setPreviewData then pcall(function() setPreviewData(code, "AI_Synthesized_Script") end) end
+                
+                ObsidianGlassEngine:Notify({
+                    Title = "Asset Saved",
+                    Content = "บันทึกสคริปต์ลง Library และ Instance Dumper Preview เรียบร้อย!",
+                    Duration = 4
+                })
+            else
+                ObsidianGlassEngine:Notify({ Title = "Warning", Content = "ไม่มีโค้ดให้บันทึก!", Duration = 3 })
+            end
+        end
+    })
+
+    -- Process Execution Handler (V7 AUTONOMOUS CYBER-AI ASSEMBLY ENGINE)
+    processBtnObj.MouseButton1Click:Connect(function()
+        playClickSound()
+        local userPrompt = PromptInput.Text
+        local rawText = string.lower(userPrompt)
+        if rawText == "" then
+            ObsidianGlassEngine:Notify({ Title = "Warning", Content = "กรุณากรอกคำสั่งหรือความต้องการก่อน!", Duration = 3 })
+            return
+        end
+
+        DebugLog("INFO", "AI_SYNTH", "Synthesizing V7 Code for prompt: '" .. userPrompt .. "'")
+        
+        -- 1. EXPANDED TOKENS & INTENT EXTRACTION
+        local expandedTokens = KnowledgeEngine:ExpandQuery(userPrompt)
+        local searchSet = {}
+        for _, tok in ipairs(expandedTokens) do searchSet[tok] = true end
+        searchSet[rawText] = true
+
+        -- Extract numbers from prompt (e.g. "เร็ว 150", "บิน 100", "เลือด 999999")
+        local customNum = tonumber(string.match(userPrompt, "(%d+)")) or nil
+
+        -- 2. DYNAMIC PATTERN MATCHING & FEATURE EXTRACTION
+        local matchedBlocks = {}
+        local matchedTitles = {}
+        local matchedBlockSet = {}
+
+        for _, block in ipairs(SemanticPatterns) do
+            local isMatched = false
+            for _, keyword in ipairs(block.Keywords) do
+                local kwLower = string.lower(keyword)
+                if string.find(rawText, kwLower, 1, true) or searchSet[kwLower] then
+                    isMatched = true
+                    break
+                else
+                    for tok in pairs(searchSet) do
+                        if string.find(tok, kwLower, 1, true) or string.find(kwLower, tok, 1, true) then
+                            isMatched = true
+                            break
+                        end
+                    end
+                end
+                if isMatched then break end
+            end
+
+            if isMatched and not matchedBlockSet[block.Title] then
+                matchedBlockSet[block.Title] = true
+                table.insert(matchedBlocks, block)
+                table.insert(matchedTitles, block.Title)
+            end
+        end
+
+        -- 3. GITHUB KNOWLEDGE BASE RETRIEVAL & REAL CODE INJECTION
+        local matchedKnowledge = KnowledgeEngine:Search(userPrompt, 3)
+        local injectedKnowledgeCode = {}
+
+        for _, res in ipairs(matchedKnowledge) do
+            local docContent = KnowledgeEngine:GetDocument(res.Path)
+            if docContent then
+                local luaBlock = string.match(docContent, "```lua(.-)```") or string.match(docContent, "```(.-)```")
+                if luaBlock then
+                    luaBlock = string.gsub(luaBlock, "^%s*(.-)%s*$", "%1")
+                    table.insert(injectedKnowledgeCode, string.format("-- [[ REPO PATTERN: %s (%s) ]]\n%s", res.Title, res.Path, luaBlock))
+                end
+            end
+        end
+
+        -- 4. REAL-TIME GAME ENVIRONMENT DISCOVERY
+        local liveDiscoveredPrompts = {}
+        local liveDiscoveredRemotes = {}
+        local liveDiscoveredTools = {}
+
+        pcall(function()
+            for _, obj in ipairs(workspace:GetDescendants()) do
+                if #liveDiscoveredPrompts < 3 and obj:IsA("ProximityPrompt") then
+                    table.insert(liveDiscoveredPrompts, obj:GetFullName())
+                end
+            end
+            local rSvc = game:GetService("ReplicatedStorage")
+            for _, obj in ipairs(rSvc:GetDescendants()) do
+                if #liveDiscoveredRemotes < 3 and (obj:IsA("RemoteEvent") or obj:IsA("RemoteFunction")) then
+                    table.insert(liveDiscoveredRemotes, obj:GetFullName())
+                end
+            end
+            if LocalPlayer and LocalPlayer:FindFirstChild("Backpack") then
+                for _, t in ipairs(LocalPlayer.Backpack:GetChildren()) do
+                    if t:IsA("Tool") then
+                        table.insert(liveDiscoveredTools, t.Name)
+                    end
+                end
+            end
+        end)
+
+        -- 5. BUILD PROACTIVE AI ADVICE & ARCHITECTURAL SUGGESTIONS
+        local aiRecommendations = {
+            "-- ======================================================================================",
+            "-- [[ 🧠 PAYOMBOYZ CYBER-AI V7 - PROACTIVE ARCHITECTURAL ANALYSIS & ADVICE ]]",
+            "-- • Analyzed User Intent Tokens: [" .. table.concat(expandedTokens, ", ") .. "]",
+            "-- • Target Game Live Inspection: Discovered " .. #liveDiscoveredPrompts .. " Prompts, " .. #liveDiscoveredRemotes .. " Remotes & " .. #liveDiscoveredTools .. " Backpack Tools.",
+            "-- • AI Recommended Optimizations:"
+        }
+
+        if searchSet["fly"] or searchSet["บิน"] or searchSet["เหาะ"] then
+            local speedVal = customNum or 80
+            table.insert(aiRecommendations, string.format("--   [+] Dynamic Velocity Configured: Set Fly/WalkSpeed to %d based on prompt context.", speedVal))
+            table.insert(aiRecommendations, "--   [+] Safe Execution Mode: Injected Noclip & Anti-Fall-Damage loops to prevent character death.")
+        end
+        if searchSet["esp"] or searchSet["มองทะลุ"] then
+            table.insert(aiRecommendations, "--   [+] Visual Matrix Optimization: Applied Billboard / Highlight transparency = 0.4 for smooth FPS.")
+        end
+        if searchSet["farm"] or searchSet["ฟาร์ม"] then
+            table.insert(aiRecommendations, "--   [+] Auto-Farm Protection: Bound task.wait(0.3) throttle to avoid anti-cheat flag.")
+        end
+        table.insert(aiRecommendations, "-- ======================================================================================")
+
+        -- 6. FULLY ENCAPSULATED CODE GENERATION PIPELINE
+        local codeLines = {
+            "-- ======================================================================================",
+            "-- [[ PAYOMBOYZ CYBER-AI V7 AUTONOMOUS SYNTHESIZED SCRIPT ]]",
+            "-- Intent: " .. userPrompt,
+            "-- Environment: " .. game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name .. " (PlaceID: " .. tostring(game.PlaceId) .. ")",
+            "-- Timestamp: " .. os.date("%Y-%m-%d %H:%M:%S"),
+            "-- Synthesis Engine: GitHub Repo Knowledge + Live Game Environment Integration",
+            "-- ======================================================================================",
+            "",
+            table.concat(aiRecommendations, "\n"),
+            "",
+            "-- [[ SECTION 1: GITHUB REPO ARCHITECTURAL KNOWLEDGE INGESTION ]]",
+            #injectedKnowledgeCode > 0 and table.concat(injectedKnowledgeCode, "\n\n") or "-- (No external repo patterns injected)",
+            "",
+            "-- [[ SECTION 2: LIVE GAME INSTANCE ENVIRONMENT RESOLUTION ]]",
+            string.format("local TargetPlaceId = %d", game.PlaceId),
+            string.format("local LocalPlayer = game:GetService(\"Players\").LocalPlayer"),
+            string.format("local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()"),
+            string.format("local Humanoid = Character:WaitForChild(\"Humanoid\")"),
+            string.format("local HumanoidRootPart = Character:WaitForChild(\"HumanoidRootPart\")"),
+            ""
+        }
+
+        -- Append discovered live instances
+        if #liveDiscoveredPrompts > 0 then
+            codeLines[#codeLines + 1] = "-- Discovered Game Prompts:"
+            for idx, path in ipairs(liveDiscoveredPrompts) do
+                codeLines[#codeLines + 1] = string.format("local DiscoveredPrompt_%d = game:GetService(%q)", idx, path)
+            end
+            codeLines[#codeLines + 1] = ""
+        end
+
+        if #liveDiscoveredRemotes > 0 then
+            codeLines[#codeLines + 1] = "-- Discovered Game Remotes:"
+            for idx, path in ipairs(liveDiscoveredRemotes) do
+                codeLines[#codeLines + 1] = string.format("local DiscoveredRemote_%d = game:GetService(%q)", idx, path)
+            end
+            codeLines[#codeLines + 1] = ""
+        end
+
+        -- Section 3: Executable Sub-System Modules
+        codeLines[#codeLines + 1] = "-- [[ SECTION 3: EXECUTABLE SUB-SYSTEM MODULES ]]"
+        codeLines[#codeLines + 1] = "local ScriptEngine = { Active = true }"
+        codeLines[#codeLines + 1] = "function ScriptEngine:Initialize()"
+        codeLines[#codeLines + 1] = "    print('[PayomboyZ Cyber-AI V7] Launching synthesized script payload...')"
+
+        if customNum then
+            codeLines[#codeLines + 1] = string.format("    Humanoid.WalkSpeed = %d", customNum)
+            codeLines[#codeLines + 1] = string.format("    Humanoid.JumpPower = %d", math.clamp(customNum * 0.8, 50, 300))
+        end
+
+        if #matchedBlocks > 0 then
+            for _, block in ipairs(matchedBlocks) do
+                codeLines[#codeLines + 1] = "\n    -- Sub-System: " .. block.Title
+                local blockCode = block.Code
+                if customNum then
+                    blockCode = string.gsub(blockCode, "WalkSpeed = %d+", "WalkSpeed = " .. customNum)
+                    blockCode = string.gsub(blockCode, "JumpPower = %d+", "JumpPower = " .. math.floor(customNum * 0.8))
+                end
+                if block.Title == "Weapon_Tool_Synthesizer" then
+                    blockCode = "local PromptInput = {Text = [[" .. userPrompt .. "]]}\n" .. blockCode
+                end
+                for line in string.gmatch(blockCode, "[^\r\n]+") do
+                    codeLines[#codeLines + 1] = "    " .. line
+                end
+            end
+        else
+            codeLines[#codeLines + 1] = "    print('[PayomboyZ Cyber-AI V7] Executing contextual module for prompt: ' .. " .. string.format("%q", userPrompt) .. ")"
+        end
+
+        codeLines[#codeLines + 1] = "\n    game:GetService(\"StarterGui\"):SetCore(\"SendNotification\", {"
+        codeLines[#codeLines + 1] = "        Title = 'PayomboyZ AI V7 Loaded',"
+        codeLines[#codeLines + 1] = "        Text = 'Synthesized script for: " .. userPrompt:gsub("'", "") .. "',"
+        codeLines[#codeLines + 1] = "        Duration = 5"
+        codeLines[#codeLines + 1] = "    })"
+        codeLines[#codeLines + 1] = "end"
+        codeLines[#codeLines + 1] = "\ntask.spawn(function() ScriptEngine:Initialize() end)"
+        codeLines[#codeLines + 1] = "return ScriptEngine"
+
+        local fullCompiledCode = table.concat(codeLines, "\n")
+        CodeTerminal.Text = fullCompiledCode
+        PromptInput.Text = ""
+
+        ObsidianGlassEngine:Notify({
+            Title = "Cyber-AI V7 Synthesized",
+            Content = string.format("หลอมรวมซอร์สโค้ดสำเร็จ! %d โมดูล + %d รูปแบบ GitHub + %d เกมอินสแตนซ์จริง", #matchedBlocks, #injectedKnowledgeCode, #liveDiscoveredPrompts + #liveDiscoveredRemotes),
+            Duration = 4
+        })
+    end)
+end
+
+-- 2. LIBRARY TAB BUILDER & POPULATOR
+local SessionRegistry = {
+    Macros = {
+        { Name = "Sempshark Open HTTP Traffic Inspector", Code = "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Sempiller/SempShark/refs/heads/main/main.lua\"))()" },
+        { Name = "AXIOS Multiply By Delta", Code = "loadstring(game:HttpGet('https://raw.githubusercontent.com/AAPVdev/scripts/refs/heads/main/UI_LimbExtender.lua'))()" },
+        { Name = "PayomboyZ Anime Card Farm", Code = "loadstring(game:HttpGet('https://payomboyz333.github.io/Anime-Card-Farm/'))()" },
+        { Name = "Dex Debugging Explorer", Code = "loadstring(game:HttpGet('https://raw.githubusercontent.com/infyiff/backup/main/dex.lua'))()" },
+        { Name = "Infinite Yield Admin Tools", Code = "loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()" }
+    }
+}
+local MacroCounter = 1
+local populateLibraryScroll
+
+do
+    LibraryTab:AddSection("MOUNTED MICRO MODULES LIBRARY")
+
+    local libContainer = Instance.new("Frame")
+    libContainer.Size = UDim2.new(1, -10, 0, 320)
+    libContainer.BackgroundColor3 = COLORS.glassDeep
+    libContainer.BackgroundTransparency = 0.18
+    libContainer.BorderSizePixel = 0
+    libContainer.Parent = LibraryTab.page
+
+    local lcCorner = Instance.new("UICorner")
+    lcCorner.CornerRadius = UDim.new(0, 8)
+    lcCorner.Parent = libContainer
+
+    local lcScroller = Instance.new("ScrollingFrame")
+    lcScroller.Size = UDim2.new(1, -16, 1, -16)
+    lcScroller.Position = UDim2.new(0, 8, 0, 8)
+    lcScroller.BackgroundTransparency = 1
+    lcScroller.BorderSizePixel = 0
+    lcScroller.ScrollBarThickness = 4
+    lcScroller.ScrollBarImageColor3 = COLORS.cyan
+    lcScroller.Parent = libContainer
+
+    local lcLayout = Instance.new("UIListLayout")
+    lcLayout.Padding = UDim.new(0, 6)
+    lcLayout.Parent = lcScroller
+
+    lcLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+        lcScroller.CanvasSize = UDim2.new(0, 0, 0, lcLayout.AbsoluteContentSize.Y + 10)
+    end)
+
+    populateLibraryScroll = function()
+        for _, child in ipairs(lcScroller:GetChildren()) do
+            if child:IsA("Frame") or child:IsA("TextLabel") then child:Destroy() end
+        end
+        
+        if #SessionRegistry.Macros == 0 then
+            local emptyLabel = Instance.new("TextLabel")
+            emptyLabel.Size = UDim2.new(1, 0, 0, 40)
+            emptyLabel.BackgroundTransparency = 1
+            emptyLabel.Text = "No saved modules in library yet."
+            emptyLabel.TextColor3 = COLORS.textMuted
+            emptyLabel.Font = Enum.Font.Gotham
+            emptyLabel.TextSize = 12
+            emptyLabel.Parent = lcScroller
+            return
+        end
+
+        for idx, data in ipairs(SessionRegistry.Macros) do
+            local itemFrame = Instance.new("Frame")
+            itemFrame.Size = UDim2.new(1, -6, 0, 42)
+            itemFrame.BackgroundColor3 = COLORS.surface
+            itemFrame.BackgroundTransparency = 0.20
+            itemFrame.Parent = lcScroller
+            
+            local ifCorner = Instance.new("UICorner")
+            ifCorner.CornerRadius = UDim.new(0, 6)
+            ifCorner.Parent = itemFrame
+
+            local itemTitle = Instance.new("TextLabel")
+            itemTitle.Size = UDim2.new(1, -140, 1, 0)
+            itemTitle.Position = UDim2.new(0, 12, 0, 0)
+            itemTitle.BackgroundTransparency = 1
+            itemTitle.Text = "⚡ " .. data.Name
+            itemTitle.TextColor3 = COLORS.text
+            itemTitle.Font = Enum.Font.GothamBold
+            itemTitle.TextSize = 12
+            itemTitle.TextXAlignment = Enum.TextXAlignment.Left
+            itemTitle.Parent = itemFrame
+
+            local runBtn = Instance.new("TextButton")
+            runBtn.Size = UDim2.fromOffset(60, 26)
+            runBtn.Position = UDim2.new(1, -130, 0.5, -13)
+            runBtn.BackgroundColor3 = COLORS.primary
+            runBtn.Text = "▶ Run"
+            runBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+            runBtn.Font = Enum.Font.GothamBold
+            runBtn.TextSize = 11
+            runBtn.Parent = itemFrame
+
+            local rbCorner = Instance.new("UICorner")
+            rbCorner.CornerRadius = UDim.new(0, 4)
+            rbCorner.Parent = runBtn
+
+            runBtn.MouseButton1Click:Connect(function()
+                playClickSound()
+                local comp, err = loadstring(data.Code)
+                if comp then
+                    task.spawn(comp)
+                    ObsidianGlassEngine:Notify({ Title = "Execution Success", Content = "Module executed: " .. data.Name, Duration = 3 })
+                else
+                    local scr = Instance.new("LocalScript")
+                    scr.Source = data.Code
+                    scr.Disabled = false
+                    scr.Parent = game.Players.LocalPlayer.Character or game.Workspace
+                    task.wait(0.1)
+                    scr:Destroy()
+                    ObsidianGlassEngine:Notify({ Title = "Executed", Content = "Module attached to character.", Duration = 3 })
+                end
+            end)
+
+            local delBtn = Instance.new("TextButton")
+            delBtn.Size = UDim2.fromOffset(60, 26)
+            delBtn.Position = UDim2.new(1, -65, 0.5, -13)
+            delBtn.BackgroundColor3 = COLORS.surfacePressed
+            delBtn.Text = "🗑 Del"
+            delBtn.TextColor3 = COLORS.danger
+            delBtn.Font = Enum.Font.GothamBold
+            delBtn.TextSize = 11
+            delBtn.Parent = itemFrame
+
+            local dbCorner = Instance.new("UICorner")
+            dbCorner.CornerRadius = UDim.new(0, 4)
+            dbCorner.Parent = delBtn
+
+            delBtn.MouseButton1Click:Connect(function()
+                playClickSound()
+                table.remove(SessionRegistry.Macros, idx)
+                populateLibraryScroll()
+                ObsidianGlassEngine:Notify({ Title = "Removed", Content = "Deleted module: " .. data.Name, Duration = 3 })
+            end)
+        end
+    end
+end
+
+populateLibraryScroll()
+
+-- 3. SETTINGS TAB BUILDER
+SettingsTab:AddSection("LANG_SECTION", "🌐 เลือกภาษาใช้งาน (LANGUAGE / สลับภาษา)")
+
+SettingsTab:AddButton({
+    TitleKey = "LANG_SWITCH_TH",
+    Title = "🇹🇭 ภาษาไทย (Thai - ใช้งานอยู่)",
+    Callback = function()
+        SwitchLanguage("TH")
+    end
+})
+
+SettingsTab:AddButton({
+    TitleKey = "LANG_SWITCH_EN",
+    Title = "🇬🇧 Switch to English",
+    Callback = function()
+        SwitchLanguage("EN")
+    end
+})
+
+SettingsTab:AddSection("SCALE_SECTION", "🖥️ UI DISPLAY SCALING")
+
+SettingsTab:AddButton({
+    TitleKey = "SCALE_STD",
+    Title = "🖥️ Standard Profile (1.0x Scale)",
+    Callback = function()
+        Window.UIScale.Scale = 1.0
+        ObsidianGlassEngine:Notify({ Title = GetText("NOTIF_TITLE"), Content = "Reset to standard scale (1.0x)", Duration = 2 })
+    end
+})
+
+SettingsTab:AddButton({
+    TitleKey = "SCALE_MOBILE",
+    Title = "📱 Compact Mobile Profile (0.75x Scale)",
+    Callback = function()
+        Window.UIScale.Scale = 0.75
+        ObsidianGlassEngine:Notify({ Title = GetText("NOTIF_TITLE"), Content = "Set to compact mobile scale (0.75x)", Duration = 2 })
+    end
+})
+
+SettingsTab:AddSection("EXT_SECTION", "🛠️ EXTERNAL UTILITIES & GAME SCRIPTS")
+
+SettingsTab:AddButton({
+    TitleKey = "EXT_ANIME_CARD",
+    Title = "🎴 Launch PayomboyZ Anime Card Farm",
+    Callback = function()
+        ObsidianGlassEngine:Notify({ Title = "Anime Card Farm", Content = "Fetching and launching PayomboyZ Anime Card Farm...", Duration = 3 })
+        task.spawn(function()
+            local ok, err = pcall(function()
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/payomboyz333/Anime-Card-Farm/refs/heads/main/start.txt"))()
+            end)
+            if ok then
+                ObsidianGlassEngine:Notify({ Title = "Anime Card Farm", Content = "PayomboyZ Anime Card Farm loaded successfully!", Duration = 4 })
+            else
+                ObsidianGlassEngine:Notify({ Title = "Launch Error", Content = "Failed to launch script: " .. tostring(err), Duration = 5 })
+            end
+        end)
+    end
+})
+
+SettingsTab:AddButton({
+    TitleKey = "EXT_DEX",
+    Title = "🛠️ Launch Dex Debugging Explorer",
+    Callback = function()
+        ObsidianGlassEngine:Notify({ Title = "Dex Debugger", Content = "Fetching and launching Dex Explorer...", Duration = 3 })
+        task.spawn(function()
+            local ok, err = pcall(function()
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/main/dex.lua"))()
+            end)
+            if ok then
+                ObsidianGlassEngine:Notify({ Title = "Dex Debugger", Content = "Dex Debugging Explorer loaded successfully!", Duration = 4 })
+            else
+                ObsidianGlassEngine:Notify({ Title = "Dex Error", Content = "Failed to launch Dex: " .. tostring(err), Duration = 5 })
+            end
+        end)
+    end
+})
+
+SettingsTab:AddButton({
+    TitleKey = "EXT_IY",
+    Title = "⚡ Launch Infinite Yield Admin Tools",
+    Callback = function()
+        ObsidianGlassEngine:Notify({ Title = "Infinite Yield", Content = "Fetching and launching Infinite Yield...", Duration = 3 })
+        task.spawn(function()
+            local ok, err = pcall(function()
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+            end)
+            if ok then
+                ObsidianGlassEngine:Notify({ Title = "Infinite Yield", Content = "Infinite Yield loaded successfully!", Duration = 4 })
+            else
+                ObsidianGlassEngine:Notify({ Title = "IY Error", Content = "Failed to launch Infinite Yield: " .. tostring(err), Duration = 5 })
+            end
+        end)
+    end
+})
+
+SettingsTab:AddSection("CONFIG_SECTION", "💾 HUB CONFIGURATION & PROFILE MANAGER")
+
+SettingsTab:AddButton({
+    TitleKey = "CONFIG_SAVE_BTN",
+    Title = "💾 Save Current Profile Config",
+    Callback = function()
+        local configData = {
+            UIScale = Window.UIScale.Scale,
+            SpySkipText = SpySkipText,
+            CurrentLanguage = CurrentLanguage,
+            BoundContextCount = #AIContextEngine.BoundItems,
+            SavedTime = os.date("%Y-%m-%d %H:%M:%S")
+        }
+        local HttpService = game:GetService("HttpService")
+        local json = HttpService:JSONEncode(configData)
+        if typeof(makefolder) == "function" then pcall(function() makefolder("ValenHub_Dumps") end) end
+        if typeof(writefile) == "function" then
+            pcall(function() writefile("ValenHub_Dumps/PayomboyZ_Config.json", json) end)
+            ObsidianGlassEngine:Notify({ Title = GetText("NOTIF_TITLE"), Content = "Saved profile config to PBG_Dumps/PayomboyZ_Config.json", Duration = 4 })
+            DebugLog("INFO", "CONFIG", "Saved profile config successfully")
+        end
+    end
+})
+
+SettingsTab:AddButton({
+    TitleKey = "CONFIG_LOAD_BTN",
+    Title = "📂 Load Saved Profile Config",
+    Callback = function()
+        if typeof(readfile) == "function" and typeof(isfile) == "function" and isfile("ValenHub_Dumps/PayomboyZ_Config.json") then
+            local ok, content = pcall(function() return readfile("ValenHub_Dumps/PayomboyZ_Config.json") end)
+            if ok and content then
+                local HttpService = game:GetService("HttpService")
+                local data = HttpService:JSONDecode(content)
+                if data and data.UIScale then
+                    Window.UIScale.Scale = data.UIScale
+                end
+                if data and data.CurrentLanguage then
+                    SwitchLanguage(data.CurrentLanguage)
+                end
+                if data and data.SpySkipText and FilterInput then
+                    SpySkipText = data.SpySkipText
+                    FilterInput.Text = SpySkipText
+                end
+                ObsidianGlassEngine:Notify({ Title = GetText("NOTIF_TITLE"), Content = "Loaded settings profile!", Duration = 3 })
+                DebugLog("INFO", "CONFIG", "Loaded profile config successfully")
+            end
+        else
+            ObsidianGlassEngine:Notify({ Title = GetText("NOTIF_TITLE"), Content = "No saved config file found.", Duration = 3 })
+        end
+    end
+})
+
+SettingsTab:AddSection("DIAG_SECTION", "📊 SYSTEM DIAGNOSTICS & PERFORMANCE")
+
+local perfCard = Instance.new("Frame")
+perfCard.Size = UDim2.new(1, -10, 0, 75)
+perfCard.BackgroundColor3 = COLORS.glassDeep
+perfCard.BackgroundTransparency = 0.18
+perfCard.BorderSizePixel = 0
+perfCard.Parent = SettingsTab.page
+
+local perfCorner = Instance.new("UICorner")
+perfCorner.CornerRadius = UDim.new(0, 8)
+perfCorner.Parent = perfCard
+
+local perfStroke = Instance.new("UIStroke")
+perfStroke.Color = COLORS.surface
+perfStroke.Thickness = 1
+perfStroke.Parent = perfCard
+
+local perfText = Instance.new("TextLabel")
+perfText.Size = UDim2.new(1, -16, 1, -12)
+perfText.Position = UDim2.new(0, 8, 0, 6)
+perfText.BackgroundTransparency = 1
+perfText.Font = Enum.Font.Code
+perfText.TextSize = 11
+perfText.TextColor3 = Color3.fromRGB(150, 230, 255)
+perfText.TextXAlignment = Enum.TextXAlignment.Left
+perfText.TextYAlignment = Enum.TextYAlignment.Top
+perfText.Parent = perfCard
+
+    task.spawn(function()
+        while gui and gui.Parent and perfText and perfText.Parent do
+            local memKB = gcinfo()
+            local memMB = string.format("%.2f MB", memKB / 1024)
+            local cacheCount = 0
+            for _ in pairs(KnowledgeEngine.DocCache) do cacheCount = cacheCount + 1 end
+            perfText.Text = string.format(
+                "PERFORMANCE MONITOR V6:\n• Memory Usage: %s (%d KB)\n• Active Connections Tracked: %d\n• Debug Log Buffer: %d entries\n• Bound AI Contexts: %d | GitHub Knowledge: %d docs (%d cached)",
+                memMB, memKB, #TrackedConnections, #DebugLogs, #AIContextEngine.BoundItems, #KnowledgeEngine.ManifestEntries, cacheCount
+            )
+            task.wait(1)
+        end
+    end)
+
+SettingsTab:AddSection("CONTROL_SECTION", "❌ SYSTEM CONTROL & SESSION")
+
+SettingsTab:AddButton({
+    Title = "🚪 ออกจากระบบ (Logout & Return to Loader)",
+    Callback = function()
+        CleanupConnections()
+        local mainGui = parentGui:FindFirstChild("ObsidianGlass2_UI")
+        if mainGui then mainGui:Destroy() end
+        RedirectToStartLoader("🚪 ออกจากระบบสำเร็จ! กำลังกลับไปยังหน้า PayomboyZ Loader...")
+    end
+})
+
+SettingsTab:AddButton({
+    TitleKey = "NOTIF_TEST_BTN",
+    Title = "🔔 Test Toast Notification",
+    Callback = function()
+        ObsidianGlassEngine:Notify({
+            Title = GetText("NOTIF_TITLE"),
+            Content = "Obsidian Glassmorphic 2 Engine working at peak performance!",
+            Duration = 4
+        })
+    end
+})
+
+SettingsTab:AddButton({
+    TitleKey = "UNLOAD_HUB_BTN",
+    Title = "❌ Unload PayomboyZ Hub UI & Cleanup Connections",
+    Callback = function()
+        CleanupConnections()
+        local gui = parentGui:FindFirstChild("ObsidianGlass2_UI")
+        if gui then gui:Destroy() end
+        DebugLog("INFO", "SYSTEM", "Unloaded PayomboyZ AI Engine UI cleanly")
+    end
+})
+
+DebugLog("INFO", "SYSTEM", "PayomboyZ AI Engine V6 Core Architecture Initialized Successfully!")
+
+ObsidianGlassEngine:Notify({
+    Title = "PayomboyZ Script HUB",
+    Content = "Obsidian Glassmorphic 2 Engine Loaded Successfully!",
+    Duration = 5
+})
