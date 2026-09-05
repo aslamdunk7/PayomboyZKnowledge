@@ -104,3 +104,43 @@ PREFER: Listening to `player.CharacterAdded` over polling `player.Character`.
 AVOID: Referencing `Players.LocalPlayer` in server code.
 DO_NOT_ASSUME: `player.Character` exists instantly when `PlayerAdded` fires.
 RELATED_KNOWLEDGE: roblox/services, patterns/cleanup, patterns/cache
+
+TITLE: Roblox Players
+CATEGORY: roblox
+PRIORITY: S
+SOURCE: Roblox Creator Docs
+VERSION: 2026-v1
+LAST_REVIEWED: 2026-08-31
+CONFIDENCE: HIGH (100%)
+
+DESCRIPTION:
+The `Players` service manages connected `Player` objects and player lifecycle. Distinguishing between the long-lived `Player` object lifetime and the short-lived `Character` object lifetime (which resets upon death/respawn) is critical.
+
+PLAYER_LIFECYCLE:
+
+Server Lifecycle:
+  PlayerAdded -> Player object created -> CharacterAdded -> Character model created -> CharacterRemoving -> Character destroyed -> PlayerRemoving
+
+Client Lifecycle:
+  Players.LocalPlayer available -> CharacterAdded -> CharacterRemoving
+
+WHEN_TO_USE:
+- Tracking connected players, character spawns, respawns, health, inventory, or combat targets.
+
+WHEN_NOT_TO_USE:
+- Do not use player character references for static persistent world state that should exist independent of player presence.
+
+CORE_RULES:
+- Never access `Players.LocalPlayer` in server scripts (evaluates to `nil`).
+- Never assume `player.Character` or `character:FindFirstChild("HumanoidRootPart")` exists immediately without checking.
+- Clean up connections attached to a player's character when `CharacterRemoving` fires or when respawning.
+- Iterate existing `Players:GetPlayers()` before connecting `PlayerAdded` on the server.
+
+HALLUCINATION_RESISTANCE_MATRIX:
+  KNOWN: `Players.LocalPlayer`, `Players.PlayerAdded`, `Players.PlayerRemoving`, `Players:GetPlayers()`, `Players:GetPlayerFromCharacter()`, `player.Character`, `player.CharacterAdded`, `player.CharacterRemoving`.
+  CONTEXT_DEPENDENT: `LocalPlayer` exists ONLY on Client. `Character` is `nil` during load or respawn delay.
+  DO_NOT_ASSUME: `PlayerAdded` fires for players who joined BEFORE the server script initialized (must iterate `GetPlayers()`).
+
+ANTI_PATTERNS:
+
+BAD:
