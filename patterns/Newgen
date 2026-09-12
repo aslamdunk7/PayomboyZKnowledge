@@ -1788,10 +1788,20 @@ local function isRarityAllowed(rar)
     if not SELECTED_RARITIES or #SELECTED_RARITIES == 0 then
         return true
     end
+    for _, v in ipairs(SELECTED_RARITIES) do
+        if v == "All (ทั้งหมด)" or string.lower(tostring(v)) == "all" then
+            return true
+        end
+        if string.lower(tostring(v)) == string.lower(tostring(rar)) then
+            return true
+        end
+    end
+    return false
+end
 
 
 -- ======================================================================================
--- [[ PROGRESSION SYSTEM CORE (StealAnEgg Engine) ]]
+-- [[ COMPLETE PROGRESSION & THE RIFT ENGINE (1:1 with StealAnEggSRC.lua) ]]
 -- ======================================================================================
 local function findProgModule(name)
     local direct = h:FindFirstChild(name, true)
@@ -1818,7 +1828,17 @@ local DataMod   = h:FindFirstChild("Data") or findProgModule("Data")
 
 local SaveMod   = safeProgRequire((SharedMod and SharedMod:FindFirstChild("Save")) or findProgModule("Save"))
 local BasesDir  = safeProgRequire((DataMod and DataMod:FindFirstChild("Bases")) or findProgModule("Bases"))
+local TreadDir  = safeProgRequire((DataMod and DataMod:FindFirstChild("Treadmills")) or findProgModule("Treadmills"))
 local TrailsDir = safeProgRequire((DataMod and DataMod:FindFirstChild("Trails")) or findProgModule("Trails"))
+local AssetSer  = safeProgRequire(findProgModule("AssetItemSerialization"))
+
+local function shortNum(n)
+    n = tonumber(n) or 0
+    for _, u in ipairs({ { 1e12, "T" }, { 1e9, "B" }, { 1e6, "M" }, { 1e3, "K" } }) do
+        if n >= u[1] then return string.format("%.2f%s", n / u[1], u[2]) end
+    end
+    return string.format("%.0f", n)
+end
 
 local progSaveCache, progSaveCacheAt = nil, 0
 local function getProgSaveData(fresh)
@@ -1838,6 +1858,45 @@ local function getProgMoney()
     return tonumber(getProgSaveData().Money) or 0
 end
 
+local petCache, petCacheAt = nil, 0
+local function petItems(fresh)
+    local now = os.clock()
+    if not fresh and petCache and now - petCacheAt < 1.5 then return petCache end
+
+    local data = getProgSaveData()
+    local inv = data.Inventory or {}
+    local equipped = {}
+    for _, uid in ipairs(data.EquippedAssets or {}) do equipped[uid] = true end
+
+    local list = {}
+    for uid, raw in pairs(inv) do
+        local item = raw
+        if AssetSer and type(raw) ~= "table" then
+            local ok, d = pcall(AssetSer.Deserialize, raw)
+            if ok and type(d) == "table" then item = d end
+        end
+
+        if type(item) == "table" and (item.Category or item.AssetCategory) then
+            local cat = tostring(item.Category or item.AssetCategory)
+            local scale = tonumber(item.Scale or item.AssetScale) or 1
+            local rate = 100 * scale
+            local price = rate * 100
+            table.insert(list, {
+                uid = tostring(item.Uid or uid),
+                cat = cat,
+                equipped = equipped[uid] == true,
+                favorite = item.Favorite == true,
+                inFuse = item.InFuse == true,
+                rate = rate,
+                price = price
+            })
+        end
+    end
+
+    petCache, petCacheAt = list, now
+    return list
+end
+
 local PROG_REMOTE_MAP = {
     ["Plots: RequestBaseUpgrade"]  = "RE/Homestead/AskBaseTierRaise",
     ["Treadmills: RequestUpgrade"] = "RF/Treadmill/AskTierRaise",
@@ -1845,20 +1904,11 @@ local PROG_REMOTE_MAP = {
     ["Trails: RequestSelect"]      = "RF/Trails/AskSelect",
     ["OfflineAssets: Redeem"]      = "RF/AwayEarnings/AskCollect",
     ["Index: RequestClaimAll"]     = "RF/Index/AskCollectAll",
-    ["FuseMachine: StartFuse"]     = "RF/FuseMachine/StartFuse",
-    ["FuseMachine: CompleteReveal"] = "RF/FuseMachine/CompleteReveal",
+    ["Rift: AskState"]             = "RF/Rift/AskState",
+    ["Rift: AskTradeIn"]           = "RF/Rift/AskTradeIn",
+    ["Rift: AskRefresh"]           = "RF/Rift/AskRefresh",
+    ["Rift: AskFinishReveal"]      = "RF/Rift/AskFinishReveal",
 }
-
-local function treadmillUpgradeStep()
-    invokeProgRemote("Treadmills: RequestUpgrade")
-end
-
-local function fuseStep()
-    local ok, res = invokeProgRemote("FuseMachine: StartFuse")
-    if ok then
-        invokeProgRemote("FuseMachine: CompleteReveal")
-    end
-end
 
 local function fireProgRemote(name, ...)
     local realName = PROG_REMOTE_MAP[name] or name
@@ -1906,6 +1956,10 @@ local function baseUpgradeStep()
     progSaveCache = nil
 end
 
+local function treadmillUpgradeStep()
+    invokeProgRemote("Treadmills: RequestUpgrade")
+end
+
 local function trailsStep()
     if not TrailsDir or not TrailsDir.Directory then return end
     local data  = getProgSaveData()
@@ -1945,19 +1999,128 @@ local function claimStep()
     invokeProgRemote("Index: RequestClaimAll")
 end
 
+local RIFT_BANNER_NAMES = {
+    Verdant = "Riftborn",
+    Umbral  = "Riftbeasts",
+    Radiant = "Shattered Rift",
+}
+
+local currentRiftState = nil
+local riftFusesCount = 0
+
+local function getRiftState()
+    local ok, res = invokeProgRemote("Rift: AskState")
+    if ok and type(res) == "table" then
+        if not res.BannerDisplayName and res.BannerId then
+            res.BannerDisplayName = RIFT_BANNER_NAMES[res.BannerId] or res.BannerId
+        end
+        currentRiftState = res
+        return res
+    end
+    return currentRiftState
+end
+
+local function rerollRiftFree()
+    local ok, res = invokeProgRemote("Rift: AskRefresh")
+    if ok and res == true then
+        task.wait(0.5)
+        local fresh = getRiftState()
+        if fresh then currentRiftState = fresh end
+        return true
+    end
+    return false
+end
+
 local CfgProg = {
     AutoBaseUpgrade = false,
-    AutoTreadmillUp = false,
     AutoTrails = false,
     AutoFuse = false,
     AutoClaim = false,
+    AutoRift = false,
+    RiftTarget = "ทุกประเภท (All)",
+    RiftAutoReroll = false,
 }
-    for _, r in ipairs(SELECTED_RARITIES) do
-        if r == "All (ทั้งหมด)" or r == rar then
-            return true
+
+local function riftStep(manual)
+    if not manual and not (CfgProg.AutoRift or CfgProg.AutoFuse) then return false end
+    if T["glidingToTarget"] or T["securingEgg"] or T["delivering"] then return false end
+
+    local state = getRiftState()
+    if not state or not state.Unlocked then return false, "The Rift ยังไม่ปลดล็อค" end
+
+    local currentBanner = state.BannerDisplayName or RIFT_BANNER_NAMES[state.BannerId] or state.BannerId or "Unknown"
+    local target = CfgProg.RiftTarget or "ทุกประเภท (All)"
+
+    local isMatch = false
+    if target == "All" or target == "ทุกประเภท (All)" or target == "All Banners" or target == "" then
+        isMatch = true
+    else
+        local cleanTarget = tostring(target):gsub("%s*%(.-%)", ""):lower()
+        local bName = tostring(currentBanner):lower()
+        local bId = tostring(state.BannerId or ""):lower()
+        if bName:find(cleanTarget, 1, true) or bId:find(cleanTarget, 1, true) or cleanTarget:find(bName, 1, true) then
+            isMatch = true
         end
     end
-    return false
+
+    if not isMatch then
+        if (manual or CfgProg.RiftAutoReroll) and (state.FreeRefreshesRemaining or 0) > 0 then
+            local refreshed = rerollRiftFree()
+            if refreshed then
+                task.wait(0.8)
+                state = getRiftState()
+                currentBanner = state and (state.BannerDisplayName or state.BannerId) or currentBanner
+            end
+        else
+            return false, "แบนเนอร์ไม่ตรงกับเป้าหมายที่เลือก"
+        end
+    end
+
+    local reqs = state.Requirements
+    if not reqs or type(reqs) ~= "table" or #reqs < 3 then return false, "ข้อมูลเงื่อนไขไม่สมบูรณ์" end
+
+    local pets = petItems(true)
+    local usedUids = {}
+    local matchedUids = {}
+
+    for slot = 1, 3 do
+        local wantName = tostring(reqs[slot])
+        local found = nil
+        for _, p in ipairs(pets) do
+            if not usedUids[p.uid] and not p.equipped and not p.favorite and not p.inFuse then
+                local isBillionTier = (p.rate and p.rate >= 1e9) or (p.price and p.price >= 1e9)
+                if not isBillionTier then
+                    local pName = tostring(p.cat)
+                    if pName == wantName or pName:lower() == wantName:lower() or pName:lower():find(wantName:lower(), 1, true) then
+                        found = p
+                        break
+                    end
+                end
+            end
+        end
+
+        if found then
+            usedUids[found.uid] = true
+            matchedUids[slot] = found.uid
+        else
+            return false, string.format("ขาดวัตถุดิบ: %s", wantName)
+        end
+    end
+
+    if #matchedUids == 3 then
+        local okTrade, resTrade = invokeProgRemote("Rift: AskTradeIn", matchedUids)
+        if okTrade and resTrade == true then
+            task.wait(0.25)
+            invokeProgRemote("Rift: AskFinishReveal")
+            riftFusesCount = riftFusesCount + 1
+            progSaveCache, petCache = nil, nil
+            return true, "ผสมสำเร็จ!"
+        else
+            return false, tostring(resTrade or "TradeIn failed")
+        end
+    end
+
+    return false, "วัตถุดิบไม่ครบ 3 ตัว"
 end
 
 local ZONE_ORDER = {
@@ -5440,45 +5603,156 @@ end
     })
 
         -- =========================================================================
-    -- TAB 4: ระบบพัฒนา (Progression Engine & Auto Systems)
+    -- TAB 4: ระบบพัฒนา (Progression Tab - 1:1 with StealAnEggSRC.lua)
     -- =========================================================================
-    local tabProg = Window:AddTab({
-        Title = "ระบบพัฒนา",
+    local TabProg = Window:AddTab({
+        Title = "พัฒนา",
         Icon = "trending-up"
     })
 
-    tabProg:AddSection("🏆 สถานะและข้อมูลตัวละคร (Player Progression Telemetry)")
-
-    local progInfoCard = tabProg:AddParagraph({
-        Title = "⚡ ข้อมูลการพัฒนา (Live Progression Stats)",
-        Desc = "กำลังเชื่อมต่อและโหลดข้อมูลผู้เล่น..."
+    -- -------------------------------------------------------------------------
+    -- Card: ความคืบหน้า (ProgBox)
+    -- -------------------------------------------------------------------------
+    local ProgBox = TabProg:AddParagraph({
+        Title = "ความคืบหน้า",
+        Desc  = "กำลังอ่านข้อมูลผู้เล่น..."
     })
 
-    tabProg:AddSection("🏠 ระบบฐานและลู่วิ่ง (Base & Treadmills)")
+    -- -------------------------------------------------------------------------
+    -- Multi-Dropdown: ระบบอัตโนมัติที่จะเปิด
+    -- -------------------------------------------------------------------------
+    TabProg:AddDropdown("DropdownAutoProg", {
+        Title = "ระบบอัตโนมัติที่จะเปิด",
+        Desc  = "อัปฐานกับลู่วิ่งจะซื้อทันทีที่เงินถึง ตรวจทุก 1 วินาที",
+        Values = { "อัปเกรดฐาน", "ซื้อ/ใส่เทรล", "ผสมสัตว์", "รับรางวัล" },
+        Value = (function()
+            local t = {}
+            if CfgProg.AutoBaseUpgrade then table.insert(t, "อัปเกรดฐาน") end
+            if CfgProg.AutoTrails then table.insert(t, "ซื้อ/ใส่เทรล") end
+            if CfgProg.AutoFuse or CfgProg.AutoRift then table.insert(t, "ผสมสัตว์") end
+            if CfgProg.AutoClaim then table.insert(t, "รับรางวัล") end
+            return t
+        end)(),
+        Multi = true,
+        Callback = function(v)
+            local set = {}
+            if type(v) == "table" then
+                for _, item in ipairs(v) do set[item] = true end
+            elseif type(v) == "string" then
+                set[v] = true
+            end
+            CfgProg.AutoBaseUpgrade = set["อัปเกรดฐาน"] == true
+            CfgProg.AutoTrails      = set["ซื้อ/ใส่เทรล"] == true
+            CfgProg.AutoFuse        = set["ผสมสัตว์"] == true
+            CfgProg.AutoRift        = set["ผสมสัตว์"] == true
+            CfgProg.AutoClaim       = set["รับรางวัล"] == true
 
-    tabProg:AddToggle("TogAutoBaseUp", {
-        Title = "อัปเกรดฐานอัตโนมัติ (Auto Base Upgrade)",
-        Desc = "อัปเกรดขยายบ้าน / ฐานทันทีเมื่อเงินในกระเป๋าเพียงพอ",
-        Default = CfgProg.AutoBaseUpgrade,
-        Callback = function(val)
-            CfgProg.AutoBaseUpgrade = val
-            if val then pcall(baseUpgradeStep) end
+            ObsidianGlassEngine:Notify({
+                Title = "ระบบพัฒนา",
+                Content = string.format("เปิดระบบ: [ฐาน:%s | เทรล:%s | หลอม:%s | เคลม:%s]",
+                    CfgProg.AutoBaseUpgrade and "ON" or "OFF",
+                    CfgProg.AutoTrails and "ON" or "OFF",
+                    CfgProg.AutoFuse and "ON" or "OFF",
+                    CfgProg.AutoClaim and "ON" or "OFF"
+                ),
+                Duration = 3
+            })
         end
     })
 
-    tabProg:AddToggle("TogAutoTreadUp", {
-        Title = "อัปเกรดลู่วิ่งอัตโนมัติ (Auto Treadmill Upgrade)",
-        Desc = "อัปเกรดระดับลู่วิ่งเพื่อเพิ่มตัวคูณสปีดการฝึกฝนอัตโนมัติ",
-        Default = CfgProg.AutoTreadmillUp,
-        Callback = function(val)
-            CfgProg.AutoTreadmillUp = val
-            if val then pcall(treadmillUpgradeStep) end
+    -- -------------------------------------------------------------------------
+    -- Section: The Rift (เดอะริฟต์) / Auto Fuse
+    -- -------------------------------------------------------------------------
+    TabProg:AddSection("The Rift (เดอะริฟต์) / Auto Fuse")
+
+    TabProg:AddToggle("TogAutoRift", {
+        Title = "ผสมไข่ The Rift อัตโนมัติ",
+        Desc  = "ตรวจวัตถุดิบ 3 ตัวตามรอบแบนเนอร์ปัจจุบัน แล้วผสมให้อัตโนมัติ",
+        Default = CfgProg.AutoRift,
+        Callback = function(v)
+            CfgProg.AutoRift = v
+            CfgProg.AutoFuse = v
         end
     })
 
-    tabProg:AddButton({
-        Title = "🚀 อัปเกรดฐานตอนนี้ (Upgrade Base Now)",
-        Desc = "ส่งคำสั่งอัปเกรดฐานทันที 1 ระดับ",
+    TabProg:AddDropdown("DropdownRiftTarget", {
+        Title = "ประเภทไข่ The Rift ที่ต้องการ",
+        Desc  = "เลือกประเภทไข่ที่จะผสม หากรอบปัจจุบันไม่ตรงจะรอหรือรีโรล",
+        Values = { "ทุกประเภท (All)", "Riftborn", "Riftbeasts", "Shattered Rift" },
+        Value = CfgProg.RiftTarget or "ทุกประเภท (All)",
+        Callback = function(v)
+            CfgProg.RiftTarget = v
+        end
+    })
+
+    TabProg:AddToggle("TogRiftAutoReroll", {
+        Title = "รีโรลหาแบนเนอร์เป้าหมายฟรี",
+        Desc  = "เมื่อรอบปัจจุบันไม่ตรงที่เลือก จะใช้สิทธิ์รีโรลฟรีหมุนหาอัตโนมัติ",
+        Default = CfgProg.RiftAutoReroll,
+        Callback = function(v)
+            CfgProg.RiftAutoReroll = v
+        end
+    })
+
+    local RiftStatusBox = TabProg:AddParagraph({
+        Title = "สถานะ The Rift",
+        Desc  = "กำลังตรวจสอบข้อมูลรอบแบนเนอร์...",
+    })
+
+    TabProg:AddButton({
+        Title = "ผสม The Rift ทันที 1 ครั้ง",
+        Desc  = "สั่งตรวจวัตถุดิบและผสมไข่ทันที",
+        Callback = function()
+            task.spawn(function()
+                local ok, err = riftStep(true)
+                if ok then
+                    ObsidianGlassEngine:Notify({
+                        Title = "The Rift",
+                        Content = "ผสมสำเร็จเรียบร้อย!",
+                        Duration = 4
+                    })
+                else
+                    ObsidianGlassEngine:Notify({
+                        Title = "The Rift",
+                        Content = "ผสมไม่สำเร็จ: " .. tostring(err or "ขาดวัตถุดิบหรือยังไม่ปลดล็อค"),
+                        Duration = 4
+                    })
+                end
+            end)
+        end
+    })
+
+    TabProg:AddButton({
+        Title = "รีโรลแบนเนอร์ฟรีทันที",
+        Desc  = "ใช้สิทธิ์หมุนเปลี่ยนรอบไข่ฟรี",
+        Callback = function()
+            task.spawn(function()
+                local ok = rerollRiftFree()
+                if ok then
+                    ObsidianGlassEngine:Notify({
+                        Title = "The Rift",
+                        Content = "รีโรลแบนเนอร์เรียบร้อย!",
+                        Duration = 3
+                    })
+                else
+                    ObsidianGlassEngine:Notify({
+                        Title = "The Rift",
+                        Content = "ไม่มีสิทธิ์รีโรลฟรี หรือเกิดข้อผิดพลาด",
+                        Duration = 3
+                    })
+                end
+            end)
+        end
+    })
+
+    -- -------------------------------------------------------------------------
+    -- Section: คำสั่งอัปเกรดด่วน (Quick Upgrades)
+    -- -------------------------------------------------------------------------
+    TabProg:AddSection("คำสั่งอัปเกรดด่วน (Manual Quick Actions)")
+
+    TabProg:AddButton({
+        Title = "🚀 อัปเกรดฐานทันที 1 ระดับ",
+        Desc  = "ส่งคำสั่งอัปเกรดขยายฐานทันทีเมื่อเงินพอ",
         Callback = function()
             pcall(baseUpgradeStep)
             ObsidianGlassEngine:Notify({
@@ -5489,9 +5763,9 @@ end
         end
     })
 
-    tabProg:AddButton({
-        Title = "⚡ อัปเกรดลู่วิ่งตอนนี้ (Upgrade Treadmill Now)",
-        Desc = "ส่งคำสั่งเลื่อนระดับลู่วิ่งทันที",
+    TabProg:AddButton({
+        Title = "⚡ อัปเกรดลู่วิ่งทันที 1 ระดับ",
+        Desc  = "ส่งคำสั่งเลื่อนระดับลู่วิ่งทันที",
         Callback = function()
             pcall(treadmillUpgradeStep)
             ObsidianGlassEngine:Notify({
@@ -5502,71 +5776,9 @@ end
         end
     })
 
-    tabProg:AddSection("💨 ระบบเทรลความเร็ว (Speed Trails System)")
-
-    tabProg:AddToggle("TogAutoTrails", {
-        Title = "ซื้อและสวมใส่เทรลที่ดีที่สุด (Auto Best Trail)",
-        Desc = "ตรวจจับและซื้อเทรลที่เพิ่มความเร็วสูงสุดอัตโนมัติตามเงินที่มี",
-        Default = CfgProg.AutoTrails,
-        Callback = function(val)
-            CfgProg.AutoTrails = val
-            if val then pcall(trailsStep) end
-        end
-    })
-
-    tabProg:AddButton({
-        Title = "🔥 ตรวจสอบและสวมใส่เทรลที่ดีที่สุด",
-        Desc = "เช็คเทรลที่ให้ความเร็วสูงสุดในคลังและสวมใส่ทันที",
-        Callback = function()
-            pcall(trailsStep)
-            ObsidianGlassEngine:Notify({
-                Title = "ระบบพัฒนา",
-                Content = "สวมใส่เทรลความเร็วสูงสุดเรียบร้อย!",
-                Duration = 3
-            })
-        end
-    })
-
-    tabProg:AddSection("🔮 ระบบ The Rift / หลอมสัตว์เลี้ยง (Auto Fuse Machine)")
-
-    tabProg:AddToggle("TogAutoFuse", {
-        Title = "หลอมสัตว์เลี้ยงอัตโนมัติ (Auto Fuse / The Rift)",
-        Desc = "นำสัตว์เลี้ยงตัวซ้ำ 3 ตัวเข้าเตาหลอมเพื่อรับไข่เกรดสูงขึ้น",
-        Default = CfgProg.AutoFuse,
-        Callback = function(val)
-            CfgProg.AutoFuse = val
-            if val then pcall(fuseStep) end
-        end
-    })
-
-    tabProg:AddButton({
-        Title = "✨ สั่งหลอมสัตว์เลี้ยงทันที 1 ครั้ง",
-        Desc = "ส่งคำสั่งหลอมสัตว์เลี้ยงที่พร้อมหลอมทันที",
-        Callback = function()
-            pcall(fuseStep)
-            ObsidianGlassEngine:Notify({
-                Title = "The Rift / หลอมสัตว์เลี้ยง",
-                Content = "ส่งคำสั่งหลอมสัตว์เลี้ยงแล้ว!",
-                Duration = 3
-            })
-        end
-    })
-
-    tabProg:AddSection("🎁 ระบบรับรางวัลและความสำเร็จ (Auto Rewards & Index)")
-
-    tabProg:AddToggle("TogAutoClaim", {
-        Title = "รับรางวัลและเงินออฟไลน์อัตโนมัติ (Auto Claim)",
-        Desc = "เคลมเงินที่ได้ตอนออฟไลน์และรางวัลใน Index อัตโนมัติ",
-        Default = CfgProg.AutoClaim,
-        Callback = function(val)
-            CfgProg.AutoClaim = val
-            if val then pcall(claimStep) end
-        end
-    })
-
-    tabProg:AddButton({
-        Title = "🎉 เคลมรางวัลทั้งหมดทันที (Claim Offline & Index)",
-        Desc = "รับเงินออฟไลน์และรางวัลสมุดสะสมทั้งหมดทันที",
+    TabProg:AddButton({
+        Title = "🎁 เคลมรางวัลทั้งหมด (Claim Offline & Index)",
+        Desc  = "รับเงินออฟไลน์และรางวัลสมุดสะสมทั้งหมดทันที",
         Callback = function()
             pcall(claimStep)
             ObsidianGlassEngine:Notify({
@@ -5590,36 +5802,67 @@ end
         end
     end)
 
-    -- Background Loop for Progression
+    -- Background Loop for Progression Telemetry & Automations (1:1 with StealAnEggSRC.lua)
     task.spawn(function()
         while T["alive"] do
             pcall(function()
-                if CfgProg.AutoBaseUpgrade then pcall(baseUpgradeStep) end
-                if CfgProg.AutoTreadmillUp then pcall(treadmillUpgradeStep) end
-                if CfgProg.AutoTrails then pcall(trailsStep) end
-                if CfgProg.AutoFuse then pcall(fuseStep) end
-                if CfgProg.AutoClaim then pcall(claimStep) end
+                local data = getProgSaveData()
+                local lvl = tonumber(data.BaseUpgradeLevel) or 0
+                local tm  = tonumber(data.TreadmillUpgradeLevel) or 0
+                local nextBase = BasesDir and BasesDir.BASES and BasesDir.BASES[lvl + 1]
+                local nextTm
+                if TreadDir and TreadDir.GetByUpgradeLevel then
+                    local ok, t = pcall(TreadDir.GetByUpgradeLevel, tm + 1)
+                    if ok then nextTm = t end
+                end
 
-                if progInfoCard and progInfoCard.SetDesc then
-                    local data = getProgSaveData()
-                    local lvl = tonumber(data.BaseUpgradeLevel) or 0
-                    local tr = tostring(data.EquippedTrail or "None")
-                    local mon = tonumber(data.Money) or 0
-                    local monStr = (mon >= 1e9 and string.format("%.2fB", mon/1e9))
-                        or (mon >= 1e6 and string.format("%.2fM", mon/1e6))
-                        or (mon >= 1e3 and string.format("%.1fK", mon/1e3))
-                        or tostring(mon)
-                    progInfoCard:SetDesc(string.format("🏠 ระดับบ้าน: Lv.%d  •  ⚡ เทรล: %s\n💰 เงินคงเหลือ: $%s\n⚙️ ระบบทำงาน: [Base:%s | Tread:%s | Trail:%s | Fuse:%s | Claim:%s]",
-                        lvl, tr, monStr,
-                        CfgProg.AutoBaseUpgrade and "ON" or "OFF",
-                        CfgProg.AutoTreadmillUp and "ON" or "OFF",
-                        CfgProg.AutoTrails and "ON" or "OFF",
-                        CfgProg.AutoFuse and "ON" or "OFF",
-                        CfgProg.AutoClaim and "ON" or "OFF"
+                if ProgBox and ProgBox.SetDesc then
+                    local myPets = petItems(false)
+                    ProgBox:SetDesc(string.format(
+                        "ฐาน เลเวล %d → ขั้นถัดไป %s\nลู่วิ่ง เลเวล %d → ขั้นถัดไป %s\nสัตว์ในกระเป๋า %d ตัว",
+                        lvl, nextBase and shortNum(nextBase.Cost) or "สุดแล้ว",
+                        tm, (type(nextTm) == "table") and ((nextTm.DisplayName or nextTm._id) .. " " .. shortNum(nextTm.Price)) or "สุดแล้ว",
+                        myPets and #myPets or 0
                     ))
                 end
+
+                if RiftStatusBox and RiftStatusBox.SetDesc then
+                    local st = currentRiftState or getRiftState()
+                    if st then
+                        local bName = RIFT_BANNER_NAMES[st.BannerId] or st.BannerDisplayName or st.BannerId or "-"
+                        local reqs = st.Requirements or {}
+                        local myPets = petItems(false)
+                        local counts = {}
+                        for _, p in ipairs(myPets or {}) do
+                            if not p.equipped and not p.favorite and not p.inFuse and ((p.rate or 0) < 1e9) then
+                                counts[p.cat] = (counts[p.cat] or 0) + 1
+                            end
+                        end
+                        local reqStr = {}
+                        for _, r in ipairs(reqs) do
+                            local owned = counts[r] or 0
+                            local tag = (owned > 0) and "✓" or "✗"
+                            table.insert(reqStr, string.format("%s: %d/1 %s", tostring(r), owned, tag))
+                        end
+                        RiftStatusBox:SetDesc(string.format(
+                            "รอบ: %s | Pity: %d/50\nวัตถุดิบ: %s\nรีโรลฟรี: %d ครั้ง | ผสมไปแล้ว: %d ครั้ง",
+                            bName, st.PityCount or 0,
+                            (#reqStr > 0 and table.concat(reqStr, " • ") or "-"),
+                            st.FreeRefreshesRemaining or 0,
+                            riftFusesCount
+                        ))
+                    else
+                        RiftStatusBox:SetDesc("ยังไม่ปลดล็อค The Rift (หรือกำลังรอข้อมูล)")
+                    end
+                end
+
+                -- Auto Automations
+                if CfgProg.AutoBaseUpgrade then pcall(baseUpgradeStep) end
+                if CfgProg.AutoTrails then pcall(trailsStep) end
+                if CfgProg.AutoFuse or CfgProg.AutoRift then pcall(riftStep, false) end
+                if CfgProg.AutoClaim then pcall(claimStep) end
             end)
-            task.wait(2.5)
+            task.wait(1.5)
         end
     end)
 
