@@ -1586,6 +1586,139 @@ local function oG()
     end
     return h
 end
+
+-- ======================================================================================
+-- [[ RARITY DEFINITIONS & MATCHING ENGINE (StealAnEggSRC Engine) ]]
+-- ======================================================================================
+local RARITY_ORDER = {
+    "Basic", "Common", "Uncommon", "Rare", "SuperRare", "Superior", "Epic",
+    "Legendary", "Mythic", "Mythical", "Celestial", "Cosmic", "Divine",
+    "Secret", "Eternal", "Exclusive", "Exotic", "Limited", "Rainbow", "Titan", "BrainrotGod"
+}
+
+local RARITY_TH = {
+    Basic       = "เบสิก",
+    Common      = "ธรรมดา",
+    Uncommon    = "ไม่ธรรมดา",
+    Rare        = "หายาก",
+    SuperRare   = "หายากมาก",
+    Superior    = "ชั้นสูง",
+    Epic        = "มหากาพย์",
+    Legendary   = "ตำนาน",
+    Mythic      = "เทพนิยาย",
+    Mythical    = "มหากาพย์เทพ",
+    Celestial   = "ดาราศาสตร์",
+    Cosmic      = "จักรวาล",
+    Divine      = "ศักดิ์สิทธิ์",
+    Secret      = "ลับ",
+    Eternal     = "อมตะ",
+    Exclusive   = "พิเศษ",
+    Exotic      = "แปลกตา",
+    Limited     = "จำกัด",
+    Rainbow     = "สายรุ้ง",
+    Titan       = "ไททัน",
+    BrainrotGod = "พระเจ้าเบรนร็อต",
+}
+
+local CategoryRarity, RarityRank = {}, {}
+do
+    for i, r in ipairs(RARITY_ORDER) do RarityRank[r] = i end
+    if Z and type(Z) == "table" then
+        if Z.ByRarity and type(Z.ByRarity) == "table" then
+            for rarity, list in pairs(Z.ByRarity) do
+                if type(list) == "table" then
+                    for k, v in pairs(list) do
+                        CategoryRarity[(type(v) == "string") and v or tostring(k)] = rarity
+                    end
+                end
+            end
+        end
+        if Z.Directory and type(Z.Directory) == "table" then
+            for id, cfg in pairs(Z.Directory) do
+                if type(cfg) == "table" and type(cfg.Rarity) == "table" and cfg.Rarity._id then
+                    CategoryRarity[id] = cfg.Rarity._id
+                    if cfg.Rarity.RarityNumber and not RarityRank[cfg.Rarity._id] then
+                        RarityRank[cfg.Rarity._id] = cfg.Rarity.RarityNumber
+                    end
+                end
+            end
+        end
+        if Z.Assets and type(Z.Assets) == "table" then
+            for cat, cfg in pairs(Z.Assets) do
+                if type(cfg) == "table" then
+                    local r = cfg.Rarity or (cfg.Egg and cfg.Egg.Rarity)
+                    if r and type(r) == "string" then
+                        CategoryRarity[cat] = r
+                    end
+                end
+            end
+        end
+    end
+end
+
+local AREA_DEFAULT_RARITY = {
+    ["Lake"]           = "Common",
+    ["Forest"]         = "Rare",
+    ["Desert"]         = "SuperRare",
+    ["Jungle"]         = "Epic",
+    ["Snow"]           = "Legendary",
+    ["Volcano"]        = "Mythic",
+    ["Abyss Ocean"]    = "Mythical",
+    ["Prehistoric"]    = "Celestial",
+    ["Cosmic"]         = "Cosmic",
+    ["Cherry Blossom"] = "Divine",
+    ["Titan Temple"]   = "Titan",
+}
+
+local function rarityOf(val, areaId)
+    if type(val) == "table" then
+        local r = val.Rarity or val.AssetRarity
+        if type(r) == "table" then r = r._id or r.Name or r.Id end
+        if type(r) == "string" and (RarityRank[r] or table.find(RARITY_ORDER, r)) then
+            return r
+        end
+        areaId = areaId or val.AreaId or val.Area
+        val = val.AssetCategory or val.Category or val.Name
+    end
+
+    if type(val) == "string" and val ~= "" then
+        for _, r in ipairs(RARITY_ORDER) do
+            if val:lower() == r:lower() then return r end
+        end
+        if CategoryRarity[val] then return CategoryRarity[val] end
+        for catName, rar in pairs(CategoryRarity) do
+            if val:lower():find(catName:lower(), 1, true) then return rar end
+        end
+        for _, r in ipairs(RARITY_ORDER) do
+            if val:lower():find(r:lower(), 1, true) then return r end
+        end
+    end
+
+    if areaId then
+        local aStr = tostring(areaId)
+        for aName, r in pairs(AREA_DEFAULT_RARITY) do
+            if aStr:lower():find(aName:lower(), 1, true) or aName:lower():find(aStr:lower(), 1, true) then
+                return r
+            end
+        end
+    end
+
+    return "Common"
+end
+
+local SELECTED_RARITIES = {}
+local function isRarityAllowed(rar)
+    if not SELECTED_RARITIES or #SELECTED_RARITIES == 0 then
+        return true
+    end
+    for _, r in ipairs(SELECTED_RARITIES) do
+        if r == "All (ทั้งหมด)" or r == rar then
+            return true
+        end
+    end
+    return false
+end
+
 local function aG()
     local e = nil
     if r and r["ReadFieldEggs"] then
@@ -1717,8 +1850,9 @@ local function aG()
                     end
                 end
                 local S, D = o(h, e, V, B)
+                local eggRar = rarityOf(h, a)
                 local b =(S == 0) and((a == "Forest" or a == "Lake" or string["find"](tostring(h["Uid"]), "Forest") or string["find"](tostring(h["Uid"]), "Lake")))
-                if R or not b then
+                if (R or not b) and isRarityAllowed(eggRar) then
                     local R = tonumber(h["AssetScale"] or h["Scale"]) or 1
                     local E = 1
                     if h["Mutations"] and type(h["Mutations"]) == "table" then
@@ -2286,7 +2420,17 @@ end) task["spawn"]( function()
         end
         task["wait"](4)
     end
-end) B["Heartbeat"]:Connect( function()
+end) task.spawn(function()
+    while T["alive"] do
+        if Cfg_EggESP then
+            pcall(updateEggESP)
+        end
+        task.wait(1)
+    end
+    pcall(clearEggESP)
+end)
+
+B["Heartbeat"]:Connect( function()
     local e = E["Character"]
     local R = e and e:FindFirstChild("HumanoidRootPart")
     local B = e and e:FindFirstChildOfClass("Humanoid")
@@ -3398,6 +3542,345 @@ function ObsidianGlassEngine:CreateWindow(cfg)
             return OptionObj
         end
 
+        -- 📋 DROPDOWN WIDGET WITH POPUP OVERLAY
+        function TabObj:AddDropdown(id, dCfg)
+            local title = dCfg.Title or id
+            local values = dCfg.Values or {}
+            local defaultVal = dCfg.Value or dCfg.Default or (values[1] or "")
+            local isMulti = dCfg.Multi == true
+
+            local frame = Instance.new("Frame")
+            frame.Size = UDim2.new(1, -8, 0, 52)
+            frame.BackgroundColor3 = COLORS.glassDeep
+            frame.BackgroundTransparency = 0.18
+            frame.BorderSizePixel = 0
+            frame.ZIndex = 8
+            frame.Parent = pageScroll
+
+            local fCorner = Instance.new("UICorner")
+            fCorner.CornerRadius = UDim.new(0, 8)
+            fCorner.Parent = frame
+
+            local fStroke = Instance.new("UIStroke")
+            fStroke.Color = COLORS.surfaceRaised
+            fStroke.Thickness = 1
+            fStroke.Parent = frame
+
+            local lbl = Instance.new("TextLabel")
+            lbl.Size = UDim2.new(0.5, 0, 1, 0)
+            lbl.Position = UDim2.new(0, 12, 0, 0)
+            lbl.BackgroundTransparency = 1
+            lbl.Text = title
+            lbl.TextColor3 = COLORS.text
+            lbl.Font = Enum.Font.GothamBold
+            lbl.TextSize = 13.5
+            lbl.TextXAlignment = Enum.TextXAlignment.Left
+            lbl.ZIndex = 9
+            lbl.Parent = frame
+
+            local dBtn = Instance.new("TextButton")
+            dBtn.Size = UDim2.new(0.46, 0, 0, 34)
+            dBtn.Position = UDim2.new(0.52, 0, 0.5, -17)
+            dBtn.BackgroundColor3 = COLORS.surface
+            dBtn.BackgroundTransparency = 0.20
+            dBtn.ZIndex = 9
+
+            local function formatValText(val)
+                if type(val) == "table" then
+                    if #val == 0 then return "[ กดเพื่อเลือกรายการ ]" end
+                    return table.concat(val, ", ")
+                end
+                return tostring(val)
+            end
+
+            dBtn.Text = formatValText(defaultVal)
+            dBtn.TextColor3 = COLORS.text
+            dBtn.Font = Enum.Font.GothamBold
+            dBtn.TextSize = 12
+            dBtn.TextTruncate = Enum.TextTruncate.AtEnd
+            dBtn.Parent = frame
+
+            local dbCorner = Instance.new("UICorner")
+            dbCorner.CornerRadius = UDim.new(0, 6)
+            dbCorner.Parent = dBtn
+
+            local dbStroke = Instance.new("UIStroke")
+            dbStroke.Color = COLORS.cyan
+            dbStroke.Thickness = 1
+            dbStroke.Transparency = 0.4
+            dbStroke.Parent = dBtn
+
+            local OptionObj = {
+                Value = defaultVal,
+                Values = values,
+                Callback = dCfg.Callback or function() end,
+                ChangedCallbacks = {}
+            }
+
+            local function updateDropdown(val)
+                OptionObj.Value = val
+                dBtn.Text = formatValText(val)
+                pcall(function() OptionObj.Callback(val) end)
+                for _, cb in ipairs(OptionObj.ChangedCallbacks) do pcall(function() cb(val) end) end
+            end
+
+            function OptionObj:OnChanged(cb) table.insert(OptionObj.ChangedCallbacks, cb) end
+            function OptionObj:SetValue(val) updateDropdown(val) end
+            function OptionObj:SetValues(newVals) OptionObj.Values = newVals end
+
+            dBtn.MouseButton1Click:Connect(function()
+                playClickSound()
+                local mainGui = shell.Parent
+                if not mainGui then return end
+
+                local existingModal = mainGui:FindFirstChild("DropdownModalOverlay")
+                if existingModal then
+                    local isSameDropdown = (existingModal:GetAttribute("DropdownId") == id)
+                    existingModal:Destroy()
+                    if isSameDropdown then return end
+                end
+
+                local modalOverlay = Instance.new("Frame")
+                modalOverlay.Name = "DropdownModalOverlay"
+                modalOverlay:SetAttribute("DropdownId", id)
+                modalOverlay.Size = UDim2.fromScale(1, 1)
+                modalOverlay.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+                modalOverlay.BackgroundTransparency = 0.55
+                modalOverlay.Active = true
+                modalOverlay.ZIndex = 999999
+                modalOverlay.Parent = mainGui
+
+                local bgDismissBtn = Instance.new("TextButton")
+                bgDismissBtn.Size = UDim2.fromScale(1, 1)
+                bgDismissBtn.BackgroundTransparency = 1
+                bgDismissBtn.Text = ""
+                bgDismissBtn.ZIndex = 999999
+                bgDismissBtn.Parent = modalOverlay
+
+                local cameraVP = workspace.CurrentCamera and workspace.CurrentCamera.ViewportSize or Vector2.new(1280, 720)
+                local maxModalH = math.clamp(cameraVP.Y * 0.85, 300, 480)
+                local maxModalW = math.clamp(cameraVP.X * 0.9, 320, 460)
+
+                local modalFrame = Instance.new("Frame")
+                modalFrame.Size = UDim2.fromOffset(maxModalW, maxModalH)
+                modalFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+                modalFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+                modalFrame.BackgroundColor3 = COLORS.shell
+                modalFrame.BackgroundTransparency = 0.05
+                modalFrame.BorderSizePixel = 0
+                modalFrame.ZIndex = 1000000
+                modalFrame.Parent = modalOverlay
+
+                local mCorner = Instance.new("UICorner")
+                mCorner.CornerRadius = UDim.new(0, 14)
+                mCorner.Parent = modalFrame
+
+                local mStroke = Instance.new("UIStroke")
+                mStroke.Color = COLORS.primary
+                mStroke.Thickness = 2
+                mStroke.Parent = modalFrame
+
+                local mHeader = Instance.new("TextLabel")
+                mHeader.Size = UDim2.new(1, -50, 0, 22)
+                mHeader.Position = UDim2.new(0, 16, 0, 12)
+                mHeader.BackgroundTransparency = 1
+                mHeader.Text = "📌 " .. title
+                mHeader.TextColor3 = COLORS.text
+                mHeader.Font = Enum.Font.GothamBold
+                mHeader.TextSize = 14
+                mHeader.TextXAlignment = Enum.TextXAlignment.Left
+                mHeader.ZIndex = 1000001
+                mHeader.Parent = modalFrame
+
+                local mSub = Instance.new("TextLabel")
+                mSub.Size = UDim2.new(1, -50, 0, 16)
+                mSub.Position = UDim2.new(0, 16, 0, 34)
+                mSub.BackgroundTransparency = 1
+                mSub.Text = isMulti and "คำแนะนำ: คลิกเพื่อเลือก/ยกเลิกได้หลายรายการ" or "คำแนะนำ: คลิก 1 รายการเพื่อเลือก"
+                mSub.TextColor3 = COLORS.textMuted
+                mSub.Font = Enum.Font.Gotham
+                mSub.TextSize = 11
+                mSub.TextXAlignment = Enum.TextXAlignment.Left
+                mSub.ZIndex = 1000001
+                mSub.Parent = modalFrame
+
+                local closeModBtn = Instance.new("TextButton")
+                closeModBtn.Size = UDim2.fromOffset(26, 26)
+                closeModBtn.Position = UDim2.new(1, -36, 0, 12)
+                closeModBtn.BackgroundColor3 = COLORS.glass
+                closeModBtn.Text = "✕"
+                closeModBtn.TextColor3 = COLORS.textMuted
+                closeModBtn.Font = Enum.Font.GothamBold
+                closeModBtn.TextSize = 13
+                closeModBtn.ZIndex = 1000002
+                closeModBtn.Parent = modalFrame
+
+                local cmCorner = Instance.new("UICorner")
+                cmCorner.CornerRadius = UDim.new(0, 6)
+                cmCorner.Parent = closeModBtn
+
+                closeModBtn.MouseButton1Click:Connect(function()
+                    playClickSound()
+                    modalOverlay:Destroy()
+                end)
+
+                bgDismissBtn.MouseButton1Click:Connect(function() modalOverlay:Destroy() end)
+
+                local searchFrame = Instance.new("Frame")
+                searchFrame.Size = UDim2.new(1, -28, 0, 30)
+                searchFrame.Position = UDim2.new(0, 14, 0, 54)
+                searchFrame.BackgroundColor3 = COLORS.glassDeep
+                searchFrame.BorderSizePixel = 0
+                searchFrame.ZIndex = 1000001
+                searchFrame.Parent = modalFrame
+
+                local sfCorner = Instance.new("UICorner")
+                sfCorner.CornerRadius = UDim.new(0, 8)
+                sfCorner.Parent = searchFrame
+
+                local sfStroke = Instance.new("UIStroke")
+                sfStroke.Color = COLORS.surfaceRaised
+                sfStroke.Thickness = 1
+                sfStroke.Parent = searchFrame
+
+                local searchBox = Instance.new("TextBox")
+                searchBox.Size = UDim2.new(1, -16, 1, 0)
+                searchBox.Position = UDim2.new(0, 10, 0, 0)
+                searchBox.BackgroundTransparency = 1
+                searchBox.PlaceholderText = "🔍 ค้นหารายการ..."
+                searchBox.PlaceholderColor3 = COLORS.textFaint
+                searchBox.Text = ""
+                searchBox.TextColor3 = COLORS.text
+                searchBox.Font = Enum.Font.Gotham
+                searchBox.TextSize = 11.5
+                searchBox.TextXAlignment = Enum.TextXAlignment.Left
+                searchBox.ZIndex = 1000002
+                searchBox.Parent = searchFrame
+
+                local optScroll = Instance.new("ScrollingFrame")
+                optScroll.Size = UDim2.new(1, -28, 1, isMulti and -140 or -96)
+                optScroll.Position = UDim2.new(0, 14, 0, 90)
+                optScroll.BackgroundTransparency = 1
+                optScroll.Active = true
+                optScroll.ScrollBarThickness = 5
+                optScroll.ScrollBarImageColor3 = COLORS.primary
+                optScroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+                optScroll.ZIndex = 1000001
+                optScroll.Parent = modalFrame
+
+                local optLayout = Instance.new("UIListLayout")
+                optLayout.Padding = UDim.new(0, 4)
+                optLayout.SortOrder = Enum.SortOrder.LayoutOrder
+                optLayout.Parent = optScroll
+
+                optLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+                    optScroll.CanvasSize = UDim2.new(0, 0, 0, optLayout.AbsoluteContentSize.Y + 20)
+                end)
+
+                local currentSelected = {}
+                if isMulti then
+                    if type(OptionObj.Value) == "table" then
+                        for _, v in ipairs(OptionObj.Value) do table.insert(currentSelected, v) end
+                    end
+                else
+                    table.insert(currentSelected, OptionObj.Value)
+                end
+
+                local optionButtons = {}
+                local function renderOptions(filterText)
+                    filterText = filterText and string.lower(string.gsub(filterText, "^%s*(.-)%s*$", "%1")) or ""
+                    for _, btnObj in ipairs(optionButtons) do btnObj:Destroy() end
+                    optionButtons = {}
+
+                    local currentValues = (type(OptionObj.Values) == "function" and OptionObj.Values()) or OptionObj.Values or values
+                    if type(currentValues) ~= "table" then currentValues = {} end
+
+                    for _, optVal in ipairs(currentValues) do
+                        local valStr = tostring(optVal)
+                        if filterText == "" or string.find(string.lower(valStr), filterText, 1, true) then
+                            local isSelected = isMulti and (table.find(currentSelected, optVal) ~= nil) or (currentSelected[1] == optVal)
+
+                            local itemBtn = Instance.new("TextButton")
+                            itemBtn.Size = UDim2.new(1, -6, 0, 36)
+                            itemBtn.BackgroundColor3 = isSelected and COLORS.primary or COLORS.glassDeep
+                            itemBtn.BackgroundTransparency = isSelected and 0.15 or 0.25
+                            itemBtn.Text = (isSelected and "   ✓  " or "       ") .. valStr
+                            itemBtn.TextColor3 = isSelected and Color3.fromRGB(255, 255, 255) or COLORS.text
+                            itemBtn.Font = Enum.Font.GothamBold
+                            itemBtn.TextSize = 12
+                            itemBtn.TextXAlignment = Enum.TextXAlignment.Left
+                            itemBtn.TextTruncate = Enum.TextTruncate.AtEnd
+                            itemBtn.ZIndex = 1000002
+                            itemBtn.Parent = optScroll
+
+                            local ibCorner = Instance.new("UICorner")
+                            ibCorner.CornerRadius = UDim.new(0, 6)
+                            ibCorner.Parent = itemBtn
+
+                            local ibStroke = Instance.new("UIStroke")
+                            ibStroke.Color = isSelected and COLORS.primary or COLORS.surfaceRaised
+                            ibStroke.Thickness = 1
+                            ibStroke.Parent = itemBtn
+
+                            itemBtn.MouseButton1Click:Connect(function()
+                                playClickSound()
+                                if isMulti then
+                                    local foundIdx = table.find(currentSelected, optVal)
+                                    if foundIdx then
+                                        table.remove(currentSelected, foundIdx)
+                                    else
+                                        table.insert(currentSelected, optVal)
+                                    end
+                                    updateDropdown(currentSelected)
+                                    renderOptions(searchBox.Text)
+                                else
+                                    currentSelected = { optVal }
+                                    updateDropdown(optVal)
+                                    modalOverlay:Destroy()
+                                end
+                            end)
+
+                            table.insert(optionButtons, itemBtn)
+                        end
+                    end
+                end
+
+                searchBox:GetPropertyChangedSignal("Text"):Connect(function()
+                    renderOptions(searchBox.Text)
+                end)
+
+                renderOptions("")
+
+                if isMulti then
+                    local confirmBtn = Instance.new("TextButton")
+                    confirmBtn.Size = UDim2.new(1, -28, 0, 38)
+                    confirmBtn.Position = UDim2.new(0, 14, 1, -48)
+                    confirmBtn.BackgroundColor3 = COLORS.primary
+                    confirmBtn.BackgroundTransparency = 0.15
+                    confirmBtn.Text = "✓ ตกลง / ยืนยันการเลือก"
+                    confirmBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    confirmBtn.Font = Enum.Font.GothamBold
+                    confirmBtn.TextSize = 13
+                    confirmBtn.ZIndex = 1000002
+                    confirmBtn.Parent = modalFrame
+
+                    local cfCorner = Instance.new("UICorner")
+                    cfCorner.CornerRadius = UDim.new(0, 8)
+                    cfCorner.Parent = confirmBtn
+
+                    confirmBtn.MouseButton1Click:Connect(function()
+                        playClickSound()
+                        updateDropdown(currentSelected)
+                        modalOverlay:Destroy()
+                    end)
+                end
+            end)
+
+            ObsidianGlassEngine.Options[id] = OptionObj
+            task.defer(updatePageCanvas)
+            return OptionObj
+        end
+
         -- 🔘 BUTTON WIDGET (WITH DESC SUPPORT)
         function TabObj:AddButton(bCfg)
             local title = bCfg.Title or "Button"
@@ -3684,8 +4167,257 @@ end
 -- [[ SCRIPT CONTROLLERS & UI INTEGRATION (เก็บไข่ไปกับพยอมบอย) ]]
 -- ======================================================================================
 
+-- ======================================================================================
+-- [[ EGG ESP ENGINE (StealAnEggSRC Engine Ported) ]]
+-- ======================================================================================
+local ESP_FOLDER = nil
+local function getESPFolder()
+    if ESP_FOLDER and ESP_FOLDER.Parent then return ESP_FOLDER end
+    local p = getSafeGuiParent()
+    local folder = p:FindFirstChild("EggESP_Container")
+    if not folder then
+        folder = Instance.new("Folder")
+        folder.Name = "EggESP_Container"
+        folder.Parent = p
+    end
+    ESP_FOLDER = folder
+    return folder
+end
+
+local RARITY_COLORS = {
+    Basic       = Color3.fromRGB(200, 200, 200),
+    Common      = Color3.fromRGB(180, 180, 180),
+    Uncommon    = Color3.fromRGB(100, 220, 100),
+    Rare        = Color3.fromRGB(60, 160, 255),
+    SuperRare   = Color3.fromRGB(30, 120, 255),
+    Superior    = Color3.fromRGB(140, 100, 255),
+    Epic        = Color3.fromRGB(180, 80, 255),
+    Legendary   = Color3.fromRGB(255, 200, 40),
+    Mythic      = Color3.fromRGB(255, 60, 120),
+    Mythical    = Color3.fromRGB(255, 40, 160),
+    Celestial   = Color3.fromRGB(120, 220, 255),
+    Cosmic      = Color3.fromRGB(0, 230, 255),
+    Divine      = Color3.fromRGB(255, 255, 255),
+    Secret      = Color3.fromRGB(255, 35, 35),
+    Eternal     = Color3.fromRGB(255, 215, 0),
+    Exclusive   = Color3.fromRGB(255, 105, 180),
+    Exotic      = Color3.fromRGB(255, 140, 0),
+    Limited     = Color3.fromRGB(0, 250, 154),
+    Rainbow     = Color3.fromRGB(255, 80, 220),
+    Titan       = Color3.fromRGB(160, 32, 240),
+    BrainrotGod = Color3.fromRGB(255, 0, 0),
+}
+
+local espTags = {}
+local Cfg_EggESP = false
+
+local function clearEggESP()
+    pcall(function()
+        if espTags then
+            for uid, tagData in pairs(espTags) do
+                pcall(function()
+                    if tagData.gui then tagData.gui:Destroy() end
+                    if tagData.refPart then tagData.refPart:Destroy() end
+                end)
+            end
+            table.clear(espTags)
+        end
+        local p = getSafeGuiParent()
+        local folder = p:FindFirstChild("EggESP_Container")
+        if folder then folder:Destroy() end
+        ESP_FOLDER = nil
+    end)
+end
+
+local function updateEggESP()
+    if not Cfg_EggESP then
+        if next(espTags or {}) then clearEggESP() end
+        return
+    end
+
+    local folder = getESPFolder()
+    local liveUids = {}
+    local char = E and E.Character
+    local root = char and (char:FindFirstChild("HumanoidRootPart") or char:FindFirstChild("UpperTorso"))
+    local myPos = root and root.Position or Vector3.zero
+
+    local allEggs = nil
+    if r and r.ReadFieldEggs then
+        local ok, rRes = pcall(r.ReadFieldEggs)
+        if ok and type(rRes) == "table" then
+            allEggs = rRes.Records or rRes
+        end
+    end
+    if not allEggs or #allEggs == 0 then
+        local rf = h:FindFirstChild("RF/EggWorld/AskFieldEggSnapshot", true) or h:FindFirstChild("AskFieldEggSnapshot", true) or h:FindFirstChild("Eggs: RequestAreaEggSnapshot", true)
+        if rf and rf:IsA("RemoteFunction") then
+            pcall(function()
+                local rSnap = rf:InvokeServer()
+                if type(rSnap) == "table" and (rSnap.Records and #rSnap.Records > 0) then
+                    allEggs = rSnap.Records
+                end
+            end)
+        end
+    end
+
+    if allEggs and type(allEggs) == "table" then
+        for _, rec in pairs(allEggs) do
+            if type(rec) == "table" then
+                local uid = rec.Uid or rec.Id
+                local state = rec.State
+                local isAvailable = (state == "Slot" or state == "Dropped" or state == "GuardCarried" or state == 1)
+
+                if uid and isAvailable then
+                    liveUids[uid] = true
+                    local cf = rec.BottomCFrame or rec.BoundsCFrame or rec.CFrame or (rec.Model and rec.Model:GetPivot())
+                    local pos = cf and cf.Position
+
+                    if pos then
+                        local tagData = espTags[uid]
+                        local dist = math.floor((myPos - pos).Magnitude)
+                        local scale = tonumber(rec._Scale or rec.Scale or rec.AssetScale) or 1
+                        local hasMut = rec._HasMutation or (type(rec.Mutations) == "table" and next(rec.Mutations)) or (rec.Mutation ~= nil)
+                        local mutName = rec._MutationName or (type(rec.Mutations) == "table" and tostring(rec.Mutations[1] or "")) or tostring(rec.Mutation or "")
+
+                        if not tagData or not tagData.gui or not tagData.gui.Parent then
+                            local targetAdornee = (rec.Model and (rec.Model.PrimaryPart or rec.Model:FindFirstChildWhichIsA("BasePart")))
+                            local adorneePart = nil
+                            if not targetAdornee then
+                                adorneePart = Instance.new("Part")
+                                adorneePart.Name = "ESPRef_" .. tostring(uid)
+                                adorneePart.Size = Vector3.new(1, 1, 1)
+                                adorneePart.CFrame = CFrame.new(pos)
+                                adorneePart.Anchored = true
+                                adorneePart.CanCollide = false
+                                adorneePart.Transparency = 1
+                                adorneePart.Parent = folder
+                                targetAdornee = adorneePart
+                            end
+
+                            local rar = rarityOf(rec, rec.AreaId)
+                            local rarColor = RARITY_COLORS[rar] or Color3.fromRGB(200, 200, 200)
+
+                            local bb = Instance.new("BillboardGui")
+                            bb.Name = "Tag_" .. tostring(uid)
+                            bb.Size = UDim2.fromOffset(136, 44)
+                            bb.StudsOffset = Vector3.new(0, 3.2, 0)
+                            bb.AlwaysOnTop = true
+                            bb.LightInfluence = 0
+                            bb.MaxDistance = 2500
+                            bb.ResetOnSpawn = false
+                            bb.Adornee = targetAdornee
+                            bb.Parent = folder
+
+                            local bg = Instance.new("Frame")
+                            bg.Size = UDim2.fromScale(1, 1)
+                            bg.BackgroundColor3 = Color3.fromRGB(12, 10, 18)
+                            bg.BackgroundTransparency = 0.22
+                            bg.BorderSizePixel = 0
+                            bg.Parent = bb
+
+                            local bgCorner = Instance.new("UICorner")
+                            bgCorner.CornerRadius = UDim.new(0, 6)
+                            bgCorner.Parent = bg
+
+                            local bgStroke = Instance.new("UIStroke")
+                            bgStroke.Color = (hasMut and Color3.fromRGB(0, 230, 255)) or (scale >= 1.2 and Color3.fromRGB(255, 170, 40)) or rarColor
+                            bgStroke.Thickness = (scale >= 1.2 or hasMut) and 1.8 or 1
+                            bgStroke.Transparency = 0.15
+                            bgStroke.Parent = bg
+
+                            local titleLbl = Instance.new("TextLabel")
+                            titleLbl.Size = UDim2.new(1, -6, 0, 15)
+                            titleLbl.Position = UDim2.new(0, 3, 0, 2)
+                            titleLbl.BackgroundTransparency = 1
+                            titleLbl.Text = string.format("[%s] %s", tostring(rec.AreaId or "Egg"), tostring(rec.AssetCategory or "Egg"))
+                            titleLbl.TextColor3 = rarColor
+                            titleLbl.Font = Enum.Font.GothamBold
+                            titleLbl.TextSize = 10
+                            titleLbl.TextTruncate = Enum.TextTruncate.AtEnd
+                            titleLbl.Parent = bg
+
+                            local badgeText = ""
+                            local badgeColor = Color3.fromRGB(200, 200, 200)
+                            if hasMut and scale >= 1.2 then
+                                badgeText = string.format("🔥 %.1fx  ⚡ %s", scale, mutName ~= "" and mutName or "MUT")
+                                badgeColor = Color3.fromRGB(255, 100, 240)
+                            elseif hasMut then
+                                badgeText = string.format("⚡ %s MUTATION", mutName ~= "" and mutName or "RARE")
+                                badgeColor = Color3.fromRGB(0, 230, 255)
+                            elseif scale >= 2.0 then
+                                badgeText = string.format("⭐ %.1fx TITANIC", scale)
+                                badgeColor = Color3.fromRGB(255, 215, 0)
+                            elseif scale >= 1.4 then
+                                badgeText = string.format("🔥 %.1fx HUGE EGG", scale)
+                                badgeColor = Color3.fromRGB(255, 140, 30)
+                            elseif scale >= 1.15 then
+                                badgeText = string.format("🔥 %.1fx BIG EGG", scale)
+                                badgeColor = Color3.fromRGB(255, 180, 50)
+                            else
+                                badgeText = "🥚 Standard Egg"
+                                badgeColor = Color3.fromRGB(170, 170, 180)
+                            end
+
+                            local badgeLbl = Instance.new("TextLabel")
+                            badgeLbl.Size = UDim2.new(1, -6, 0, 13)
+                            badgeLbl.Position = UDim2.new(0, 3, 0, 16)
+                            badgeLbl.BackgroundTransparency = 1
+                            badgeLbl.Text = badgeText
+                            badgeLbl.TextColor3 = badgeColor
+                            badgeLbl.Font = Enum.Font.GothamBold
+                            badgeLbl.TextSize = 9
+                            badgeLbl.Parent = bg
+
+                            local distLbl = Instance.new("TextLabel")
+                            distLbl.Size = UDim2.new(1, -6, 0, 12)
+                            distLbl.Position = UDim2.new(0, 3, 0, 29)
+                            distLbl.BackgroundTransparency = 1
+                            local priceStr = ""
+                            if rec._SellPrice and rec._SellPrice > 0 then
+                                priceStr = " • $" .. tostring(rec._SellPrice)
+                            end
+                            distLbl.Text = string.format("%dm • %s%s", dist, rar, priceStr)
+                            distLbl.TextColor3 = Color3.fromRGB(220, 220, 230)
+                            distLbl.Font = Enum.Font.Gotham
+                            distLbl.TextSize = 9
+                            distLbl.Parent = bg
+
+                            espTags[uid] = {
+                                gui = bb,
+                                refPart = adorneePart,
+                                distLbl = distLbl,
+                                rec = rec,
+                                rar = rar
+                            }
+                        else
+                            if tagData.distLbl then
+                                local priceStr = ""
+                                if tagData.rec and tagData.rec._SellPrice and tagData.rec._SellPrice > 0 then
+                                    priceStr = " • $" .. tostring(tagData.rec._SellPrice)
+                                end
+                                tagData.distLbl.Text = string.format("%dm • %s%s", dist, tagData.rar or "", priceStr)
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    for uid, tagData in pairs(espTags) do
+        if not liveUids[uid] then
+            pcall(function()
+                if tagData.gui then tagData.gui:Destroy() end
+                if tagData.refPart then tagData.refPart:Destroy() end
+            end)
+            espTags[uid] = nil
+        end
+    end
+end
+
 local function tG()
     T["alive"] = false
+    pcall(clearEggESP)
     pcall(Pq)
     pcall(jq)
     pcall(function()
@@ -3720,12 +4452,12 @@ local function xG()
     -- =========================================================================
     -- 🚀 TAB 1: ระบบขโมยไข่ (AUTO STEAL & PLACE)
     -- =========================================================================
-    tabFarm:AddSection("โหมดขโมยไข่อัตโนมัติ")
+    tabFarm:AddSection("โหมดขโมยไข่อัตโนมัติ (Auto Steal)")
 
     local isInternalSync = false
-    local togTween = tabFarm:AddToggle("TogTween", {
-        Title = "Auto Steal (Tween)",
-        Desc = "บินไปขโมยไข่อัตโนมัติ พร้อมเก็บลงกระเป๋าทันที",
+    local togAutoSteal = tabFarm:AddToggle("TogAutoSteal", {
+        Title = "เปิดออโต้ขโมยไข่ (Auto Steal)",
+        Desc = "บินไปขโมยไข่อัตโนมัติ พร้อมเก็บลงกระเป๋าและบินกลับเซฟโซน",
         Default = T["pureTweenFarm"],
         Callback = function(val)
             if isInternalSync then return end
@@ -3739,41 +4471,66 @@ local function xG()
         end
     })
 
-    local togTeleport = tabFarm:AddToggle("TogTeleport", {
-        Title = "Auto Steal (Teleport)",
-        Desc = "วาร์ปไปขโมยไข่อัตโนมัติอย่างรวดเร็วต่อเนื่อง",
-        Default = T["autoFarmLoop"],
-        Callback = function(val)
-            if isInternalSync then return end
-            if val then
-                cq("WARP")
-            else
-                if Jq == "WARP" or T["autoFarmLoop"] then
-                    cq("NONE")
-                end
-            end
-        end
-    })
-
     fq = function(val)
         pcall(function()
-            if togTween and togTween.Value ~= val then
+            if togAutoSteal and togAutoSteal.Value ~= val then
                 isInternalSync = true
-                togTween:SetValue(val)
+                togAutoSteal:SetValue(val)
                 isInternalSync = false
             end
         end)
     end
 
     Mq = function(val)
-        pcall(function()
-            if togTeleport and togTeleport.Value ~= val then
-                isInternalSync = true
-                togTeleport:SetValue(val)
-                isInternalSync = false
-            end
-        end)
+        -- No-op for single toggle mode
     end
+
+    tabFarm:AddDropdown("DropdownEggRarity", {
+        Title = "เลือกระดับไข่ (Egg Rarity)",
+        Values = (function()
+            local list = { "All (ทั้งหมด)" }
+            for _, r in ipairs(RARITY_ORDER) do
+                table.insert(list, r)
+            end
+            return list
+        end)(),
+        Value = { "All (ทั้งหมด)" },
+        Multi = true,
+        Callback = function(val)
+            if type(val) == "table" then
+                SELECTED_RARITIES = val
+            elseif type(val) == "string" then
+                SELECTED_RARITIES = { val }
+            else
+                SELECTED_RARITIES = {}
+            end
+            local rarStr = #SELECTED_RARITIES > 0 and table.concat(SELECTED_RARITIES, ", ") or "ทั้งหมด"
+            ObsidianGlassEngine:Notify({
+                Title = "เลือกระดับไข่",
+                Content = "เลือกระดับ: " .. rarStr,
+                Duration = 3
+            })
+        end
+    })
+
+    tabFarm:AddToggle("TogEggESP", {
+        Title = "เปิด Egg ESP (ป้ายไข่ 3D)",
+        Desc = "แสดงชื่อไข่, ระดับ Rarity, ขนาด Big Egg, Mutation และระยะห่างลอยเหนือไข่",
+        Default = Cfg_EggESP,
+        Callback = function(val)
+            Cfg_EggESP = val
+            if val then
+                pcall(updateEggESP)
+            else
+                pcall(clearEggESP)
+            end
+            ObsidianGlassEngine:Notify({
+                Title = "Egg ESP",
+                Content = val and "เปิดการแสดงผล Egg ESP เรียบร้อย" or "ปิดการแสดงผล Egg ESP แล้ว",
+                Duration = 3
+            })
+        end
+    })
 
     tabFarm:AddButton({
         Title = "วาร์ปขโมยไข่ 1 ครั้ง (Single Steal)",
