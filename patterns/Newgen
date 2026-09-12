@@ -1341,7 +1341,57 @@ oq = function(e, R, B)
     T["statusText"] = "[Place] Hatching ready eggs..." nG(true) jq() T["isReturning"] = false T["delivering"] = false T["currentTargetModel"] = nil T["targetPosition"] = nil
     local a = xq() T["statusText"] = string["format"]("Placed & Hatched (Left: %d)! Hands Free.", a)
 end
+-- ======================================================================================
+-- [[ TREADMILL SAFE EXIT / DOFF SYSTEM ]]
+-- ======================================================================================
+local function leaveTreadmill()
+    pcall(function()
+        local rep = game:GetService("ReplicatedStorage")
+        local doff = (typeof(t) == "Instance" and t)
+            or rep:FindFirstChild("RF/Treadmill/AskDoff", true)
+            or rep:FindFirstChild("AskDoff", true)
+        if doff and doff:IsA("RemoteFunction") then
+            task.spawn(function()
+                pcall(function() doff:InvokeServer() end)
+            end)
+        end
+    end)
+
+    local c = E and E["Character"]
+    local h = c and c:FindFirstChildOfClass("Humanoid")
+    if h then
+        pcall(function()
+            for _, track in ipairs(h:GetPlayingAnimationTracks()) do
+                local anim = track.Animation
+                local id = anim and anim.AnimationId or ""
+                local name = track.Name:lower()
+                if id:find("10921259953") or name:find("treadmill") or name:find("run") then
+                    track:Stop(0)
+                end
+            end
+            h.PlatformStand = false
+            h.Sit = false
+            h:SetStateEnabled(Enum.HumanoidStateType.Running, true)
+            h:SetStateEnabled(Enum.HumanoidStateType.Jumping, true)
+            h:ChangeState(Enum.HumanoidStateType.Running)
+        end)
+    end
+
+    local pg = E and E:FindFirstChild("PlayerGui")
+    if pg then
+        local spAnim = pg:FindFirstChild("SpeedGainAnimation")
+        if spAnim then pcall(function() spAnim:Destroy() end) end
+    end
+
+    local root = c and c:FindFirstChild("HumanoidRootPart")
+    if root then
+        root.AssemblyLinearVelocity = Vector3.zero
+        root.AssemblyAngularVelocity = Vector3.zero
+    end
+end
+
 local function EG(e, R, g, w)
+    leaveTreadmill()
     local h = E["Character"]
     local n = h and h:FindFirstChild("HumanoidRootPart")
     local V = h and h:FindFirstChildOfClass("Humanoid")
@@ -1766,12 +1816,26 @@ local function getProgMoney()
 end
 
 local PROG_REMOTE_MAP = {
-    ["Plots: RequestBaseUpgrade"] = "RE/Homestead/AskBaseTierRaise",
-    ["Trails: RequestPurchase"]   = "RF/Trails/AskPurchase",
-    ["Trails: RequestSelect"]     = "RF/Trails/AskSelect",
-    ["OfflineAssets: Redeem"]     = "RF/AwayEarnings/AskCollect",
-    ["Index: RequestClaimAll"]    = "RF/Index/AskCollectAll",
+    ["Plots: RequestBaseUpgrade"]  = "RE/Homestead/AskBaseTierRaise",
+    ["Treadmills: RequestUpgrade"] = "RF/Treadmill/AskTierRaise",
+    ["Trails: RequestPurchase"]    = "RF/Trails/AskPurchase",
+    ["Trails: RequestSelect"]      = "RF/Trails/AskSelect",
+    ["OfflineAssets: Redeem"]      = "RF/AwayEarnings/AskCollect",
+    ["Index: RequestClaimAll"]     = "RF/Index/AskCollectAll",
+    ["FuseMachine: StartFuse"]     = "RF/FuseMachine/StartFuse",
+    ["FuseMachine: CompleteReveal"] = "RF/FuseMachine/CompleteReveal",
 }
+
+local function treadmillUpgradeStep()
+    invokeProgRemote("Treadmills: RequestUpgrade")
+end
+
+local function fuseStep()
+    local ok, res = invokeProgRemote("FuseMachine: StartFuse")
+    if ok then
+        invokeProgRemote("FuseMachine: CompleteReveal")
+    end
+end
 
 local function fireProgRemote(name, ...)
     local realName = PROG_REMOTE_MAP[name] or name
@@ -1860,11 +1924,42 @@ end
 
 local CfgProg = {
     AutoBaseUpgrade = false,
+    AutoTreadmillUp = false,
     AutoTrails = false,
+    AutoFuse = false,
     AutoClaim = false,
 }
     for _, r in ipairs(SELECTED_RARITIES) do
         if r == "All (ทั้งหมด)" or r == rar then
+            return true
+        end
+    end
+    return false
+end
+
+local ZONE_ORDER = {
+    "Titan Temple", "Cherry Blossom", "Cosmic", "Prehistoric", "Abyss Ocean",
+    "Volcano", "Snow", "Jungle", "Desert", "Lake", "Forest"
+}
+
+local ZONE_OPTIONS = {
+    "All (ทุกโซน)",
+    "Titan Temple", "Cherry Blossom", "Cosmic", "Prehistoric", "Abyss Ocean",
+    "Volcano", "Snow", "Jungle", "Desert", "Lake", "Forest"
+}
+
+local SELECTED_ZONES = { "All (ทุกโซน)" }
+local function isZoneAllowed(area)
+    if not SELECTED_ZONES or #SELECTED_ZONES == 0 then
+        return true
+    end
+    local aStr = tostring(area or ""):lower()
+    for _, z in ipairs(SELECTED_ZONES) do
+        local zStr = tostring(z):lower()
+        if zStr:find("all") or zStr:find("ทุก") then
+            return true
+        end
+        if aStr == zStr or aStr:find(zStr, 1, true) or zStr:find(aStr, 1, true) then
             return true
         end
     end
@@ -2004,27 +2099,53 @@ local function aG()
                 local S, D = o(h, e, V, B)
                 local eggRar = rarityOf(h, a)
                 local b =(S == 0) and((a == "Forest" or a == "Lake" or string["find"](tostring(h["Uid"]), "Forest") or string["find"](tostring(h["Uid"]), "Lake")))
-                if (R or not b) and isRarityAllowed(eggRar) then
+                if (R or not b) and isRarityAllowed(eggRar) and isZoneAllowed(a) then
                     local R = tonumber(h["AssetScale"] or h["Scale"]) or 1
                     local E = 1
+                    local mutCount = 0
                     if h["Mutations"] and type(h["Mutations"]) == "table" then
-                        for e, R in pairs(h["Mutations"]) do
-                            local B =(type(R) == "table" and tonumber(R["Multiplier"] or R["Value"])) or tonumber(R) or 1.5 E = E * B
+                        for _, mutVal in pairs(h["Mutations"]) do
+                            mutCount = mutCount + 1
+                            local B = (type(mutVal) == "table" and tonumber(mutVal["Multiplier"] or mutVal["Value"])) or tonumber(mutVal) or 1.5
+                            E = E * B
                         end
                     elseif h["Mutation"] then
+                        mutCount = 1
                         E = 1.5
                     end
-                    local V =(n * R) * E
+
                     local o = x[a] or 50
+                    local V = (n * R) * E
                     if V <= 0 then
-                        V =(((o ^(2)) * R) * E) *(10)
+                        V = (((o ^ 2) * R) * E) * 10
                     end
-                    local b =((w - h["BoundsCFrame"]["Position"]))["Magnitude"] table["insert"](g, {["Uid"] = h["Uid"], ["Category"] = tostring(e);
-                    ["Area"] = tostring(a);
-                    ["ZoneWeight"] = o, ["Rarity"] = tostring(D), ["RarityTier"] = S, ["Rank"] = B, ["Income"] = n, ["RealIncome"] = V;
-                    ["Scale"] = R;
-                    ["MutMultiplier"] = E, ["CFrame"] = h["BoundsCFrame"];
-                    ["Position"] = h["BoundsCFrame"]["Position"], ["Distance"] = b})
+
+                    -- MASTER EGG SCORE (ปัจจัยหลัก: สถานะเยอะสุด > ไกลสุด > ใหญ่สุด > ราคาแพงสุด)
+                    local mutScore = mutCount * 1000000000 * E
+                    local zoneScore = o * 1000000
+                    local sizeScore = (R >= 2.0 and 800000000 * R) or (R >= 1.4 and 400000000 * R) or (R >= 1.15 and 200000000 * R) or (R * 10000000)
+                    local valScore = V * 10
+                    local masterScore = mutScore + zoneScore + sizeScore + valScore
+
+                    local b = ((w - h["BoundsCFrame"]["Position"]))["Magnitude"]
+                    table["insert"](g, {
+                        ["Uid"] = h["Uid"],
+                        ["Category"] = tostring(e),
+                        ["Area"] = tostring(a),
+                        ["ZoneWeight"] = o,
+                        ["Rarity"] = tostring(D),
+                        ["RarityTier"] = S,
+                        ["Rank"] = B,
+                        ["Income"] = n,
+                        ["RealIncome"] = V,
+                        ["Scale"] = R,
+                        ["MutCount"] = mutCount,
+                        ["MutMultiplier"] = E,
+                        ["Score"] = masterScore,
+                        ["CFrame"] = h["BoundsCFrame"],
+                        ["Position"] = h["BoundsCFrame"]["Position"],
+                        ["Distance"] = b
+                    })
                 end
             end
         end
@@ -2032,17 +2153,20 @@ local function aG()
             return nil
         end
         table["sort"](g, function(e, R)
-            if e["RarityTier"] ~= R["RarityTier"] then
-                return e["RarityTier"] > R["RarityTier"]
+            if e["Score"] ~= R["Score"] then
+                return e["Score"] > R["Score"]
+            end
+            if e["MutCount"] ~= R["MutCount"] then
+                return e["MutCount"] > R["MutCount"]
             end
             if e["ZoneWeight"] ~= R["ZoneWeight"] then
                 return e["ZoneWeight"] > R["ZoneWeight"]
             end
+            if math["abs"](e["Scale"] - R["Scale"]) > 0.05 then
+                return e["Scale"] > R["Scale"]
+            end
             if math["abs"](e["RealIncome"] - R["RealIncome"]) > 1 then
                 return e["RealIncome"] > R["RealIncome"]
-            end
-            if math["abs"](e["Scale"] - R["Scale"]) > .05 then
-                return e["Scale"] > R["Scale"]
             end
             return e["Distance"] < R["Distance"]
         end)
@@ -2075,6 +2199,7 @@ local function aG()
     return S
 end
 local function SG(e, g, w, h)
+    leaveTreadmill()
     local n = E["Character"]
     local a = n and n:FindFirstChild("HumanoidRootPart")
     local S = n and n:FindFirstChildOfClass("Humanoid")
@@ -2207,7 +2332,80 @@ local function SG(e, g, w, h)
     end
     return I
 end
+-- ======================================================================================
+-- [[ STEAL TOP 5 EGGS OF THE ROUND ]]
+-- ======================================================================================
+local isStealingTopFive = false
+local function stealTopFiveEggs()
+    if isStealingTopFive then
+        ObsidianGlassEngine:Notify({
+            Title = "ขโมยไข่ 5 ใบ",
+            Content = "กำลังดำเนินการขโมยอยู่แล้ว กรุณารอสักครู่...",
+            Duration = 3
+        })
+        return
+    end
+    isStealingTopFive = true
+
+    task.spawn(function()
+        local prevMode = Jq
+        if Jq ~= "NONE" then
+            cq("NONE")
+            task.wait(0.2)
+        end
+
+        leaveTreadmill()
+
+        ObsidianGlassEngine:Notify({
+            Title = "👑 เริ่มขโมย 5 ใบที่ดีที่สุด",
+            Content = "กำลังสแกนและขโมยไข่ที่มีสถานะ/ขนาด/มูลค่าสูงสุด 5 ใบ...",
+            Duration = 4
+        })
+
+        local stolenCount = 0
+        for round = 1, 5 do
+            if not T["alive"] then break end
+            leaveTreadmill()
+
+            local target = aG()
+            if not target then
+                V(string.format("[Top5Steal] No target available at round %d", round))
+                break
+            end
+
+            T["statusText"] = string.format("[Top 5] #%d/%d: %s (%s)...", round, 5, tostring(target.Category), tostring(target.Rarity))
+            V(string.format("[Top5Steal] Stealing #%d: %s [%s] Score=%s", round, tostring(target.Category), tostring(target.Rarity), tostring(target.Score)))
+
+            local success = DG(target, nil)
+            if success then
+                stolenCount = stolenCount + 1
+                pcall(jq)
+                if T["autoGlide"] then
+                    VG(T["glideSpeed"])
+                    jq()
+                end
+            end
+            task.wait(0.25)
+        end
+
+        T["statusText"] = string.format("[Top 5] Stole %d eggs successfully!", stolenCount)
+        ObsidianGlassEngine:Notify({
+            Title = "ขโมย 5 ใบสำเร็จ",
+            Content = string.format("ขโมยไข่ระดับท็อปเสร็จสิ้น %d/5 ใบเรียบร้อย!", stolenCount),
+            Duration = 5
+        })
+
+        isStealingTopFive = false
+        if prevMode == "TWEEN" then
+            cq("TWEEN")
+        elseif prevMode == "WARP" then
+            cq("WARP")
+        end
+    end)
+end
+
 local function DG(e, g)
+    leaveTreadmill()
     if T["teleporting"] or T["glidingToTarget"] or T["delivering"] or T["securingEgg"] then
         return false
     end
@@ -2395,6 +2593,7 @@ local function DG(e, g)
     end
 end
 cq = function(e)
+    if e ~= "NONE" then leaveTreadmill() end
     if Jq == e then
         return
     end
@@ -4919,7 +5118,36 @@ local function xG()
                 Content = "เลือกระดับ: " .. rarStr,
                 Duration = 3
             })
+            tabFarm:AddDropdown("DropdownEggZone", {
+        Title = "เลือกโซนที่ต้องการขโมย (Steal Zones)",
+        Values = ZONE_OPTIONS,
+        Value = { "All (ทุกโซน)" },
+        Multi = true,
+        Callback = function(val)
+            if type(val) == "table" then
+                SELECTED_ZONES = val
+            elseif type(val) == "string" then
+                SELECTED_ZONES = { val }
+            else
+                SELECTED_ZONES = { "All (ทุกโซน)" }
+            end
+            local zoneStr = #SELECTED_ZONES > 0 and table.concat(SELECTED_ZONES, ", ") or "ทุกโซน"
+            ObsidianGlassEngine:Notify({
+                Title = "เลือกโซนขโมย",
+                Content = "โซนที่เลือก: " .. zoneStr,
+                Duration = 3
+            })
         end
+    })
+
+    tabFarm:AddButton({
+        Title = "👑 ขโมยไข่ 5 ใบที่ดีที่สุด (Steal Top 5 Eggs)",
+        Desc = "สแกนและขโมยไข่ที่มีสถานะเยอะสุด ไกลสุด และใหญ่สุด 5 ใบในรอบนี้ทันที",
+        Callback = function()
+            stealTopFiveEggs()
+        end
+    })
+end
     })
 
     tabFarm:AddToggle("TogEggESP", {
@@ -5121,21 +5349,21 @@ local function xG()
     })
 
         -- =========================================================================
-    -- TAB 4: ระบบพัฒนา (Progression)
+    -- TAB 4: ระบบพัฒนา (Progression Engine & Auto Systems)
     -- =========================================================================
     local tabProg = Window:AddTab({
         Title = "ระบบพัฒนา",
         Icon = "trending-up"
     })
 
-    tabProg:AddSection("สถานะและข้อมูลตัวละคร")
+    tabProg:AddSection("🏆 สถานะและข้อมูลตัวละคร (Player Progression Telemetry)")
 
     local progInfoCard = tabProg:AddParagraph({
-        Title = "📊 สถานะการพัฒนา (Progression Stats)",
+        Title = "⚡ ข้อมูลการพัฒนา (Live Progression Stats)",
         Desc = "กำลังเชื่อมต่อและโหลดข้อมูลผู้เล่น..."
     })
 
-    tabProg:AddSection("ระบบอัปเกรดอัตโนมัติ")
+    tabProg:AddSection("🏠 ระบบฐานและลู่วิ่ง (Base & Treadmills)")
 
     tabProg:AddToggle("TogAutoBaseUp", {
         Title = "อัปเกรดฐานอัตโนมัติ (Auto Base Upgrade)",
@@ -5147,27 +5375,15 @@ local function xG()
         end
     })
 
-    tabProg:AddToggle("TogAutoTrails", {
-        Title = "ซื้อและใส่เทรลความเร็วสูงสุด (Auto Best Trail)",
-        Desc = "ตรวจจับและซื้อเทรลที่เพิ่มความเร็วสูงสุดอัตโนมัติตามเงินที่มี",
-        Default = CfgProg.AutoTrails,
+    tabProg:AddToggle("TogAutoTreadUp", {
+        Title = "อัปเกรดลู่วิ่งอัตโนมัติ (Auto Treadmill Upgrade)",
+        Desc = "อัปเกรดระดับลู่วิ่งเพื่อเพิ่มตัวคูณสปีดการฝึกฝนอัตโนมัติ",
+        Default = CfgProg.AutoTreadmillUp,
         Callback = function(val)
-            CfgProg.AutoTrails = val
-            if val then pcall(trailsStep) end
+            CfgProg.AutoTreadmillUp = val
+            if val then pcall(treadmillUpgradeStep) end
         end
     })
-
-    tabProg:AddToggle("TogAutoClaim", {
-        Title = "รับรางวัลออฟไลน์อัตโนมัติ (Auto Claim Offline/Index)",
-        Desc = "เคลมเงินที่ได้ตอนออฟไลน์และรางวัลใน Index อัตโนมัติ",
-        Default = CfgProg.AutoClaim,
-        Callback = function(val)
-            CfgProg.AutoClaim = val
-            if val then pcall(claimStep) end
-        end
-    })
-
-    tabProg:AddSection("คำสั่งด่วน (Quick Actions)")
 
     tabProg:AddButton({
         Title = "🚀 อัปเกรดฐานตอนนี้ (Upgrade Base Now)",
@@ -5183,8 +5399,83 @@ local function xG()
     })
 
     tabProg:AddButton({
-        Title = "🎁 เคลมรางวัลทั้งหมด (Claim Offline & Index)",
-        Desc = "รับเงินออฟไลน์และรางวัลทั้งหมดทันที",
+        Title = "⚡ อัปเกรดลู่วิ่งตอนนี้ (Upgrade Treadmill Now)",
+        Desc = "ส่งคำสั่งเลื่อนระดับลู่วิ่งทันที",
+        Callback = function()
+            pcall(treadmillUpgradeStep)
+            ObsidianGlassEngine:Notify({
+                Title = "ระบบพัฒนา",
+                Content = "ส่งคำขออัปเกรดลู่วิ่งแล้ว!",
+                Duration = 3
+            })
+        end
+    })
+
+    tabProg:AddSection("💨 ระบบเทรลความเร็ว (Speed Trails System)")
+
+    tabProg:AddToggle("TogAutoTrails", {
+        Title = "ซื้อและสวมใส่เทรลที่ดีที่สุด (Auto Best Trail)",
+        Desc = "ตรวจจับและซื้อเทรลที่เพิ่มความเร็วสูงสุดอัตโนมัติตามเงินที่มี",
+        Default = CfgProg.AutoTrails,
+        Callback = function(val)
+            CfgProg.AutoTrails = val
+            if val then pcall(trailsStep) end
+        end
+    })
+
+    tabProg:AddButton({
+        Title = "🔥 ตรวจสอบและสวมใส่เทรลที่ดีที่สุด",
+        Desc = "เช็คเทรลที่ให้ความเร็วสูงสุดในคลังและสวมใส่ทันที",
+        Callback = function()
+            pcall(trailsStep)
+            ObsidianGlassEngine:Notify({
+                Title = "ระบบพัฒนา",
+                Content = "สวมใส่เทรลความเร็วสูงสุดเรียบร้อย!",
+                Duration = 3
+            })
+        end
+    })
+
+    tabProg:AddSection("🔮 ระบบ The Rift / หลอมสัตว์เลี้ยง (Auto Fuse Machine)")
+
+    tabProg:AddToggle("TogAutoFuse", {
+        Title = "หลอมสัตว์เลี้ยงอัตโนมัติ (Auto Fuse / The Rift)",
+        Desc = "นำสัตว์เลี้ยงตัวซ้ำ 3 ตัวเข้าเตาหลอมเพื่อรับไข่เกรดสูงขึ้น",
+        Default = CfgProg.AutoFuse,
+        Callback = function(val)
+            CfgProg.AutoFuse = val
+            if val then pcall(fuseStep) end
+        end
+    })
+
+    tabProg:AddButton({
+        Title = "✨ สั่งหลอมสัตว์เลี้ยงทันที 1 ครั้ง",
+        Desc = "ส่งคำสั่งหลอมสัตว์เลี้ยงที่พร้อมหลอมทันที",
+        Callback = function()
+            pcall(fuseStep)
+            ObsidianGlassEngine:Notify({
+                Title = "The Rift / หลอมสัตว์เลี้ยง",
+                Content = "ส่งคำสั่งหลอมสัตว์เลี้ยงแล้ว!",
+                Duration = 3
+            })
+        end
+    })
+
+    tabProg:AddSection("🎁 ระบบรับรางวัลและความสำเร็จ (Auto Rewards & Index)")
+
+    tabProg:AddToggle("TogAutoClaim", {
+        Title = "รับรางวัลและเงินออฟไลน์อัตโนมัติ (Auto Claim)",
+        Desc = "เคลมเงินที่ได้ตอนออฟไลน์และรางวัลใน Index อัตโนมัติ",
+        Default = CfgProg.AutoClaim,
+        Callback = function(val)
+            CfgProg.AutoClaim = val
+            if val then pcall(claimStep) end
+        end
+    })
+
+    tabProg:AddButton({
+        Title = "🎉 เคลมรางวัลทั้งหมดทันที (Claim Offline & Index)",
+        Desc = "รับเงินออฟไลน์และรางวัลสมุดสะสมทั้งหมดทันที",
         Callback = function()
             pcall(claimStep)
             ObsidianGlassEngine:Notify({
@@ -5213,7 +5504,9 @@ local function xG()
         while T["alive"] do
             pcall(function()
                 if CfgProg.AutoBaseUpgrade then pcall(baseUpgradeStep) end
+                if CfgProg.AutoTreadmillUp then pcall(treadmillUpgradeStep) end
                 if CfgProg.AutoTrails then pcall(trailsStep) end
+                if CfgProg.AutoFuse then pcall(fuseStep) end
                 if CfgProg.AutoClaim then pcall(claimStep) end
 
                 if progInfoCard and progInfoCard.SetDesc then
@@ -5225,7 +5518,14 @@ local function xG()
                         or (mon >= 1e6 and string.format("%.2fM", mon/1e6))
                         or (mon >= 1e3 and string.format("%.1fK", mon/1e3))
                         or tostring(mon)
-                    progInfoCard:SetDesc(string.format("🏠 ระดับฐาน: Lv.%d  •  ⚡ เทรล: %s\n💰 เงินคงเหลือ: $%s", lvl, tr, monStr))
+                    progInfoCard:SetDesc(string.format("🏠 ระดับบ้าน: Lv.%d  •  ⚡ เทรล: %s\n💰 เงินคงเหลือ: $%s\n⚙️ ระบบทำงาน: [Base:%s | Tread:%s | Trail:%s | Fuse:%s | Claim:%s]",
+                        lvl, tr, monStr,
+                        CfgProg.AutoBaseUpgrade and "ON" or "OFF",
+                        CfgProg.AutoTreadmillUp and "ON" or "OFF",
+                        CfgProg.AutoTrails and "ON" or "OFF",
+                        CfgProg.AutoFuse and "ON" or "OFF",
+                        CfgProg.AutoClaim and "ON" or "OFF"
+                    ))
                 end
             end)
             task.wait(2.5)
