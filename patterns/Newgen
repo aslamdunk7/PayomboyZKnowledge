@@ -1,0 +1,4445 @@
+local e = game:GetService("Players")
+local R = game:GetService("Workspace")
+local B = game:GetService("RunService")
+local g = game:GetService("TweenService")
+local w = game:GetService("UserInputService")
+local h = game:GetService("ReplicatedStorage")
+local n = game:GetService("ProximityPromptService")
+local E = e["LocalPlayer"]
+local V = function(...)
+end
+local o = function(...)
+end
+local a = "https://discord.com/api/webhooks/1547203146802135081/tVAhooygFkZkSdBQBz8qCTMhJrlF2eno9VjEAPCSepi0WD-GukY1MG7IBuoaxIyO4arF"
+local D = 900
+local b = os["clock"]()
+local v = nil
+local function X()
+    return(syn and syn["request"]) or(http and http["request"]) or http_request or request or(fluxus and fluxus["request"])
+end
+local function u(e)
+    if v and v ~= "" then
+        return v
+    end
+    local R = X()
+    if R then
+        pcall( function()
+            local B = R({["Url"] = string["format"]("https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=%d&size=150x150&format=Png&isCircular=false", e);
+            ["Method"] = "GET"})
+            if B and B["Body"] then
+                local e = HttpService:JSONDecode(B["Body"])
+                if e and(e["data"] and(e["data"][1] and e["data"][1]["imageUrl"])) then
+                    v = e["data"][1]["imageUrl"]
+                end
+            end
+        end)
+    end
+    if not v or v == "" then
+        pcall( function()
+            local R = string["format"]("https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=%d&size=150x150&format=Png&isCircular=false", e)
+            local B = game:HttpGet(R)
+            local g = HttpService:JSONDecode(B)
+            if g and(g["data"] and(g["data"][1] and g["data"][1]["imageUrl"])) then
+                v = g["data"][1]["imageUrl"]
+            end
+        end)
+    end
+    if not v or v == "" then
+        v = "https://tr.rbxcdn.com/30DAY-AvatarHeadshot-5DD8360447D7D87B8B9122B0D87E13EF-Png/150/150/AvatarHeadshot/Png/noFilter"
+    end
+    return v
+end
+local function p()
+    local e, R = nil, nil pcall( function()
+        if identifyexecutor then
+            e, R = identifyexecutor()
+        elseif getexecutorname then
+            e, R = getexecutorname()
+        elseif whatexecutor then
+            e, R = whatexecutor()
+        end
+    end)
+    if e and tostring(e) ~= "" then
+        if R and tostring(R) ~= "" then
+            return tostring(e) ..(" " .. tostring(R))
+        end
+        return tostring(e)
+    end
+    if syn then
+        return "Synapse X"
+    end
+    if KRNL_LOADED then
+        return "KRNL"
+    end
+    if FLUXUS_LOADED then
+        return "Fluxus"
+    end
+    if SENTINEL_LOADED then
+        return "Sentinel"
+    end
+    if shadow_cheats then
+        return "Shadow"
+    end
+    if is_sirhurt_closure then
+        return "Sirhurt"
+    end
+    if pebc_create then
+        return "ProtoSmasher"
+    end
+    if OXYGEN_LOADED then
+        return "Oxygen U"
+    end
+    if getgenv and(getgenv())["Delta"] then
+        return "Delta"
+    end
+    if getgenv and(getgenv())["Codex"] then
+        return "Codex"
+    end
+    if getgenv and(getgenv())["Arceus"] then
+        return "Arceus X"
+    end
+    if getgenv and(getgenv())["Solara"] then
+        return "Solara"
+    end
+    if getgenv and(getgenv())["Wave"] then
+        return "Wave"
+    end
+    return "Roblox Client"
+end
+local function G()
+    local e = E["AccountAge"]
+    if not e or e <= 0 then
+        for R = 1, 6, 1 do
+            task["wait"](.2)
+            if E["AccountAge"] and E["AccountAge"] > 0 then
+                e = E["AccountAge"]
+                break
+            end
+        end
+    end
+    if e and e > 0 then
+        local R = e /(365.25)
+        if R >= 1 then
+            return string["format"]("%d วัน (~%.1f ปี)", e, R)
+        else
+            return string["format"]("%d วัน", e)
+        end
+    end
+    local R = X()
+    if R then
+        pcall( function()
+            local B = R({["Url"] = "https://users.roblox.com/v1/users/" .. tostring(E["UserId"]);
+            ["Method"] = "GET"})
+            if B and B["Body"] then
+                local R = HttpService:JSONDecode(B["Body"])
+                if R and R["created"] then
+                    local B, g, w = R["created"]:match("(%d+)%-(%d+)%-(%d+)")
+                    if B and(g and w) then
+                        local R = os["time"]({["year"] = tonumber(B);
+                        ["month"] = tonumber(g), ["day"] = tonumber(w)})
+                        local h = math["floor"](((os["time"]() - R)) /(86400))
+                        if h > 0 then
+                            local R = h /(365.25) e = string["format"]("%d วัน (~%.1f ปี)", h, R)
+                        end
+                    end
+                end
+            end
+        end)
+    end
+    return e or "ไม่ระบุ"
+end
+local function I(e)
+    local R = math["max"](0, math["floor"](e))
+    local B = math["floor"](R /(3600))
+    local g = math["floor"](((R %(3600))) /(60))
+    local w = R %(60)
+    if B > 0 then
+        return string["format"]("%d ชั่วโมง %d นาที", B, g)
+    elseif g > 0 then
+        return string["format"]("%d นาที %d วินาที", g, w)
+    else
+        return string["format"]("%d วินาที", w)
+    end
+end
+local function q(e)
+    local R = X()
+    if not R or not a or a == "" then
+        return
+    end
+    task["spawn"]( function()
+        pcall( function()
+            local B = HttpService:JSONEncode({["username"] = "Steal An Egg Bot", ["avatar_url"] = "https://tr.rbxcdn.com/30DAY-AvatarHeadshot-5DD8360447D7D87B8B9122B0D87E13EF-Png/150/150/AvatarHeadshot/Png/noFilter", ["embeds"] ={ e}}) R({["Url"] = a;
+            ["Method"] = "POST";
+            ["Headers"] ={["Content-Type"] = "application/json"}, ["Body"] = B})
+        end)
+    end)
+end
+local function d()
+    task["spawn"]( function()
+        task["wait"](1)
+        local e = u(E["UserId"])
+        local R = p()
+        local B = G()
+        local g = "https://www.roblox.com/users/" ..(tostring(E["UserId"]) .. "/profile") q({["title"] = "[STARTED] มีผู้เล่นเริ่มเปิดใช้งานสคริปต์ (Script Started)";
+        ["description"] = "ตรวจพบการรันสคริปต์ **Dice Hub :: Steal An Egg V1** ในเซิร์ฟเวอร์";
+        ["color"] = 65416;
+        ["thumbnail"] ={["url"] = e};
+        ["fields"] ={{["name"] = "[User] ผู้ใช้งาน", ["value"] = string["format"]("[%s](%s) (@%s)", E["Name"], g, E["DisplayName"]), ["inline"] = true}, {["name"] = "[ID] User ID";
+        ["value"] = string["format"]("`%d`", E["UserId"]);
+        ["inline"] = true}, {["name"] = "[Age] อายุไอดี", ["value"] = tostring(B), ["inline"] = true};
+        {["name"] = "[Exec] ตัวรันที่ใช้";
+        ["value"] = "`" ..(tostring(R) .. "`");
+        ["inline"] = true};
+        {["name"] = "[Time] เวลาที่เริ่มรัน", ["value"] = os["date"]("%d/%m/%Y %H:%M:%S"), ["inline"] = true};
+        {["name"] = "[Uptime] เวลาที่รันมาแล้ว";
+        ["value"] = "เพิ่งเริ่มรัน (0 นาที)", ["inline"] = true}}, ["footer"] ={["text"] = "เก็บไข่ไปกับพยอมบอย :: Anti-Flood Telemetry System"}})
+    end)
+end
+local function Y()
+    task["spawn"]( function()
+        local e = u(E["UserId"])
+        local R = I(os["clock"]() - b)
+        local B = countEggsInInventory and countEggsInInventory() or 0
+        local g =(activeFarmMode == "TWEEN" and "Auto Steal (Tween)") or(activeFarmMode == "WARP" and "Auto Steal (Teleport)") or "สแตนด์บาย (Idle)" q({["title"] = "[HEARTBEAT] รายงานสถานะการใช้งาน (เก็บไข่ไปกับพยอมบอย)";
+        ["color"] = 51455;
+        ["thumbnail"] ={["url"] = e};
+        ["fields"] ={{["name"] = "[User] ผู้ใช้งาน", ["value"] = string["format"]("`%s` (@%s)", E["Name"], E["DisplayName"]), ["inline"] = true}, {["name"] = "[Uptime] เวลาที่เปิดใช้งาน", ["value"] = string["format"]("**%s**", R), ["inline"] = true};
+        {["name"] = "[Eggs] ไข่ในกระเป๋า";
+        ["value"] = tostring(B) .. " ฟอง";
+        ["inline"] = true}, {["name"] = "[Mode] โหมดที่เปิดอยู่";
+        ["value"] = "`" ..(g .. "`");
+        ["inline"] = true}, {["name"] = "[Time] อัปเดตล่าสุด", ["value"] = os["date"]("%d/%m/%Y %H:%M:%S"), ["inline"] = true}}, ["footer"] ={["text"] = "รายงานทุก 15 นาที เพื่อป้องกันข้อความสแปมใน Discord"}})
+    end)
+end
+task["spawn"]( function()
+    while S and S["alive"] do
+        task["wait"](D)
+        if S and S["alive"] then
+            Y()
+        end
+    end
+end) pcall( function()
+    game:BindToClose( function()
+        local e = u(E["UserId"])
+        local R = I(os["clock"]() - b) q({["title"] = "[ENDED] ผู้เล่นปิดสคริปต์ / ออกจากเกม (เก็บไข่ไปกับพยอมบอย)";
+        ["color"] = 16733525, ["thumbnail"] ={["url"] = e};
+        ["fields"] ={{["name"] = "[User] ผู้ใช้งาน";
+        ["value"] = string["format"]("`%s` (@%s)", E["Name"], E["DisplayName"]), ["inline"] = true}, {["name"] = "[Uptime] เวลารวมทั้งหมดที่เปิดรัน";
+        ["value"] = string["format"]("**%s**", R), ["inline"] = true};
+        {["name"] = "[Time] เวลาที่ออก", ["value"] = os["date"]("%d/%m/%Y %H:%M:%S"), ["inline"] = true}}, ["footer"] ={["text"] = "เก็บไข่ไปกับพยอมบอย Session Ended"}})
+    end)
+end)
+local r = nil pcall( function()
+    r = require((h:WaitForChild("Client", 5)):WaitForChild("EggState", 5))
+end)
+if not r then
+    pcall( function()
+        r = require(h["Client"]["EggState"])
+    end)
+end
+local Z = nil pcall( function()
+    Z = require(((h:WaitForChild("Shared", 5)):WaitForChild("Util", 5)):WaitForChild("AssetItems", 5))
+end)
+if not Z then
+    pcall( function()
+        Z = require(h["Shared"]["Util"]["AssetItems"])
+    end)
+end
+local i = nil pcall( function()
+    i = require((h:WaitForChild("Shared", 5)):WaitForChild("Remotes", 5))
+end)
+if not i then
+    pcall( function()
+        i = require(h["Shared"]["Remotes"])
+    end)
+end
+local function N(e, R)
+    local B =(h:FindFirstChild("Packages") and h["Packages"]:FindFirstChild("Networking")) or h:FindFirstChild("Network") or h
+    local g = B:FindFirstChild(e) or h:FindFirstChild(e)
+    if g then
+        return g
+    end
+    local w = B:FindFirstChild(e, true) or h:FindFirstChild(e, true)
+    if w then
+        return w
+    end
+    if R then
+        local e = B:FindFirstChild(R) or h:FindFirstChild(R)
+        if e then
+            return e
+        end
+        local g = B:FindFirstChild(R, true) or h:FindFirstChild(R, true)
+        if g then
+            return g
+        end
+    end
+    local n = string["match"](e, "[^/]+$")
+    if n then
+        local e = B:FindFirstChild(n, true) or h:FindFirstChild(n, true)
+        if e then
+            return e
+        end
+    end
+    return nil
+end
+local A = N("RF/EggWorld/AskPlaceEgg", "AskPlaceEgg")
+local K = N("RF/EggWorld/AskLiveSnapshot", "AskLiveSnapshot")
+local J = N("RF/Homestead/AskState", "RF/Plots/AskState") or N("AskState")
+local c = N("RF/EggWorld/AskFieldEggCarry", "AskFieldEggCarry")
+local f = N("RF/EggWorld/AskHatch", "AskHatch") or N("Eggs: RequestHatchEgg")
+local M = N("RF/EggWorld/AskFinishHatch", "AskFinishHatch") or N("Eggs: RequestCompleteHatchEgg")
+local U = N("RE/GuardPatrol/ForestStrike", "ForestStrike") or(i and(i["GuardPatrol"] and i["GuardPatrol"]["ForestStrike"]))
+local z = N("SpeedTollOffer", "RE/GuardPatrol/SpeedTollOffer") or(i and(i["GuardPatrol"] and i["GuardPatrol"]["SpeedTollOffer"]))
+local t = N("RF/Treadmill/AskDoff", "AskDoff") V(string["format"]("[RemoteCheck] Carry: %s | Place: %s | Hatch: %s | FinishHatch: %s | Strike: %s | Toll: %s | Doff: %s", tostring(c ~= nil), tostring(A ~= nil), tostring(f ~= nil), tostring(M ~= nil), tostring(U ~= nil), tostring(z ~= nil), tostring(t ~= nil)))
+local x ={["Titan Temple"] = 1100,
+["Cherry Blossom"] = 1000;
+["Cosmic"] = 900,
+["Prehistoric"] = 800,
+["Abyss Ocean"] = 700;
+["Volcano"] = 600,
+["Snow"] = 500;
+["Jungle"] = 400;
+["Desert"] = 300,
+["Lake"] = 200,
+["Forest"] = 100}
+local j ={["Titan Temple"] = 380,
+["Cherry Blossom"] = 330;
+["Cosmic"] = 280;
+["Prehistoric"] = 240,
+["Abyss Ocean"] = 200,
+["Volcano"] = 180,
+["Snow"] = 160;
+["Jungle"] = 140,
+["Desert"] = 130;
+["Lake"] = 125,
+["Forest"] = 125}
+local s = -360
+local m = 525
+local k = 620
+local O = 130
+local W = CFrame["new"](4773.7587890625, 70.392112731934, -315.73501586914)
+local T ={["godmode"] = true;
+["autoGlide"] = true;
+["autoHatch"] = true;
+["isHatching"] = false;
+["autoFarmLoop"] = false;
+["pureTweenFarm"] = false,
+["glidingToTarget"] = false,
+["securingEgg"] = false;
+["glideSpeed"] = 400,
+["laneZ"] = -360,
+["swapped"] = false,
+["teleporting"] = false;
+["isReturning"] = false;
+["delivering"] = false,
+["holdingEggForGuard"] = false;
+["currentTargetModel"] = nil,
+["targetPosition"] = nil;
+["stateTime"] = os["clock"]();
+["statusText"] = "Ready";
+["bestEggInfo"] = "Scanning...",
+["gui"] = nil;
+["alive"] = true,
+["plot"] = nil;
+["pen"] = nil,
+["origin"] = nil,
+["tread"] = nil}
+local F
+local Q
+local y
+local H
+local l
+local C
+local P
+local L
+local eq
+local Rq
+local Bq
+local gq
+local wq
+local hq
+local nq
+local Eq
+local Vq
+local oq
+local aq
+local Sq
+local Dq
+local bq
+local vq
+local Xq
+local uq
+local pq
+local Gq
+local Iq
+local qq
+local dq
+local Yq
+local rq
+local Zq
+local iq
+local Nq
+local Aq ={}
+local Kq = 0
+local Jq = "NONE"
+local cq
+local fq = nil
+local Mq = nil
+local function Uq(e)
+    if not e or not e:IsA("Tool") then
+        return false
+    end
+    local R = string["lower"](e["Name"])
+    if string["find"](R, "sword") or string["find"](R, "radar") or string["find"](R, "basket") or string["find"](R, "punch") then
+        return false
+    end
+    if e:GetAttribute("EggUid") or e:GetAttribute("UID") or string["find"](R, "egg") or e:GetAttribute("Category") or e:GetAttribute("ItemType") == "Egg" then
+        return true
+    end
+    return false
+end
+local function zq()
+    local e = E["Character"]
+    if e then
+        for e, R in ipairs(e:GetChildren()) do
+            if Uq(R) then
+                local e = R:GetAttribute("UID") or R:GetAttribute("EggUid")
+                return R, e or R["Name"]
+            end
+        end
+    end
+    return nil, nil
+end
+local function tq()
+    local e = E:FindFirstChild("Backpack")
+    if e then
+        for e, R in ipairs(e:GetChildren()) do
+            if Uq(R) then
+                local e = R:GetAttribute("UID") or R:GetAttribute("EggUid")
+                return R, e or R["Name"]
+            end
+        end
+    end
+    return nil, nil
+end
+local function xq()
+    local e = 0
+    local R = E:FindFirstChild("Backpack")
+    if R then
+        for R, B in ipairs(R:GetChildren()) do
+            if Uq(B) then
+                e = e +(1)
+            end
+        end
+    end
+    local B = E["Character"]
+    if B then
+        for R, B in ipairs(B:GetChildren()) do
+            if Uq(B) then
+                e = e +(1)
+            end
+        end
+    end
+    return e
+end
+local function jq(e)
+    if not e and not((T["pureTweenFarm"] or T["autoFarmLoop"] or T["teleporting"])) then
+        return
+    end
+    local R = E["Character"]
+    local B = R and R:FindFirstChildOfClass("Humanoid")
+    local g = E:FindFirstChild("Backpack")
+    if B then
+        pcall( function()
+            B:UnequipTools()
+        end)
+    end
+    if R and g then
+        for e, R in ipairs(R:GetChildren()) do
+            if R:IsA("Tool") then
+                pcall( function()
+                    R["Parent"] = g
+                end)
+            end
+        end
+    end
+end
+local function sq(e)
+    if((T["pureTweenFarm"] or T["autoFarmLoop"])) and not T["holdingEggForGuard"] then
+        local e = zq()
+        if e then
+            pcall(jq)
+        end
+        return false
+    end
+    local R, B = zq()
+    if R then
+        if e then
+            if B == e or not B then
+                return true
+            end
+        else
+            return true
+        end
+    end
+    local g = E["Character"]
+    local w = g and g:FindFirstChild("HumanoidRootPart")
+    if w and w["Position"]["X"] <=(m +(15)) then
+        return false
+    end
+    if r and r["ReadFieldEggs"] then
+        local R, B = pcall(r["ReadFieldEggs"])
+        if R and(B and B["Records"]) then
+            for R, B in ipairs(B["Records"]) do
+                if((B["State"] == "Carried" or B["State"] == 2)) and((B["CarrierUserId"] == E["UserId"] or B["Carrier"] == E["UserId"])) then
+                    if e then
+                        if B["Uid"] == e then
+                            return true
+                        end
+                    else
+                        return true
+                    end
+                end
+            end
+        end
+    end
+    return false
+end
+local function mq(e)
+    local R, B = zq()
+    if R then
+        if not e or B == e or not B then
+            return true
+        end
+    end
+    local g = E:FindFirstChild("Backpack")
+    if g then
+        for R, B in ipairs(g:GetChildren()) do
+            if Uq(B) then
+                local R = B:GetAttribute("UID") or B:GetAttribute("EggUid")
+                if not e or R == e or B["Name"] == tostring(e) then
+                    return true
+                end
+            end
+        end
+    end
+    if e and(r and r["ReadFieldEggs"]) then
+        local R, B = pcall(r["ReadFieldEggs"])
+        if R and(B and B["Records"]) then
+            for R, B in ipairs(B["Records"]) do
+                if B["Uid"] == e then
+                    if(B["State"] == "Carried" or B["State"] == 2) then
+                        local e = B["CarrierUserId"] or B["Carrier"]
+                        if e == E["UserId"] then
+                            return true
+                        end
+                    end
+                end
+            end
+        end
+    end
+    return false
+end
+local function kq(e)
+    if not e then
+        return false, "NoUid"
+    end
+    if r and r["ReadFieldEggs"] then
+        local R, B = pcall(r["ReadFieldEggs"])
+        if R and(B and(B["Records"] and #B["Records"] > 0)) then
+            for R, B in ipairs(B["Records"]) do
+                if B["Uid"] == e then
+                    if(B["State"] == "Carried" or B["State"] == 2) then
+                        local e = B["CarrierUserId"] or B["Carrier"]
+                        if e and e == E["UserId"] then
+                            return true, "CarriedBySelf"
+                        else
+                            return false, "CarriedByOther"
+                        end
+                    end
+                    if(B["State"] == "Slot" or B["State"] == "Dropped" or B["State"] == "GuardCarried" or B["State"] == 1) then
+                        return true, "Available"
+                    end
+                    local e = B["CarrierUserId"] or B["Carrier"]
+                    if e then
+                        if e == E["UserId"] then
+                            return true, "CarriedBySelf"
+                        else
+                            return false, "CarriedByOther"
+                        end
+                    end
+                    return true, "Available"
+                end
+            end
+        end
+    end
+    local B = h:FindFirstChild("RF/EggWorld/AskFieldEggSnapshot", true) or h:FindFirstChild("AskFieldEggSnapshot", true) or h:FindFirstChild("Eggs: RequestAreaEggSnapshot", true)
+    if B and B:IsA("RemoteFunction") then
+        local R, g = pcall( function()
+            return B:InvokeServer()
+        end)
+        if R and(type(g) == "table" and(g["Records"] and #g["Records"] > 0)) then
+            for R, B in ipairs(g["Records"]) do
+                if B["Uid"] == e then
+                    if(B["State"] == "Carried" or B["State"] == 2) then
+                        local e = B["CarrierUserId"] or B["Carrier"]
+                        if e and e == E["UserId"] then
+                            return true, "CarriedBySelf"
+                        else
+                            return false, "CarriedByOther"
+                        end
+                    end
+                    return true, "Available"
+                end
+            end
+            return false, "Despawned"
+        end
+    end
+    local g = R:FindFirstChild("AreaEggSlotsClient")
+    if g then
+        for R, B in ipairs(g:GetChildren()) do
+            if B["Name"] == tostring(e) or B:GetAttribute("UID") == e or B:GetAttribute("Uid") == e then
+                return true, "Available"
+            end
+        end
+    end
+    return true, "Unchecked"
+end
+local function Oq()
+    local e, R = zq()
+    if not R then
+        local e, B = tq() R = B
+    end
+    if not R then
+        return false
+    end
+    if r and r["ReadFieldEggs"] then
+        local e, B = pcall(r["ReadFieldEggs"])
+        if e and(B and B["Records"]) then
+            for e, B in ipairs(B["Records"]) do
+                if B["Uid"] == R then
+                    local e = tostring(B["AreaId"] or "")
+                    if e == "Lake" or string["find"](string["lower"](e), "lake") ~= nil then
+                        return true
+                    end
+                end
+            end
+        end
+    end
+    if string["find"](string["lower"](tostring(R)), "lake") ~= nil then
+        return true
+    end
+    return false
+end
+local function Wq()
+    local e, R = zq()
+    if not R then
+        local e, B = tq() R = B
+    end
+    if not R then
+        return T["glideSpeed"] or 350
+    end
+    if r and r["ReadFieldEggs"] then
+        local e, B = pcall(r["ReadFieldEggs"])
+        if e and(B and B["Records"]) then
+            for e, B in ipairs(B["Records"]) do
+                if B["Uid"] == R and B["AreaId"] then
+                    return j[B["AreaId"]] or T["glideSpeed"] or 350
+                end
+            end
+        end
+    end
+    return T["glideSpeed"] or 350
+end
+local function Tq(e, B)
+    B = B or 8
+    local g = Instance["new"]("Part") g["Name"] = "SafetyFloorPad_AntiVoid" g["Size"] = Vector3["new"](28, 1.5, 28) g["Position"] = e - Vector3["new"](0, 3.2, 0) g["Anchored"] = true g["Transparency"] = 1 g["CanCollide"] = true g["Parent"] = R task["delay"](B, function()
+        pcall( function()
+            g:Destroy()
+        end)
+    end)
+    return g
+end
+local function Fq(e)
+    if U and e then
+        pcall( function()
+            local R = E["Character"]
+            local B = R and R:FindFirstChild("HumanoidRootPart")
+            local g = B and(B["CFrame"] * CFrame["new"](0, 0, -3)) or CFrame["new"]()
+            if U:IsA("RemoteFunction") then
+                U:InvokeServer({["EggUid"] = e, ["GuardCFrame"] = g})
+            else
+                U:FireServer({["EggUid"] = e, ["GuardCFrame"] = g})
+            end
+        end)
+    end
+end
+if typeof(hookmetamethod) == "function" and not _G["_DesyncAntiRagdollHooked"] then
+    _G["_DesyncAntiRagdollHooked"] = true
+    local e e = hookmetamethod(game, "__newindex", newcclosure( function(R, B, g)
+        if not checkcaller() and typeof(R) == "Instance" then
+            if R:IsA("Motor6D") and(B == "Enabled" and g == false) then
+                return nil
+            end
+            if R:IsA("Humanoid") then
+                if B == "PlatformStand" and g == true then
+                    return nil
+                end
+                if B == "Sit" and(g == true and((T["pureTweenFarm"] or T["autoFarmLoop"] or T["isReturning"] or T["glidingToTarget"]))) then
+                    return nil
+                end
+            end
+        end
+        return e(R, B, g)
+    end))
+end
+local function Qq(e)
+    e = e or E["Character"]
+    if not e then
+        return
+    end
+    local R = e:FindFirstChild("HumanoidRootPart")
+    local B = e:FindFirstChild("Torso") or e:FindFirstChild("UpperTorso") or R
+    if not B then
+        return
+    end
+    for e, R in ipairs(e:GetDescendants()) do
+        if R:IsA("BallSocketConstraint") or R:IsA("HingeConstraint") or R:IsA("NoCollisionConstraint") then
+            pcall( function()
+                R:Destroy()
+            end)
+        end
+    end
+    for e, R in ipairs(e:GetDescendants()) do
+        if R:IsA("Motor6D") and(R["Part0"] and R["Part1"]) then
+            R["Enabled"] = true
+            local e = "RigidJointWeld_" .. R["Name"]
+            local B = R["Part1"]:FindFirstChild(e)
+            if not B then
+                local B = Instance["new"]("WeldConstraint") B["Name"] = e B["Part0"] = R["Part0"] B["Part1"] = R["Part1"] B["Parent"] = R["Part1"]
+            end
+        end
+    end
+end
+local function yq(e)
+    e = e or E["Character"]
+    if not e then
+        return
+    end
+    local R = e:FindFirstChildOfClass("Humanoid")
+    if R then
+        R:SetStateEnabled(Enum["HumanoidStateType"]["Ragdoll"], false) R:SetStateEnabled(Enum["HumanoidStateType"]["FallingDown"], false) R:SetStateEnabled(Enum["HumanoidStateType"]["Physics"], false) R:SetStateEnabled(Enum["HumanoidStateType"]["PlatformStanding"], false) R:SetStateEnabled(Enum["HumanoidStateType"]["Seated"], false)
+        if R["PlatformStand"] then
+            R["PlatformStand"] = false
+        end
+        if R["Sit"] then
+            R["Sit"] = false
+        end
+    end
+    for e, R in ipairs(e:GetDescendants()) do
+        if R:IsA("LocalScript") and((string["find"](string["lower"](R["Name"]), "ragdoll") or string["find"](string["lower"](R["Name"]), "fall"))) then
+            R["Disabled"] = true
+        end
+    end
+    Qq(e)
+end
+local function Hq(e)
+    if not e then
+        return
+    end
+    yq(e)
+    for e, R in ipairs(e:GetDescendants()) do
+        if R:IsA("Motor6D") then
+            (R:GetPropertyChangedSignal("Enabled")):Connect( function()
+                if not R["Enabled"] then
+                    R["Enabled"] = true
+                end
+            end)
+        end
+    end
+    e["DescendantAdded"]:Connect( function(R)
+        if R:IsA("BallSocketConstraint") or R:IsA("HingeConstraint") or R:IsA("NoCollisionConstraint") then
+            task["defer"]( function()
+                pcall( function()
+                    R:Destroy()
+                end) yq(e)
+            end)
+        elseif R:IsA("LocalScript") and((string["find"](string["lower"](R["Name"]), "ragdoll") or string["find"](string["lower"](R["Name"]), "fall"))) then
+            R["Disabled"] = true
+        end
+    end) e["ChildAdded"]:Connect( function(e)
+        if e:IsA("Tool") and(((T["pureTweenFarm"] or T["autoFarmLoop"])) and not T["holdingEggForGuard"]) then
+            task["defer"]( function()
+                jq()
+            end)
+        end
+    end)
+end
+local function lq()
+    local e = E["Character"]
+    local R = e and e:FindFirstChildOfClass("Humanoid")
+    local B = e and e:FindFirstChild("HumanoidRootPart")
+    if t then
+        task["spawn"]( function()
+            pcall( function()
+                t:InvokeServer()
+            end)
+        end)
+    end
+    if R then
+        pcall( function()
+            for e, R in ipairs(R:GetPlayingAnimationTracks()) do
+                local B = R["Animation"]
+                local g = B and B["AnimationId"] or ""
+                if string["find"](g, "10921259953") or string["find"](string["lower"](R["Name"]), "treadmill") or string["find"](string["lower"](R["Name"]), "run") then
+                    R:Stop(0)
+                end
+            end
+            R["PlatformStand"] = false R["Sit"] = false R:SetStateEnabled(Enum["HumanoidStateType"]["Running"], true) R:SetStateEnabled(Enum["HumanoidStateType"]["Jumping"], true) R:ChangeState(Enum["HumanoidStateType"]["Running"])
+        end)
+    end
+    local g = E:FindFirstChild("PlayerGui")
+    if g then
+        local e = g:FindFirstChild("SpeedGainAnimation")
+        if e then
+            pcall( function()
+                e:Destroy()
+            end)
+        end
+    end
+    if B then
+        B["AssemblyLinearVelocity"] = Vector3["zero"] B["AssemblyAngularVelocity"] = Vector3["zero"]
+    end
+    yq(e)
+end
+local function Cq()
+    pcall( function()
+        local e = R:FindFirstChild("Plots")
+        if e then
+            for e, R in ipairs(e:GetChildren()) do
+                local B = R:FindFirstChild("TreadmillBottom")
+                if B and B:IsA("BasePart") then
+                    B["CanTouch"] = false B["CanCollide"] = false
+                end
+                local g = R:FindFirstChild("TreadmillUpgrade")
+                if g then
+                    for e, R in ipairs(g:GetDescendants()) do
+                        if R:IsA("BasePart") then
+                            R["CanTouch"] = false R["CanCollide"] = false
+                        end
+                    end
+                end
+            end
+        end
+    end)
+end
+Cq() R["DescendantAdded"]:Connect( function(e)
+    if e["Name"] == "TreadmillBottom" and e:IsA("BasePart") then
+        e["CanTouch"] = false e["CanCollide"] = false
+    elseif e["Name"] == "TreadmillUpgrade" and e:IsA("Model") then
+        for e, R in ipairs(e:GetDescendants()) do
+            if R:IsA("BasePart") then
+                R["CanTouch"] = false R["CanCollide"] = false
+            end
+        end
+    end
+end)
+local function Pq()
+    T["teleporting"] = false T["glidingToTarget"] = false T["securingEgg"] = false T["isReturning"] = false T["delivering"] = false T["holdingEggForGuard"] = false T["currentTargetModel"] = nil T["targetPosition"] = nil T["stateTime"] = os["clock"]()
+    local e = E["Character"]
+    local R = e and e:FindFirstChild("HumanoidRootPart")
+    if R then
+        pcall( function()
+            R["Anchored"] = false R["AssemblyLinearVelocity"] = Vector3["zero"] R["AssemblyAngularVelocity"] = Vector3["zero"]
+        end)
+    end
+    pcall( function()
+        if lq then
+            lq()
+        end
+    end) pcall( function()
+        if yq and e then
+            yq(e)
+        end
+    end) pcall( function()
+        if jq and((T["pureTweenFarm"] or T["autoFarmLoop"])) then
+            jq()
+        end
+    end)
+end
+local function Lq(e, B)
+    if e then
+        for e, R in ipairs(e:GetDescendants()) do
+            if R:IsA("ProximityPrompt") then
+                pcall( function()
+                    R["RequiresLineOfSight"] = false R["HoldDuration"] = 0
+                    if typeof(fireproximityprompt) == "function" then
+                        fireproximityprompt(R, 0) fireproximityprompt(R)
+                    end
+                end)
+            end
+        end
+    end
+    local g = R:FindFirstChild("AreaEggSlotsClient")
+    if g and B then
+        for e, R in ipairs(g:GetChildren()) do
+            local g = R:FindFirstChildWhichIsA("BasePart") or R["PrimaryPart"]
+            if g and((g["Position"] - B))["Magnitude"] <= 18 then
+                for e, R in ipairs(R:GetDescendants()) do
+                    if R:IsA("ProximityPrompt") then
+                        pcall( function()
+                            R["RequiresLineOfSight"] = false R["HoldDuration"] = 0
+                            if typeof(fireproximityprompt) == "function" then
+                                fireproximityprompt(R, 0) fireproximityprompt(R)
+                            end
+                        end)
+                    end
+                end
+            end
+        end
+    end
+end
+local function eG(e)
+    T["godmode"] = e
+    local R = E["Character"]
+    if not R then
+        return
+    end
+    local B = R:FindFirstChildOfClass("Humanoid")
+    if B then
+        B:SetStateEnabled(Enum["HumanoidStateType"]["Dead"], not e)
+        if e and B["Health"] < 100 then
+            B["Health"] = 100
+        end
+    end
+    for R, B in ipairs(R:GetDescendants()) do
+        if B:IsA("BasePart") then
+            if e then
+                B["CanTouch"] = false B["CanCollide"] = false
+            end
+        end
+    end
+    yq(R)
+end
+local function RG()
+    local e = E["Character"]
+    local B = e and e:FindFirstChildOfClass("Humanoid")
+    if not e or not B then
+        return false
+    end
+    pcall( function()
+        B["BreakJointsOnDeath"] = false
+        local g = B:Clone() g["Parent"] = e B:Destroy()
+        local w = g:FindFirstChildOfClass("Animator")
+        if not w then
+            w = Instance["new"]("Animator") w["Parent"] = g
+        end
+        R["CurrentCamera"]["CameraSubject"] = g
+        local h = e:FindFirstChild("Animate")
+        if h and h:IsA("LocalScript") then
+            h["Disabled"] = true task["defer"]( function()
+                task["wait"](.05) h["Disabled"] = false
+            end)
+        end
+        g:SetStateEnabled(Enum["HumanoidStateType"]["Jumping"], true) g:SetStateEnabled(Enum["HumanoidStateType"]["Freefall"], true) g:SetStateEnabled(Enum["HumanoidStateType"]["Running"], true) g:SetStateEnabled(Enum["HumanoidStateType"]["Climbing"], true) g["JumpPower"] = math["max"](50, g["JumpPower"]) g["JumpHeight"] = math["max"](7.2, g["JumpHeight"]) g:ChangeState(Enum["HumanoidStateType"]["Running"])
+    end) T["swapped"] = true
+    if T["godmode"] then
+        eG(true)
+    end
+    Hq(e)
+    return true
+end
+local function BG()
+    if T["plot"] and(T["plot"]["Parent"] and(T["pen"] and T["origin"])) then
+        return T["plot"], T["pen"], T["origin"]
+    end
+    local e = R:FindFirstChild("Plots")
+    if not e then
+        return nil, nil, nil
+    end
+    local B = E["UserId"]
+    local g = E["Name"]
+    local w = nil
+    if J then
+        local R, g = pcall( function()
+            return J:InvokeServer()
+        end)
+        if R and(type(g) == "table" and type(g["OwnersBySlot"]) == "table") then
+            for R, g in pairs(g["OwnersBySlot"]) do
+                if g == B or tostring(g) == tostring(B) then
+                    w = e:FindFirstChild(tostring(R))
+                    if w then
+                        break
+                    end
+                end
+            end
+        end
+    end
+    if not w then
+        for e, R in ipairs(e:GetChildren()) do
+            local B = R:FindFirstChild("PlotSign")
+            if B then
+                local e = B:FindFirstChild("PlayerName", true)
+                if e and(e:IsA("TextLabel") and((e["Text"] == g or e["Text"] == E["DisplayName"]))) then
+                    w = R
+                    break
+                end
+            end
+        end
+    end
+    if not w then
+        w = e:FindFirstChild("2")
+    end
+    if not w then
+        return nil, nil, nil
+    end
+    T["plot"] = w T["origin"] = w:FindFirstChild("CenterPoint")
+    local h = w:FindFirstChild("ToUpdate") T["pen"] =(h and h:FindFirstChild("PetArea")) or w:FindFirstChild("PetArea") T["tread"] = w:FindFirstChild("TreadmillBottom")
+    if not T["pen"] and h then
+        for e, R in ipairs(h:GetChildren()) do
+            if R:IsA("BasePart") and string["find"](string["lower"](R["Name"]), "pet") then
+                T["pen"] = R
+                break
+            end
+        end
+    end
+    if not T["origin"] then
+        T["origin"] = w:FindFirstChild("CenterPoint") or T["pen"] or w["PrimaryPart"]
+    end
+    if not T["pen"] then
+        T["pen"] = T["origin"]
+    end
+    return T["plot"], T["pen"], T["origin"]
+end
+local function gG()
+    local e, R, B = BG()
+    if R then
+        return R["Position"] + Vector3["new"](0, 3.5, 0)
+    end
+    if B then
+        return B["Position"] + Vector3["new"](0, 3.5, 0)
+    end
+    return Vector3["new"](464.7, 71.7, -304)
+end
+local function wG(e)
+    local R, B, g = BG()
+    if not B then
+        return nil
+    end
+    local w = B["Size"]
+    local h = math["max"](4, w["X"] /(2) -(5))
+    local n = math["max"](4, w["Z"] /(2) -(5))
+    for R = 1, 60, 1 do
+        local g = math["random"]( - math["floor"](h), math["floor"](h))
+        local E = math["random"]( - math["floor"](n), math["floor"](n))
+        local V = B["CFrame"] * CFrame["new"](g, w["Y"] /(2) + 1, E)
+        local o = true
+        for e, R in ipairs(e) do
+            if((R - V["Position"]))["Magnitude"] < 5.5 then
+                o = false
+                break
+            end
+        end
+        if o then
+            return V
+        end
+    end
+    return B["CFrame"] * CFrame["new"](math["random"](-8, 8), w["Y"] /(2) + 1, math["random"](-8, 8))
+end
+local function hG()
+    local e, R, B = BG()
+    if not B or not A then
+        return 0
+    end
+    local g = 0
+    local w ={}
+    if K then
+        local e, R = pcall( function()
+            return K:InvokeServer()
+        end)
+        if e and type(R) == "table" then
+            local e ={}
+            for R, B in pairs(R) do
+                if type(B) == "table" and B["OwnerUserId"] == E["UserId"] then
+                    for R, B in pairs(B["Records"] or{}) do
+                        e[R] = B
+                    end
+                end
+            end
+            for e, R in pairs(e) do
+                if R["Placement"] and R["Placement"]["LocalCFrame"] then
+                    w[#w +(1)] =((B["CFrame"] * R["Placement"]["LocalCFrame"]))["Position"]
+                else
+                    local R = wG(w)
+                    if R then
+                        local h = B["CFrame"]:ToObjectSpace(R)
+                        local n, E = pcall( function()
+                            return A:InvokeServer({["Uid"] = e, ["LocalCFrame"] = h})
+                        end)
+                        if n and E then
+                            g = g +(1) w[#w +(1)] = R["Position"]
+                        end
+                    end
+                end
+            end
+        end
+    end
+    local h ={}
+    local n = E["Character"]
+    if n then
+        for e, R in ipairs(n:GetChildren()) do
+            if Uq(R) then
+                table["insert"](h, R)
+            end
+        end
+    end
+    local o = E:FindFirstChild("Backpack")
+    if o then
+        for e, R in ipairs(o:GetChildren()) do
+            if Uq(R) then
+                table["insert"](h, R)
+            end
+        end
+    end
+    for e, R in ipairs(h) do
+        if not T["alive"] then
+            break
+        end
+        local h = R:GetAttribute("UID") or R:GetAttribute("EggUid") or R["Name"]
+        local n = wG(w)
+        if n then
+            local e = B["CFrame"]:ToObjectSpace(n)
+            local R, E = pcall( function()
+                return A:InvokeServer({["Uid"] = h, ["LocalCFrame"] = e})
+            end)
+            if R and E ~= false then
+                g = g +(1) w[#w + 1] = n["Position"] V(string["format"]("[PlaceEgg] Placed egg %s from inventory", tostring(h)))
+            end
+            task["wait"](.04)
+        end
+    end
+    return g
+end
+local function nG(e)
+    if( not e and not T["autoHatch"]) or not f or not M or not K then
+        return 0
+    end
+    if T["isHatching"] then
+        return 0
+    end
+    T["isHatching"] = true
+    local B, g = pcall( function()
+        return K:InvokeServer()
+    end)
+    if not B or type(g) ~= "table" then
+        return 0
+    end
+    local w ={}
+    for e, R in pairs(g) do
+        if type(R) == "table" and R["OwnerUserId"] == E["UserId"] then
+            for e, R in pairs(R["Records"] or{}) do
+                w[e] = R
+            end
+        end
+    end
+    local h ={}
+    local n = R:GetServerTimeNow()
+    for e, R in pairs(w) do
+        if not T["alive"] then
+            break
+        end
+        if R["Placement"] then
+            local B = nil
+            if r then
+                local R = r["IsReadyToHatch"] or r["IsLocalEggReady"]
+                if R then
+                    local g, w = pcall(R, e)
+                    if g and type(w) == "boolean" then
+                        B = w
+                    end
+                end
+            end
+            if B == nil then
+                local e = R["Placement"]["PlacedAt"] or R["Placement"]["Time"] or 0
+                local g = 30
+                if Z and(Z["Assets"] and Z["Assets"][R["AssetCategory"]]) then
+                    local e = Z["Assets"][R["AssetCategory"]] g =(e and(e["Egg"] and e["Egg"]["GrowthTime"])) or 30
+                end
+                local w = g / math["max"](.01, R["GrowthSpeedMultiplier"] or 1) B =(n - e) >= w
+            end
+            if B then
+                table["insert"](h, {["uid"] = e, ["category"] = R["AssetCategory"] or "Egg"})
+            end
+        end
+    end
+    if #h == 0 then
+        T["isHatching"] = false
+        return 0
+    end
+    V(string["format"]("[AutoHatch] Found %d eggs ready to hatch! Starting hatch sequence...", #h)) T["statusText"] = string["format"]("[Hatch] Hatching %d ready eggs...", #h)
+    local o = 0
+    for e, R in ipairs(h) do
+        task["spawn"]( function()
+            local e, B = pcall( function()
+                if f:IsA("RemoteFunction") then
+                    return f:InvokeServer(R["uid"])
+                else
+                    f:FireServer(R["uid"])
+                    return true
+                end
+            end)
+            if e and B ~= false then
+                task["wait"](.9)
+                local e, B = pcall( function()
+                    if M:IsA("RemoteFunction") then
+                        return M:InvokeServer(R["uid"])
+                    else
+                        M:FireServer(R["uid"])
+                        return true
+                    end
+                end)
+                if e and B ~= false then
+                    o = o + 1 T["hatched"] =((T["hatched"] or 0)) +(1) V(string["format"]("[+] [AutoHatch] Hatched %s (UID: %s) -> Total Hatched: %d", R["category"], tostring(R["uid"]), T["hatched"]))
+                end
+            end
+        end) task["wait"](.04)
+    end
+    task["wait"](.95) T["isHatching"] = false V(string["format"]("[AutoHatch] Finished! Hatched %d eggs.", o))
+    return o
+end
+aq = function()
+    local e ={}
+    local B = R:FindFirstChild("__DEBRIS")
+    if B then
+        for R, B in ipairs(B:GetChildren()) do
+            local g = B:FindFirstChild("Hitbox")
+            if g and g:IsA("BasePart") then
+                table["insert"](e, g)
+            elseif B:IsA("BasePart") and string["find"](B["Name"]:lower(), "hitbox") then
+                table["insert"](e, B)
+            end
+        end
+    end
+    local g = R:FindFirstChild("BossArenaTeleport")
+    if g then
+        local R = g:FindFirstChild("Hitbox") or g:FindFirstChildWhichIsA("BasePart") or(g:IsA("BasePart") and g)
+        if R and R:IsA("BasePart") then
+            table["insert"](e, R)
+        end
+    end
+    return e
+end
+Dq = function(e, R, g)
+    local w = E["Character"]
+    local h = w and w:FindFirstChild("HumanoidRootPart")
+    local n = w and w:FindFirstChildOfClass("Humanoid")
+    if not h then
+        return false
+    end
+    if n then
+        n["AutoRotate"] = false
+    end
+    local V = gG() e = math["max"](100, e or T["glideSpeed"] or 400)
+    local o = T["laneZ"] or s T["isReturning"] = true T["stateTime"] = os["clock"]() Tq(V, 20) h["AssemblyLinearVelocity"] = Vector3["zero"] h["AssemblyAngularVelocity"] = Vector3["zero"]
+    local a = Wq()
+    local S = math["max"](e, a)
+    local D = os["clock"]() +(25)
+    while T["alive"] and(T["isReturning"] and os["clock"]() < D) do
+        if R and Kq ~= R then
+            if n then
+                n["AutoRotate"] = true
+            end
+            T["isReturning"] = false
+            return false
+        end
+        if not g and( not T["pureTweenFarm"] and not T["autoFarmLoop"]) then
+            if n then
+                n["AutoRotate"] = true
+            end
+            T["isReturning"] = false
+            return false
+        end
+        local e = h["Position"]
+        local w =((V - e))["Magnitude"]
+        if(e["X"] <=(V["X"] + 3) and math["abs"](e["Z"] - V["Z"]) <= 8) or w <= 6 then
+            break
+        end
+        local E = B["Heartbeat"]:Wait() e = h["Position"]
+        local a = S
+        if e["X"] <= k and e["X"] > m then
+            local R = math["clamp"](((e["X"] - m)) /((k - m)), 0, 1) a = O +(((S - O)) * R)
+        elseif e["X"] <= m then
+            a = O
+        end
+        local D = V["Z"]
+        if e["X"] > 540 then
+            D = o
+        end
+        local b = math["sign"](V["X"] - e["X"])
+        local v = b * math["min"](math["abs"](V["X"] - e["X"]), a * E)
+        local X = e["X"] + v
+        local u = math["sign"](V["Y"] - e["Y"])
+        local p = u * math["min"](math["abs"](V["Y"] - e["Y"]), (a * E) *(0.5))
+        local G = e["Y"] + p
+        local I = D - e["Z"]
+        local q = math["sign"](I) * math["min"](math["abs"](I), a * E)
+        local d = e["Z"] + q
+        local Y = aq()
+        local r = false
+        if e["X"] > m then
+            for e, R in ipairs(Y) do
+                local B = R["Position"]
+                local g =((Vector3["new"](X, G, d) - B))["Magnitude"]
+                local w = math["abs"](X - B["X"])
+                local h = math["abs"](d - B["Z"])
+                if g < 22 or(w < 18 and h < 14) then
+                    r = true
+                    local e = B["Y"] +(16)
+                    if G < e then
+                        G = math["min"](G +((a * E) *(1.5)), e)
+                    end
+                    break
+                end
+            end
+        end
+        local Z = Vector3["new"](X, G, d)
+        local i =((Z - e))["Magnitude"] > .05 and((Z - e))["Unit"] or h["CFrame"]["LookVector"] h["CFrame"] = CFrame["lookAt"](Z, Z + i) h["AssemblyLinearVelocity"] = Vector3["zero"] h["AssemblyAngularVelocity"] = Vector3["zero"]
+        if r then
+            T["statusText"] = string["format"]("Tweening Home (Z: %.0f) [DODGING TRAP!]", d)
+        else
+            T["statusText"] = string["format"]("Tweening Home (%.0f studs | Z: %.0f | Spd: %.0f)", w, d, a)
+        end
+    end
+    h["CFrame"] = CFrame["new"](V) h["AssemblyLinearVelocity"] = Vector3["zero"] h["AssemblyAngularVelocity"] = Vector3["zero"]
+    if n then
+        n["AutoRotate"] = true
+    end
+    jq() T["isReturning"] = false T["delivering"] = false T["statusText"] = "Arrived at Base PetArea!"
+    return true
+end
+oq = function(e, R, B)
+    local g = E["Character"]
+    local w = g and g:FindFirstChild("HumanoidRootPart")
+    local h = g and g:FindFirstChildOfClass("Humanoid")
+    if not w or not h then
+        return
+    end
+    local n = gG()
+    local V =((w["Position"] - n))["Magnitude"]
+    if V > 8 then
+        T["statusText"] = "[Place] Tweening back to base plot..." Dq(e or T["glideSpeed"] or 400, R, true)
+    end
+    Tq(n, 15) w["CFrame"] = CFrame["new"](n) w["AssemblyLinearVelocity"] = Vector3["zero"] T["statusText"] = "[Place] Placing All Eggs to Stand..."
+    local o = os["clock"]() + 3
+    while xq() > 0 and(os["clock"]() < o and T["alive"]) do
+        hG() task["wait"](.06)
+    end
+    T["statusText"] = "[Place] Hatching ready eggs..." nG(true) jq() T["isReturning"] = false T["delivering"] = false T["currentTargetModel"] = nil T["targetPosition"] = nil
+    local a = xq() T["statusText"] = string["format"]("Placed & Hatched (Left: %d)! Hands Free.", a)
+end
+local function EG(e, R, g, w)
+    local h = E["Character"]
+    local n = h and h:FindFirstChild("HumanoidRootPart")
+    local V = h and h:FindFirstChildOfClass("Humanoid")
+    if not n then
+        return false
+    end
+    if V then
+        V["AutoRotate"] = false
+    end
+    R = math["max"](60, R or T["glideSpeed"] or 350)
+    local o = e["Position"] Tq(o, 14) n["AssemblyLinearVelocity"] = Vector3["zero"] n["AssemblyAngularVelocity"] = Vector3["zero"]
+    local a = T["laneZ"] or s T["glidingToTarget"] = true T["stateTime"] = os["clock"]()
+    local S = 0
+    local D = os["clock"]() +(15)
+    while T["alive"] and(T["glidingToTarget"] and os["clock"]() < D) do
+        if w and Kq ~= w then
+            if V then
+                V["AutoRotate"] = true
+            end
+            T["glidingToTarget"] = false
+            return false
+        end
+        if not T["pureTweenFarm"] and( not T["autoFarmLoop"] and not T["teleporting"]) then
+            if V then
+                V["AutoRotate"] = true
+            end
+            T["glidingToTarget"] = false
+            return false
+        end
+        local e = n["Position"]
+        local h =((o - e))["Magnitude"]
+        local E =((Vector2["new"](e["X"], e["Z"]) - Vector2["new"](o["X"], o["Z"])))["Magnitude"]
+        local D = math["abs"](e["Y"] - o["Y"])
+        if h <= 6 or(E <= 3.5 and D <= 6) then
+            break
+        end
+        local b = B["Heartbeat"]:Wait() e = n["Position"] h =((o - e))["Magnitude"] E =((Vector2["new"](e["X"], e["Z"]) - Vector2["new"](o["X"], o["Z"])))["Magnitude"]
+        local v = math["abs"](e["X"] - o["X"])
+        if g and(os["clock"]() - S > 0.25) then
+            S = os["clock"]()
+            local e, R = kq(g)
+            if not e and R == "CarriedByOther" then
+                if V then
+                    V["AutoRotate"] = true
+                end
+                T["glidingToTarget"] = false
+                return false
+            end
+        end
+        local X = o["Z"]
+        if v > 40 then
+            X = a
+        end
+        local u = math["sign"](o["X"] - e["X"])
+        local p = u * math["min"](math["abs"](o["X"] - e["X"]), R * b)
+        local G = e["X"] + p
+        local I =(E <= 25) and 1.2 or 0.5
+        local q = math["sign"](o["Y"] - e["Y"])
+        local d = q * math["min"](math["abs"](o["Y"] - e["Y"]), (R * b) * I)
+        local Y = e["Y"] + d
+        local r = X - e["Z"]
+        local Z = math["sign"](r) * math["min"](math["abs"](r), R * b)
+        local i = e["Z"] + Z
+        local N = false
+        if E > 25 then
+            local e = aq()
+            for e, B in ipairs(e) do
+                local g = B["Position"]
+                local w =((Vector3["new"](G, Y, i) - g))["Magnitude"]
+                local h = math["abs"](G - g["X"])
+                local n = math["abs"](i - g["Z"])
+                if w < 22 or(h < 18 and n < 14) then
+                    N = true
+                    local e = g["Y"] +(16)
+                    if Y < e then
+                        Y = math["min"](Y +((R * b) *(1.5)), e)
+                    end
+                    break
+                end
+            end
+        end
+        local A = Vector3["new"](G, Y, i)
+        local K =((A - e))["Magnitude"] > .05 and((A - e))["Unit"] or n["CFrame"]["LookVector"] n["CFrame"] = CFrame["lookAt"](A, A + K) n["AssemblyLinearVelocity"] = Vector3["zero"] n["AssemblyAngularVelocity"] = Vector3["zero"]
+        if N then
+            T["statusText"] = string["format"]("Gliding Out (Z: %.0f) [DODGING TRAP!]", i)
+        else
+            T["statusText"] = string["format"]("Gliding -> Egg (%.0f studs | H: %.0f)", h, E)
+        end
+    end
+    n["CFrame"] = e * CFrame["new"](0, .4, 0) n["AssemblyLinearVelocity"] = Vector3["zero"] n["AssemblyAngularVelocity"] = Vector3["zero"]
+    if V then
+        V["AutoRotate"] = true
+    end
+    T["glidingToTarget"] = false
+    return true
+end
+local function VG(e, R)
+    local g = E["Character"]
+    local w = g and g:FindFirstChild("HumanoidRootPart")
+    local h = g and g:FindFirstChildOfClass("Humanoid")
+    if not w then
+        return false
+    end
+    if h then
+        h["AutoRotate"] = false
+    end
+    local n = T["laneZ"] or s
+    local V = Vector3["new"](m -(10), 70, n) e = math["max"](100, e or T["glideSpeed"] or 350) T["isReturning"] = true T["stateTime"] = os["clock"]() Tq(Vector3["new"](m, 70, n), 20) pcall(jq) w["AssemblyLinearVelocity"] = Vector3["zero"] w["AssemblyAngularVelocity"] = Vector3["zero"]
+    local a = Wq()
+    local S = math["max"](e, a)
+    local D = os["clock"]() + 15
+    while T["alive"] and(T["isReturning"] and os["clock"]() < D) do
+        if R and Kq ~= R then
+            o("[Return] Aborted by session switch!")
+            if h then
+                h["AutoRotate"] = true
+            end
+            T["isReturning"] = false
+            return false
+        end
+        if not T["pureTweenFarm"] and not T["autoFarmLoop"] then
+            o("[Return] Aborted (all farms disabled)")
+            if h then
+                h["AutoRotate"] = true
+            end
+            T["isReturning"] = false
+            return false
+        end
+        local e = w["Position"]
+        local E =((V - e))["Magnitude"]
+        if e["X"] <=(m +(10)) or E <= 6 then
+            jq()
+            break
+        end
+        if g then
+            for e, R in ipairs(g:GetChildren()) do
+                if R:IsA("Tool") then
+                    pcall(jq)
+                    break
+                end
+            end
+        end
+        local a = B["Heartbeat"]:Wait() e = w["Position"]
+        local D = S
+        if e["X"] <= k and e["X"] > m then
+            local R = math["clamp"](((e["X"] - m)) /((k - m)), 0, 1) D = O +(((S - O)) * R)
+        elseif e["X"] <= m then
+            D = O
+        end
+        local b = math["sign"](V["X"] - e["X"])
+        local v = b * math["min"](math["abs"](V["X"] - e["X"]), D * a)
+        local X = e["X"] + v
+        local u = math["sign"](V["Y"] - e["Y"])
+        local p = u * math["min"](math["abs"](V["Y"] - e["Y"]), (D * a) *(0.5))
+        local G = e["Y"] + p
+        local I = n - e["Z"]
+        local q = math["sign"](I) * math["min"](math["abs"](I), D * a)
+        local d = e["Z"] + q
+        local Y = aq()
+        local r = false
+        for e, R in ipairs(Y) do
+            local B = R["Position"]
+            local g =((Vector3["new"](X, G, d) - B))["Magnitude"]
+            local w = math["abs"](X - B["X"])
+            local h = math["abs"](d - B["Z"])
+            if g < 22 or(w < 18 and h < 14) then
+                r = true
+                local e = B["Y"] +(16)
+                if G < e then
+                    G = math["min"](G +((D * a) *(1.5)), e)
+                end
+                break
+            end
+        end
+        local Z = Vector3["new"](X, G, d)
+        local i =((Z - e))["Magnitude"] > .05 and((Z - e))["Unit"] or w["CFrame"]["LookVector"] w["CFrame"] = CFrame["lookAt"](Z, Z + i) w["AssemblyLinearVelocity"] = Vector3["zero"] w["AssemblyAngularVelocity"] = Vector3["zero"]
+        if r then
+            T["statusText"] = string["format"]("Tweening Safe Line (Z: %.0f) [DODGING!]", d)
+        else
+            T["statusText"] = string["format"]("Tweening to Safe Line (%.0f studs | X: %.0f)", E, e["X"])
+        end
+    end
+    w["CFrame"] = CFrame["new"](m, math["max"](68, w["Position"]["Y"]), n) w["AssemblyLinearVelocity"] = Vector3["zero"] w["AssemblyAngularVelocity"] = Vector3["zero"]
+    if h then
+        h["AutoRotate"] = true
+    end
+    jq() T["isReturning"] = false T["delivering"] = false T["statusText"] = "Arrived at Safe Line (X=525)! Hands Free."
+    return true
+end
+local function oG()
+    local e = E["Character"]
+    local B = e and e:FindFirstChild("HumanoidRootPart")
+    if not B then
+        return nil
+    end
+    local g ={}
+    local w = R:FindFirstChild("AreaEggSlotsClient")
+    if r and r["ReadFieldEggs"] then
+        local e, R = pcall(r["ReadFieldEggs"])
+        if e and(R and R["Records"]) then
+            for e, R in ipairs(R["Records"]) do
+                local w =(R["State"] == "Slot" or R["State"] == "Dropped" or R["State"] == 1)
+                local h =(R["AreaId"] == "Lake") or(string["find"](string["lower"](tostring(R["AreaId"])), "lake") ~= nil) or(string["find"](string["lower"](tostring(R["Uid"])), "lake") ~= nil)
+                local n = Aq[R["Uid"]] and(os["clock"]() < Aq[R["Uid"]])
+                if w and(h and(R["BoundsCFrame"] and not n)) then
+                    local e = R["BoundsCFrame"]["Position"]
+                    local w =((B["Position"] - e))["Magnitude"] table["insert"](g, {["Uid"] = R["Uid"], ["Model"] = nil;
+                    ["Hitbox"] = nil;
+                    ["CFrame"] = R["BoundsCFrame"], ["Position"] = e, ["Distance"] = w;
+                    ["Area"] = "Lake"})
+                end
+            end
+        end
+    end
+    if #g == 0 and(r and r["ReadFieldEggs"]) then
+        local e, R = pcall(r["ReadFieldEggs"])
+        if e and(R and R["Records"]) then
+            for e, R in ipairs(R["Records"]) do
+                local w =(R["State"] == "Slot" or R["State"] == "Dropped" or R["State"] == 1)
+                local h = R["BoundsCFrame"] and R["BoundsCFrame"]["Position"]
+                local n = h and((h["X"] >= 545 and h["X"] < 850))
+                local E = Aq[R["Uid"]] and(os["clock"]() < Aq[R["Uid"]])
+                if w and(n and not E) then
+                    table["insert"](g, {["Uid"] = R["Uid"];
+                    ["Model"] = nil, ["Hitbox"] = nil, ["CFrame"] = R["BoundsCFrame"], ["Position"] = h;
+                    ["Distance"] =((B["Position"] - h))["Magnitude"], ["Area"] = R["AreaId"] or "Field"})
+                end
+            end
+        end
+    end
+    if #g == 0 then
+        return nil
+    end
+    table["sort"](g, function(e, R)
+        return e["Distance"] < R["Distance"]
+    end)
+    local h = g[1]
+    if h and w then
+        for e, R in ipairs(w:GetChildren()) do
+            local B = R:FindFirstChildWhichIsA("BasePart") or R["PrimaryPart"]
+            if B and((B["Position"] - h["Position"]))["Magnitude"] <= 8 then
+                h["Model"] = R
+                break
+            end
+        end
+    end
+    return h
+end
+local function aG()
+    local e = nil
+    if r and r["ReadFieldEggs"] then
+        local R, B = pcall(r["ReadFieldEggs"])
+        if R and(B and(B["Records"] and #B["Records"] > 0)) then
+            e = B["Records"]
+        end
+    end
+    if not e or #e == 0 then
+        local R = h:FindFirstChild("RF/EggWorld/AskFieldEggSnapshot", true) or h:FindFirstChild("AskFieldEggSnapshot", true) or h:FindFirstChild("Eggs: RequestAreaEggSnapshot", true)
+        if R and R:IsA("RemoteFunction") then
+            pcall( function()
+                local B = R:InvokeServer()
+                if type(B) == "table" and(B["Records"] and #B["Records"] > 0) then
+                    e = B["Records"]
+                end
+            end)
+        end
+    end
+    if not e or #e == 0 then
+        return nil
+    end
+    local B = E["Character"]
+    local g = B and B:FindFirstChild("HumanoidRootPart")
+    local w = g and g["Position"] or Vector3["new"](525, 70, -360)
+    local function n(e)
+        e = tonumber(e) or 0
+        if e >= 1000000000000 then
+            return string["format"]("%.1fT", e /(1000000000000))
+        end
+        if e >= 1000000000 then
+            return string["format"]("%.1fB", e /(1000000000))
+        end
+        if e >= 1000000 then
+            return string["format"]("%.1fM", e /(1000000))
+        end
+        if e >= 1000 then
+            return string["format"]("%.1fK", e /(1000))
+        end
+        return string["format"]("%.0f", e)
+    end
+    local function o(e, R, B, g)
+        local w = string["lower"](string["format"]("%s %s %s %s", tostring(e["Rarity"] or ""), tostring(R or ""), tostring(e["Uid"] or ""), tostring(B or "")))
+        if string["find"](w, "divine") then
+            return 6, "Divine"
+        elseif string["find"](w, "eternal") then
+            return 5, "Eternal"
+        elseif string["find"](w, "secret") then
+            return 4, "Secret"
+        elseif string["find"](w, "cosmic") then
+            return 3, "Cosmic"
+        elseif string["find"](w, "mythic") then
+            return 2, "Mythic"
+        elseif string["find"](w, "legendary") then
+            return 1, "Legendary"
+        end
+        if g and g >= 10 then
+            return 6, "Divine"
+        elseif g and g >= 9 then
+            return 5, "Eternal"
+        elseif g and g >= 8 then
+            return 4, "Secret"
+        elseif g and g >= 7 then
+            return 3, "Cosmic"
+        elseif g and g >= 6 then
+            return 2, "Mythic"
+        elseif g and g >= 5 then
+            return 1, "Legendary"
+        end
+        local h =(B and(B ~= "Unknown" and B)) or "Common"
+        return 0, h
+    end
+    local function a(R, B)
+        local g ={}
+        for e, h in ipairs(e) do
+            local n =(h["State"] == "Slot" or h["State"] == "Dropped" or h["State"] == "GuardCarried" or h["State"] == 1)
+            local E =(h["BoundsCFrame"] and h["BoundsCFrame"]["Position"]["X"] < 530) or string["find"](tostring(h["Uid"]), "FirstArea")
+            local V = Aq[h["Uid"]] and(os["clock"]() < Aq[h["Uid"]])
+            if n and( not E and(((B or not V)) and h["BoundsCFrame"])) then
+                local e = h["AssetCategory"] or "Egg"
+                local B = 0
+                local n = 0
+                local E = 0
+                local V = "Unknown"
+                if Z then
+                    pcall( function()
+                        if Z["RarityRankForCategory"] then
+                            B = Z["RarityRankForCategory"](e) or 0
+                        end
+                        if Z["ProfileIncomePerSecond"] then
+                            n = Z["ProfileIncomePerSecond"](e) or 0
+                        end
+                        if Z["SalePrice"] then
+                            E = Z["SalePrice"](e) or 0
+                        end
+                        if Z["Assets"] and Z["Assets"][e] then
+                            local R = Z["Assets"][e] V = R["Rarity"] or(R["Egg"] and R["Egg"]["Rarity"]) or "Unknown"
+                            if not n or n == 0 then
+                                n = R["EarningRate"] or(R["Egg"] and R["Egg"]["EarningRate"]) or 0
+                            end
+                        end
+                    end)
+                end
+                local a = h["AreaId"]
+                if not a or a == "" or a == "Unknown" then
+                    local e = h["BoundsCFrame"]["Position"]["X"]
+                    if e >= 4750 then
+                        a = "Titan Temple"
+                    elseif e >= 4000 then
+                        a = "Cherry Blossom"
+                    elseif e >= 3350 then
+                        a = "Cosmic"
+                    elseif e >= 2780 then
+                        a = "Prehistoric"
+                    elseif e >= 2250 then
+                        a = "Abyss Ocean"
+                    elseif e >= 1850 then
+                        a = "Volcano"
+                    elseif e >= 1450 then
+                        a = "Snow"
+                    elseif e >= 1150 then
+                        a = "Jungle"
+                    elseif e >= 920 then
+                        a = "Desert"
+                    elseif e >= 720 then
+                        a = "Lake"
+                    else
+                        a = "Forest"
+                    end
+                end
+                local S, D = o(h, e, V, B)
+                local b =(S == 0) and((a == "Forest" or a == "Lake" or string["find"](tostring(h["Uid"]), "Forest") or string["find"](tostring(h["Uid"]), "Lake")))
+                if R or not b then
+                    local R = tonumber(h["AssetScale"] or h["Scale"]) or 1
+                    local E = 1
+                    if h["Mutations"] and type(h["Mutations"]) == "table" then
+                        for e, R in pairs(h["Mutations"]) do
+                            local B =(type(R) == "table" and tonumber(R["Multiplier"] or R["Value"])) or tonumber(R) or 1.5 E = E * B
+                        end
+                    elseif h["Mutation"] then
+                        E = 1.5
+                    end
+                    local V =(n * R) * E
+                    local o = x[a] or 50
+                    if V <= 0 then
+                        V =(((o ^(2)) * R) * E) *(10)
+                    end
+                    local b =((w - h["BoundsCFrame"]["Position"]))["Magnitude"] table["insert"](g, {["Uid"] = h["Uid"], ["Category"] = tostring(e);
+                    ["Area"] = tostring(a);
+                    ["ZoneWeight"] = o, ["Rarity"] = tostring(D), ["RarityTier"] = S, ["Rank"] = B, ["Income"] = n, ["RealIncome"] = V;
+                    ["Scale"] = R;
+                    ["MutMultiplier"] = E, ["CFrame"] = h["BoundsCFrame"];
+                    ["Position"] = h["BoundsCFrame"]["Position"], ["Distance"] = b})
+                end
+            end
+        end
+        if #g == 0 then
+            return nil
+        end
+        table["sort"](g, function(e, R)
+            if e["RarityTier"] ~= R["RarityTier"] then
+                return e["RarityTier"] > R["RarityTier"]
+            end
+            if e["ZoneWeight"] ~= R["ZoneWeight"] then
+                return e["ZoneWeight"] > R["ZoneWeight"]
+            end
+            if math["abs"](e["RealIncome"] - R["RealIncome"]) > 1 then
+                return e["RealIncome"] > R["RealIncome"]
+            end
+            if math["abs"](e["Scale"] - R["Scale"]) > .05 then
+                return e["Scale"] > R["Scale"]
+            end
+            return e["Distance"] < R["Distance"]
+        end)
+        local h = g[1]
+        local E ={}
+        for e = 1, math["min"](3, #g), 1 do
+            local R = g[e] table["insert"](E, string["format"]("#%d %s[%s|%s] $%s/s (%.1fx) dist=%dm", e, tostring(R["Category"]), tostring(R["Rarity"]), tostring(R["Area"]), n(R["RealIncome"]), tonumber(R["Scale"]) or 1, math["floor"](tonumber(R["Distance"]) or 0)))
+        end
+        if #E > 0 then
+            V("[AutoSteal v42.13] " .. table["concat"](E, " | "))
+        end
+        return h
+    end
+    local S = a(false, false)
+    if not S then
+        Aq ={} S = a(false, true)
+    end
+    if not S then
+        S = a(true, false) or a(true, true)
+    end
+    if S and R:FindFirstChild("AreaEggSlotsClient") then
+        for e, R in ipairs(R["AreaEggSlotsClient"]:GetChildren()) do
+            local B = R:FindFirstChildWhichIsA("BasePart") or R["PrimaryPart"]
+            if B and((B["Position"] - S["Position"]))["Magnitude"] <= 12 then
+                S["Model"] = R
+                break
+            end
+        end
+    end
+    return S
+end
+local function SG(e, g, w, h)
+    local n = E["Character"]
+    local a = n and n:FindFirstChild("HumanoidRootPart")
+    local S = n and n:FindFirstChildOfClass("Humanoid")
+    if not a or not S then
+        return false
+    end
+    T["securingEgg"] = true T["isReturning"] = false T["stateTime"] = os["clock"]() T["holdingEggForGuard"] = true
+    local D = g["Position"] Tq(D, 14) T["currentTargetModel"] = w T["targetPosition"] = D a["AssemblyLinearVelocity"] = Vector3["zero"] a["AssemblyAngularVelocity"] = Vector3["zero"] yq(n) pcall( function()
+        E:RequestStreamAroundAsync(D)
+    end)
+    if not w and R:FindFirstChild("AreaEggSlotsClient") then
+        for e, R in ipairs(R["AreaEggSlotsClient"]:GetChildren()) do
+            local B = R:FindFirstChildWhichIsA("BasePart") or R["PrimaryPart"]
+            if B and((B["Position"] - D))["Magnitude"] <= 16 then
+                w = R T["currentTargetModel"] = R
+                break
+            end
+        end
+    end
+    T["statusText"] = "[1/4] Lifting Egg to Trigger Guard..." V(string["format"]("[GuardStrike] Step 1: Lifting target egg (%s)...", tostring(e)))
+    local b = os["clock"]() +(3.5)
+    local v = 0
+    while not sq() and(os["clock"]() < b and(T["alive"] and T["securingEgg"])) do
+        if h and Kq ~= h then
+            o("[GuardStrike] Cancelled by session switch in Step 1")
+            break
+        end
+        if not T["pureTweenFarm"] and( not T["autoFarmLoop"] and not T["teleporting"]) then
+            break
+        end
+        if e and(os["clock"]() - v > .4) then
+            v = os["clock"]()
+            local R, B = kq(e)
+            if not R and B == "CarriedByOther" then
+                o(string["format"]("[GuardStrike] Target egg %s was snatched by another player! Aborting pickup...", tostring(e)))
+                break
+            end
+        end
+        n:PivotTo(g * CFrame["new"](0, .4, 0)) Lq(w, D)
+        if e and c then
+            task["spawn"]( function()
+                pcall( function()
+                    if c:IsA("RemoteFunction") then
+                        c:InvokeServer({["Uid"] = e}) c:InvokeServer(e)
+                    else
+                        c:FireServer({["Uid"] = e}) c:FireServer(e)
+                    end
+                end)
+            end)
+        end
+        B["Heartbeat"]:Wait()
+    end
+    if not sq() then
+        o("[GuardStrike] Initial egg pickup timed out or egg was stolen")
+        if e then
+            Aq[e] = os["clock"]() + 2
+        end
+        T["currentTargetModel"] = nil T["targetPosition"] = nil T["securingEgg"] = false T["holdingEggForGuard"] = false
+        return false
+    end
+    T["statusText"] = "[2/4] Waiting for Guard Strike..." V("[GuardStrike] Step 2: Egg lifted! Triggering guard strike...")
+    local X = os["clock"]()
+    local u = X + 4.5
+    local p = false
+    while sq() and(os["clock"]() < u and(T["alive"] and T["securingEgg"])) do
+        if h and Kq ~= h then
+            o("[GuardStrike] Cancelled by session switch in Step 2")
+            break
+        end
+        if not T["pureTweenFarm"] and( not T["autoFarmLoop"] and not T["teleporting"]) then
+            break
+        end
+        n:PivotTo(g * CFrame["new"](0, .4, 0)) Tq(D, 14)
+        if U and not p then
+            task["spawn"]( function()
+                pcall( function()
+                    if U:IsA("RemoteFunction") then
+                        U:InvokeServer()
+                    else
+                        U:FireServer()
+                    end
+                end)
+            end) p = true
+        end
+        B["Heartbeat"]:Wait()
+    end
+    T["statusText"] = "[3/4] Re-grabbing Egg..." V("[GuardStrike] Step 3: Guard struck! Re-grabbing egg...")
+    local G = os["clock"]() +(3)
+    while not sq() and(os["clock"]() < G and(T["alive"] and T["securingEgg"])) do
+        if h and Kq ~= h then
+            o("[GuardStrike] Cancelled by session switch in Step 3")
+            break
+        end
+        if not T["pureTweenFarm"] and( not T["autoFarmLoop"] and not T["teleporting"]) then
+            break
+        end
+        n:PivotTo(g * CFrame["new"](0, .4, 0)) Lq(w, D)
+        if e and c then
+            task["spawn"]( function()
+                pcall( function()
+                    if c:IsA("RemoteFunction") then
+                        c:InvokeServer({["Uid"] = e}) c:InvokeServer(e)
+                    else
+                        c:FireServer({["Uid"] = e}) c:FireServer(e)
+                    end
+                end)
+            end)
+        end
+        B["Heartbeat"]:Wait()
+    end
+    local I = mq(e)
+    if not I then
+        task["wait"](.12) I = mq(e)
+    end
+    T["currentTargetModel"] = nil T["targetPosition"] = nil T["securingEgg"] = false T["holdingEggForGuard"] = false
+    if h and Kq ~= h then
+        return false
+    end
+    if I then
+        pcall(jq) V("[GuardStrike] Egg successfully secured after guard strike! Stashed in backpack.") T["statusText"] = "Egg Secured! Tweening along Z=-360..."
+    else
+        o("[-] Failed to re-grab egg after guard strike (stolen or despawned)") T["statusText"] = "[-] Failed to re-grab egg"
+        if e then
+            Aq[e] = os["clock"]() + 2
+        end
+    end
+    return I
+end
+local function DG(e, g)
+    if T["teleporting"] or T["glidingToTarget"] or T["delivering"] or T["securingEgg"] then
+        return false
+    end
+    T["teleporting"] = true T["isReturning"] = false T["stateTime"] = os["clock"]()
+    local w = E["Character"]
+    local h = w and w:FindFirstChild("HumanoidRootPart")
+    local n = w and w:FindFirstChildOfClass("Humanoid")
+    if not h or not n then
+        Pq()
+        return false
+    end
+    if n then
+        n:UnequipTools()
+    end
+    T["statusText"] = "[1/7] Pre-Flight Desync..."
+    if not T["swapped"] then
+        RG()
+    end
+    if not T["godmode"] then
+        eG(true)
+    end
+    yq(w)
+    if not e then
+        e = aG()
+    end
+    local V = e and e["CFrame"] or W
+    local a = e and e["Uid"]
+    local S = V["Position"]
+    if a then
+        local e, R = kq(a)
+        if not e and R ~= "CarriedBySelf" then
+            o(string["format"]("[Snipe] Target egg %s is already taken (%s)! Selecting next target...", tostring(a), tostring(R))) T["statusText"] = "Target taken by another player!" Aq[a] = os["clock"]() +(5) Pq()
+            return false
+        end
+    end
+    local D = select(2, zq())
+    if not D then
+        local e = oG()
+        if not e then
+            o("[-] Lake egg not found") T["statusText"] = "[-] No Lake egg found" Pq()
+            return false
+        end
+        T["currentTargetModel"] = e["Model"] T["targetPosition"] = e["Position"]
+        local R =((h["Position"] - e["Position"]))["Magnitude"]
+        local w = e["CFrame"] * CFrame["new"](0, .4, 0) pcall( function()
+            E:RequestStreamAroundAsync(e["Position"])
+        end) Tq(e["Position"], 8)
+        if R > 60 then
+            T["statusText"] = string["format"]("[2/7] Gliding to Lake Egg (%.0f studs)...", R) T["glidingToTarget"] = true
+            local B = EG(w, T["glideSpeed"], e["Uid"], g) T["glidingToTarget"] = false
+            if not B then
+                o("[-] Lake starter egg was taken during flight") Aq[e["Uid"]] = os["clock"]() + 5 Pq()
+                return false
+            end
+        else
+            T["statusText"] = "[2/7] Aligning with Lake Egg..." h["CFrame"] = w h["AssemblyLinearVelocity"] = Vector3["zero"] task["wait"](.04)
+        end
+        h["Anchored"] = true task["wait"](.06) h["Anchored"] = false T["holdingEggForGuard"] = true
+        local n = os["clock"]() +(3)
+        while not sq() and(os["clock"]() < n and(T["alive"] and T["teleporting"])) do
+            if g and Kq ~= g then
+                o("[Snipe] Cancelled by session switch during Lake egg pickup") Pq()
+                return false
+            end
+            if not T["autoFarmLoop"] and not T["teleporting"] then
+                Pq()
+                return false
+            end
+            Lq(e["Model"], e["Position"])
+            if e["Uid"] and c then
+                task["spawn"]( function()
+                    pcall( function()
+                        if c:IsA("RemoteFunction") then
+                            c:InvokeServer({["Uid"] = e["Uid"]})
+                        else
+                            c:FireServer({["Uid"] = e["Uid"]})
+                        end
+                    end)
+                end)
+            end
+            B["Heartbeat"]:Wait()
+        end
+        D = select(2, zq())
+        if not sq() then
+            o("[-] Lake egg pickup failed") T["statusText"] = "[-] Lake pickup failed" Pq()
+            return false
+        end
+    end
+    T["statusText"] = "[3/7] Pre-streaming Target..." pcall( function()
+        E:RequestStreamAroundAsync(S)
+    end) Tq(S, 12) T["statusText"] = "[4/7] Waiting for physical bounce..." h["Anchored"] = false n:ChangeState(Enum["HumanoidStateType"]["Running"])
+    local b =(n["WalkSpeed"] > 0) and n["WalkSpeed"] or 16 n["WalkSpeed"] = 0 n:Move(Vector3["zero"], false) h["AssemblyLinearVelocity"] = Vector3["zero"] h["AssemblyAngularVelocity"] = Vector3["zero"] task["wait"](.04)
+    local v = h["Position"]
+    local X = v["Y"]
+    local u = select(2, zq()) or D
+    local p = false
+    local G = nil
+    if z and z:IsA("RemoteEvent") then
+        G = z["OnClientEvent"]:Connect( function()
+            p = true
+            if G then
+                G:Disconnect()
+            end
+        end)
+    end
+    T["holdingEggForGuard"] = true Fq(u)
+    local I = os["clock"]()
+    local q = false
+    local d = os["clock"]() +(2.5)
+    local Y = false
+    while os["clock"]() < d and(T["alive"] and T["teleporting"]) do
+        if g and Kq ~= g then
+            o("[Snipe] Cancelled by session switch during strike bounce")
+            if G then
+                G:Disconnect()
+            end
+            n["WalkSpeed"] = b Pq()
+            return false
+        end
+        local e = os["clock"]() - I
+        local R = h["AssemblyLinearVelocity"]
+        local w = h["Position"]
+        local E = w["Y"] - X
+        local V =((w - v))["Magnitude"]
+        if e >= .08 then
+            local e = p or(R["Y"] >= 10) or(E >= 1.5 and R["Magnitude"] >= 16) or(V >= 2) or(R["Magnitude"] >= 20)
+            if e then
+                q = true
+                break
+            end
+        end
+        if e >= 0.5 and not Y then
+            Y = true Fq(u)
+        end
+        B["Heartbeat"]:Wait()
+    end
+    if G then
+        G:Disconnect()
+    end
+    n["WalkSpeed"] = b T["holdingEggForGuard"] = false
+    if not q then
+        o("[-] No bounce detected, aborting") T["statusText"] = "[-] Aborted (No bounce detected)" Pq() pcall(jq)
+        return false
+    end
+    task["wait"](.05)
+    if a then
+        local e, R = kq(a)
+        if not e and R == "CarriedByOther" then
+            o(string["format"]("[Snipe] Target egg %s was snatched while bouncing (%s)! Aborting warp...", tostring(a), tostring(R))) T["statusText"] = "Target taken! Aborting warp..." Aq[a] = os["clock"]() +(5) Pq()
+            return false
+        end
+    end
+    T["currentTargetModel"] = e and e["Model"] T["targetPosition"] = S T["statusText"] = "[5/7] Warping to Target Egg..." Tq(S, 8) w:PivotTo(V * CFrame["new"](0, .4, 0)) h["Anchored"] = true
+    for e, R in ipairs(w:GetDescendants()) do
+        if R:IsA("BasePart") then
+            R["AssemblyLinearVelocity"] = Vector3["zero"] R["AssemblyAngularVelocity"] = Vector3["zero"]
+        end
+    end
+    T["statusText"] = "[6/7] Picking up Target Egg..."
+    local r = E:FindFirstChild("Backpack")
+    for e, B in ipairs(w:GetChildren()) do
+        if B:IsA("Tool") then
+            pcall( function()
+                if r then
+                    B["Parent"] = r
+                else
+                    B["Parent"] = R
+                end
+            end)
+        end
+    end
+    task["wait"](.06) h["Anchored"] = false n:ChangeState(Enum["HumanoidStateType"]["Running"])
+    local Z = SG(a, V, e and e["Model"], g) h["Anchored"] = false n:ChangeState(Enum["HumanoidStateType"]["Running"])
+    for e, R in ipairs(w:GetDescendants()) do
+        if R:IsA("BasePart") then
+            R["AssemblyLinearVelocity"] = Vector3["zero"] R["AssemblyAngularVelocity"] = Vector3["zero"]
+        end
+    end
+    if not Z then
+        o("[-] Guard Strike criteria not met") T["statusText"] = "[-] Guard Strike criteria failed" Pq()
+        return false
+    else
+        T["statusText"] = "[7/7] Target Secured! Stashing into Backpack..." T["teleporting"] = false pcall(jq)
+        return true
+    end
+end
+cq = function(e)
+    if Jq == e then
+        return
+    end
+    Kq = Kq +(1)
+    local R = Kq Jq = "SWITCHING" T["pureTweenFarm"] = false T["autoFarmLoop"] = false pcall(Pq) pcall(jq)
+    if e == "TWEEN" then
+        if Mq then
+            Mq(false, true)
+        end
+        if fq then
+            fq(true, true)
+        end
+    elseif e == "WARP" then
+        if fq then
+            fq(false, true)
+        end
+        if Mq then
+            Mq(true, true)
+        end
+    else
+        if fq then
+            fq(false, true)
+        end
+        if Mq then
+            Mq(false, true)
+        end
+    end
+    task["delay"](.06, function()
+        if Kq == R then
+            Jq = e
+            if e == "TWEEN" then
+                T["pureTweenFarm"] = true T["autoFarmLoop"] = false pcall(jq) V("[FarmController] Pure Auto Steal (Tween) ACTIVATED exclusively.")
+            elseif e == "WARP" then
+                T["autoFarmLoop"] = true T["pureTweenFarm"] = false pcall(jq) V("[FarmController] Snipe Auto Loop (Warp) ACTIVATED exclusively.")
+            else
+                T["pureTweenFarm"] = false T["autoFarmLoop"] = false V("[FarmController] All farms DEACTIVATED. Bot idle.")
+            end
+        end
+    end)
+end
+local bG = os["clock"]() task["spawn"]( function()
+    while T["alive"] do
+        local e, R = pcall( function()
+            if T["pureTweenFarm"] and( not T["autoFarmLoop"] and(Jq == "TWEEN" and( not T["teleporting"] and( not T["glidingToTarget"] and( not T["securingEgg"] and( not T["delivering"] and not T["isReturning"])))))) then
+                local e = E["Character"]
+                local R = e and e:FindFirstChild("HumanoidRootPart")
+                local B = e and e:FindFirstChildOfClass("Humanoid")
+                if R and B then
+                    pcall(jq)
+                    local B = sq()
+                    if not B then
+                        local B = Kq
+                        local g = aG()
+                        if g and(T["pureTweenFarm"] and(Jq == "TWEEN" and Kq == B)) then
+                            local w, h = kq(g["Uid"])
+                            if not w and h ~= "CarriedBySelf" then
+                                V(string["format"]("[AutoSteal] Egg %s already taken (%s). Switching to next target...", tostring(g["Uid"]), tostring(h))) Aq[g["Uid"]] = os["clock"]() + 5 task["wait"](.12)
+                                return
+                            end
+                            T["currentTargetModel"] = g["Model"] T["targetPosition"] = g["Position"] T["glidingToTarget"] = true T["stateTime"] = os["clock"]()
+                            local n =((g["Scale"] and g["Scale"] > 1.05)) and string["format"](" | %.1fx", g["Scale"]) or "" T["statusText"] = string["format"]("[AutoSteal] Flying to %s (%s%s)...", tostring(g["Category"] or "Egg"), tostring(g["Area"] or "Field"), n) V(string["format"]("[AutoSteal] Flying to %s | Zone: %s%s | Rank: %d (Corridor Z=-360)", tostring(g["Category"] or "Egg"), tostring(g["Area"] or "Field"), n, tonumber(g["Rank"]) or 1))
+                            if not T["swapped"] then
+                                RG()
+                            end
+                            if not T["godmode"] then
+                                eG(true)
+                            end
+                            yq(e) pcall( function()
+                                E:RequestStreamAroundAsync(g["Position"])
+                            end)
+                            local a = g["CFrame"] * CFrame["new"](0, .4, 0)
+                            local S = EG(a, T["glideSpeed"], g["Uid"], B) T["glidingToTarget"] = false
+                            if Kq ~= B or not T["pureTweenFarm"] or Jq ~= "TWEEN" then
+                                return
+                            end
+                            if not S then
+                                o("[AutoSteal] Egg was taken during flight. Switching to next target...") Aq[g["Uid"]] = os["clock"]() + 5 Pq()
+                                return
+                            end
+                            if T["pureTweenFarm"] and(Jq == "TWEEN" and((R["Position"] - g["Position"]))["Magnitude"] <= 22) then
+                                local e = SG(g["Uid"], a, g["Model"], B)
+                                if not e and sq() then
+                                    e = true
+                                end
+                                if Kq ~= B or not T["pureTweenFarm"] or Jq ~= "TWEEN" then
+                                    return
+                                end
+                                if e then
+                                    pcall(jq)
+                                    if T["autoGlide"] then
+                                        T["statusText"] = "[AutoSteal] Secured! Tweening to Safe Line X=525..." V("[AutoSteal] Egg secured after Guard Strike! Returning smoothly to Safe Line X=525 along Z=-360...") VG(T["glideSpeed"], B) pcall(jq)
+                                        local e = xq() T["statusText"] = string["format"]("Stashed in Bag (%d Eggs). Next steal...", e) V(string["format"]("[AutoSteal] Egg stashed in bag (%d total eggs). Hands-Free ready for next steal...", e))
+                                    else
+                                        T["statusText"] = "[AutoSteal] Secured! (Auto Return is OFF)" V("[AutoSteal] Egg secured! Staying at target (Auto Return is OFF).")
+                                    end
+                                    pcall(jq) T["isReturning"] = false T["delivering"] = false T["glidingToTarget"] = false T["securingEgg"] = false T["currentTargetModel"] = nil T["targetPosition"] = nil
+                                else
+                                    if Kq == B and(T["pureTweenFarm"] and Jq == "TWEEN") then
+                                        o("[AutoSteal] Guard Strike or Re-grab failed. Retrying with next egg...") Aq[g["Uid"]] = os["clock"]() +(5) Pq()
+                                    end
+                                end
+                            else
+                                T["currentTargetModel"] = nil T["targetPosition"] = nil T["glidingToTarget"] = false
+                            end
+                        else
+                            if os["clock"]() - bG > 5 then
+                                Aq ={} bG = os["clock"]()
+                            end
+                            T["statusText"] = "[AutoSteal] Scanning for targets..."
+                        end
+                    end
+                end
+            end
+        end)
+        if not e then
+            o("[AutoSteal Loop Recovered]:", tostring(R)) pcall(Pq)
+        end
+        task["wait"](.08)
+    end
+end)
+local vG = os["clock"]() task["spawn"]( function()
+    while T["alive"] do
+        local e, R = pcall( function()
+            if T["autoFarmLoop"] and( not T["pureTweenFarm"] and(Jq == "WARP" and( not T["teleporting"] and( not T["glidingToTarget"] and( not T["securingEgg"] and( not T["delivering"] and not T["isReturning"])))))) then
+                local e = E["Character"]
+                local R = e and e:FindFirstChild("HumanoidRootPart")
+                local B = e and e:FindFirstChildOfClass("Humanoid")
+                if R and B then
+                    pcall(jq)
+                    local e = sq()
+                    if not e then
+                        local e = Kq
+                        local R = aG()
+                        if R and(T["autoFarmLoop"] and(Jq == "WARP" and Kq == e)) then
+                            local B =((R["Scale"] and R["Scale"] > 1.05)) and string["format"](" | %.1fx", R["Scale"]) or "" V(string["format"]("[SnipeLoop] Starting Warp Snipe: %s | Zone: %s%s (Rank %d)", tostring(R["Category"] or "Egg"), tostring(R["Area"] or "Field"), B, tonumber(R["Rank"]) or 1)) T["statusText"] = string["format"]("[SnipeLoop] Warping for %s%s...", tostring(R["Category"] or "Egg"), B)
+                            local g = DG(R, e)
+                            if Kq ~= e or not T["autoFarmLoop"] or Jq ~= "WARP" then
+                                return
+                            end
+                            if g then
+                                pcall(jq)
+                                if T["autoGlide"] then
+                                    T["statusText"] = "[SnipeLoop] Target secured! Tweening to Safe Line X=525..." VG(T["glideSpeed"], e) pcall(jq)
+                                    local R = xq() T["statusText"] = string["format"]("Stashed in Bag (%d Eggs). Next snipe...", R) V(string["format"]("[SnipeLoop] Egg stashed in bag (%d total eggs). Hands-Free ready for next snipe...", R))
+                                else
+                                    T["statusText"] = "[SnipeLoop] Target secured! (Auto Return is OFF)" V("[SnipeLoop] Snipe successful! Staying at target (Auto Return is OFF).")
+                                end
+                                pcall(jq) T["isReturning"] = false T["delivering"] = false
+                            else
+                                if Kq == e and(T["autoFarmLoop"] and Jq == "WARP") then
+                                    o("[SnipeLoop] Snipe cycle failed. Resetting for next target...")
+                                    if R and R["Uid"] then
+                                        Aq[R["Uid"]] = os["clock"]() +(5)
+                                    end
+                                    pcall(Pq)
+                                end
+                            end
+                        else
+                            if os["clock"]() - vG > 5 then
+                                Aq ={} vG = os["clock"]()
+                            end
+                            T["statusText"] = "[SnipeLoop] Searching for targets..."
+                        end
+                    end
+                end
+            end
+        end)
+        if not e then
+            o("[SnipeLoop Loop Recovered]:", tostring(R)) pcall(Pq)
+        end
+        task["wait"](.08)
+    end
+end) task["spawn"]( function()
+    while T["alive"] do
+        if T["autoHatch"] and( not T["securingEgg"] and( not T["teleporting"] and not T["isHatching"])) then
+            pcall( function()
+                nG(false)
+            end)
+        end
+        task["wait"](4)
+    end
+end) B["Heartbeat"]:Connect( function()
+    local e = E["Character"]
+    local R = e and e:FindFirstChild("HumanoidRootPart")
+    local B = e and e:FindFirstChildOfClass("Humanoid")
+    if not R then
+        return
+    end
+    if B then
+        if B["PlatformStand"] then
+            B["PlatformStand"] = false B:ChangeState(Enum["HumanoidStateType"]["Running"])
+        end
+        if B["Sit"] and((T["pureTweenFarm"] or T["autoFarmLoop"] or T["isReturning"] or T["glidingToTarget"])) then
+            B["Sit"] = false B:ChangeState(Enum["HumanoidStateType"]["Running"])
+        end
+    end
+    local g = R["Position"]
+    local w = sq()
+    if g["Y"] < 45 then
+        R["CFrame"] = CFrame["new"](g["X"], 72, g["Z"]) R["AssemblyLinearVelocity"] = Vector3["zero"]
+        return
+    end
+    if((T["pureTweenFarm"] or T["autoFarmLoop"])) and not T["holdingEggForGuard"] then
+        local R = false
+        for e, B in ipairs(e:GetChildren()) do
+            if B:IsA("Tool") then
+                R = true
+                break
+            end
+        end
+        if R then
+            jq()
+        end
+    end
+    if T["pureTweenFarm"] or T["autoFarmLoop"] or T["teleporting"] or T["glidingToTarget"] or T["delivering"] or T["securingEgg"] or T["isReturning"] then
+        return
+    end
+    if T["alive"] and(T["autoGlide"] and(w and( not Oq() and g["X"] > m))) then
+        task["spawn"]( function()
+            VG(T["glideSpeed"]) jq() T["isReturning"] = false T["delivering"] = false
+        end)
+    end
+end)
+
+local CoreGui = game:GetService("CoreGui")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer or Players.PlayerAdded:Wait()
+local UserInputService = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+local RunService = game:GetService("RunService")
+local Stats = game:GetService("Stats")
+local SoundService = game:GetService("SoundService")
+
+local COLORS = {
+    backdrop = Color3.fromRGB(12, 5, 8),
+    shell = Color3.fromRGB(20, 10, 14),
+    glass = Color3.fromRGB(32, 14, 20),
+    glassDeep = Color3.fromRGB(25, 11, 16),
+    glassRaised = Color3.fromRGB(48, 18, 28),
+    userPanel = Color3.fromRGB(28, 12, 18),
+    surface = Color3.fromRGB(42, 18, 26),
+    surfaceRaised = Color3.fromRGB(58, 24, 34),
+    surfaceHover = Color3.fromRGB(78, 30, 44),
+    surfacePressed = Color3.fromRGB(34, 14, 20),
+    input = Color3.fromRGB(20, 9, 13),
+    inputFocus = Color3.fromRGB(36, 14, 22),
+    divider = Color3.fromRGB(140, 40, 60),
+    primary = Color3.fromRGB(255, 45, 85),
+    primaryHover = Color3.fromRGB(255, 75, 110),
+    primaryPressed = Color3.fromRGB(210, 30, 65),
+    secondary = Color3.fromRGB(52, 18, 28),
+    text = Color3.fromRGB(255, 255, 255),
+    textMuted = Color3.fromRGB(242, 218, 228),
+    textFaint = Color3.fromRGB(210, 168, 182),
+    cyan = Color3.fromRGB(255, 55, 85),
+    success = Color3.fromRGB(46, 224, 140),
+    warning = Color3.fromRGB(255, 185, 70),
+    danger = Color3.fromRGB(255, 60, 60),
+    disabled = Color3.fromRGB(50, 25, 32),
+}
+
+local ObsidianGlassEngine = { Options = {} }
+local Fluent = ObsidianGlassEngine
+
+-- ✨ FEATURE: UI Sound Effect Helper
+local function playClickSound()
+    pcall(function()
+        local sound = Instance.new("Sound")
+        sound.SoundId = "rbxassetid://6895079853"
+        sound.Volume = 0.3
+        sound.Parent = SoundService
+        sound:Play()
+        sound.Ended:Connect(function() sound:Destroy() end)
+    end)
+end
+
+local customAvatarAsset = nil
+local function loadCustomAvatarImage()
+    if customAvatarAsset then return customAvatarAsset end
+    local avatarUrl = "https://raw.githubusercontent.com/aslamdunk7/paypmboygang/main/543199739_2812856088914181_3062917809445648175_n.jpg"
+    local fileName = "payomboyz_avatar.jpg"
+    
+    pcall(function()
+        if typeof(writefile) == "function" and (typeof(getcustomasset) == "function" or typeof(getsynasset) == "function") then
+            local getAsset = getcustomasset or getsynasset
+            local isFileExist = (typeof(isfile) == "function" and isfile(fileName))
+            if not isFileExist then
+                local imageBytes = game:HttpGet(avatarUrl)
+                if imageBytes and #imageBytes > 0 then
+                    writefile(fileName, imageBytes)
+                end
+            end
+            if typeof(isfile) == "function" and isfile(fileName) then
+                customAvatarAsset = getAsset(fileName)
+            end
+        end
+    end)
+
+    if not customAvatarAsset then
+        customAvatarAsset = "rbxthumb://type=AvatarHeadShot&id=" .. LocalPlayer.UserId .. "&w=150&h=150"
+    end
+    return customAvatarAsset
+end
+
+-- 🔔 TOAST NOTIFICATION ENGINE
+function ObsidianGlassEngine:Notify(cfg)
+    pcall(function()
+        local title = cfg.Title or "System"
+        local content = cfg.Content or ""
+        local duration = cfg.Duration or 4
+        
+        local parentGui = (typeof(gethui) == "function") and gethui() or CoreGui
+        local notifHolder = parentGui:FindFirstChild("ObsidianGlass_NotifHolder")
+        if not notifHolder then
+            notifHolder = Instance.new("ScreenGui")
+            notifHolder.Name = "ObsidianGlass_NotifHolder"
+            notifHolder.ResetOnSpawn = false
+            notifHolder.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+            notifHolder.Parent = parentGui
+        end
+        
+        local toast = Instance.new("Frame")
+        toast.Size = UDim2.new(0, 300, 0, 65)
+        toast.Position = UDim2.new(1, 20, 1, -85)
+        toast.BackgroundColor3 = COLORS.glass
+        toast.BackgroundTransparency = 0.15
+        toast.BorderSizePixel = 0
+        toast.Parent = notifHolder
+        
+        local corner = Instance.new("UICorner")
+        corner.CornerRadius = UDim.new(0, 10)
+        corner.Parent = toast
+        
+        local stroke = Instance.new("UIStroke")
+        stroke.Color = COLORS.cyan
+        stroke.Thickness = 1.5
+        stroke.Parent = toast
+        
+        local tTitle = Instance.new("TextLabel")
+        tTitle.Size = UDim2.new(1, -20, 0, 22)
+        tTitle.Position = UDim2.new(0, 10, 0, 6)
+        tTitle.BackgroundTransparency = 1
+        tTitle.Text = title
+        tTitle.TextColor3 = COLORS.cyan
+        tTitle.Font = Enum.Font.GothamBold
+        tTitle.TextSize = 13
+        tTitle.TextXAlignment = Enum.TextXAlignment.Left
+        tTitle.Parent = toast
+        
+        local tDesc = Instance.new("TextLabel")
+        tDesc.Size = UDim2.new(1, -20, 0, 32)
+        tDesc.Position = UDim2.new(0, 10, 0, 26)
+        tDesc.BackgroundTransparency = 1
+        tDesc.Text = content
+        tDesc.TextColor3 = COLORS.text
+        tDesc.Font = Enum.Font.Gotham
+        tDesc.TextSize = 11
+        tDesc.TextWrapped = true
+        tDesc.TextXAlignment = Enum.TextXAlignment.Left
+        tDesc.Parent = toast
+        
+        playClickSound()
+        TweenService:Create(toast, TweenInfo.new(0.3, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), { Position = UDim2.new(1, -320, 1, -85) }):Play()
+        task.delay(duration, function()
+            if toast and toast.Parent then
+                local tw = TweenService:Create(toast, TweenInfo.new(0.3, Enum.EasingStyle.Quart, Enum.EasingDirection.In), { Position = UDim2.new(1, 20, 1, -85) })
+                tw:Play()
+                tw.Completed:Connect(function() toast:Destroy() end)
+            end
+        end)
+    end)
+end
+
+-- 🖼️ MAIN WINDOW ENGINE
+function ObsidianGlassEngine:CreateWindow(cfg)
+    local parentGui = (typeof(gethui) == "function") and gethui() or CoreGui
+    if parentGui:FindFirstChild("ObsidianGlass2_UI") then
+        parentGui.ObsidianGlass2_UI:Destroy()
+    end
+
+    local gui = Instance.new("ScreenGui")
+    gui.Name = "ObsidianGlass2_UI"
+    gui.ResetOnSpawn = false
+    gui.IgnoreGuiInset = true
+    gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    gui.DisplayOrder = 99999
+    gui.Parent = parentGui
+
+    local uiScale = Instance.new("UIScale")
+    
+    -- 📱 AUTOMATIC MOBILE RESPONSIVE SCALING ENGINE
+    local camera = workspace.CurrentCamera
+    local function updateScale()
+        if camera and camera.ViewportSize then
+            local vp = camera.ViewportSize
+            local targetWidth, targetHeight = 920, 600
+            local scaleX = (vp.X - 24) / targetWidth
+            local scaleY = (vp.Y - 24) / targetHeight
+            local calcScale = math.clamp(math.min(scaleX, scaleY), 0.45, 1.0)
+            uiScale.Scale = calcScale
+        end
+    end
+    updateScale()
+    if camera then
+        camera:GetPropertyChangedSignal("ViewportSize"):Connect(updateScale)
+    end
+    uiScale.Parent = gui
+
+    local shell = Instance.new("Frame")
+    shell.Name = "MainShell"
+    shell.Size = UDim2.fromOffset(920, 600)
+    shell.AnchorPoint = Vector2.new(0.5, 0.5)
+    shell.Position = UDim2.new(0.5, 0, 0.5, 0)
+    shell.BackgroundColor3 = COLORS.shell
+    shell.BackgroundTransparency = 0.20
+    shell.BorderSizePixel = 0
+    shell.ClipsDescendants = true
+    shell.Parent = gui
+
+    local shellCorner = Instance.new("UICorner")
+    shellCorner.CornerRadius = UDim.new(0, 18)
+    shellCorner.Parent = shell
+
+    local shellStroke = Instance.new("UIStroke")
+    shellStroke.Color = COLORS.cyan
+    shellStroke.Thickness = 1.5
+    shellStroke.Transparency = 0.3
+    shellStroke.Parent = shell
+
+    -- ❄️ PARTICLES ANIMATION LAYER
+    local snowLayer = Instance.new("Frame")
+    snowLayer.Name = "SnowLayer"
+    snowLayer.Size = UDim2.fromScale(1, 1)
+    snowLayer.BackgroundTransparency = 1
+    snowLayer.ZIndex = 2
+    snowLayer.Parent = shell
+
+    task.spawn(function()
+        local dots = {}
+        for i = 1, 35 do
+            local dot = Instance.new("Frame")
+            dot.Size = UDim2.fromOffset(math.random(2, 4), math.random(2, 4))
+            dot.Position = UDim2.new(math.random(), 0, math.random(), 0)
+            dot.BackgroundColor3 = Color3.fromRGB(220, 240, 255)
+            dot.BackgroundTransparency = math.random(30, 70) / 100
+            dot.BorderSizePixel = 0
+            dot.Parent = snowLayer
+
+            local dCorner = Instance.new("UICorner")
+            dCorner.CornerRadius = UDim.new(1, 0)
+            dCorner.Parent = dot
+
+            dots[#dots + 1] = {
+                frame = dot,
+                speed = math.random(15, 40) / 10000,
+                drift = math.random(-10, 10) / 10000,
+                pos = dot.Position.Y.Scale
+            }
+        end
+
+        while task.wait(0.03) do
+            if not gui or not gui.Parent then break end
+            for _, data in ipairs(dots) do
+                data.pos = data.pos + data.speed
+                if data.pos > 1.05 then data.pos = -0.05 end
+                local newX = (data.frame.Position.X.Scale + data.drift) % 1.0
+                data.frame.Position = UDim2.new(newX, 0, data.pos, 0)
+            end
+        end
+    end)
+
+    -- 💎 UNIVERSAL DRAGGABLE TOGGLE CAPSULE WITH SNOW, IMAGE & METRICS (FPS/PING)
+    local toggleCapsule = Instance.new("Frame")
+    toggleCapsule.Name = "ObsidianToggleCapsule"
+    toggleCapsule.Size = UDim2.fromOffset(230, 58)
+    toggleCapsule.Position = UDim2.new(0, 15, 0.5, -29)
+    toggleCapsule.BackgroundColor3 = COLORS.shell
+    toggleCapsule.BackgroundTransparency = 0.18
+    toggleCapsule.BorderSizePixel = 0
+    toggleCapsule.ClipsDescendants = true
+    toggleCapsule.ZIndex = 99999
+    toggleCapsule.Parent = gui
+
+    local tcCorner = Instance.new("UICorner")
+    tcCorner.CornerRadius = UDim.new(0, 16)
+    tcCorner.Parent = toggleCapsule
+
+    local tcStroke = Instance.new("UIStroke")
+    tcStroke.Color = COLORS.cyan
+    tcStroke.Thickness = 1.5
+    tcStroke.Transparency = 0.2
+    tcStroke.Parent = toggleCapsule
+
+    -- ❄️ MINI SNOW LAYER INSIDE TOGGLE CAPSULE
+    local capsuleSnowLayer = Instance.new("Frame")
+    capsuleSnowLayer.Name = "CapsuleSnowLayer"
+    capsuleSnowLayer.Size = UDim2.fromScale(1, 1)
+    capsuleSnowLayer.BackgroundTransparency = 1
+    capsuleSnowLayer.ZIndex = 1
+    capsuleSnowLayer.Parent = toggleCapsule
+
+    task.spawn(function()
+        local dots = {}
+        for i = 1, 12 do
+            local dot = Instance.new("Frame")
+            dot.Size = UDim2.fromOffset(math.random(2, 3), math.random(2, 3))
+            dot.Position = UDim2.new(math.random(), 0, math.random(), 0)
+            dot.BackgroundColor3 = Color3.fromRGB(220, 240, 255)
+            dot.BackgroundTransparency = math.random(30, 70) / 100
+            dot.BorderSizePixel = 0
+            dot.ZIndex = 1
+            dot.Parent = capsuleSnowLayer
+
+            local dCorner = Instance.new("UICorner")
+            dCorner.CornerRadius = UDim.new(1, 0)
+            dCorner.Parent = dot
+
+            dots[#dots + 1] = {
+                frame = dot,
+                speed = math.random(15, 35) / 10000,
+                drift = math.random(-10, 10) / 10000,
+                pos = dot.Position.Y.Scale
+            }
+        end
+
+        while task.wait(0.03) do
+            if not gui or not gui.Parent or not toggleCapsule or not toggleCapsule.Parent then break end
+            for _, data in ipairs(dots) do
+                data.pos = data.pos + data.speed
+                if data.pos > 1.05 then data.pos = -0.05 end
+                local newX = (data.frame.Position.X.Scale + data.drift) % 1.0
+                data.frame.Position = UDim2.new(newX, 0, data.pos, 0)
+            end
+        end
+    end)
+
+    -- 🖼️ AVATAR IMAGE BOX (CUSTOM GITHUB LOGO / AVATAR)
+    local capAvatarFrame = Instance.new("Frame")
+    capAvatarFrame.Size = UDim2.fromOffset(42, 42)
+    capAvatarFrame.Position = UDim2.new(0, 8, 0.5, -21)
+    capAvatarFrame.BackgroundColor3 = COLORS.glassDeep
+    capAvatarFrame.BorderSizePixel = 0
+    capAvatarFrame.ZIndex = 3
+    capAvatarFrame.Parent = toggleCapsule
+
+    local caCorner = Instance.new("UICorner")
+    caCorner.CornerRadius = UDim.new(1, 0)
+    caCorner.Parent = capAvatarFrame
+
+    local caStroke = Instance.new("UIStroke")
+    caStroke.Color = COLORS.primary
+    caStroke.Thickness = 1.5
+    caStroke.Parent = capAvatarFrame
+
+    local capAvatarImg = Instance.new("ImageLabel")
+    capAvatarImg.Size = UDim2.fromScale(1, 1)
+    capAvatarImg.BackgroundTransparency = 1
+    capAvatarImg.Image = loadCustomAvatarImage()
+    capAvatarImg.ZIndex = 4
+    capAvatarImg.Parent = capAvatarFrame
+
+    local caiCorner = Instance.new("UICorner")
+    caiCorner.CornerRadius = UDim.new(1, 0)
+    caiCorner.Parent = capAvatarImg
+
+    -- 👤 USERNAME & ⚡ METRICS (FPS & PING)
+    local capUserLabel = Instance.new("TextLabel")
+    capUserLabel.Size = UDim2.new(1, -58, 0, 18)
+    capUserLabel.Position = UDim2.new(0, 56, 0, 10)
+    capUserLabel.BackgroundTransparency = 1
+    capUserLabel.Text = "@" .. LocalPlayer.Name
+    capUserLabel.TextColor3 = COLORS.text
+    capUserLabel.Font = Enum.Font.GothamBold
+    capUserLabel.TextSize = 12
+    capUserLabel.TextXAlignment = Enum.TextXAlignment.Left
+    capUserLabel.ZIndex = 3
+    capUserLabel.Parent = toggleCapsule
+
+    local capMetricsLabel = Instance.new("TextLabel")
+    capMetricsLabel.Size = UDim2.new(1, -58, 0, 16)
+    capMetricsLabel.Position = UDim2.new(0, 56, 0, 28)
+    capMetricsLabel.BackgroundTransparency = 1
+    capMetricsLabel.Text = "⚡ 60 FPS  •  📡 0 ms"
+    capMetricsLabel.TextColor3 = COLORS.cyan
+    capMetricsLabel.Font = Enum.Font.GothamBold
+    capMetricsLabel.TextSize = 10
+    capMetricsLabel.TextXAlignment = Enum.TextXAlignment.Left
+    capMetricsLabel.ZIndex = 3
+    capMetricsLabel.Parent = toggleCapsule
+
+    -- 🔄 REALTIME FPS & PING UPDATE LOOP FOR TOGGLE CAPSULE
+    task.spawn(function()
+        local frameCount = 0
+        local lastFpsTime = tick()
+        local fpsVal = 60
+
+        local renderConn
+        renderConn = RunService.RenderStepped:Connect(function()
+            frameCount = frameCount + 1
+            local now = tick()
+            if now - lastFpsTime >= 1 then
+                fpsVal = frameCount
+                frameCount = 0
+                lastFpsTime = now
+            end
+        end)
+
+        while task.wait(0.8) do
+            if not gui or not gui.Parent or not toggleCapsule or not toggleCapsule.Parent then
+                if renderConn then renderConn:Disconnect() end
+                break
+            end
+            local pingVal = 0
+            pcall(function() pingVal = math.floor(Stats.Network.ServerStatsItem["Data Ping"]:GetValue()) end)
+            capMetricsLabel.Text = string.format("⚡ %d FPS  •  📡 %d ms", fpsVal, pingVal)
+        end
+    end)
+
+    -- 🖱️ CLICKABLE BUTTON & DRAGGABLE HANDLER
+    local capBtn = Instance.new("TextButton")
+    capBtn.Size = UDim2.fromScale(1, 1)
+    capBtn.BackgroundTransparency = 1
+    capBtn.Text = ""
+    capBtn.ZIndex = 10
+    capBtn.Parent = toggleCapsule
+
+    local tDragging, tDragInput, tDragStart, tStartPos
+    local hasDragged = false
+
+    capBtn.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            tDragging = true
+            hasDragged = false
+            tDragStart = input.Position
+            tStartPos = toggleCapsule.Position
+            input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then
+                    tDragging = false
+                end
+            end)
+        end
+    end)
+
+    capBtn.InputChanged:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+            tDragInput = input
+        end
+    end)
+
+    UserInputService.InputChanged:Connect(function(input)
+        if input == tDragInput and tDragging then
+            local delta = input.Position - tDragStart
+            if math.abs(delta.X) > 3 or math.abs(delta.Y) > 3 then
+                hasDragged = true
+            end
+            toggleCapsule.Position = UDim2.new(tStartPos.X.Scale, tStartPos.X.Offset + delta.X, tStartPos.Y.Scale, tStartPos.Y.Offset + delta.Y)
+        end
+    end)
+
+    capBtn.MouseButton1Click:Connect(function()
+        if not hasDragged then
+            playClickSound()
+            shell.Visible = not shell.Visible
+        end
+    end)
+
+    -- ⌨️ KEYBIND TOGGLE (KEY [K] / [RightControl])
+    UserInputService.InputBegan:Connect(function(input, gameProcessed)
+        if gameProcessed then return end
+        if input.KeyCode == Enum.KeyCode.K or input.KeyCode == Enum.KeyCode.RightControl then
+            shell.Visible = not shell.Visible
+        end
+    end)
+
+    -- 👤 LEFT SIDEBAR (USER PROFILE & NAVIGATION)
+    local userPanel = Instance.new("Frame")
+    userPanel.Name = "UserPanel"
+    userPanel.Size = UDim2.new(0, 240, 1, 0)
+    userPanel.BackgroundColor3 = COLORS.userPanel
+    userPanel.BackgroundTransparency = 0.20
+    userPanel.BorderSizePixel = 0
+    userPanel.ZIndex = 5
+    userPanel.Parent = shell
+
+    local userDiv = Instance.new("Frame")
+    userDiv.Size = UDim2.new(0, 1, 1, 0)
+    userDiv.Position = UDim2.new(1, -1, 0, 0)
+    userDiv.BackgroundColor3 = COLORS.glassRaised
+    userDiv.BorderSizePixel = 0
+    userDiv.ZIndex = 10
+    userDiv.Parent = userPanel
+
+    -- Profile Header
+    local avatarFrame = Instance.new("Frame")
+    avatarFrame.Size = UDim2.fromOffset(44, 44)
+    avatarFrame.Position = UDim2.new(0, 14, 0, 14)
+    avatarFrame.BackgroundColor3 = COLORS.glassDeep
+    avatarFrame.BorderSizePixel = 0
+    avatarFrame.ZIndex = 10
+    avatarFrame.Parent = userPanel
+
+    local avCorner = Instance.new("UICorner")
+    avCorner.CornerRadius = UDim.new(1, 0)
+    avCorner.Parent = avatarFrame
+
+    local avStroke = Instance.new("UIStroke")
+    avStroke.Color = COLORS.cyan
+    avStroke.Thickness = 1.5
+    avStroke.Parent = avatarFrame
+
+    local avatarImg = Instance.new("ImageLabel")
+    avatarImg.Size = UDim2.fromScale(1, 1)
+    avatarImg.BackgroundTransparency = 1
+    avatarImg.Image = loadCustomAvatarImage()
+    avatarImg.ZIndex = 11
+    avatarImg.Parent = avatarFrame
+
+    local avImgCorner = Instance.new("UICorner")
+    avImgCorner.CornerRadius = UDim.new(1, 0)
+    avImgCorner.Parent = avatarImg
+
+    local onlineDot = Instance.new("Frame")
+    onlineDot.Size = UDim2.fromOffset(10, 10)
+    onlineDot.Position = UDim2.new(1, -8, 1, -8)
+    onlineDot.BackgroundColor3 = COLORS.success
+    onlineDot.BorderSizePixel = 0
+    onlineDot.ZIndex = 12
+    onlineDot.Parent = avatarFrame
+
+    local onlineCorner = Instance.new("UICorner")
+    onlineCorner.CornerRadius = UDim.new(1, 0)
+    onlineCorner.Parent = onlineDot
+
+    local displayNameLabel = Instance.new("TextLabel")
+    displayNameLabel.Size = UDim2.new(1, -75, 0, 18)
+    displayNameLabel.Position = UDim2.new(0, 66, 0, 15)
+    displayNameLabel.BackgroundTransparency = 1
+    displayNameLabel.Text = LocalPlayer.DisplayName
+    displayNameLabel.TextColor3 = COLORS.text
+    displayNameLabel.Font = Enum.Font.GothamBold
+    displayNameLabel.TextSize = 13
+    displayNameLabel.TextXAlignment = Enum.TextXAlignment.Left
+    displayNameLabel.ZIndex = 10
+    displayNameLabel.Parent = userPanel
+
+    local usernameLabel = Instance.new("TextLabel")
+    usernameLabel.Size = UDim2.new(1, -75, 0, 14)
+    usernameLabel.Position = UDim2.new(0, 66, 0, 33)
+    usernameLabel.BackgroundTransparency = 1
+    usernameLabel.Text = "@" .. LocalPlayer.Name
+    usernameLabel.TextColor3 = COLORS.textMuted
+    usernameLabel.Font = Enum.Font.Gotham
+    usernameLabel.TextSize = 10
+    usernameLabel.TextXAlignment = Enum.TextXAlignment.Left
+    usernameLabel.ZIndex = 10
+    usernameLabel.Parent = userPanel
+
+    -- Session Time & Ping Metrics
+    local metricsBox = Instance.new("Frame")
+    metricsBox.Size = UDim2.new(1, -28, 0, 24)
+    metricsBox.Position = UDim2.new(0, 14, 0, 64)
+    metricsBox.BackgroundColor3 = COLORS.glassDeep
+    metricsBox.BorderSizePixel = 0
+    metricsBox.ZIndex = 10
+    metricsBox.Parent = userPanel
+
+    local mCorner = Instance.new("UICorner")
+    mCorner.CornerRadius = UDim.new(0, 6)
+    mCorner.Parent = metricsBox
+
+    local metricsLabel = Instance.new("TextLabel")
+    metricsLabel.Size = UDim2.fromScale(1, 1)
+    metricsLabel.BackgroundTransparency = 1
+    metricsLabel.Text = "⏱️ 00:00  •  📡 0 ms"
+    metricsLabel.TextColor3 = COLORS.cyan
+    metricsLabel.Font = Enum.Font.GothamBold
+    metricsLabel.TextSize = 10
+    metricsLabel.ZIndex = 11
+    metricsLabel.Parent = metricsBox
+
+    task.spawn(function()
+        local startTime = os.time()
+        while task.wait(1) do
+            if not gui or not gui.Parent then break end
+            local elapsed = os.time() - startTime
+            local mins = math.floor(elapsed / 60)
+            local secs = elapsed % 60
+            local ping = 0
+            pcall(function() ping = math.floor(Stats.Network.ServerStatsItem["Data Ping"]:GetValue()) end)
+            metricsLabel.Text = string.format("⏱️ %02d:%02d  •  📡 %d ms", mins, secs, ping)
+        end
+    end)
+
+    -- Divider & Category Title
+    local sideDiv = Instance.new("Frame")
+    sideDiv.Size = UDim2.new(1, -28, 0, 1)
+    sideDiv.Position = UDim2.new(0, 14, 0, 96)
+    sideDiv.BackgroundColor3 = COLORS.glassRaised
+    sideDiv.BorderSizePixel = 0
+    sideDiv.ZIndex = 10
+    sideDiv.Parent = userPanel
+
+    local navHeader = Instance.new("TextLabel")
+    navHeader.Size = UDim2.new(1, -28, 0, 18)
+    navHeader.Position = UDim2.new(0, 16, 0, 104)
+    navHeader.BackgroundTransparency = 1
+    navHeader.Text = "SYSTEM MODULES / หมวดหมู่"
+    navHeader.TextColor3 = Color3.fromRGB(255, 255, 255)
+    navHeader.Font = Enum.Font.GothamBold
+    navHeader.TextSize = 11
+    navHeader.TextXAlignment = Enum.TextXAlignment.Left
+    navHeader.ZIndex = 10
+    navHeader.Parent = userPanel
+
+    -- Sidebar Tab Navigation Scroll Container
+    local tabScroll = Instance.new("ScrollingFrame")
+    tabScroll.Name = "VerticalTabScroll"
+    tabScroll.Size = UDim2.new(1, -20, 1, -178)
+    tabScroll.Position = UDim2.new(0, 10, 0, 126)
+    tabScroll.BackgroundTransparency = 1
+    tabScroll.Active = true
+    tabScroll.ScrollingDirection = Enum.ScrollingDirection.Y
+    tabScroll.ElasticBehavior = Enum.ElasticBehavior.Always
+    tabScroll.ScrollBarThickness = 3
+    tabScroll.ScrollBarImageColor3 = COLORS.cyan
+    tabScroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+    tabScroll.ZIndex = 10
+    tabScroll.Parent = userPanel
+
+    local tabLayout = Instance.new("UIListLayout")
+    tabLayout.FillDirection = Enum.FillDirection.Vertical
+    tabLayout.Padding = UDim.new(0, 5)
+    tabLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    tabLayout.Parent = tabScroll
+
+    local function updateTabCanvas()
+        tabScroll.CanvasSize = UDim2.new(0, 0, 0, tabLayout.AbsoluteContentSize.Y + 10)
+    end
+    tabLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(updateTabCanvas)
+    task.defer(updateTabCanvas)
+
+    -- Status Verified Footer Badge
+    local statusCard = Instance.new("Frame")
+    statusCard.Size = UDim2.new(1, -24, 0, 36)
+    statusCard.Position = UDim2.new(0, 12, 1, -44)
+    statusCard.BackgroundColor3 = COLORS.glassDeep
+    statusCard.BorderSizePixel = 0
+    statusCard.ZIndex = 10
+    statusCard.Parent = userPanel
+
+    local stCorner = Instance.new("UICorner")
+    stCorner.CornerRadius = UDim.new(0, 8)
+    stCorner.Parent = statusCard
+
+    local stTitle = Instance.new("TextLabel")
+    stTitle.Size = UDim2.fromScale(1, 1)
+    stTitle.BackgroundTransparency = 1
+    stTitle.Text = "✅ Connected & Active"
+    stTitle.TextColor3 = COLORS.success
+    stTitle.Font = Enum.Font.GothamBold
+    stTitle.TextSize = 12
+    stTitle.Parent = statusCard
+
+    -- 🖥️ RIGHT MAIN PANEL
+    local mainPanel = Instance.new("Frame")
+    mainPanel.Name = "MainPanel"
+    mainPanel.Size = UDim2.new(1, -240, 1, 0)
+    mainPanel.Position = UDim2.new(0, 240, 0, 0)
+    mainPanel.BackgroundTransparency = 1
+    mainPanel.ZIndex = 5
+    mainPanel.Parent = shell
+
+    -- Header Bar
+    local headerBar = Instance.new("Frame")
+    headerBar.Size = UDim2.new(1, 0, 0, 48)
+    headerBar.BackgroundTransparency = 1
+    headerBar.Parent = mainPanel
+
+    local mainTitle = Instance.new("TextLabel")
+    mainTitle.Size = UDim2.new(0, 300, 0, 22)
+    mainTitle.Position = UDim2.new(0, 20, 0, 8)
+    mainTitle.BackgroundTransparency = 1
+    mainTitle.Text = cfg.Title or "Obsidian Glass Hub"
+    mainTitle.TextColor3 = COLORS.text
+    mainTitle.Font = Enum.Font.GothamBold
+    mainTitle.TextSize = 18
+    mainTitle.TextXAlignment = Enum.TextXAlignment.Left
+    mainTitle.Parent = headerBar
+
+    local mainSubTitle = Instance.new("TextLabel")
+    mainSubTitle.Size = UDim2.new(0, 350, 0, 16)
+    mainSubTitle.Position = UDim2.new(0, 20, 0, 28)
+    mainSubTitle.BackgroundTransparency = 1
+    mainSubTitle.Text = cfg.SubTitle or "Obsidian Glassmorphic 2 Engine"
+    mainSubTitle.TextColor3 = COLORS.textMuted
+    mainSubTitle.Font = Enum.Font.Gotham
+    mainSubTitle.TextSize = 11
+    mainSubTitle.TextXAlignment = Enum.TextXAlignment.Left
+    mainSubTitle.Parent = headerBar
+
+    -- Close & Minimize Buttons
+    local closeBtn = Instance.new("TextButton")
+    closeBtn.Size = UDim2.fromOffset(28, 28)
+    closeBtn.Position = UDim2.new(1, -38, 0, 10)
+    closeBtn.BackgroundColor3 = COLORS.glass
+    closeBtn.BackgroundTransparency = 0.20
+    closeBtn.Text = "X"
+    closeBtn.TextColor3 = COLORS.textMuted
+    closeBtn.Font = Enum.Font.GothamBold
+    closeBtn.TextSize = 14
+    closeBtn.Parent = headerBar
+
+    local closeCorner = Instance.new("UICorner")
+    closeCorner.CornerRadius = UDim.new(0, 8)
+    closeCorner.Parent = closeBtn
+
+    closeBtn.MouseButton1Click:Connect(function()
+        playClickSound()
+        shell.Visible = not shell.Visible
+    end)
+
+    local minBtn = Instance.new("TextButton")
+    minBtn.Size = UDim2.fromOffset(28, 28)
+    minBtn.Position = UDim2.new(1, -72, 0, 10)
+    minBtn.BackgroundColor3 = COLORS.glass
+    minBtn.BackgroundTransparency = 0.20
+    minBtn.Text = "─"
+    minBtn.TextColor3 = COLORS.textMuted
+    minBtn.Font = Enum.Font.GothamBold
+    minBtn.TextSize = 13
+    minBtn.Parent = headerBar
+
+    local minCorner = Instance.new("UICorner")
+    minCorner.CornerRadius = UDim.new(0, 8)
+    minCorner.Parent = minBtn
+
+    minBtn.MouseButton1Click:Connect(function()
+        playClickSound()
+        shell.Visible = not shell.Visible
+    end)
+
+    -- Window Dragging Handler
+    local dragging, dragInput, dragStart, startPos
+    headerBar.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            dragging = true
+            dragStart = input.Position
+            startPos = shell.Position
+            input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then dragging = false end
+            end)
+        end
+    end)
+
+    headerBar.InputChanged:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+            dragInput = input
+        end
+    end)
+
+    UserInputService.InputChanged:Connect(function(input)
+        if input == dragInput and dragging then
+            local delta = input.Position - dragStart
+            shell.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+        end
+    end)
+
+    -- Active Service Banner
+    local serviceBanner = Instance.new("Frame")
+    serviceBanner.Size = UDim2.new(1, -40, 0, 65)
+    serviceBanner.Position = UDim2.new(0, 20, 0, 48)
+    serviceBanner.BackgroundColor3 = COLORS.glassDeep
+    serviceBanner.BackgroundTransparency = 0.18
+    serviceBanner.BorderSizePixel = 0
+    serviceBanner.Parent = mainPanel
+
+    local sCorner = Instance.new("UICorner")
+    sCorner.CornerRadius = UDim.new(0, 10)
+    sCorner.Parent = serviceBanner
+
+    local sStroke = Instance.new("UIStroke")
+    sStroke.Color = COLORS.glassRaised
+    sStroke.Thickness = 1
+    sStroke.Parent = serviceBanner
+
+    local sBadge = Instance.new("TextLabel")
+    sBadge.Size = UDim2.new(0, 120, 0, 16)
+    sBadge.Position = UDim2.new(0, 14, 0, 10)
+    sBadge.BackgroundTransparency = 1
+    sBadge.Text = "ACTIVE SERVICE"
+    sBadge.TextColor3 = COLORS.success
+    sBadge.Font = Enum.Font.GothamBold
+    sBadge.TextSize = 10
+    sBadge.TextXAlignment = Enum.TextXAlignment.Left
+    sBadge.Parent = serviceBanner
+
+    local sTitle = Instance.new("TextLabel")
+    sTitle.Size = UDim2.new(0, 250, 0, 20)
+    sTitle.Position = UDim2.new(0, 14, 0, 26)
+    sTitle.BackgroundTransparency = 1
+    sTitle.Text = cfg.Title or "Hub Studios"
+    sTitle.TextColor3 = COLORS.text
+    sTitle.Font = Enum.Font.GothamBold
+    sTitle.TextSize = 14
+    sTitle.TextXAlignment = Enum.TextXAlignment.Left
+    sTitle.Parent = serviceBanner
+
+    local sSub = Instance.new("TextLabel")
+    sSub.Size = UDim2.new(0, 250, 0, 14)
+    sSub.Position = UDim2.new(0, 14, 0, 44)
+    sSub.BackgroundTransparency = 1
+    sSub.Text = "Verified client delivery • Premium Automation"
+    sSub.TextColor3 = COLORS.textMuted
+    sSub.Font = Enum.Font.Gotham
+    sSub.TextSize = 10
+    sSub.TextXAlignment = Enum.TextXAlignment.Left
+    sSub.Parent = serviceBanner
+
+    local vBadge = Instance.new("Frame")
+    vBadge.Size = UDim2.fromOffset(150, 32)
+    vBadge.Position = UDim2.new(1, -160, 0.5, -16)
+    vBadge.BackgroundColor3 = COLORS.userPanel
+    vBadge.BackgroundTransparency = 0.20
+    vBadge.BorderSizePixel = 0
+    vBadge.Parent = serviceBanner
+
+    local vCorner = Instance.new("UICorner")
+    vCorner.CornerRadius = UDim.new(0, 8)
+    vCorner.Parent = vBadge
+
+    local vStroke = Instance.new("UIStroke")
+    vStroke.Color = COLORS.success
+    vStroke.Thickness = 1
+    vStroke.Parent = vBadge
+
+    local vText = Instance.new("TextLabel")
+    vText.Size = UDim2.fromScale(1, 1)
+    vText.BackgroundTransparency = 1
+    vText.Text = "🛡️ SYSTEM VERIFIED"
+    vText.TextColor3 = COLORS.success
+    vText.Font = Enum.Font.GothamBold
+    vText.TextSize = 10
+    vText.Parent = vBadge
+
+    -- Content Pages Folder Container
+    local pagesFolder = Instance.new("Frame")
+    pagesFolder.Name = "PagesFolder"
+    pagesFolder.Size = UDim2.new(1, -40, 1, -128)
+    pagesFolder.Position = UDim2.new(0, 20, 0, 120)
+    pagesFolder.BackgroundTransparency = 1
+    pagesFolder.Parent = mainPanel
+
+    local WindowObj = { Tabs = {}, CurrentTab = nil }
+
+    -- 📑 ADD TAB METHOD
+    function WindowObj:AddTab(tabCfg)
+        local tabTitle = tabCfg.Title or "Tab"
+        local tabIndex = #WindowObj.Tabs + 1
+
+        local tabBtn = Instance.new("TextButton")
+        tabBtn.Size = UDim2.new(1, -6, 0, 40)
+        tabBtn.Position = UDim2.new(0, 3, 0, 0)
+        tabBtn.BackgroundColor3 = (tabIndex == 1) and COLORS.primary or Color3.fromRGB(38, 16, 24)
+        tabBtn.BackgroundTransparency = (tabIndex == 1) and 0.15 or 0.22
+        tabBtn.Text = "    " .. tabTitle
+        tabBtn.TextColor3 = (tabIndex == 1) and Color3.fromRGB(255, 255, 255) or COLORS.textMuted
+        tabBtn.Font = Enum.Font.GothamBold
+        tabBtn.TextSize = 14
+        tabBtn.TextXAlignment = Enum.TextXAlignment.Left
+        tabBtn.AutoButtonColor = false
+        tabBtn.Active = false
+        tabBtn.ZIndex = 12
+        tabBtn.Parent = tabScroll
+
+        local tbCorner = Instance.new("UICorner")
+        tbCorner.CornerRadius = UDim.new(0, 8)
+        tbCorner.Parent = tabBtn
+
+        local tbStroke = Instance.new("UIStroke")
+        tbStroke.Color = (tabIndex == 1) and COLORS.primary or Color3.fromRGB(70, 30, 45)
+        tbStroke.Thickness = 1
+        tbStroke.Transparency = (tabIndex == 1) and 0 or 0.3
+        tbStroke.Parent = tabBtn
+
+        local activeIndicator = Instance.new("Frame")
+        activeIndicator.Size = UDim2.new(0, 4, 0, 20)
+        activeIndicator.Position = UDim2.new(0, 4, 0.5, -10)
+        activeIndicator.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        activeIndicator.BorderSizePixel = 0
+        activeIndicator.Visible = (tabIndex == 1)
+        activeIndicator.Parent = tabBtn
+
+        local indCorner = Instance.new("UICorner")
+        indCorner.CornerRadius = UDim.new(1, 0)
+        indCorner.Parent = activeIndicator
+
+        local pageScroll = Instance.new("ScrollingFrame")
+        pageScroll.Name = "Page_" .. tabTitle
+        pageScroll.Size = UDim2.fromScale(1, 1)
+        pageScroll.BackgroundTransparency = 1
+        pageScroll.Active = true
+        pageScroll.ScrollingDirection = Enum.ScrollingDirection.Y
+        pageScroll.ScrollBarThickness = 5
+        pageScroll.ScrollBarImageColor3 = COLORS.primary
+        pageScroll.VerticalScrollBarInset = Enum.ScrollBarInset.ScrollBar
+        pageScroll.ElasticBehavior = Enum.ElasticBehavior.Always
+        pageScroll.AutomaticCanvasSize = Enum.AutomaticSize.None
+        pageScroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+        pageScroll.Visible = (tabIndex == 1)
+        pageScroll.Parent = pagesFolder
+
+        local pagePadding = Instance.new("UIPadding")
+        pagePadding.PaddingBottom = UDim.new(0, 80)
+        pagePadding.PaddingTop = UDim.new(0, 4)
+        pagePadding.PaddingLeft = UDim.new(0, 2)
+        pagePadding.PaddingRight = UDim.new(0, 6)
+        pagePadding.Parent = pageScroll
+
+        local pageLayout = Instance.new("UIListLayout")
+        pageLayout.Padding = UDim.new(0, 8)
+        pageLayout.SortOrder = Enum.SortOrder.LayoutOrder
+        pageLayout.Parent = pageScroll
+
+        local function updatePageCanvas()
+            if pageScroll and pageLayout then
+                pageScroll.CanvasSize = UDim2.new(0, 0, 0, pageLayout.AbsoluteContentSize.Y + 80)
+            end
+        end
+        pageLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(updatePageCanvas)
+
+        -- Mobile Touch Drag Scrolling Handler for Tab Content Pages
+        local isPageDragging = false
+        local pageTouchStartY = 0
+        local pageStartCanvasY = 0
+
+        local function onPageTouchBegan(input)
+            if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
+                isPageDragging = false
+                pageTouchStartY = input.Position.Y
+                pageStartCanvasY = pageScroll.CanvasPosition.Y
+            end
+        end
+
+        local function onPageTouchChanged(input)
+            if pageTouchStartY > 0 and (input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseMovement) then
+                local deltaY = input.Position.Y - pageTouchStartY
+                if math.abs(deltaY) > 5 then
+                    isPageDragging = true
+                end
+                if isPageDragging then
+                    local maxCanvasY = math.max(0, (pageLayout.AbsoluteContentSize.Y + 80) - pageScroll.AbsoluteSize.Y)
+                    pageScroll.CanvasPosition = Vector2.new(0, math.clamp(pageStartCanvasY - deltaY, 0, maxCanvasY))
+                end
+            end
+        end
+
+        local function onPageTouchEnded(input)
+            if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
+                pageTouchStartY = 0
+                task.delay(0.05, function()
+                    isPageDragging = false
+                end)
+            end
+        end
+
+        pageScroll.InputBegan:Connect(onPageTouchBegan)
+        pageScroll.InputChanged:Connect(onPageTouchChanged)
+        pageScroll.InputEnded:Connect(onPageTouchEnded)
+
+        local function activateTab()
+            playClickSound()
+            for _, t in ipairs(WindowObj.Tabs) do
+                t.btn.BackgroundColor3 = Color3.fromRGB(38, 16, 24)
+                t.btn.BackgroundTransparency = 0.22
+                t.btn.TextColor3 = COLORS.textMuted
+                t.stroke.Color = Color3.fromRGB(70, 30, 45)
+                t.stroke.Transparency = 0.3
+                if t.indicator then t.indicator.Visible = false end
+                t.page.Visible = false
+            end
+            tabBtn.BackgroundColor3 = COLORS.primary
+            tabBtn.BackgroundTransparency = 0.15
+            tabBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+            tbStroke.Color = COLORS.primary
+            tbStroke.Transparency = 0
+            activeIndicator.Visible = true
+            pageScroll.Visible = true
+        end
+
+        tabBtn.MouseButton1Click:Connect(activateTab)
+
+        local TabObj = {
+            btn = tabBtn,
+            stroke = tbStroke,
+            indicator = activeIndicator,
+            page = pageScroll,
+            Select = activateTab
+        }
+
+        -- 🔘 TOGGLE WIDGET
+        function TabObj:AddToggle(id, tCfg)
+            local title = tCfg.Title or id
+            local desc = tCfg.Desc or ""
+            local defaultVal = (tCfg.Default ~= nil) and tCfg.Default or false
+
+            local frame = Instance.new("Frame")
+            frame.Size = UDim2.new(1, -10, 0, desc ~= "" and 55 or 44)
+            frame.BackgroundColor3 = COLORS.glassDeep
+            frame.BackgroundTransparency = 0.18
+            frame.BorderSizePixel = 0
+            frame.Parent = pageScroll
+
+            local fCorner = Instance.new("UICorner")
+            fCorner.CornerRadius = UDim.new(0, 8)
+            fCorner.Parent = frame
+
+            local fStroke = Instance.new("UIStroke")
+            fStroke.Color = COLORS.surface
+            fStroke.Thickness = 1
+            fStroke.Parent = frame
+
+            local lbl = Instance.new("TextLabel")
+            lbl.Size = UDim2.new(1, -70, 0, 22)
+            lbl.Position = UDim2.new(0, 12, 0, desc ~= "" and 8 or 11)
+            lbl.BackgroundTransparency = 1
+            lbl.Text = title
+            lbl.TextColor3 = COLORS.text
+            lbl.Font = Enum.Font.GothamBold
+            lbl.TextSize = 14
+            lbl.TextXAlignment = Enum.TextXAlignment.Left
+            lbl.Parent = frame
+
+            if desc ~= "" then
+                local dLbl = Instance.new("TextLabel")
+                dLbl.Size = UDim2.new(1, -70, 0, 18)
+                dLbl.Position = UDim2.new(0, 12, 0, 30)
+                dLbl.BackgroundTransparency = 1
+                dLbl.Text = desc
+                dLbl.TextColor3 = COLORS.textMuted
+                dLbl.Font = Enum.Font.Gotham
+                dLbl.TextSize = 11
+                dLbl.TextXAlignment = Enum.TextXAlignment.Left
+                dLbl.Parent = frame
+            end
+
+            local switch = Instance.new("TextButton")
+            switch.Size = UDim2.fromOffset(46, 24)
+            switch.Position = UDim2.new(1, -56, 0.5, -12)
+            switch.BackgroundColor3 = defaultVal and COLORS.cyan or COLORS.surface
+            switch.Text = ""
+            switch.Parent = frame
+
+            local swCorner = Instance.new("UICorner")
+            swCorner.CornerRadius = UDim.new(1, 0)
+            swCorner.Parent = switch
+
+            local knob = Instance.new("Frame")
+            knob.Size = UDim2.fromOffset(20, 20)
+            knob.Position = defaultVal and UDim2.new(1, -22, 0.5, -10) or UDim2.new(0, 2, 0.5, -10)
+            knob.BackgroundColor3 = COLORS.text
+            knob.BorderSizePixel = 0
+            knob.Parent = switch
+
+            local kCorner = Instance.new("UICorner")
+            kCorner.CornerRadius = UDim.new(1, 0)
+            kCorner.Parent = knob
+
+            local OptionObj = {
+                Value = defaultVal,
+                Callback = tCfg.Callback or function() end,
+                ChangedCallbacks = {}
+            }
+
+            local function updateToggle(val)
+                playClickSound()
+                OptionObj.Value = val
+                switch.BackgroundColor3 = val and COLORS.cyan or COLORS.surface
+                knob.Position = val and UDim2.new(1, -22, 0.5, -10) or UDim2.new(0, 2, 0.5, -10)
+                pcall(function() OptionObj.Callback(val) end)
+                for _, cb in ipairs(OptionObj.ChangedCallbacks) do pcall(function() cb(val) end) end
+            end
+
+            function OptionObj:OnChanged(cb) table.insert(OptionObj.ChangedCallbacks, cb) end
+            function OptionObj:SetValue(val) updateToggle(val == true) end
+
+            switch.MouseButton1Click:Connect(function() updateToggle(not OptionObj.Value) end)
+            ObsidianGlassEngine.Options[id] = OptionObj
+            return OptionObj
+        end
+
+        -- 🎚️ SLIDER WIDGET
+        function TabObj:AddSlider(id, sCfg)
+            local title = sCfg.Title or id
+            local minVal = sCfg.Min or 0
+            local maxVal = sCfg.Max or 100
+            local defaultVal = sCfg.Default or minVal
+
+            local frame = Instance.new("Frame")
+            frame.Size = UDim2.new(1, -10, 0, 52)
+            frame.BackgroundColor3 = COLORS.glassDeep
+            frame.BackgroundTransparency = 0.18
+            frame.BorderSizePixel = 0
+            frame.Parent = pageScroll
+
+            local fCorner = Instance.new("UICorner")
+            fCorner.CornerRadius = UDim.new(0, 8)
+            fCorner.Parent = frame
+
+            local fStroke = Instance.new("UIStroke")
+            fStroke.Color = COLORS.surface
+            fStroke.Thickness = 1
+            fStroke.Parent = frame
+
+            local lbl = Instance.new("TextLabel")
+            lbl.Size = UDim2.new(0.7, 0, 0, 22)
+            lbl.Position = UDim2.new(0, 12, 0, 6)
+            lbl.BackgroundTransparency = 1
+            lbl.Text = title
+            lbl.TextColor3 = COLORS.text
+            lbl.Font = Enum.Font.GothamBold
+            lbl.TextSize = 14
+            lbl.TextXAlignment = Enum.TextXAlignment.Left
+            lbl.Parent = frame
+
+            local valLbl = Instance.new("TextLabel")
+            valLbl.Size = UDim2.new(0.3, -12, 0, 22)
+            valLbl.Position = UDim2.new(0.7, 0, 0, 6)
+            valLbl.BackgroundTransparency = 1
+            valLbl.Text = tostring(defaultVal)
+            valLbl.TextColor3 = COLORS.cyan
+            valLbl.Font = Enum.Font.GothamBold
+            valLbl.TextSize = 14
+            valLbl.TextXAlignment = Enum.TextXAlignment.Right
+            valLbl.Parent = frame
+
+            local bar = Instance.new("TextButton")
+            bar.Size = UDim2.new(1, -24, 0, 8)
+            bar.Position = UDim2.new(0, 12, 0, 34)
+            bar.BackgroundColor3 = COLORS.surface
+            bar.Text = ""
+            bar.Parent = frame
+
+            local bCorner = Instance.new("UICorner")
+            bCorner.CornerRadius = UDim.new(1, 0)
+            bCorner.Parent = bar
+
+            local fill = Instance.new("Frame")
+            local pct = (defaultVal - minVal) / math.max(maxVal - minVal, 1)
+            fill.Size = UDim2.new(pct, 0, 1, 0)
+            fill.BackgroundColor3 = COLORS.cyan
+            fill.BorderSizePixel = 0
+            fill.Parent = bar
+
+            local fillCorner = Instance.new("UICorner")
+            fillCorner.CornerRadius = UDim.new(1, 0)
+            fillCorner.Parent = fill
+
+            local OptionObj = {
+                Value = defaultVal,
+                Callback = sCfg.Callback or function() end,
+                ChangedCallbacks = {}
+            }
+
+            local function updateSlider(val)
+                val = math.clamp(val, minVal, maxVal)
+                if sCfg.Rounding then val = math.floor(val * (10 ^ sCfg.Rounding) + 0.5) / (10 ^ sCfg.Rounding) else val = math.floor(val + 0.5) end
+                OptionObj.Value = val
+                valLbl.Text = tostring(val)
+                local newPct = (val - minVal) / math.max(maxVal - minVal, 1)
+                fill.Size = UDim2.new(newPct, 0, 1, 0)
+                pcall(function() OptionObj.Callback(val) end)
+                for _, cb in ipairs(OptionObj.ChangedCallbacks) do pcall(function() cb(val) end) end
+            end
+
+            function OptionObj:OnChanged(cb) table.insert(OptionObj.ChangedCallbacks, cb) end
+            function OptionObj:SetValue(val) updateSlider(val) end
+
+            local isDragging = false
+            bar.InputBegan:Connect(function(input)
+                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+                    isDragging = true
+                    local relX = input.Position.X - bar.AbsolutePosition.X
+                    updateSlider(minVal + (relX / bar.AbsoluteSize.X) * (maxVal - minVal))
+                end
+            end)
+
+            UserInputService.InputEnded:Connect(function(input)
+                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+                    isDragging = false
+                end
+            end)
+
+            UserInputService.InputChanged:Connect(function(input)
+                if isDragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+                    local relX = input.Position.X - bar.AbsolutePosition.X
+                    updateSlider(minVal + (relX / bar.AbsoluteSize.X) * (maxVal - minVal))
+                end
+            end)
+
+            ObsidianGlassEngine.Options[id] = OptionObj
+            return OptionObj
+        end
+
+        -- 📋 DROPDOWN WIDGET WITH POPUP OVERLAY
+        function TabObj:AddDropdown(id, dCfg)
+            local title = dCfg.Title or id
+            local values = dCfg.Values or {}
+            local defaultVal = dCfg.Value or (values[1] or "")
+            local isMulti = dCfg.Multi == true
+
+            local frame = Instance.new("Frame")
+            frame.Size = UDim2.new(1, -10, 0, 52)
+            frame.BackgroundColor3 = COLORS.glassDeep
+            frame.BackgroundTransparency = 0.18
+            frame.BorderSizePixel = 0
+            frame.Parent = pageScroll
+
+            local fCorner = Instance.new("UICorner")
+            fCorner.CornerRadius = UDim.new(0, 8)
+            fCorner.Parent = frame
+
+            local fStroke = Instance.new("UIStroke")
+            fStroke.Color = COLORS.surfaceRaised
+            fStroke.Thickness = 1
+            fStroke.Parent = frame
+
+            local lbl = Instance.new("TextLabel")
+            lbl.Size = UDim2.new(0.5, 0, 1, 0)
+            lbl.Position = UDim2.new(0, 12, 0, 0)
+            lbl.BackgroundTransparency = 1
+            lbl.Text = title
+            lbl.TextColor3 = COLORS.text
+            lbl.Font = Enum.Font.GothamBold
+            lbl.TextSize = 14
+            lbl.TextXAlignment = Enum.TextXAlignment.Left
+            lbl.Parent = frame
+
+            local dBtn = Instance.new("TextButton")
+            dBtn.Size = UDim2.new(0.46, 0, 0, 34)
+            dBtn.Position = UDim2.new(0.52, 0, 0.5, -17)
+            dBtn.BackgroundColor3 = COLORS.surface
+            dBtn.BackgroundTransparency = 0.20
+
+            local function formatValText(val)
+                if type(val) == "table" then
+                    if #val == 0 then return "[ กดเพื่อเลือกรายการ ]" end
+                    return table.concat(val, ", ")
+                end
+                return tostring(val)
+            end
+
+            dBtn.Text = formatValText(defaultVal)
+            dBtn.TextColor3 = COLORS.text
+            dBtn.Font = Enum.Font.GothamBold
+            dBtn.TextSize = 13
+            dBtn.TextTruncate = Enum.TextTruncate.AtEnd
+            dBtn.Parent = frame
+
+            local dbCorner = Instance.new("UICorner")
+            dbCorner.CornerRadius = UDim.new(0, 6)
+            dbCorner.Parent = dBtn
+
+            local dbStroke = Instance.new("UIStroke")
+            dbStroke.Color = COLORS.cyan
+            dbStroke.Thickness = 1
+            dbStroke.Transparency = 0.4
+            dbStroke.Parent = dBtn
+
+            local OptionObj = {
+                Value = defaultVal,
+                Values = values,
+                Callback = dCfg.Callback or function() end,
+                ChangedCallbacks = {}
+            }
+
+            local function updateDropdown(val)
+                OptionObj.Value = val
+                dBtn.Text = formatValText(val)
+                pcall(function() OptionObj.Callback(val) end)
+                for _, cb in ipairs(OptionObj.ChangedCallbacks) do pcall(function() cb(val) end) end
+            end
+
+            function OptionObj:OnChanged(cb) table.insert(OptionObj.ChangedCallbacks, cb) end
+            function OptionObj:SetValue(val) updateDropdown(val) end
+            function OptionObj:SetValues(newVals) OptionObj.Values = newVals end
+
+            dBtn.MouseButton1Click:Connect(function()
+                playClickSound()
+                local gui = shell.Parent
+                if not gui then return end
+
+                local existingModal = gui:FindFirstChild("DropdownModalOverlay")
+                if existingModal then
+                    local isSameDropdown = (existingModal:GetAttribute("DropdownId") == id)
+                    existingModal:Destroy()
+                    if isSameDropdown then
+                        return
+                    end
+                end
+
+                local modalOverlay = Instance.new("Frame")
+                modalOverlay.Name = "DropdownModalOverlay"
+                modalOverlay:SetAttribute("DropdownId", id)
+                modalOverlay.Size = UDim2.fromScale(1, 1)
+                modalOverlay.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+                modalOverlay.BackgroundTransparency = 0.70
+                modalOverlay.Active = true
+                modalOverlay.ZIndex = 999999
+                modalOverlay.Parent = gui
+
+                local bgDismissBtn = Instance.new("TextButton")
+                bgDismissBtn.Size = UDim2.fromScale(1, 1)
+                bgDismissBtn.BackgroundTransparency = 1
+                bgDismissBtn.Text = ""
+                bgDismissBtn.ZIndex = 999999
+                bgDismissBtn.Parent = modalOverlay
+
+                local cameraVP = workspace.CurrentCamera and workspace.CurrentCamera.ViewportSize or Vector2.new(1280, 720)
+                local maxModalH = math.clamp(cameraVP.Y * 0.88, 280, 520)
+                local maxModalW = math.min(750, cameraVP.X - 20)
+
+                local modalFrame = Instance.new("Frame")
+                modalFrame.Size = UDim2.fromOffset(maxModalW, maxModalH)
+                modalFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+                modalFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+                modalFrame.BackgroundColor3 = Color3.fromRGB(18, 20, 29)
+                modalFrame.BackgroundTransparency = 0
+                modalFrame.BorderSizePixel = 0
+                modalFrame.ZIndex = 1000000
+                modalFrame.Parent = modalOverlay
+
+                local mCorner = Instance.new("UICorner")
+                mCorner.CornerRadius = UDim.new(0, 14)
+                mCorner.Parent = modalFrame
+
+                local mStroke = Instance.new("UIStroke")
+                mStroke.Color = COLORS.primary
+                mStroke.Thickness = 2
+                mStroke.Parent = modalFrame
+
+                local mHeader = Instance.new("TextLabel")
+                mHeader.Size = UDim2.new(1, -50, 0, 22)
+                mHeader.Position = UDim2.new(0, 16, 0, 10)
+                mHeader.BackgroundTransparency = 1
+                mHeader.Text = "📌 " .. title
+                mHeader.TextColor3 = COLORS.text
+                mHeader.Font = Enum.Font.GothamBold
+                mHeader.TextSize = 15
+                mHeader.TextXAlignment = Enum.TextXAlignment.Left
+                mHeader.ZIndex = 1000001
+                mHeader.Parent = modalFrame
+
+                local mSub = Instance.new("TextLabel")
+                mSub.Size = UDim2.new(1, -50, 0, 16)
+                mSub.Position = UDim2.new(0, 16, 0, 32)
+                mSub.BackgroundTransparency = 1
+                mSub.Text = isMulti and "คำแนะนำ: คลิกเลือก/ยกเลิกได้หลายรายการ" or "คำแนะนำ: คลิก 1 รายการเพื่อเลือก"
+                mSub.TextColor3 = COLORS.textMuted
+                mSub.Font = Enum.Font.Gotham
+                mSub.TextSize = 11
+                mSub.TextXAlignment = Enum.TextXAlignment.Left
+                mSub.ZIndex = 1000001
+                mSub.Parent = modalFrame
+
+                local closeModBtn = Instance.new("TextButton")
+                closeModBtn.Size = UDim2.fromOffset(26, 26)
+                closeModBtn.Position = UDim2.new(1, -36, 0, 10)
+                closeModBtn.BackgroundColor3 = COLORS.glass
+                closeModBtn.Text = "✕"
+                closeModBtn.TextColor3 = COLORS.textMuted
+                closeModBtn.Font = Enum.Font.GothamBold
+                closeModBtn.TextSize = 13
+                closeModBtn.ZIndex = 1000002
+                closeModBtn.Parent = modalFrame
+
+                local cmCorner = Instance.new("UICorner")
+                cmCorner.CornerRadius = UDim.new(0, 6)
+                cmCorner.Parent = closeModBtn
+
+                closeModBtn.MouseButton1Click:Connect(function()
+                    playClickSound()
+                    modalOverlay:Destroy()
+                end)
+
+                bgDismissBtn.MouseButton1Click:Connect(function() modalOverlay:Destroy() end)
+
+                -- 🔍 SEARCH FILTER INPUT BOX
+                local searchFrame = Instance.new("Frame")
+                searchFrame.Size = UDim2.new(1, -28, 0, 32)
+                searchFrame.Position = UDim2.new(0, 14, 0, 52)
+                searchFrame.BackgroundColor3 = COLORS.glassDeep
+                searchFrame.BorderSizePixel = 0
+                searchFrame.ZIndex = 1000001
+                searchFrame.Parent = modalFrame
+
+                local sfCorner = Instance.new("UICorner")
+                sfCorner.CornerRadius = UDim.new(0, 8)
+                sfCorner.Parent = searchFrame
+
+                local sfStroke = Instance.new("UIStroke")
+                sfStroke.Color = COLORS.surfaceRaised
+                sfStroke.Thickness = 1
+                sfStroke.Parent = searchFrame
+
+                local searchBox = Instance.new("TextBox")
+                searchBox.Size = UDim2.new(1, -16, 1, 0)
+                searchBox.Position = UDim2.new(0, 10, 0, 0)
+                searchBox.BackgroundTransparency = 1
+                searchBox.PlaceholderText = "🔍 ค้นหารายการ..."
+                searchBox.PlaceholderColor3 = COLORS.textFaint
+                searchBox.Text = ""
+                searchBox.TextColor3 = COLORS.text
+                searchBox.Font = Enum.Font.Gotham
+                searchBox.TextSize = 12
+                searchBox.TextXAlignment = Enum.TextXAlignment.Left
+                searchBox.ZIndex = 1000002
+                searchBox.Parent = searchFrame
+
+                -- 📜 OPTION SCROLL CONTAINER (MAXIMIZED HEIGHT & GENEROUS BOTTOM PADDING)
+                local optScroll = Instance.new("ScrollingFrame")
+                optScroll.Size = UDim2.new(1, -28, 1, -94)
+                optScroll.Position = UDim2.new(0, 14, 0, 88)
+                optScroll.BackgroundTransparency = 1
+                optScroll.Active = true
+                optScroll.ScrollingDirection = Enum.ScrollingDirection.Y
+                optScroll.ScrollBarThickness = 6
+                optScroll.ScrollBarImageColor3 = COLORS.primary
+                optScroll.VerticalScrollBarInset = Enum.ScrollBarInset.ScrollBar
+                optScroll.ElasticBehavior = Enum.ElasticBehavior.Always
+                optScroll.AutomaticCanvasSize = Enum.AutomaticSize.None
+                optScroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+                optScroll.ZIndex = 1000001
+                optScroll.Parent = modalFrame
+
+                local optPadding = Instance.new("UIPadding")
+                optPadding.PaddingBottom = UDim.new(0, 35)
+                optPadding.PaddingTop = UDim.new(0, 2)
+                optPadding.PaddingLeft = UDim.new(0, 2)
+                optPadding.PaddingRight = UDim.new(0, 4)
+                optPadding.Parent = optScroll
+
+                local optLayout = Instance.new("UIListLayout")
+                optLayout.Padding = UDim.new(0, 5)
+                optLayout.SortOrder = Enum.SortOrder.LayoutOrder
+                optLayout.Parent = optScroll
+
+                local function updateModalCanvas()
+                    if optScroll and optLayout then
+                        optScroll.CanvasSize = UDim2.new(0, 0, 0, optLayout.AbsoluteContentSize.Y + 60)
+                    end
+                end
+                optLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(updateModalCanvas)
+
+                -- Mobile & Touch Drag Scrolling Handler
+                local isTouchDragging = false
+                local touchStartY = 0
+                local startCanvasY = 0
+
+                local function onTouchBegan(input)
+                    if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
+                        isTouchDragging = false
+                        touchStartY = input.Position.Y
+                        startCanvasY = optScroll.CanvasPosition.Y
+                    end
+                end
+
+                local function onTouchChanged(input)
+                    if touchStartY > 0 and (input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseMovement) then
+                        local deltaY = input.Position.Y - touchStartY
+                        if math.abs(deltaY) > 5 then
+                            isTouchDragging = true
+                        end
+                        if isTouchDragging then
+                            local maxCanvasY = math.max(0, optLayout.AbsoluteContentSize.Y + 60 - optScroll.AbsoluteSize.Y)
+                            optScroll.CanvasPosition = Vector2.new(0, math.clamp(startCanvasY - deltaY, 0, maxCanvasY))
+                        end
+                    end
+                end
+
+                local function onTouchEnded(input)
+                    if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
+                        touchStartY = 0
+                        task.delay(0.05, function()
+                            isTouchDragging = false
+                        end)
+                    end
+                end
+
+                optScroll.InputBegan:Connect(onTouchBegan)
+                optScroll.InputChanged:Connect(onTouchChanged)
+                optScroll.InputEnded:Connect(onTouchEnded)
+
+                local currentSelected = {}
+                if isMulti then
+                    if type(OptionObj.Value) == "table" then
+                        for _, v in ipairs(OptionObj.Value) do table.insert(currentSelected, v) end
+                    end
+                else
+                    table.insert(currentSelected, OptionObj.Value)
+                end
+
+                local optionButtons = {}
+                local function renderOptions(filterText)
+                    filterText = filterText and string.lower(string.gsub(filterText, "^%s*(.-)%s*$", "%1")) or ""
+                    for _, btnObj in ipairs(optionButtons) do btnObj:Destroy() end
+                    optionButtons = {}
+
+                    local currentValues = (type(OptionObj.Values) == "function" and OptionObj.Values()) or OptionObj.Values or values
+                    if type(currentValues) ~= "table" then currentValues = {} end
+
+                    for _, optVal in ipairs(currentValues) do
+                        local valStr = tostring(optVal)
+                        if filterText == "" or string.find(string.lower(valStr), filterText, 1, true) then
+                            local isSelected = isMulti and (table.find(currentSelected, optVal) ~= nil) or (currentSelected[1] == optVal)
+
+                            local itemBtn = Instance.new("TextButton")
+                            itemBtn.Size = UDim2.new(1, -6, 0, 38)
+                            itemBtn.BackgroundColor3 = isSelected and COLORS.primary or COLORS.glassDeep
+                            itemBtn.BackgroundTransparency = isSelected and 0.1 or 0.2
+                            itemBtn.Text = (isSelected and "   ✓  " or "       ") .. valStr
+                            itemBtn.TextColor3 = isSelected and Color3.fromRGB(255, 255, 255) or COLORS.text
+                            itemBtn.Font = Enum.Font.GothamBold
+                            itemBtn.TextSize = 11.5
+                            itemBtn.TextXAlignment = Enum.TextXAlignment.Left
+                            itemBtn.TextTruncate = Enum.TextTruncate.AtEnd
+                            itemBtn.AutoButtonColor = false
+                            itemBtn.Active = false
+                            itemBtn.ZIndex = 1000002
+                            itemBtn.Parent = optScroll
+
+                            local ibCorner = Instance.new("UICorner")
+                            ibCorner.CornerRadius = UDim.new(0, 8)
+                            ibCorner.Parent = itemBtn
+
+                            local ibStroke = Instance.new("UIStroke")
+                            ibStroke.Color = isSelected and COLORS.primary or COLORS.surfaceRaised
+                            ibStroke.Thickness = 1
+                            ibStroke.Parent = itemBtn
+
+                            itemBtn.InputBegan:Connect(onTouchBegan)
+                            itemBtn.InputChanged:Connect(onTouchChanged)
+                            itemBtn.InputEnded:Connect(onTouchEnded)
+
+                            itemBtn.MouseButton1Click:Connect(function()
+                                if isTouchDragging then return end
+                                playClickSound()
+                                if isMulti then
+                                    local foundIdx = table.find(currentSelected, optVal)
+                                    if foundIdx then table.remove(currentSelected, foundIdx) else table.insert(currentSelected, optVal) end
+                                    updateDropdown(currentSelected)
+                                    renderOptions(searchBox.Text)
+                                else
+                                    currentSelected = { optVal }
+                                    updateDropdown(optVal)
+                                    modalOverlay:Destroy()
+                                end
+                            end)
+
+                            table.insert(optionButtons, itemBtn)
+                        end
+                    end
+
+                    task.defer(updateModalCanvas)
+                end
+
+                searchBox:GetPropertyChangedSignal("Text"):Connect(function()
+                    optScroll.CanvasPosition = Vector2.new(0, 0)
+                    renderOptions(searchBox.Text)
+                end)
+
+                renderOptions("")
+            end)
+
+            ObsidianGlassEngine.Options[id] = OptionObj
+            return OptionObj
+        end
+
+        -- 🔘 BUTTON WIDGET
+        function TabObj:AddButton(bCfg)
+            local title = bCfg.Title or "Button"
+            local desc = bCfg.Desc or ""
+            local cb = bCfg.Callback or function() end
+
+            local hasDesc = (desc ~= "")
+            local btn = Instance.new("TextButton")
+            btn.Size = UDim2.new(1, -10, 0, hasDesc and 48 or 40)
+            btn.BackgroundColor3 = COLORS.surfaceRaised
+            btn.BackgroundTransparency = 0.18
+            btn.Text = ""
+            btn.AutoButtonColor = false
+            btn.Parent = pageScroll
+
+            local bCorner = Instance.new("UICorner")
+            bCorner.CornerRadius = UDim.new(0, 8)
+            bCorner.Parent = btn
+
+            local bStroke = Instance.new("UIStroke")
+            bStroke.Color = COLORS.primary
+            bStroke.Thickness = 1
+            bStroke.Transparency = 0.3
+            bStroke.Parent = btn
+
+            local bTitle = Instance.new("TextLabel")
+            bTitle.Size = UDim2.new(1, -20, 0, hasDesc and 20 or 40)
+            bTitle.Position = UDim2.new(0, 12, 0, hasDesc and 5 or 0)
+            bTitle.BackgroundTransparency = 1
+            bTitle.Text = title
+            bTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+            bTitle.Font = Enum.Font.GothamBold
+            bTitle.TextSize = 13
+            bTitle.TextXAlignment = Enum.TextXAlignment.Left
+            bTitle.Parent = btn
+
+            if hasDesc then
+                local bDesc = Instance.new("TextLabel")
+                bDesc.Size = UDim2.new(1, -20, 0, 18)
+                bDesc.Position = UDim2.new(0, 12, 0, 25)
+                bDesc.BackgroundTransparency = 1
+                bDesc.Text = desc
+                bDesc.TextColor3 = COLORS.textMuted
+                bDesc.Font = Enum.Font.Gotham
+                bDesc.TextSize = 10.5
+                bDesc.TextXAlignment = Enum.TextXAlignment.Left
+                bDesc.Parent = btn
+            end
+
+            btn.MouseButton1Click:Connect(function()
+                playClickSound()
+                pcall(cb)
+            end)
+            return btn
+        end
+
+        -- ⌨️ INPUT WIDGET
+        function TabObj:AddInput(id, iCfg)
+            local title = iCfg.Title or id
+            local defaultVal = iCfg.Default or ""
+
+            local frame = Instance.new("Frame")
+            frame.Size = UDim2.new(1, -10, 0, 48)
+            frame.BackgroundColor3 = COLORS.glassDeep
+            frame.BackgroundTransparency = 0.18
+            frame.BorderSizePixel = 0
+            frame.Parent = pageScroll
+
+            local fCorner = Instance.new("UICorner")
+            fCorner.CornerRadius = UDim.new(0, 8)
+            fCorner.Parent = frame
+
+            local lbl = Instance.new("TextLabel")
+            lbl.Size = UDim2.new(0.5, 0, 1, 0)
+            lbl.Position = UDim2.new(0, 12, 0, 0)
+            lbl.BackgroundTransparency = 1
+            lbl.Text = title
+            lbl.TextColor3 = COLORS.text
+            lbl.Font = Enum.Font.GothamBold
+            lbl.TextSize = 14
+            lbl.TextXAlignment = Enum.TextXAlignment.Left
+            lbl.Parent = frame
+
+            local box = Instance.new("TextBox")
+            box.Size = UDim2.new(0.45, 0, 0, 30)
+            box.Position = UDim2.new(0.52, 0, 0.5, -15)
+            box.BackgroundColor3 = COLORS.input
+            box.BackgroundTransparency = 0.20
+            box.Text = tostring(defaultVal)
+            box.TextColor3 = COLORS.cyan
+            box.Font = Enum.Font.Gotham
+            box.TextSize = 13
+            box.Parent = frame
+
+            local bxCorner = Instance.new("UICorner")
+            bxCorner.CornerRadius = UDim.new(0, 6)
+            bxCorner.Parent = box
+
+            local OptionObj = {
+                Value = defaultVal,
+                Callback = iCfg.Callback or function() end,
+                ChangedCallbacks = {}
+            }
+
+            box.FocusLost:Connect(function()
+                OptionObj.Value = box.Text
+                pcall(function() OptionObj.Callback(box.Text) end)
+                for _, cb in ipairs(OptionObj.ChangedCallbacks) do pcall(function() cb(box.Text) end) end
+            end)
+
+            function OptionObj:OnChanged(cb) table.insert(OptionObj.ChangedCallbacks, cb) end
+            function OptionObj:SetValue(val) box.Text = tostring(val); OptionObj.Value = tostring(val) end
+
+            ObsidianGlassEngine.Options[id] = OptionObj
+            return OptionObj
+        end
+
+        -- 📌 SECTION HEADER WIDGET
+        function TabObj:AddSection(title)
+            local sec = Instance.new("TextLabel")
+            sec.Size = UDim2.new(1, -10, 0, 30)
+            sec.BackgroundTransparency = 1
+            sec.Text = "──  " .. title .. "  ──"
+            sec.TextColor3 = COLORS.cyan
+            sec.Font = Enum.Font.GothamBold
+            sec.TextSize = 14
+            sec.Parent = pageScroll
+            return sec
+        end
+
+        -- 📝 PARAGRAPH WIDGET
+        function TabObj:AddParagraph(pCfg)
+            local title = pCfg.Title or ""
+            local desc = pCfg.Desc or ""
+
+            local frame = Instance.new("Frame")
+            frame.Size = UDim2.new(1, -10, 0, 64)
+            frame.BackgroundColor3 = COLORS.glassDeep
+            frame.BackgroundTransparency = 0.18
+            frame.BorderSizePixel = 0
+            frame.Parent = pageScroll
+
+            local fCorner = Instance.new("UICorner")
+            fCorner.CornerRadius = UDim.new(0, 8)
+            fCorner.Parent = frame
+
+            local fStroke = Instance.new("UIStroke")
+            fStroke.Color = COLORS.surface
+            fStroke.Thickness = 1
+            fStroke.Parent = frame
+
+            local pTitle = Instance.new("TextLabel")
+            pTitle.Size = UDim2.new(1, -20, 0, 22)
+            pTitle.Position = UDim2.new(0, 10, 0, 6)
+            pTitle.BackgroundTransparency = 1
+            pTitle.Text = title
+            pTitle.TextColor3 = COLORS.text
+            pTitle.Font = Enum.Font.GothamBold
+            pTitle.TextSize = 13
+            pTitle.TextXAlignment = Enum.TextXAlignment.Left
+            pTitle.Parent = frame
+
+            local pDesc = Instance.new("TextLabel")
+            pDesc.Size = UDim2.new(1, -20, 0, 32)
+            pDesc.Position = UDim2.new(0, 10, 0, 28)
+            pDesc.BackgroundTransparency = 1
+            pDesc.Text = desc
+            pDesc.TextColor3 = COLORS.textMuted
+            pDesc.Font = Enum.Font.Gotham
+            pDesc.TextSize = 11
+            pDesc.TextWrapped = true
+            pDesc.TextXAlignment = Enum.TextXAlignment.Left
+            pDesc.Parent = frame
+
+            local ParaObj = { Frame = frame, TitleLabel = pTitle, DescLabel = pDesc }
+            function ParaObj:SetTitle(t) pTitle.Text = tostring(t) end
+            function ParaObj:SetDesc(d)
+                pDesc.Text = tostring(d)
+                local lineCount = select(2, string.gsub(tostring(d), "\n", "")) + 1
+                local descH = math.max(24, lineCount * 18)
+                pDesc.Size = UDim2.new(1, -20, 0, descH)
+                frame.Size = UDim2.new(1, -10, 0, descH + 34)
+            end
+            ParaObj:SetDesc(desc)
+            return ParaObj
+        end
+
+        table.insert(WindowObj.Tabs, TabObj)
+        return TabObj
+    end
+
+    -- 🔑 KEYBIND CONTROL HANDLER ([K] Visibility | [F] Scale)
+    UserInputService.InputBegan:Connect(function(input, gpe)
+        if gpe then return end
+        if input.KeyCode == Enum.KeyCode.K then
+            playClickSound()
+            shell.Visible = not shell.Visible
+        elseif input.KeyCode == Enum.KeyCode.F then
+            playClickSound()
+            uiScale.Scale = (uiScale.Scale == 1.0) and 0.85 or 1.0
+        end
+    end)
+
+    return WindowObj
+end
+
+
+
+-- ======================================================================================
+-- [[ SCRIPT CONTROLLERS & UI INTEGRATION (เก็บไข่ไปกับพยอมบอย) ]]
+-- ======================================================================================
+
+local function tG()
+    T["alive"] = false
+    pcall(Pq)
+    pcall(jq)
+    pcall(function()
+        local parentGui = (typeof(gethui) == "function") and gethui() or CoreGui
+        local ui = parentGui:FindFirstChild("ObsidianGlass2_UI") or CoreGui:FindFirstChild("ObsidianGlass2_UI")
+        if ui then ui:Destroy() end
+        local notif = parentGui:FindFirstChild("ObsidianGlass_NotifHolder") or CoreGui:FindFirstChild("ObsidianGlass_NotifHolder")
+        if notif then notif:Destroy() end
+    end)
+    pcall(function()
+        for _, obj in ipairs(CoreGui:GetChildren()) do
+            if obj.Name:find("ObsidianGlass") or obj.Name:find("Dice_") or obj.Name:find("WindUI") then
+                obj:Destroy()
+            end
+        end
+    end)
+end
+
+local function xG()
+    local Window = ObsidianGlassEngine:CreateWindow({
+        Title = "เก็บไข่ไปกับพยอมบอย",
+        SubTitle = "Obsidian Glassmorphic 2 • Steal An Egg V1"
+    })
+
+    -- =========================================================================
+    -- 📑 TABS CREATION
+    -- =========================================================================
+    local tabFarm = Window:AddTab({ Title = "ระบบขโมยไข่" })
+    local tabChar = Window:AddTab({ Title = "ตัวละคร & ความเร็ว" })
+    local tabDash = Window:AddTab({ Title = "แดชบอร์ด & ตั้งค่า" })
+
+    -- =========================================================================
+    -- 🚀 TAB 1: ระบบขโมยไข่ (AUTO STEAL & PLACE)
+    -- =========================================================================
+    tabFarm:AddSection("โหมดขโมยไข่อัตโนมัติ")
+
+    local isInternalSync = false
+    local togTween = tabFarm:AddToggle("TogTween", {
+        Title = "Auto Steal (Tween)",
+        Desc = "บินไปขโมยไข่อัตโนมัติ พร้อมเก็บลงกระเป๋าทันที",
+        Default = T["pureTweenFarm"],
+        Callback = function(val)
+            if isInternalSync then return end
+            if val then
+                cq("TWEEN")
+            else
+                if Jq == "TWEEN" or T["pureTweenFarm"] then
+                    cq("NONE")
+                end
+            end
+        end
+    })
+
+    local togTeleport = tabFarm:AddToggle("TogTeleport", {
+        Title = "Auto Steal (Teleport)",
+        Desc = "วาร์ปไปขโมยไข่อัตโนมัติอย่างรวดเร็วต่อเนื่อง",
+        Default = T["autoFarmLoop"],
+        Callback = function(val)
+            if isInternalSync then return end
+            if val then
+                cq("WARP")
+            else
+                if Jq == "WARP" or T["autoFarmLoop"] then
+                    cq("NONE")
+                end
+            end
+        end
+    })
+
+    fq = function(val)
+        pcall(function()
+            if togTween and togTween.Value ~= val then
+                isInternalSync = true
+                togTween:SetValue(val)
+                isInternalSync = false
+            end
+        end)
+    end
+
+    Mq = function(val)
+        pcall(function()
+            if togTeleport and togTeleport.Value ~= val then
+                isInternalSync = true
+                togTeleport:SetValue(val)
+                isInternalSync = false
+            end
+        end)
+    end
+
+    tabFarm:AddButton({
+        Title = "วาร์ปขโมยไข่ 1 ครั้ง (Single Steal)",
+        Desc = "วาร์ปไปขโมยไข่ 1 ฟองแล้วบินกลับเซฟโซนทันที",
+        Callback = function()
+            task.spawn(function()
+                if Jq ~= "NONE" then
+                    cq("NONE")
+                    task.wait(0.2)
+                end
+                local target = aG()
+                if target then
+                    local ok = DG(target, nil)
+                    if ok then
+                        pcall(jq)
+                        if T["autoGlide"] then
+                            VG(T["glideSpeed"])
+                            jq()
+                        end
+                    end
+                else
+                    ObsidianGlassEngine:Notify({
+                        Title = "เก็บไข่ไปกับพยอมบอย",
+                        Content = "ไม่พบไข่ที่พร้อมขโมยในขณะนี้",
+                        Duration = 3
+                    })
+                end
+            end)
+        end
+    })
+
+    tabFarm:AddSection("วางไข่ที่บ้าน & ฟักไข่")
+
+    tabFarm:AddButton({
+        Title = "วางไข่ที่บ้าน (Place Egg)",
+        Desc = "บินกลับบ้าน วางไข่ที่ขโมยมาบนแท่นและสั่งฟักทันที",
+        Callback = function()
+            task.spawn(function()
+                ObsidianGlassEngine:Notify({
+                    Title = "เก็บไข่ไปกับพยอมบอย",
+                    Content = "กำลังบินกลับบ้านเพื่อวางไข่...",
+                    Duration = 3
+                })
+                T["statusText"] = "[Manual] Depositing eggs..."
+                oq(T["glideSpeed"], nil, true)
+                jq()
+                T["isReturning"] = false
+                T["delivering"] = false
+                ObsidianGlassEngine:Notify({
+                    Title = "เก็บไข่ไปกับพยอมบอย",
+                    Content = "วางไข่บนแท่นและเริ่มฟักเรียบร้อย!",
+                    Duration = 3
+                })
+            end)
+        end
+    })
+
+    tabFarm:AddToggle("TogAutoHatch", {
+        Title = "ออโต้ฟักไข่ตลอดเวลา (Auto Hatch)",
+        Desc = "สั่งฟักไข่ให้อัตโนมัติต่อเนื่องจากทุกที่",
+        Default = T["autoHatch"],
+        Callback = function(val)
+            T["autoHatch"] = val
+            ObsidianGlassEngine:Notify({
+                Title = "Auto Hatch",
+                Content = val and "เปิดระบบฟักไข่อัตโนมัติ" or "ปิดระบบฟักไข่อัตโนมัติ",
+                Duration = 3
+            })
+        end
+    })
+
+    tabFarm:AddToggle("TogAutoReturn", {
+        Title = "บินกลับเซฟโซนอัตโนมัติ (Auto Return)",
+        Desc = "บินกลับพื้นที่ปลอดภัยอัตโนมัติหลังขโมยไข่เสร็จ",
+        Default = T["autoGlide"],
+        Callback = function(val)
+            T["autoGlide"] = val
+            ObsidianGlassEngine:Notify({
+                Title = "Auto Return",
+                Content = val and "เปิดระบบบินกลับเซฟโซนอัตโนมัติ" or "ปิดระบบบินกลับเซฟโซนอัตโนมัติ",
+                Duration = 3
+            })
+        end
+    })
+
+    -- =========================================================================
+    -- 🛡️ TAB 2: ตัวละคร & ความเร็ว (CHARACTER & SAFETY)
+    -- =========================================================================
+    tabChar:AddSection("ความปลอดภัย (Safety & Protection)")
+
+    tabChar:AddToggle("TogGodmode", {
+        Title = "โหมดอมตะ (Godmode)",
+        Desc = "เปิดโหมดอมตะ ป้องกันการโจมตีและการ์ดตีล้ม",
+        Default = false,
+        Callback = function(val)
+            pcall(function()
+                eG(val)
+                if val then
+                    RG()
+                end
+            end)
+            ObsidianGlassEngine:Notify({
+                Title = "Godmode",
+                Content = val and "เปิดโหมดอมตะเรียบร้อย" or "ปิดโหมดอมตะแล้ว",
+                Duration = 3
+            })
+        end
+    })
+
+    tabChar:AddButton({
+        Title = "หลุดออกจากลู่วิ่ง (Get Out Treadmill)",
+        Desc = "หลุดออกจากลู่วิ่งและเครื่องเล่นทันที แก้ตัวติด",
+        Callback = function()
+            pcall(lq)
+            pcall(Pq)
+            ObsidianGlassEngine:Notify({
+                Title = "Unstick",
+                Content = "ส่งคำสั่งหลุดออกจากเครื่องเล่นแล้ว!",
+                Duration = 3
+            })
+        end
+    })
+
+    tabChar:AddButton({
+        Title = "รีเซ็ตสถานะตัวละคร (Reset State)",
+        Desc = "ล้างสถานะและปลดล็อกตัวละครทันที",
+        Callback = function()
+            pcall(Pq)
+            pcall(jq)
+            ObsidianGlassEngine:Notify({
+                Title = "Reset State",
+                Content = "รีเซ็ตสถานะตัวละครเรียบร้อย",
+                Duration = 3
+            })
+        end
+    })
+
+    tabChar:AddSection("การเคลื่อนที่ (Flight Movement)")
+
+    tabChar:AddSlider("SliderFlightSpeed", {
+        Title = "ความเร็วการบิน (Flight Speed)",
+        Min = 100,
+        Max = 600,
+        Default = T["glideSpeed"] or 400,
+        Rounding = 0,
+        Callback = function(val)
+            T["glideSpeed"] = val
+        end
+    })
+
+    -- =========================================================================
+    -- 📊 TAB 3: แดชบอร์ด & ตั้งค่า (DASHBOARD & SETTINGS)
+    -- =========================================================================
+    tabDash:AddSection("ข้อมูลสถานะสด (Live Dashboard)")
+
+    local liveDashPara = tabDash:AddParagraph({
+        Title = "สถานะระบบ (Live Telemetry)",
+        Desc = string.format("สถานะ: พร้อมทำงาน\nโหมดฟาร์ม: พักการทำงาน (Idle)\nจำนวนไข่ในตัว: %d ฟอง\nความเร็วบิน: %d Studs/s", xq(), T["glideSpeed"] or 400)
+    })
+
+    tabDash:AddSection("จัดการระบบ (System Controls)")
+
+    tabDash:AddButton({
+        Title = "รีจอยน์เซิร์ฟเวอร์ (Rejoin Server)",
+        Desc = "เข้าเซิร์ฟเวอร์เดิมใหม่อัตโนมัติ",
+        Callback = function()
+            pcall(function()
+                local ts = game:GetService("TeleportService")
+                ts:TeleportToPlaceInstance(game.PlaceId, game.JobId, E)
+            end)
+        end
+    })
+
+    tabDash:AddButton({
+        Title = "ปิดสคริปต์สมบูรณ์ (Unload Script)",
+        Desc = "ปิดหน้าต่าง UI และหยุดการทำงานของสคริปต์ทั้งหมด",
+        Callback = function()
+            tG()
+        end
+    })
+
+    -- 🔄 REALTIME LIVE DASHBOARD TELEMETRY LOOP
+    task.spawn(function()
+        while T["alive"] do
+            pcall(function()
+                local eggCount = xq()
+                local statusStr = "พร้อมทำงาน"
+                if T["delivering"] then
+                    statusStr = "กำลังวางไข่"
+                elseif T["securingEgg"] or T["holdingEggForGuard"] then
+                    statusStr = "กำลังหยิบไข่"
+                elseif T["teleporting"] then
+                    statusStr = "กำลังวาร์ป"
+                elseif T["isReturning"] then
+                    statusStr = "กำลังบินกลับ"
+                elseif T["glidingToTarget"] then
+                    statusStr = "กำลังขโมย"
+                elseif Jq == "TWEEN" and not T["isReturning"] then
+                    statusStr = "กำลังหาไข่"
+                elseif Jq == "WARP" and not T["isReturning"] then
+                    statusStr = "กำลังหาไข่"
+                end
+
+                local farmModeStr = "พักการทำงาน (Idle)"
+                if Jq == "TWEEN" then
+                    farmModeStr = "Auto Steal (Tween)"
+                elseif Jq == "WARP" then
+                    farmModeStr = "Auto Steal (Teleport)"
+                end
+
+                local dashText = string.format("สถานะ: %s\nโหมดฟาร์ม: %s\nจำนวนไข่ในตัว: %d ฟอง\nความเร็วบิน: %d Studs/s",
+                    statusStr,
+                    farmModeStr,
+                    eggCount,
+                    T["glideSpeed"] or 400
+                )
+
+                if liveDashPara and liveDashPara.SetDesc then
+                    liveDashPara:SetDesc(dashText)
+                end
+            end)
+            task.wait(0.5)
+        end
+    end)
+end
+
+-- ======================================================================================
+-- 🚀 INITIALIZATION & RUNTIME HOOKS
+-- ======================================================================================
+V("[+] Initializing เก็บไข่ไปกับพยอมบอย (Obsidian Glassmorphic 2 Engine)...")
+xG()
+
+task.spawn(function()
+    task.wait(0.5)
+    RG()
+    eG(true)
+    lq()
+    if E["Character"] then
+        Hq(E["Character"])
+    end
+    jq()
+    V("[+] Auto Humanoid Swap & Rigid Joint Locking Active.")
+end)
+
+E["CharacterAdded"]:Connect(function(e)
+    task.wait(0.6)
+    if T["alive"] then
+        Pq()
+        Cq()
+        lq()
+        RG()
+        eG(true)
+        Hq(e)
+        jq()
+    end
+end)
+
+V("[+] เก็บไข่ไปกับพยอมบอย Ready! Obsidian Glassmorphic 2 Engine Loaded, Mutex Auto Steal, Remote Auto-Hatch, Always Hands-Free.")
+pcall(d)
