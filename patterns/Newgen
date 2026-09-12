@@ -872,6 +872,8 @@ local function triggerPromptSafe(p)
     pcall(function()
         p["RequiresLineOfSight"] = false
         p["HoldDuration"] = 0
+        p["MaxActivationDistance"] = 9999
+        p["Enabled"] = true
     end)
     local fpp = (typeof(fireproximityprompt) == "function" and fireproximityprompt)
         or (typeof(getgenv) == "function" and getgenv().fireproximityprompt)
@@ -879,22 +881,41 @@ local function triggerPromptSafe(p)
         pcall(fpp, p, 0)
         pcall(fpp, p)
     end
+    -- Delta Mobile Native Engine Fallback
+    pcall(function()
+        if p.InputHoldBegin then
+            p:InputHoldBegin()
+            task.wait(0.02)
+            p:InputHoldEnd()
+        end
+    end)
 end
 
-local function Lq(e, B)
+local function Lq(e, pos)
     if e then
-        for _, R in ipairs(e:GetDescendants()) do
-            if R:IsA("ProximityPrompt") then
-                triggerPromptSafe(R)
+        for _, prompt in ipairs(e:GetDescendants()) do
+            if prompt:IsA("ProximityPrompt") then
+                triggerPromptSafe(prompt)
             end
         end
     end
-    local g = R:FindFirstChild("AreaEggSlotsClient")
-    if g and B then
-        for _, slot in ipairs(g:GetChildren()) do
+    local slots = R:FindFirstChild("AreaEggSlotsClient")
+    if slots and pos then
+        for _, slot in ipairs(slots:GetChildren()) do
             local bp = slot:FindFirstChildWhichIsA("BasePart") or slot["PrimaryPart"]
-            if bp and ((bp["Position"] - B))["Magnitude"] <= 20 then
+            if bp and ((bp["Position"] - pos))["Magnitude"] <= 25 then
                 for _, prompt in ipairs(slot:GetDescendants()) do
+                    if prompt:IsA("ProximityPrompt") then
+                        triggerPromptSafe(prompt)
+                    end
+                end
+            end
+        end
+    end
+    if pos then
+        for _, child in ipairs(R:GetChildren()) do
+            if (child.Name == "SmartPromptPart" or child.Name:find("Prompt")) and child:IsA("BasePart") and ((child.Position - pos)).Magnitude <= 22 then
+                for _, prompt in ipairs(child:GetDescendants()) do
                     if prompt:IsA("ProximityPrompt") then
                         triggerPromptSafe(prompt)
                     end
@@ -1425,10 +1446,12 @@ local function EG(e, R, g, w)
         local h =((o - e))["Magnitude"]
         local E =((Vector2["new"](e["X"], e["Z"]) - Vector2["new"](o["X"], o["Z"])))["Magnitude"]
         local D = math["abs"](e["Y"] - o["Y"])
-        if h <= 6 or(E <= 3.5 and D <= 6) then
+        if h <= 12 or(E <= 6.5 and D <= 8) then
+            pcall(function() n.CFrame = e end)
             break
         end
-        local b = B["Heartbeat"]:Wait() e = n["Position"] h =((o - e))["Magnitude"] E =((Vector2["new"](e["X"], e["Z"]) - Vector2["new"](o["X"], o["Z"])))["Magnitude"]
+        local b = B["Heartbeat"]:Wait()
+        b = math["min"](b, 0.033) e = n["Position"] h =((o - e))["Magnitude"] E =((Vector2["new"](e["X"], e["Z"]) - Vector2["new"](o["X"], o["Z"])))["Magnitude"]
         local v = math["abs"](e["X"] - o["X"])
         if g and(os["clock"]() - S > 0.25) then
             S = os["clock"]()
@@ -1534,7 +1557,7 @@ local function VG(e, R)
                 end
             end
         end
-        local a = B["Heartbeat"]:Wait() e = w["Position"]
+        local a = B["Heartbeat"]:Wait() a = math["min"](a, 0.033) e = w["Position"]
         local D = S
         if e["X"] <= k and e["X"] > m then
             local R = math["clamp"](((e["X"] - m)) /((k - m)), 0, 1) D = O +(((S - O)) * R)
@@ -2206,126 +2229,194 @@ local function SG(e, g, w, h)
     if not a or not S then
         return false
     end
-    T["securingEgg"] = true T["isReturning"] = false T["stateTime"] = os["clock"]() T["holdingEggForGuard"] = true
-    local D = g["Position"] Tq(D, 14) T["currentTargetModel"] = w T["targetPosition"] = D a["AssemblyLinearVelocity"] = Vector3["zero"] a["AssemblyAngularVelocity"] = Vector3["zero"] yq(n) pcall( function()
+
+    T["securingEgg"] = true
+    T["isReturning"] = false
+    T["stateTime"] = os["clock"]()
+    T["holdingEggForGuard"] = true
+
+    local D = g["Position"]
+    local carryCF = g * CFrame["new"](0, 0.4, 0)
+    Tq(D, 14)
+    T["currentTargetModel"] = w
+    T["targetPosition"] = D
+
+    a["CFrame"] = carryCF
+    a["AssemblyLinearVelocity"] = Vector3["zero"]
+    a["AssemblyAngularVelocity"] = Vector3["zero"]
+    yq(n)
+
+    pcall(function()
         E:RequestStreamAroundAsync(D)
     end)
+
     if not w and R:FindFirstChild("AreaEggSlotsClient") then
-        for e, R in ipairs(R["AreaEggSlotsClient"]:GetChildren()) do
-            local B = R:FindFirstChildWhichIsA("BasePart") or R["PrimaryPart"]
-            if B and((B["Position"] - D))["Magnitude"] <= 16 then
-                w = R T["currentTargetModel"] = R
+        for _, slot in ipairs(R["AreaEggSlotsClient"]:GetChildren()) do
+            local bp = slot:FindFirstChildWhichIsA("BasePart") or slot["PrimaryPart"]
+            if bp and ((bp["Position"] - D))["Magnitude"] <= 18 then
+                w = slot
+                T["currentTargetModel"] = slot
                 break
             end
         end
     end
-    T["statusText"] = "[1/4] Lifting Egg to Trigger Guard..." V(string["format"]("[GuardStrike] Step 1: Lifting target egg (%s)...", tostring(e)))
-    local b = os["clock"]() +(3.5)
-    local v = 0
-    while not sq() and(os["clock"]() < b and(T["alive"] and T["securingEgg"])) do
+
+    T["statusText"] = "[1/4] Lifting Egg to Trigger Guard..."
+    V(string["format"]("[GuardStrike] Step 1: Lifting target egg (%s)...", tostring(e)))
+
+    local b = os["clock"]() + 4.0
+    local lastCheck = 0
+    local lastRemote1 = 0
+
+    while not sq() and (os["clock"]() < b and (T["alive"] and T["securingEgg"])) do
         if h and Kq ~= h then
             o("[GuardStrike] Cancelled by session switch in Step 1")
             break
         end
-        if not T["pureTweenFarm"] and( not T["autoFarmLoop"] and not T["teleporting"]) then
+        if not T["pureTweenFarm"] and (not T["autoFarmLoop"] and not T["teleporting"]) then
             break
         end
-        if e and(os["clock"]() - v > .4) then
-            v = os["clock"]()
-            local R, B = kq(e)
-            if not R and B == "CarriedByOther" then
-                o(string["format"]("[GuardStrike] Target egg %s was snatched by another player! Aborting pickup...", tostring(e)))
+
+        if e and (os["clock"]() - lastCheck > 0.4) then
+            lastCheck = os["clock"]()
+            local isAvail, stateStr = kq(e)
+            if not isAvail and stateStr == "CarriedByOther" then
+                o(string["format"]("[GuardStrike] Target egg %s was snatched by another player! Aborting...", tostring(e)))
                 break
             end
         end
-        n:PivotTo(g * CFrame["new"](0, .4, 0)) Lq(w, D)
-        if e and c then
-            task["spawn"]( function()
-                pcall( function()
+
+        -- Firm position lock against mobile thumbstick drift
+        a["CFrame"] = carryCF
+        a["AssemblyLinearVelocity"] = Vector3["zero"]
+        Lq(w, D)
+
+        -- Throttled Remote Invoke (0.35s) to avoid RakNet queue congestion on Mobile Delta
+        if e and c and (os["clock"]() - lastRemote1 > 0.35) then
+            lastRemote1 = os["clock"]()
+            task["spawn"](function()
+                pcall(function()
                     if c:IsA("RemoteFunction") then
-                        c:InvokeServer({["Uid"] = e}) c:InvokeServer(e)
+                        c:InvokeServer({["Uid"] = e})
+                        c:InvokeServer(e)
                     else
-                        c:FireServer({["Uid"] = e}) c:FireServer(e)
+                        c:FireServer({["Uid"] = e})
+                        c:FireServer(e)
                     end
                 end)
             end)
         end
         B["Heartbeat"]:Wait()
     end
+
     if not sq() then
         o("[GuardStrike] Initial egg pickup timed out or egg was stolen")
         if e then
             Aq[e] = os["clock"]() + 2
         end
-        T["currentTargetModel"] = nil T["targetPosition"] = nil T["securingEgg"] = false T["holdingEggForGuard"] = false
+        T["currentTargetModel"] = nil
+        T["targetPosition"] = nil
+        T["securingEgg"] = false
+        T["holdingEggForGuard"] = false
         return false
     end
-    T["statusText"] = "[2/4] Waiting for Guard Strike..." V("[GuardStrike] Step 2: Egg lifted! Triggering guard strike...")
-    local X = os["clock"]()
-    local u = X + 4.5
-    local p = false
-    while sq() and(os["clock"]() < u and(T["alive"] and T["securingEgg"])) do
+
+    T["statusText"] = "[2/4] Waiting for Guard Strike..."
+    V("[GuardStrike] Step 2: Egg lifted! Triggering guard strike...")
+
+    local u = os["clock"]() + 4.5
+    local lastStrikeFire = 0
+
+    while sq() and (os["clock"]() < u and (T["alive"] and T["securingEgg"])) do
         if h and Kq ~= h then
             o("[GuardStrike] Cancelled by session switch in Step 2")
             break
         end
-        if not T["pureTweenFarm"] and( not T["autoFarmLoop"] and not T["teleporting"]) then
+        if not T["pureTweenFarm"] and (not T["autoFarmLoop"] and not T["teleporting"]) then
             break
         end
-        n:PivotTo(g * CFrame["new"](0, .4, 0)) Tq(D, 14)
-        if U and not p then
-            task["spawn"]( function()
-                pcall( function()
+
+        a["CFrame"] = carryCF
+        a["AssemblyLinearVelocity"] = Vector3["zero"]
+        Tq(D, 14)
+
+        -- Continuous guarded strike fire every 0.6s until guard hits (safeguard against dropped UDP packets)
+        if U and (os["clock"]() - lastStrikeFire > 0.6) then
+            lastStrikeFire = os["clock"]()
+            task["spawn"](function()
+                pcall(function()
                     if U:IsA("RemoteFunction") then
                         U:InvokeServer()
                     else
                         U:FireServer()
                     end
                 end)
-            end) p = true
+            end)
         end
         B["Heartbeat"]:Wait()
     end
-    T["statusText"] = "[3/4] Re-grabbing Egg..." V("[GuardStrike] Step 3: Guard struck! Re-grabbing egg...")
-    local G = os["clock"]() +(3)
-    while not sq() and(os["clock"]() < G and(T["alive"] and T["securingEgg"])) do
+
+    T["statusText"] = "[3/4] Re-grabbing Egg..."
+    V("[GuardStrike] Step 3: Guard struck! Re-grabbing egg...")
+
+    local G = os["clock"]() + 4.0
+    local lastRemote3 = 0
+
+    while not sq() and (os["clock"]() < G and (T["alive"] and T["securingEgg"])) do
         if h and Kq ~= h then
             o("[GuardStrike] Cancelled by session switch in Step 3")
             break
         end
-        if not T["pureTweenFarm"] and( not T["autoFarmLoop"] and not T["teleporting"]) then
+        if not T["pureTweenFarm"] and (not T["autoFarmLoop"] and not T["teleporting"]) then
             break
         end
-        n:PivotTo(g * CFrame["new"](0, .4, 0)) Lq(w, D)
-        if e and c then
-            task["spawn"]( function()
-                pcall( function()
+
+        a["CFrame"] = carryCF
+        a["AssemblyLinearVelocity"] = Vector3["zero"]
+        Lq(w, D)
+
+        if e and c and (os["clock"]() - lastRemote3 > 0.35) then
+            lastRemote3 = os["clock"]()
+            task["spawn"](function()
+                pcall(function()
                     if c:IsA("RemoteFunction") then
-                        c:InvokeServer({["Uid"] = e}) c:InvokeServer(e)
+                        c:InvokeServer({["Uid"] = e})
+                        c:InvokeServer(e)
                     else
-                        c:FireServer({["Uid"] = e}) c:FireServer(e)
+                        c:FireServer({["Uid"] = e})
+                        c:FireServer(e)
                     end
                 end)
             end)
         end
         B["Heartbeat"]:Wait()
     end
+
     local I = mq(e) or sq(e)
     if not I then
-        for _ = 1, 4 do
-            task.wait(0.1)
+        for _ = 1, 5 do
+            task["wait"](0.12)
             I = mq(e) or sq(e)
             if I then break end
         end
     end
-    T["currentTargetModel"] = nil T["targetPosition"] = nil T["securingEgg"] = false T["holdingEggForGuard"] = false
+
+    T["currentTargetModel"] = nil
+    T["targetPosition"] = nil
+    T["securingEgg"] = false
+    T["holdingEggForGuard"] = false
+
     if h and Kq ~= h then
         return false
     end
+
     if I then
-        pcall(jq) V("[GuardStrike] Egg successfully secured after guard strike! Stashed in backpack.") T["statusText"] = "Egg Secured! Tweening along Z=-360..."
+        pcall(jq)
+        V("[GuardStrike] Egg successfully secured after guard strike! Stashed in backpack.")
+        T["statusText"] = "Egg Secured! Tweening along Z=-360..."
     else
-        o("[-] Failed to re-grab egg after guard strike (stolen or despawned)") T["statusText"] = "[-] Failed to re-grab egg"
+        o("[-] Failed to re-grab egg after guard strike (stolen or despawned)")
+        T["statusText"] = "[-] Failed to re-grab egg"
         if e then
             Aq[e] = os["clock"]() + 2
         end
