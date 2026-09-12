@@ -1415,6 +1415,8 @@ end
 -- =========================================================================
 -- [[ ZONE & RARITY FILTER DEFINITIONS FOR 1:1 STEAL ENGINE ]]
 -- =========================================================================
+local RARITY_ORDER = { "Divine", "Eternal", "Secret", "Cosmic", "Mythic", "Legendary", "Rare", "Uncommon", "Common" }
+
 local ZONE_OPTIONS = {
     "All (ทุกโซน)", "Titan Temple", "Cherry Blossom", "Cosmic", "Prehistoric",
     "Abyss Ocean", "Volcano", "Snow", "Jungle", "Desert", "Lake", "Forest"
@@ -1424,7 +1426,7 @@ local function isZoneAllowed(zoneName)
     if not T["selectedEggZones"] or #T["selectedEggZones"] == 0 then return true end
     for _, z in ipairs(T["selectedEggZones"]) do
         local lz = string.lower(tostring(z))
-        if lz == "all" or lz:find("all") or lz:find("ทุกโซน") or lz == string.lower(tostring(zoneName)) then
+        if lz:find("all") or lz:find("ทุก") or lz == string.lower(tostring(zoneName)) or string.find(lz, string.lower(tostring(zoneName)), 1, true) then
             return true
         end
     end
@@ -1435,38 +1437,7 @@ local function isRarityAllowed(rarityName)
     if not T["selectedEggRarities"] or #T["selectedEggRarities"] == 0 then return true end
     for _, r in ipairs(T["selectedEggRarities"]) do
         local lr = string.lower(tostring(r))
-        if lr == "all" or lr:find("all") or lr:find("ทั้งหมด") or lr == string.lower(tostring(rarityName)) then
-            return true
-        end
-    end
-    return false
-end
-
-
--- =========================================================================
--- [[ ZONE & RARITY FILTER DEFINITIONS FOR 1:1 STEAL ENGINE ]]
--- =========================================================================
-local ZONE_OPTIONS = {
-    "All (ทุกโซน)", "Titan Temple", "Cherry Blossom", "Cosmic", "Prehistoric",
-    "Abyss Ocean", "Volcano", "Snow", "Jungle", "Desert", "Lake", "Forest"
-}
-
-local function isZoneAllowed(zoneName)
-    if not T["selectedEggZones"] or #T["selectedEggZones"] == 0 then return true end
-    for _, z in ipairs(T["selectedEggZones"]) do
-        local lz = string.lower(tostring(z))
-        if lz == "all" or lz:find("all") or lz:find("ทุกโซน") or lz == string.lower(tostring(zoneName)) then
-            return true
-        end
-    end
-    return false
-end
-
-local function isRarityAllowed(rarityName)
-    if not T["selectedEggRarities"] or #T["selectedEggRarities"] == 0 then return true end
-    for _, r in ipairs(T["selectedEggRarities"]) do
-        local lr = string.lower(tostring(r))
-        if lr == "all" or lr:find("all") or lr:find("ทั้งหมด") or lr == string.lower(tostring(rarityName)) then
+        if lr:find("all") or lr:find("หมด") or lr == string.lower(tostring(rarityName)) or string.find(lr, string.lower(tostring(rarityName)), 1, true) then
             return true
         end
     end
@@ -2469,15 +2440,6 @@ end) B["Heartbeat"]:Connect( function()
 end)
 
 
--- =========================================================================
--- [[ SERVICE RESOLVERS & REMOTES MAP ]]
--- =========================================================================
-local Workspace = game:GetService("Workspace")
-local Lighting = game:GetService("Lighting")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer or E
-
 local REMOTE_MAP = {
     ["Plots: RequestState"]                  = "RF/Homestead/AskState",
     ["Plots: RequestBaseUpgrade"]            = "RE/Homestead/AskBaseTierRaise",
@@ -3219,7 +3181,7 @@ function Nav.curtainClosed()
 end
 
 function Nav.secondsUntilDawn()
-    local clock = Lighting and Lighting.ClockTime or 12
+    local clock = Lighting.ClockTime
     if clock >= 6 and clock <= 18 then return 999 end
     local remainingHours = (clock < 6) and (6 - clock) or (24 - clock + 6)
     return remainingHours * 4
@@ -4825,6 +4787,96 @@ function ObsidianGlassEngine:CreateWindow(cfg)
         end
 
         -- 🎚️ SLIDER WIDGET (POLYMORPHIC SIGNATURE SUPPORT)
+        function TabObj:AddInput(a, b)
+            local inCfg = (type(a) == "table" and a) or (type(b) == "table" and b) or {}
+            local title = inCfg.Title or (type(a) == "string" and a) or "Input"
+            local desc = inCfg.Desc or ""
+            local defaultVal = tostring(inCfg.Value or inCfg.Default or "")
+            local cb = inCfg.Callback or function() end
+
+            local hasDesc = (desc ~= "")
+            local item = Instance.new("Frame")
+            item.Size = UDim2.new(1, -8, 0, hasDesc and 54 or 46)
+            item.BackgroundColor3 = COLORS.surface
+            item.BackgroundTransparency = 0.22
+            item.ZIndex = 8
+            item.Parent = pageScroll
+
+            local corner = Instance.new("UICorner")
+            corner.CornerRadius = UDim.new(0, 8)
+            corner.Parent = item
+
+            local stroke = Instance.new("UIStroke")
+            stroke.Color = COLORS.divider
+            stroke.Thickness = 1
+            stroke.Parent = item
+
+            local lblTitle = Instance.new("TextLabel")
+            lblTitle.Size = UDim2.new(1, -140, 0, hasDesc and 20 or 46)
+            lblTitle.Position = UDim2.new(0, 12, 0, hasDesc and 6 or 0)
+            lblTitle.BackgroundTransparency = 1
+            lblTitle.Text = title
+            lblTitle.TextColor3 = COLORS.text
+            lblTitle.Font = Enum.Font.GothamBold
+            lblTitle.TextSize = 13
+            lblTitle.TextXAlignment = Enum.TextXAlignment.Left
+            lblTitle.ZIndex = 9
+            lblTitle.Parent = item
+
+            if hasDesc then
+                local lblDesc = Instance.new("TextLabel")
+                lblDesc.Size = UDim2.new(1, -140, 0, 16)
+                lblDesc.Position = UDim2.new(0, 12, 0, 26)
+                lblDesc.BackgroundTransparency = 1
+                lblDesc.Text = desc
+                lblDesc.TextColor3 = COLORS.textMuted
+                lblDesc.Font = Enum.Font.Gotham
+                lblDesc.TextSize = 10.5
+                lblDesc.TextXAlignment = Enum.TextXAlignment.Left
+                lblDesc.ZIndex = 9
+                lblDesc.Parent = item
+            end
+
+            local box = Instance.new("TextBox")
+            box.Size = UDim2.new(0, 110, 0, 30)
+            box.Position = UDim2.new(1, -122, 0.5, -15)
+            box.BackgroundColor3 = COLORS.surfaceRaised
+            box.TextColor3 = Color3.fromRGB(255, 255, 255)
+            box.PlaceholderText = "..."
+            box.PlaceholderColor3 = COLORS.textMuted
+            box.Font = Enum.Font.GothamMedium
+            box.TextSize = 12
+            box.Text = defaultVal
+            box.ClearTextOnFocus = false
+            box.ZIndex = 10
+            box.Parent = item
+
+            local bCorner = Instance.new("UICorner")
+            bCorner.CornerRadius = UDim.new(0, 6)
+            bCorner.Parent = box
+
+            local bStroke = Instance.new("UIStroke")
+            bStroke.Color = COLORS.primary
+            bStroke.Thickness = 1
+            bStroke.Transparency = 0.5
+            bStroke.Parent = box
+
+            box.FocusLost:Connect(function(enter)
+                pcall(cb, box.Text)
+            end)
+
+            task.defer(updatePageCanvas)
+            return {
+                SetValue = function(self, val)
+                    box.Text = tostring(val)
+                    pcall(cb, box.Text)
+                end,
+                GetValue = function(self)
+                    return box.Text
+                end
+            }
+        end
+
         function TabObj:AddSlider(a, b)
             local sCfg = (type(b) == "table" and b) or (type(a) == "table" and a) or {}
             local id = (type(a) == "string" and a) or sCfg.Title or "Slider"
@@ -6213,4 +6265,30 @@ local function xG()
     end)
 end
 
-task.spawn(xG)
+-- Run xG synchronously so fq/Mq are defined before steal loops use them
+xG()
+
+-- Post-init: swap, rigid joints, jq
+task.spawn(function()
+    task.wait(0.5)
+    pcall(RG)
+    pcall(function() eG(true) end)
+    pcall(lq)
+    local char = E and E.Character
+    if char then
+        pcall(Hq, char)
+    end
+    pcall(jq)
+    V("[+] ระบบพร้อมทำงาน! Auto Steal engine active.")
+end)
+
+-- Reconnect on respawn
+E.CharacterAdded:Connect(function(char)
+    task.wait(0.6)
+    if T["alive"] then
+        pcall(Pq) pcall(Cq) pcall(lq) pcall(RG)
+        pcall(function() eG(true) end)
+        pcall(Hq, char)
+        pcall(jq)
+    end
+end)
