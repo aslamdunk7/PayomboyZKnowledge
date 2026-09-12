@@ -1411,6 +1411,69 @@ local function leaveTreadmill()
     end
 end
 
+
+-- =========================================================================
+-- [[ ZONE & RARITY FILTER DEFINITIONS FOR 1:1 STEAL ENGINE ]]
+-- =========================================================================
+local ZONE_OPTIONS = {
+    "All (ทุกโซน)", "Titan Temple", "Cherry Blossom", "Cosmic", "Prehistoric",
+    "Abyss Ocean", "Volcano", "Snow", "Jungle", "Desert", "Lake", "Forest"
+}
+
+local function isZoneAllowed(zoneName)
+    if not T["selectedEggZones"] or #T["selectedEggZones"] == 0 then return true end
+    for _, z in ipairs(T["selectedEggZones"]) do
+        local lz = string.lower(tostring(z))
+        if lz == "all" or lz:find("all") or lz:find("ทุกโซน") or lz == string.lower(tostring(zoneName)) then
+            return true
+        end
+    end
+    return false
+end
+
+local function isRarityAllowed(rarityName)
+    if not T["selectedEggRarities"] or #T["selectedEggRarities"] == 0 then return true end
+    for _, r in ipairs(T["selectedEggRarities"]) do
+        local lr = string.lower(tostring(r))
+        if lr == "all" or lr:find("all") or lr:find("ทั้งหมด") or lr == string.lower(tostring(rarityName)) then
+            return true
+        end
+    end
+    return false
+end
+
+
+-- =========================================================================
+-- [[ ZONE & RARITY FILTER DEFINITIONS FOR 1:1 STEAL ENGINE ]]
+-- =========================================================================
+local ZONE_OPTIONS = {
+    "All (ทุกโซน)", "Titan Temple", "Cherry Blossom", "Cosmic", "Prehistoric",
+    "Abyss Ocean", "Volcano", "Snow", "Jungle", "Desert", "Lake", "Forest"
+}
+
+local function isZoneAllowed(zoneName)
+    if not T["selectedEggZones"] or #T["selectedEggZones"] == 0 then return true end
+    for _, z in ipairs(T["selectedEggZones"]) do
+        local lz = string.lower(tostring(z))
+        if lz == "all" or lz:find("all") or lz:find("ทุกโซน") or lz == string.lower(tostring(zoneName)) then
+            return true
+        end
+    end
+    return false
+end
+
+local function isRarityAllowed(rarityName)
+    if not T["selectedEggRarities"] or #T["selectedEggRarities"] == 0 then return true end
+    for _, r in ipairs(T["selectedEggRarities"]) do
+        local lr = string.lower(tostring(r))
+        if lr == "all" or lr:find("all") or lr:find("ทั้งหมด") or lr == string.lower(tostring(rarityName)) then
+            return true
+        end
+    end
+    return false
+end
+
+
 local function EG(e, R, g, w)
     leaveTreadmill()
     local h = E["Character"]
@@ -1446,12 +1509,10 @@ local function EG(e, R, g, w)
         local h =((o - e))["Magnitude"]
         local E =((Vector2["new"](e["X"], e["Z"]) - Vector2["new"](o["X"], o["Z"])))["Magnitude"]
         local D = math["abs"](e["Y"] - o["Y"])
-        if h <= 12 or(E <= 6.5 and D <= 8) then
-            pcall(function() n.CFrame = e end)
+        if h <= 6 or(E <= 3.5 and D <= 6) then
             break
         end
-        local b = B["Heartbeat"]:Wait()
-        b = math["min"](b, 0.033) e = n["Position"] h =((o - e))["Magnitude"] E =((Vector2["new"](e["X"], e["Z"]) - Vector2["new"](o["X"], o["Z"])))["Magnitude"]
+        local b = B["Heartbeat"]:Wait() e = n["Position"] h =((o - e))["Magnitude"] E =((Vector2["new"](e["X"], e["Z"]) - Vector2["new"](o["X"], o["Z"])))["Magnitude"]
         local v = math["abs"](e["X"] - o["X"])
         if g and(os["clock"]() - S > 0.25) then
             S = os["clock"]()
@@ -1557,7 +1618,7 @@ local function VG(e, R)
                 end
             end
         end
-        local a = B["Heartbeat"]:Wait() a = math["min"](a, 0.033) e = w["Position"]
+        local a = B["Heartbeat"]:Wait() e = w["Position"]
         local D = S
         if e["X"] <= k and e["X"] > m then
             local R = math["clamp"](((e["X"] - m)) /((k - m)), 0, 1) D = O +(((S - O)) * R)
@@ -1663,495 +1724,6 @@ local function oG()
     end
     return h
 end
-
--- ======================================================================================
--- [[ RARITY DEFINITIONS & MATCHING ENGINE (StealAnEggSRC Engine) ]]
--- ======================================================================================
-local RARITY_ORDER = {
-    "Basic", "Common", "Uncommon", "Rare", "SuperRare", "Superior", "Epic",
-    "Legendary", "Mythic", "Mythical", "Celestial", "Cosmic", "Divine",
-    "Secret", "Eternal", "Exclusive", "Exotic", "Limited", "Rainbow", "Titan", "BrainrotGod"
-}
-
-local RARITY_TH = {
-    Basic       = "เบสิก",
-    Common      = "ธรรมดา",
-    Uncommon    = "ไม่ธรรมดา",
-    Rare        = "หายาก",
-    SuperRare   = "หายากมาก",
-    Superior    = "ชั้นสูง",
-    Epic        = "มหากาพย์",
-    Legendary   = "ตำนาน",
-    Mythic      = "เทพนิยาย",
-    Mythical    = "มหากาพย์เทพ",
-    Celestial   = "ดาราศาสตร์",
-    Cosmic      = "จักรวาล",
-    Divine      = "ศักดิ์สิทธิ์",
-    Secret      = "ลับ",
-    Eternal     = "อมตะ",
-    Exclusive   = "พิเศษ",
-    Exotic      = "แปลกตา",
-    Limited     = "จำกัด",
-    Rainbow     = "สายรุ้ง",
-    Titan       = "ไททัน",
-    BrainrotGod = "พระเจ้าเบรนร็อต",
-}
-
-local CategoryRarity, RarityRank = {}, {}
-do
-    for i, r in ipairs(RARITY_ORDER) do RarityRank[r] = i end
-    if Z and type(Z) == "table" then
-        if Z.ByRarity and type(Z.ByRarity) == "table" then
-            for rarity, list in pairs(Z.ByRarity) do
-                if type(list) == "table" then
-                    for k, v in pairs(list) do
-                        CategoryRarity[(type(v) == "string") and v or tostring(k)] = rarity
-                    end
-                end
-            end
-        end
-        if Z.Directory and type(Z.Directory) == "table" then
-            for id, cfg in pairs(Z.Directory) do
-                if type(cfg) == "table" and type(cfg.Rarity) == "table" and cfg.Rarity._id then
-                    CategoryRarity[id] = cfg.Rarity._id
-                    if cfg.Rarity.RarityNumber and not RarityRank[cfg.Rarity._id] then
-                        RarityRank[cfg.Rarity._id] = cfg.Rarity.RarityNumber
-                    end
-                end
-            end
-        end
-        if Z.Assets and type(Z.Assets) == "table" then
-            for cat, cfg in pairs(Z.Assets) do
-                if type(cfg) == "table" then
-                    local r = cfg.Rarity or (cfg.Egg and cfg.Egg.Rarity)
-                    if r and type(r) == "string" then
-                        CategoryRarity[cat] = r
-                    end
-                end
-            end
-        end
-    end
-end
-
-local AREA_DEFAULT_RARITY = {
-    ["Lake"]           = "Common",
-    ["Forest"]         = "Rare",
-    ["Desert"]         = "SuperRare",
-    ["Jungle"]         = "Epic",
-    ["Snow"]           = "Legendary",
-    ["Volcano"]        = "Mythic",
-    ["Abyss Ocean"]    = "Mythical",
-    ["Prehistoric"]    = "Celestial",
-    ["Cosmic"]         = "Cosmic",
-    ["Cherry Blossom"] = "Divine",
-    ["Titan Temple"]   = "Titan",
-}
-
-local function rarityOf(val, areaId)
-    if type(val) == "table" then
-        local r = val.Rarity or val.AssetRarity
-        if type(r) == "table" then r = r._id or r.Name or r.Id end
-        if type(r) == "string" and (RarityRank[r] or table.find(RARITY_ORDER, r)) then
-            return r
-        end
-        areaId = areaId or val.AreaId or val.Area
-        val = val.AssetCategory or val.Category or val.Name
-    end
-
-    if type(val) == "string" and val ~= "" then
-        for _, r in ipairs(RARITY_ORDER) do
-            if val:lower() == r:lower() then return r end
-        end
-        if CategoryRarity[val] then return CategoryRarity[val] end
-        for catName, rar in pairs(CategoryRarity) do
-            if val:lower():find(catName:lower(), 1, true) then return rar end
-        end
-        for _, r in ipairs(RARITY_ORDER) do
-            if val:lower():find(r:lower(), 1, true) then return r end
-        end
-    end
-
-    if areaId then
-        local aStr = tostring(areaId)
-        for aName, r in pairs(AREA_DEFAULT_RARITY) do
-            if aStr:lower():find(aName:lower(), 1, true) or aName:lower():find(aStr:lower(), 1, true) then
-                return r
-            end
-        end
-    end
-
-    return "Common"
-end
-
-local SELECTED_RARITIES = { "All (ทั้งหมด)" }
-local function isRarityAllowed(rar)
-    if not SELECTED_RARITIES or #SELECTED_RARITIES == 0 then
-        return true
-    end
-    for _, v in ipairs(SELECTED_RARITIES) do
-        if v == "All (ทั้งหมด)" or string.lower(tostring(v)) == "all" then
-            return true
-        end
-        if string.lower(tostring(v)) == string.lower(tostring(rar)) then
-            return true
-        end
-    end
-    return false
-end
-
-
--- ======================================================================================
--- [[ COMPLETE PROGRESSION & THE RIFT ENGINE (1:1 with StealAnEggSRC.lua) ]]
--- ======================================================================================
-local function findProgModule(name)
-    local direct = h:FindFirstChild(name, true)
-    if direct and direct:IsA("ModuleScript") then return direct end
-    if E then
-        local ps = E:FindFirstChild("PlayerScripts")
-        if ps then
-            local inPs = ps:FindFirstChild(name, true)
-            if inPs and inPs:IsA("ModuleScript") then return inPs end
-        end
-    end
-    return nil
-end
-
-local function safeProgRequire(mod)
-    if not mod then return nil end
-    local ok, res = pcall(require, mod)
-    if ok then return res end
-    return nil
-end
-
-local SharedMod = h:FindFirstChild("Shared") or findProgModule("Shared")
-local DataMod   = h:FindFirstChild("Data") or findProgModule("Data")
-
-local SaveMod   = safeProgRequire((SharedMod and SharedMod:FindFirstChild("Save")) or findProgModule("Save"))
-local BasesDir  = safeProgRequire((DataMod and DataMod:FindFirstChild("Bases")) or findProgModule("Bases"))
-local TreadDir  = safeProgRequire((DataMod and DataMod:FindFirstChild("Treadmills")) or findProgModule("Treadmills"))
-local TrailsDir = safeProgRequire((DataMod and DataMod:FindFirstChild("Trails")) or findProgModule("Trails"))
-local AssetSer  = safeProgRequire(findProgModule("AssetItemSerialization"))
-
-local function shortNum(n)
-    n = tonumber(n) or 0
-    for _, u in ipairs({ { 1e12, "T" }, { 1e9, "B" }, { 1e6, "M" }, { 1e3, "K" } }) do
-        if n >= u[1] then return string.format("%.2f%s", n / u[1], u[2]) end
-    end
-    return string.format("%.0f", n)
-end
-
-local progSaveCache, progSaveCacheAt = nil, 0
-local function getProgSaveData(fresh)
-    local now = os.clock()
-    if not fresh and progSaveCache and now - progSaveCacheAt < 0.4 then return progSaveCache end
-    if SaveMod and SaveMod.Get then
-        local ok, data = pcall(SaveMod.Get, E)
-        if ok and type(data) == "table" then
-            progSaveCache, progSaveCacheAt = data, now
-            return data
-        end
-    end
-    return progSaveCache or {}
-end
-
-local function getProgMoney()
-    return tonumber(getProgSaveData().Money) or 0
-end
-
-local petCache, petCacheAt = nil, 0
-local function petItems(fresh)
-    local now = os.clock()
-    if not fresh and petCache and now - petCacheAt < 1.5 then return petCache end
-
-    local data = getProgSaveData()
-    local inv = data.Inventory or {}
-    local equipped = {}
-    for _, uid in ipairs(data.EquippedAssets or {}) do equipped[uid] = true end
-
-    local list = {}
-    for uid, raw in pairs(inv) do
-        local item = raw
-        if AssetSer and type(raw) ~= "table" then
-            local ok, d = pcall(AssetSer.Deserialize, raw)
-            if ok and type(d) == "table" then item = d end
-        end
-
-        if type(item) == "table" and (item.Category or item.AssetCategory) then
-            local cat = tostring(item.Category or item.AssetCategory)
-            local scale = tonumber(item.Scale or item.AssetScale) or 1
-            local rate = 100 * scale
-            local price = rate * 100
-            table.insert(list, {
-                uid = tostring(item.Uid or uid),
-                cat = cat,
-                equipped = equipped[uid] == true,
-                favorite = item.Favorite == true,
-                inFuse = item.InFuse == true,
-                rate = rate,
-                price = price
-            })
-        end
-    end
-
-    petCache, petCacheAt = list, now
-    return list
-end
-
-local PROG_REMOTE_MAP = {
-    ["Plots: RequestBaseUpgrade"]  = "RE/Homestead/AskBaseTierRaise",
-    ["Treadmills: RequestUpgrade"] = "RF/Treadmill/AskTierRaise",
-    ["Trails: RequestPurchase"]    = "RF/Trails/AskPurchase",
-    ["Trails: RequestSelect"]      = "RF/Trails/AskSelect",
-    ["OfflineAssets: Redeem"]      = "RF/AwayEarnings/AskCollect",
-    ["Index: RequestClaimAll"]     = "RF/Index/AskCollectAll",
-    ["Rift: AskState"]             = "RF/Rift/AskState",
-    ["Rift: AskTradeIn"]           = "RF/Rift/AskTradeIn",
-    ["Rift: AskRefresh"]           = "RF/Rift/AskRefresh",
-    ["Rift: AskFinishReveal"]      = "RF/Rift/AskFinishReveal",
-}
-
-local function fireProgRemote(name, ...)
-    local realName = PROG_REMOTE_MAP[name] or name
-    local rem = h:FindFirstChild(realName, true) or h:FindFirstChild(name, true)
-    if rem then
-        if rem:IsA("RemoteEvent") then
-            rem:FireServer(...)
-        elseif rem:IsA("RemoteFunction") then
-            pcall(function(...) rem:InvokeServer(...) end, ...)
-        end
-    end
-end
-
-local function invokeProgRemote(name, ...)
-    local realName = PROG_REMOTE_MAP[name] or name
-    local rem = h:FindFirstChild(realName, true) or h:FindFirstChild(name, true)
-    if rem then
-        if rem:IsA("RemoteFunction") then
-            return pcall(function(...) return rem:InvokeServer(...) end, ...)
-        elseif rem:IsA("RemoteEvent") then
-            rem:FireServer(...)
-            return true
-        end
-    end
-    return false
-end
-
-local function baseUpgradeStep()
-    if not BasesDir or not BasesDir.BASES then return end
-    local data = getProgSaveData()
-    local lvl  = tonumber(data.BaseUpgradeLevel) or 0
-    local maxLvl = 99
-    if BasesDir.GetMaxBaseLevel then
-        local ok, m = pcall(BasesDir.GetMaxBaseLevel)
-        if ok and tonumber(m) then maxLvl = tonumber(m) end
-    end
-    if lvl >= maxLvl then return end
-
-    local nextCfg = BasesDir.BASES[lvl + 1]
-    local cost = nextCfg and tonumber(nextCfg.Cost)
-    if not cost then return end
-    if getProgMoney() < cost then return end
-
-    fireProgRemote("Plots: RequestBaseUpgrade")
-    progSaveCache = nil
-end
-
-local function treadmillUpgradeStep()
-    invokeProgRemote("Treadmills: RequestUpgrade")
-end
-
-local function trailsStep()
-    if not TrailsDir or not TrailsDir.Directory then return end
-    local data  = getProgSaveData()
-    local owned = data.TrailInventory or {}
-    local money = tonumber(data.Money) or 0
-
-    local list = {}
-    for id, cfg in pairs(TrailsDir.Directory) do
-        if type(cfg) == "table" then
-            list[#list + 1] = { id = cfg._id or id, price = tonumber(cfg.Price) or math.huge, speed = tonumber(cfg.SpeedMultiplier) or 0 }
-        end
-    end
-    table.sort(list, function(a, b) return a.speed > b.speed end)
-
-    for _, item in ipairs(list) do
-        if not owned[item.id] and item.price > 0 and item.price <= money then
-            invokeProgRemote("Trails: RequestPurchase", item.id)
-            progSaveCache = nil
-            task.wait(0.3)
-            owned = getProgSaveData(true).TrailInventory or owned
-            break
-        end
-    end
-
-    for _, item in ipairs(list) do
-        if owned[item.id] then
-            if data.EquippedTrail ~= item.id then
-                invokeProgRemote("Trails: RequestSelect", item.id)
-            end
-            return
-        end
-    end
-end
-
-local function claimStep()
-    invokeProgRemote("OfflineAssets: Redeem")
-    invokeProgRemote("Index: RequestClaimAll")
-end
-
-local RIFT_BANNER_NAMES = {
-    Verdant = "Riftborn",
-    Umbral  = "Riftbeasts",
-    Radiant = "Shattered Rift",
-}
-
-local currentRiftState = nil
-local riftFusesCount = 0
-
-local function getRiftState()
-    local ok, res = invokeProgRemote("Rift: AskState")
-    if ok and type(res) == "table" then
-        if not res.BannerDisplayName and res.BannerId then
-            res.BannerDisplayName = RIFT_BANNER_NAMES[res.BannerId] or res.BannerId
-        end
-        currentRiftState = res
-        return res
-    end
-    return currentRiftState
-end
-
-local function rerollRiftFree()
-    local ok, res = invokeProgRemote("Rift: AskRefresh")
-    if ok and res == true then
-        task.wait(0.5)
-        local fresh = getRiftState()
-        if fresh then currentRiftState = fresh end
-        return true
-    end
-    return false
-end
-
-local CfgProg = {
-    AutoBaseUpgrade = false,
-    AutoTrails = false,
-    AutoFuse = false,
-    AutoClaim = false,
-    AutoRift = false,
-    RiftTarget = "ทุกประเภท (All)",
-    RiftAutoReroll = false,
-}
-
-local function riftStep(manual)
-    if not manual and not (CfgProg.AutoRift or CfgProg.AutoFuse) then return false end
-    if T["glidingToTarget"] or T["securingEgg"] or T["delivering"] then return false end
-
-    local state = getRiftState()
-    if not state or not state.Unlocked then return false, "The Rift ยังไม่ปลดล็อค" end
-
-    local currentBanner = state.BannerDisplayName or RIFT_BANNER_NAMES[state.BannerId] or state.BannerId or "Unknown"
-    local target = CfgProg.RiftTarget or "ทุกประเภท (All)"
-
-    local isMatch = false
-    if target == "All" or target == "ทุกประเภท (All)" or target == "All Banners" or target == "" then
-        isMatch = true
-    else
-        local cleanTarget = tostring(target):gsub("%s*%(.-%)", ""):lower()
-        local bName = tostring(currentBanner):lower()
-        local bId = tostring(state.BannerId or ""):lower()
-        if bName:find(cleanTarget, 1, true) or bId:find(cleanTarget, 1, true) or cleanTarget:find(bName, 1, true) then
-            isMatch = true
-        end
-    end
-
-    if not isMatch then
-        if (manual or CfgProg.RiftAutoReroll) and (state.FreeRefreshesRemaining or 0) > 0 then
-            local refreshed = rerollRiftFree()
-            if refreshed then
-                task.wait(0.8)
-                state = getRiftState()
-                currentBanner = state and (state.BannerDisplayName or state.BannerId) or currentBanner
-            end
-        else
-            return false, "แบนเนอร์ไม่ตรงกับเป้าหมายที่เลือก"
-        end
-    end
-
-    local reqs = state.Requirements
-    if not reqs or type(reqs) ~= "table" or #reqs < 3 then return false, "ข้อมูลเงื่อนไขไม่สมบูรณ์" end
-
-    local pets = petItems(true)
-    local usedUids = {}
-    local matchedUids = {}
-
-    for slot = 1, 3 do
-        local wantName = tostring(reqs[slot])
-        local found = nil
-        for _, p in ipairs(pets) do
-            if not usedUids[p.uid] and not p.equipped and not p.favorite and not p.inFuse then
-                local isBillionTier = (p.rate and p.rate >= 1e9) or (p.price and p.price >= 1e9)
-                if not isBillionTier then
-                    local pName = tostring(p.cat)
-                    if pName == wantName or pName:lower() == wantName:lower() or pName:lower():find(wantName:lower(), 1, true) then
-                        found = p
-                        break
-                    end
-                end
-            end
-        end
-
-        if found then
-            usedUids[found.uid] = true
-            matchedUids[slot] = found.uid
-        else
-            return false, string.format("ขาดวัตถุดิบ: %s", wantName)
-        end
-    end
-
-    if #matchedUids == 3 then
-        local okTrade, resTrade = invokeProgRemote("Rift: AskTradeIn", matchedUids)
-        if okTrade and resTrade == true then
-            task.wait(0.25)
-            invokeProgRemote("Rift: AskFinishReveal")
-            riftFusesCount = riftFusesCount + 1
-            progSaveCache, petCache = nil, nil
-            return true, "ผสมสำเร็จ!"
-        else
-            return false, tostring(resTrade or "TradeIn failed")
-        end
-    end
-
-    return false, "วัตถุดิบไม่ครบ 3 ตัว"
-end
-
-local ZONE_ORDER = {
-    "Titan Temple", "Cherry Blossom", "Cosmic", "Prehistoric", "Abyss Ocean",
-    "Volcano", "Snow", "Jungle", "Desert", "Lake", "Forest"
-}
-
-local ZONE_OPTIONS = {
-    "All (ทุกโซน)",
-    "Titan Temple", "Cherry Blossom", "Cosmic", "Prehistoric", "Abyss Ocean",
-    "Volcano", "Snow", "Jungle", "Desert", "Lake", "Forest"
-}
-
-local SELECTED_ZONES = { "All (ทุกโซน)" }
-local function isZoneAllowed(area)
-    if not SELECTED_ZONES or #SELECTED_ZONES == 0 then
-        return true
-    end
-    local aStr = tostring(area or ""):lower()
-    for _, z in ipairs(SELECTED_ZONES) do
-        local zStr = tostring(z):lower()
-        if zStr:find("all") or zStr:find("ทุก") then
-            return true
-        end
-        if aStr == zStr or aStr:find(zStr, 1, true) or zStr:find(aStr, 1, true) then
-            return true
-        end
-    end
-    return false
-end
-
 local function aG()
     local e = nil
     if r and r["ReadFieldEggs"] then
@@ -2283,55 +1855,28 @@ local function aG()
                     end
                 end
                 local S, D = o(h, e, V, B)
-                local eggRar = rarityOf(h, a)
                 local b =(S == 0) and((a == "Forest" or a == "Lake" or string["find"](tostring(h["Uid"]), "Forest") or string["find"](tostring(h["Uid"]), "Lake")))
-                if (R or not b) and isRarityAllowed(eggRar) and isZoneAllowed(a) then
+                if (R or not b) and isZoneAllowed(a) and isRarityAllowed(D) then
                     local R = tonumber(h["AssetScale"] or h["Scale"]) or 1
                     local E = 1
-                    local mutCount = 0
                     if h["Mutations"] and type(h["Mutations"]) == "table" then
-                        for _, mutVal in pairs(h["Mutations"]) do
-                            mutCount = mutCount + 1
-                            local B = (type(mutVal) == "table" and tonumber(mutVal["Multiplier"] or mutVal["Value"])) or tonumber(mutVal) or 1.5
-                            E = E * B
+                        for e, R in pairs(h["Mutations"]) do
+                            local B =(type(R) == "table" and tonumber(R["Multiplier"] or R["Value"])) or tonumber(R) or 1.5 E = E * B
                         end
                     elseif h["Mutation"] then
-                        mutCount = 1
                         E = 1.5
                     end
-
+                    local V =(n * R) * E
                     local o = x[a] or 50
-                    local V = (n * R) * E
                     if V <= 0 then
-                        V = (((o ^ 2) * R) * E) * 10
+                        V =(((o ^(2)) * R) * E) *(10)
                     end
-
-                    -- MASTER EGG SCORE (ปัจจัยหลัก: สถานะเยอะสุด > ไกลสุด > ใหญ่สุด > ราคาแพงสุด)
-                    local mutScore = mutCount * 1000000000 * E
-                    local zoneScore = o * 1000000
-                    local sizeScore = (R >= 2.0 and 800000000 * R) or (R >= 1.4 and 400000000 * R) or (R >= 1.15 and 200000000 * R) or (R * 10000000)
-                    local valScore = V * 10
-                    local masterScore = mutScore + zoneScore + sizeScore + valScore
-
-                    local b = ((w - h["BoundsCFrame"]["Position"]))["Magnitude"]
-                    table["insert"](g, {
-                        ["Uid"] = h["Uid"],
-                        ["Category"] = tostring(e),
-                        ["Area"] = tostring(a),
-                        ["ZoneWeight"] = o,
-                        ["Rarity"] = tostring(D),
-                        ["RarityTier"] = S,
-                        ["Rank"] = B,
-                        ["Income"] = n,
-                        ["RealIncome"] = V,
-                        ["Scale"] = R,
-                        ["MutCount"] = mutCount,
-                        ["MutMultiplier"] = E,
-                        ["Score"] = masterScore,
-                        ["CFrame"] = h["BoundsCFrame"],
-                        ["Position"] = h["BoundsCFrame"]["Position"],
-                        ["Distance"] = b
-                    })
+                    local b =((w - h["BoundsCFrame"]["Position"]))["Magnitude"] table["insert"](g, {["Uid"] = h["Uid"], ["Category"] = tostring(e);
+                    ["Area"] = tostring(a);
+                    ["ZoneWeight"] = o, ["Rarity"] = tostring(D), ["RarityTier"] = S, ["Rank"] = B, ["Income"] = n, ["RealIncome"] = V;
+                    ["Scale"] = R;
+                    ["MutMultiplier"] = E, ["CFrame"] = h["BoundsCFrame"];
+                    ["Position"] = h["BoundsCFrame"]["Position"], ["Distance"] = b})
                 end
             end
         end
@@ -2339,20 +1884,17 @@ local function aG()
             return nil
         end
         table["sort"](g, function(e, R)
-            if e["Score"] ~= R["Score"] then
-                return e["Score"] > R["Score"]
-            end
-            if e["MutCount"] ~= R["MutCount"] then
-                return e["MutCount"] > R["MutCount"]
+            if e["RarityTier"] ~= R["RarityTier"] then
+                return e["RarityTier"] > R["RarityTier"]
             end
             if e["ZoneWeight"] ~= R["ZoneWeight"] then
                 return e["ZoneWeight"] > R["ZoneWeight"]
             end
-            if math["abs"](e["Scale"] - R["Scale"]) > 0.05 then
-                return e["Scale"] > R["Scale"]
-            end
             if math["abs"](e["RealIncome"] - R["RealIncome"]) > 1 then
                 return e["RealIncome"] > R["RealIncome"]
+            end
+            if math["abs"](e["Scale"] - R["Scale"]) > .05 then
+                return e["Scale"] > R["Scale"]
             end
             return e["Distance"] < R["Distance"]
         end)
@@ -2385,279 +1927,134 @@ local function aG()
     return S
 end
 local function SG(e, g, w, h)
-    leaveTreadmill()
     local n = E["Character"]
     local a = n and n:FindFirstChild("HumanoidRootPart")
     local S = n and n:FindFirstChildOfClass("Humanoid")
     if not a or not S then
         return false
     end
-
-    T["securingEgg"] = true
-    T["isReturning"] = false
-    T["stateTime"] = os["clock"]()
-    T["holdingEggForGuard"] = true
-
-    local D = g["Position"]
-    local carryCF = g * CFrame["new"](0, 0.4, 0)
-    Tq(D, 14)
-    T["currentTargetModel"] = w
-    T["targetPosition"] = D
-
-    a["CFrame"] = carryCF
-    a["AssemblyLinearVelocity"] = Vector3["zero"]
-    a["AssemblyAngularVelocity"] = Vector3["zero"]
-    yq(n)
-
-    pcall(function()
+    T["securingEgg"] = true T["isReturning"] = false T["stateTime"] = os["clock"]() T["holdingEggForGuard"] = true
+    local D = g["Position"] Tq(D, 14) T["currentTargetModel"] = w T["targetPosition"] = D a["AssemblyLinearVelocity"] = Vector3["zero"] a["AssemblyAngularVelocity"] = Vector3["zero"] yq(n) pcall( function()
         E:RequestStreamAroundAsync(D)
     end)
-
     if not w and R:FindFirstChild("AreaEggSlotsClient") then
-        for _, slot in ipairs(R["AreaEggSlotsClient"]:GetChildren()) do
-            local bp = slot:FindFirstChildWhichIsA("BasePart") or slot["PrimaryPart"]
-            if bp and ((bp["Position"] - D))["Magnitude"] <= 18 then
-                w = slot
-                T["currentTargetModel"] = slot
+        for e, R in ipairs(R["AreaEggSlotsClient"]:GetChildren()) do
+            local B = R:FindFirstChildWhichIsA("BasePart") or R["PrimaryPart"]
+            if B and((B["Position"] - D))["Magnitude"] <= 16 then
+                w = R T["currentTargetModel"] = R
                 break
             end
         end
     end
-
-    T["statusText"] = "[1/4] Lifting Egg to Trigger Guard..."
-    V(string["format"]("[GuardStrike] Step 1: Lifting target egg (%s)...", tostring(e)))
-
-    local b = os["clock"]() + 4.0
-    local lastCheck = 0
-    local lastRemote1 = 0
-
-    while not sq() and (os["clock"]() < b and (T["alive"] and T["securingEgg"])) do
+    T["statusText"] = "[1/4] Lifting Egg to Trigger Guard..." V(string["format"]("[GuardStrike] Step 1: Lifting target egg (%s)...", tostring(e)))
+    local b = os["clock"]() +(3.5)
+    local v = 0
+    while not sq() and(os["clock"]() < b and(T["alive"] and T["securingEgg"])) do
         if h and Kq ~= h then
             o("[GuardStrike] Cancelled by session switch in Step 1")
             break
         end
-        if not T["pureTweenFarm"] and (not T["autoFarmLoop"] and not T["teleporting"]) then
+        if not T["pureTweenFarm"] and( not T["autoFarmLoop"] and not T["teleporting"]) then
             break
         end
-
-        if e and (os["clock"]() - lastCheck > 0.4) then
-            lastCheck = os["clock"]()
-            local isAvail, stateStr = kq(e)
-            if not isAvail and stateStr == "CarriedByOther" then
-                o(string["format"]("[GuardStrike] Target egg %s was snatched by another player! Aborting...", tostring(e)))
+        if e and(os["clock"]() - v > .4) then
+            v = os["clock"]()
+            local R, B = kq(e)
+            if not R and B == "CarriedByOther" then
+                o(string["format"]("[GuardStrike] Target egg %s was snatched by another player! Aborting pickup...", tostring(e)))
                 break
             end
         end
-
-        -- Firm position lock against mobile thumbstick drift
-        a["CFrame"] = carryCF
-        a["AssemblyLinearVelocity"] = Vector3["zero"]
-        Lq(w, D)
-
-        -- Throttled Remote Invoke (0.35s) to avoid RakNet queue congestion on Mobile Delta
-        if e and c and (os["clock"]() - lastRemote1 > 0.35) then
-            lastRemote1 = os["clock"]()
-            task["spawn"](function()
-                pcall(function()
+        n:PivotTo(g * CFrame["new"](0, .4, 0)) Lq(w, D)
+        if e and c then
+            task["spawn"]( function()
+                pcall( function()
                     if c:IsA("RemoteFunction") then
-                        c:InvokeServer({["Uid"] = e})
-                        c:InvokeServer(e)
+                        c:InvokeServer({["Uid"] = e}) c:InvokeServer(e)
                     else
-                        c:FireServer({["Uid"] = e})
-                        c:FireServer(e)
+                        c:FireServer({["Uid"] = e}) c:FireServer(e)
                     end
                 end)
             end)
         end
         B["Heartbeat"]:Wait()
     end
-
     if not sq() then
         o("[GuardStrike] Initial egg pickup timed out or egg was stolen")
         if e then
             Aq[e] = os["clock"]() + 2
         end
-        T["currentTargetModel"] = nil
-        T["targetPosition"] = nil
-        T["securingEgg"] = false
-        T["holdingEggForGuard"] = false
+        T["currentTargetModel"] = nil T["targetPosition"] = nil T["securingEgg"] = false T["holdingEggForGuard"] = false
         return false
     end
-
-    T["statusText"] = "[2/4] Waiting for Guard Strike..."
-    V("[GuardStrike] Step 2: Egg lifted! Triggering guard strike...")
-
-    local u = os["clock"]() + 4.5
-    local lastStrikeFire = 0
-
-    while sq() and (os["clock"]() < u and (T["alive"] and T["securingEgg"])) do
+    T["statusText"] = "[2/4] Waiting for Guard Strike..." V("[GuardStrike] Step 2: Egg lifted! Triggering guard strike...")
+    local X = os["clock"]()
+    local u = X + 4.5
+    local p = false
+    while sq() and(os["clock"]() < u and(T["alive"] and T["securingEgg"])) do
         if h and Kq ~= h then
             o("[GuardStrike] Cancelled by session switch in Step 2")
             break
         end
-        if not T["pureTweenFarm"] and (not T["autoFarmLoop"] and not T["teleporting"]) then
+        if not T["pureTweenFarm"] and( not T["autoFarmLoop"] and not T["teleporting"]) then
             break
         end
-
-        a["CFrame"] = carryCF
-        a["AssemblyLinearVelocity"] = Vector3["zero"]
-        Tq(D, 14)
-
-        -- Continuous guarded strike fire every 0.6s until guard hits (safeguard against dropped UDP packets)
-        if U and (os["clock"]() - lastStrikeFire > 0.6) then
-            lastStrikeFire = os["clock"]()
-            task["spawn"](function()
-                pcall(function()
+        n:PivotTo(g * CFrame["new"](0, .4, 0)) Tq(D, 14)
+        if U and not p then
+            task["spawn"]( function()
+                pcall( function()
                     if U:IsA("RemoteFunction") then
                         U:InvokeServer()
                     else
                         U:FireServer()
                     end
                 end)
-            end)
+            end) p = true
         end
         B["Heartbeat"]:Wait()
     end
-
-    T["statusText"] = "[3/4] Re-grabbing Egg..."
-    V("[GuardStrike] Step 3: Guard struck! Re-grabbing egg...")
-
-    local G = os["clock"]() + 4.0
-    local lastRemote3 = 0
-
-    while not sq() and (os["clock"]() < G and (T["alive"] and T["securingEgg"])) do
+    T["statusText"] = "[3/4] Re-grabbing Egg..." V("[GuardStrike] Step 3: Guard struck! Re-grabbing egg...")
+    local G = os["clock"]() +(3)
+    while not sq() and(os["clock"]() < G and(T["alive"] and T["securingEgg"])) do
         if h and Kq ~= h then
             o("[GuardStrike] Cancelled by session switch in Step 3")
             break
         end
-        if not T["pureTweenFarm"] and (not T["autoFarmLoop"] and not T["teleporting"]) then
+        if not T["pureTweenFarm"] and( not T["autoFarmLoop"] and not T["teleporting"]) then
             break
         end
-
-        a["CFrame"] = carryCF
-        a["AssemblyLinearVelocity"] = Vector3["zero"]
-        Lq(w, D)
-
-        if e and c and (os["clock"]() - lastRemote3 > 0.35) then
-            lastRemote3 = os["clock"]()
-            task["spawn"](function()
-                pcall(function()
+        n:PivotTo(g * CFrame["new"](0, .4, 0)) Lq(w, D)
+        if e and c then
+            task["spawn"]( function()
+                pcall( function()
                     if c:IsA("RemoteFunction") then
-                        c:InvokeServer({["Uid"] = e})
-                        c:InvokeServer(e)
+                        c:InvokeServer({["Uid"] = e}) c:InvokeServer(e)
                     else
-                        c:FireServer({["Uid"] = e})
-                        c:FireServer(e)
+                        c:FireServer({["Uid"] = e}) c:FireServer(e)
                     end
                 end)
             end)
         end
         B["Heartbeat"]:Wait()
     end
-
-    local I = mq(e) or sq(e)
+    local I = mq(e)
     if not I then
-        for _ = 1, 5 do
-            task["wait"](0.12)
-            I = mq(e) or sq(e)
-            if I then break end
-        end
+        task["wait"](.12) I = mq(e)
     end
-
-    T["currentTargetModel"] = nil
-    T["targetPosition"] = nil
-    T["securingEgg"] = false
-    T["holdingEggForGuard"] = false
-
+    T["currentTargetModel"] = nil T["targetPosition"] = nil T["securingEgg"] = false T["holdingEggForGuard"] = false
     if h and Kq ~= h then
         return false
     end
-
     if I then
-        pcall(jq)
-        V("[GuardStrike] Egg successfully secured after guard strike! Stashed in backpack.")
-        T["statusText"] = "Egg Secured! Tweening along Z=-360..."
+        pcall(jq) V("[GuardStrike] Egg successfully secured after guard strike! Stashed in backpack.") T["statusText"] = "Egg Secured! Tweening along Z=-360..."
     else
-        o("[-] Failed to re-grab egg after guard strike (stolen or despawned)")
-        T["statusText"] = "[-] Failed to re-grab egg"
+        o("[-] Failed to re-grab egg after guard strike (stolen or despawned)") T["statusText"] = "[-] Failed to re-grab egg"
         if e then
             Aq[e] = os["clock"]() + 2
         end
     end
     return I
 end
--- ======================================================================================
--- [[ STEAL TOP 5 EGGS OF THE ROUND ]]
--- ======================================================================================
-local isStealingTopFive = false
-local function stealTopFiveEggs()
-    if isStealingTopFive then
-        ObsidianGlassEngine:Notify({
-            Title = "ขโมยไข่ 5 ใบ",
-            Content = "กำลังดำเนินการขโมยอยู่แล้ว กรุณารอสักครู่...",
-            Duration = 3
-        })
-        return
-    end
-    isStealingTopFive = true
-
-    task.spawn(function()
-        local prevMode = Jq
-        if Jq ~= "NONE" then
-            cq("NONE")
-            task.wait(0.2)
-        end
-
-        leaveTreadmill()
-
-        ObsidianGlassEngine:Notify({
-            Title = "👑 เริ่มขโมย 5 ใบที่ดีที่สุด",
-            Content = "กำลังสแกนและขโมยไข่ที่มีสถานะ/ขนาด/มูลค่าสูงสุด 5 ใบ...",
-            Duration = 4
-        })
-
-        local stolenCount = 0
-        for round = 1, 5 do
-            if not T["alive"] then break end
-            leaveTreadmill()
-
-            local target = aG()
-            if not target then
-                V(string.format("[Top5Steal] No target available at round %d", round))
-                break
-            end
-
-            T["statusText"] = string.format("[Top 5] #%d/%d: %s (%s)...", round, 5, tostring(target.Category), tostring(target.Rarity))
-            V(string.format("[Top5Steal] Stealing #%d: %s [%s] Score=%s", round, tostring(target.Category), tostring(target.Rarity), tostring(target.Score)))
-
-            local success = DG(target, nil)
-            if success then
-                stolenCount = stolenCount + 1
-                pcall(jq)
-                if T["autoGlide"] then
-                    VG(T["glideSpeed"])
-                    jq()
-                end
-            end
-            task.wait(0.25)
-        end
-
-        T["statusText"] = string.format("[Top 5] Stole %d eggs successfully!", stolenCount)
-        ObsidianGlassEngine:Notify({
-            Title = "ขโมย 5 ใบสำเร็จ",
-            Content = string.format("ขโมยไข่ระดับท็อปเสร็จสิ้น %d/5 ใบเรียบร้อย!", stolenCount),
-            Duration = 5
-        })
-
-        isStealingTopFive = false
-        if prevMode == "TWEEN" then
-            cq("TWEEN")
-        elseif prevMode == "WARP" then
-            cq("WARP")
-        end
-    end)
-end
-
 local function DG(e, g)
     leaveTreadmill()
     if T["teleporting"] or T["glidingToTarget"] or T["delivering"] or T["securingEgg"] then
@@ -2847,7 +2244,6 @@ local function DG(e, g)
     end
 end
 cq = function(e)
-    if e ~= "NONE" then leaveTreadmill() end
     if Jq == e then
         return
     end
@@ -2927,7 +2323,7 @@ local bG = os["clock"]() task["spawn"]( function()
                                 o("[AutoSteal] Egg was taken during flight. Switching to next target...") Aq[g["Uid"]] = os["clock"]() + 5 Pq()
                                 return
                             end
-                            if T["pureTweenFarm"] and(Jq == "TWEEN" and((R["Position"] - g["Position"]))["Magnitude"] <= 28) then
+                            if T["pureTweenFarm"] and(Jq == "TWEEN" and((R["Position"] - g["Position"]))["Magnitude"] <= 22) then
                                 local e = SG(g["Uid"], a, g["Model"], B)
                                 if not e and sq() then
                                     e = true
@@ -3029,17 +2425,7 @@ end) task["spawn"]( function()
         end
         task["wait"](4)
     end
-end) task.spawn(function()
-    while T["alive"] do
-        if Cfg_EggESP then
-            pcall(updateEggESP)
-        end
-        task.wait(1)
-    end
-    pcall(clearEggESP)
-end)
-
-B["Heartbeat"]:Connect( function()
+end) B["Heartbeat"]:Connect( function()
     local e = E["Character"]
     local R = e and e:FindFirstChild("HumanoidRootPart")
     local B = e and e:FindFirstChildOfClass("Humanoid")
@@ -3083,7 +2469,889 @@ B["Heartbeat"]:Connect( function()
 end)
 
 
--- ======================================================================================
+-- =========================================================================
+-- [[ SERVICE RESOLVERS & REMOTES MAP ]]
+-- =========================================================================
+local Workspace = game:GetService("Workspace")
+local Lighting = game:GetService("Lighting")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer or E
+
+local REMOTE_MAP = {
+    ["Plots: RequestState"]                  = "RF/Homestead/AskState",
+    ["Plots: RequestBaseUpgrade"]            = "RE/Homestead/AskBaseTierRaise",
+    ["Eggs: RequestAreaEggSnapshot"]         = "RF/EggWorld/AskFieldEggSnapshot",
+    ["Eggs: RequestRuntimeSnapshot"]         = "RF/EggWorld/AskLiveSnapshot",
+    ["Eggs: RequestAreaEggCarry"]            = "RF/EggWorld/AskFieldEggCarry",
+    ["Eggs: RequestPlaceEgg"]                = "RF/EggWorld/AskPlaceEgg",
+    ["Eggs: RequestHatchEgg"]                = "RF/EggWorld/AskHatch",
+    ["Eggs: RequestCompleteHatchEgg"]        = "RF/EggWorld/AskFinishHatch",
+    ["Eggs: RequestEquipEggTool"]            = "RF/EggWorld/AskWearEggTool",
+    ["Eggs: RequestUnequipEggTool"]          = "RF/EggWorld/AskTakeOffEggTool",
+    ["ActiveAssets: RequestRuntimeSnapshot"] = "RF/PenRoster/AskLiveSnapshot",
+    ["ActiveAssets: RequestEquipLimit"]      = "RF/PenRoster/AskWearLimit",
+    ["ActiveAssets: RequestEquip"]           = "RF/PenRoster/AskWear",
+    ["ActiveAssets: RequestSell"]            = "RF/PenRoster/AskSale",
+    ["ActiveAssets: RequestUnequip"]         = "RF/PenRoster/AskTakeOff",
+    ["ActiveAssets: MoneyCollectedEvent"]    = "RE/PenRoster/MoneyCollected",
+    ["AssetInventory: SellAsset"]            = "RF/PenRoster/AskSale",
+    ["Backpack: EquipBest"]                  = "RF/Backpack/AskWearBest",
+    ["OfflineAssets: GetSummary"]            = "RF/AwayEarnings/FetchSummary",
+    ["OfflineAssets: Redeem"]                = "RF/AwayEarnings/AskCollect",
+    ["Treadmills: RequestUpgrade"]           = "RF/Treadmill/AskTierRaise",
+    ["ClientCharacter: RequestCharacterReset"] = "RE/RigSync/AskRigWipe",
+    ["Rift: AskState"]                         = "RF/Rift/AskState",
+    ["Rift: AskTradeIn"]                       = "RF/Rift/AskTradeIn",
+    ["Rift: AskRefresh"]                       = "RF/Rift/AskRefresh",
+    ["Rift: AskFinishReveal"]                  = "RF/Rift/AskFinishReveal",
+}
+
+local remoteCache = {}
+local function findRemote(endpoint)
+    if not endpoint then return nil end
+    local name = tostring(endpoint)
+    if remoteCache[name] and remoteCache[name].Parent then
+        return remoteCache[name]
+    end
+
+    local candidates = { name }
+    if REMOTE_MAP[name] then
+        table.insert(candidates, 1, REMOTE_MAP[name])
+    end
+
+    for _, cname in ipairs(candidates) do
+        if NetworkFolder then
+            local direct = NetworkFolder:FindFirstChild(cname)
+            if direct then
+                remoteCache[name] = direct
+                return direct
+            end
+        end
+        local found = ReplicatedStorage:FindFirstChild(cname, true)
+        if found and (found:IsA("RemoteEvent") or found:IsA("RemoteFunction")) then
+            remoteCache[name] = found
+            return found
+        end
+    end
+    return nil
+end
+
+if type(Network) ~= "table" then
+    Network = {
+        Invoke = function(endpoint, ...)
+            local inst = findRemote(endpoint)
+            if inst and inst:IsA("RemoteFunction") then
+                return inst:InvokeServer(...)
+            end
+            return false, "remote not found"
+        end,
+        Fire = function(endpoint, ...)
+            local inst = findRemote(endpoint)
+            if inst and inst:IsA("RemoteEvent") then
+                inst:FireServer(...)
+            elseif inst and inst:IsA("RemoteFunction") then
+                inst:InvokeServer(...)
+            end
+        end
+    }
+end
+
+local NET_BASE = {
+    ActiveAssets = {
+        MONEY_COLLECTED_EVENT = "ActiveAssets: MoneyCollectedEvent",
+        REQUEST_EQUIP         = "ActiveAssets: RequestEquip",
+        REQUEST_EQUIP_LIMIT   = "ActiveAssets: RequestEquipLimit",
+        REQUEST_SELL          = "ActiveAssets: RequestSell",
+        REQUEST_UNEQUIP       = "ActiveAssets: RequestUnequip",
+    },
+    AssetInventory = {
+        SELL_ASSET            = "AssetInventory: SellAsset",
+    },
+    Backpack = {
+        EQUIP_BEST            = "Backpack: EquipBest",
+    },
+    Eggs = {
+        REQUEST_AREA_SNAPSHOT  = "Eggs: RequestAreaEggSnapshot",
+        REQUEST_COMPLETE_HATCH = "Eggs: RequestCompleteHatchEgg",
+        REQUEST_EQUIP_TOOL     = "Eggs: RequestEquipEggTool",
+        REQUEST_HATCH          = "Eggs: RequestHatchEgg",
+        REQUEST_UNEQUIP_TOOL   = "Eggs: RequestUnequipEggTool",
+        REQUEST_PLACE_EGG      = "Eggs: RequestPlaceEgg",
+        REQUEST_CARRY_EGG      = "Eggs: RequestAreaEggCarry",
+    },
+    FuseMachine = {
+        ACKNOWLEDGE_INFO = "FuseMachine: AcknowledgeInfo",
+        COMPLETE_REVEAL  = "FuseMachine: CompleteReveal",
+        INSERT_MOB       = "FuseMachine: InsertMob",
+        REMOVE_MOB       = "FuseMachine: RemoveMob",
+        START_FUSE       = "FuseMachine: StartFuse",
+    },
+    Index = {
+        REQUEST_CLAIM_ALL = "Index: RequestClaimAll",
+    },
+    OfflineAssets = {
+        REQUEST_REDEEM    = "OfflineAssets: Redeem",
+    },
+    Plots = {
+        REQUEST_BASE_UPGRADE = "Plots: RequestBaseUpgrade",
+    },
+    Trails = {
+        REQUEST_PURCHASE  = "Trails: RequestPurchase",
+        REQUEST_SELECT    = "Trails: RequestSelect",
+    },
+    Treadmills = {
+        REQUEST_UPGRADE   = "Treadmills: RequestUpgrade",
+    },
+    Rift = {
+        ASK_STATE         = "Rift: AskState",
+        ASK_TRADE_IN      = "Rift: AskTradeIn",
+        ASK_REFRESH       = "Rift: AskRefresh",
+        ASK_FINISH_REVEAL = "Rift: AskFinishReveal",
+    },
+}
+
+local NET = setmetatable(NET_BASE, {
+    __index = function(t, k)
+        local sub = setmetatable({}, {
+            __index = function(_, subk)
+                return tostring(k) .. ": " .. tostring(subk)
+            end
+        })
+        rawset(t, k, sub)
+        return sub
+    end
+})
+
+function remoteKind(endpoint)
+    local inst = findRemote(endpoint)
+    if not inst then return nil end
+    return inst:IsA("RemoteFunction") and "function" or "event"
+end
+
+function invoke(endpoint, ...)
+    if not endpoint then return false, "no endpoint" end
+    local args = table.pack(...)
+    if type(Network) == "table" and type(Network.Invoke) == "function" and Network.Invoke ~= Network.Sync then
+        local ok, a, b = pcall(function() return Network.Invoke(endpoint, table.unpack(args, 1, args.n)) end)
+        if ok and a ~= false then return a, b end
+    end
+    local inst = findRemote(endpoint)
+    if inst then
+        if inst:IsA("RemoteFunction") then
+            local res = table.pack(pcall(inst.InvokeServer, inst, table.unpack(args, 1, args.n)))
+            if res[1] then
+                return res[2], res[3]
+            else
+                return false, res[2]
+            end
+        elseif inst:IsA("RemoteEvent") then
+            pcall(inst.FireServer, inst, table.unpack(args, 1, args.n))
+            return true
+        end
+    end
+    return false, "no network endpoint"
+end
+
+function fire(endpoint, ...)
+    if not endpoint then return end
+    local args = table.pack(...)
+    if type(Network) == "table" and type(Network.Fire) == "function" and Network.Fire ~= Network.Sync then
+        local ok = pcall(function() Network.Fire(endpoint, table.unpack(args, 1, args.n)) end)
+        if ok then return end
+    end
+    local inst = findRemote(endpoint)
+    if inst then
+        if inst:IsA("RemoteEvent") then
+            pcall(inst.FireServer, inst, table.unpack(args, 1, args.n))
+        elseif inst:IsA("RemoteFunction") then
+            pcall(inst.InvokeServer, inst, table.unpack(args, 1, args.n))
+        end
+    end
+end
+
+-- =========================================================================
+-- [[ CENTRAL CONFIG & RUNTIME STATE ]]
+-- =========================================================================
+local Cfg = {
+    AutoSellPets    = false,
+    SellPetMode     = "ราคาต่ำกว่าที่ตั้งไว้",
+    SellPetBelow    = 0,
+    SellPetRarities = {},
+    SellKeepTop     = 5,
+    AutoSellEggs    = false,
+    SellEggRarities = {},
+    SellEggBelow    = 0,
+    SellLanes       = 3,
+    SellMaxPerRun   = 60,
+    SellPace        = 0.05,
+    AutoPlace       = true,
+    AutoHatch       = true,
+    AutoBaseUpgrade = false,
+    AutoTrails      = false,
+    AutoFuse        = false,
+    AutoClaim       = false,
+    AutoRift        = false,
+    RiftTarget      = "ทุกประเภท (All)",
+    RiftAutoReroll  = false,
+}
+
+local Runtime = {
+    sellDirty       = true,
+    sellQueue       = {},
+    sellFlight      = 0,
+    sellLastScan    = 0,
+    sellEarned      = 0,
+    stats           = { soldPets = 0, soldEggs = 0, placedEggs = 0, riftFuses = 0 },
+    lastPlaceAttempt= 0,
+    lastError       = "",
+    conns           = {},
+    riftState       = nil,
+    stealing        = false,
+}
+
+local function isOn(v)
+    if type(v) == "boolean" then return v end
+    if type(v) == "table" then return v.Value == true or v.State == true end
+    return false
+end
+
+local function toSet(list)
+    local s = {}
+    if type(list) == "table" then
+        for _, v in ipairs(list) do s[tostring(v)] = true end
+    end
+    return s
+end
+
+local function setToList(set)
+    local l = {}
+    if type(set) == "table" then
+        for k, v in pairs(set) do
+            if v == true then table.insert(l, k) end
+        end
+    end
+    return l
+end
+
+local function saveConfig() end
+local function saveConfigSoon() end
+local function markSellDirty() Runtime.sellDirty = true end
+
+-- =========================================================================
+-- [[ SAVE DATA & PET ITEMS ENGINE ]]
+-- =========================================================================
+local saveCache, saveCacheAt = nil, 0
+local function saveData(fresh)
+    local now = os.clock()
+    if not fresh and saveCache and now - saveCacheAt < 0.4 then return saveCache end
+    if Save and Save.Get then
+        local ok, data = pcall(Save.Get, E)
+        if ok and type(data) == "table" then
+            saveCache, saveCacheAt = data, now
+            return data
+        end
+    end
+    return saveCache or {}
+end
+
+local function moneyNow() return tonumber(saveData().Money) or 0 end
+
+local petCache, petCacheAt = nil, 0
+local function petItems(fresh, yieldEvery)
+    local now = os.clock()
+    if not fresh and petCache and now - petCacheAt < 2 then return petCache end
+
+    local data = saveData()
+    local inv  = data.Inventory or {}
+    local equipped = {}
+    for _, uid in ipairs(data.EquippedAssets or {}) do equipped[uid] = true end
+
+    local list = {}
+    local seen = 0
+    for uid, raw in pairs(inv) do
+        seen = seen + 1
+        if yieldEvery and seen % yieldEvery == 0 then task.wait() end
+        local item = raw
+        if AssetSer and type(raw) ~= "table" then
+            local ok, d = pcall(AssetSer.Deserialize, raw)
+            if ok and type(d) == "table" then item = d end
+        end
+
+        if type(item) == "table" and (item.Category or item.AssetCategory) then
+            local cat = item.Category or item.AssetCategory
+            local rate = 0
+            if AssetGen and type(AssetGen.GetRateWithoutBoosts) == "function" then
+                local okr, r = pcall(AssetGen.GetRateWithoutBoosts, item)
+                if okr and tonumber(r) then rate = tonumber(r) or 0 end
+            end
+            if rate <= 0 then
+                local scale = tonumber(item.Scale or item.AssetScale) or 1
+                local mutMult = 1
+                if type(item.Mutations) == "table" then
+                    for _, m in pairs(item.Mutations) do
+                        local mVal = (type(m) == "table" and (m.Multiplier or m.Value)) or tonumber(m)
+                        mutMult = mutMult * (tonumber(mVal) or 1.5)
+                    end
+                end
+                rate = 100 * scale * mutMult
+            end
+
+            local price = rate * 100
+            if PriceOf and type(PriceOf) == "function" then
+                local okp, p = pcall(PriceOf, item)
+                if okp and tonumber(p) then price = tonumber(p) end
+            end
+            if price <= 0 then price = 50000 + rate * 10 end
+
+            local rarity = tostring(item.Rarity or "Common")
+
+            list[#list + 1] = {
+                uid      = uid,
+                cat      = cat,
+                rarity   = rarity,
+                rate     = rate,
+                price    = price,
+                favorite = item.IsFavorite == true or item.Favorite == true,
+                inFuse   = item.InFuse == true,
+                equipped = equipped[uid] == true,
+            }
+        end
+    end
+    petCache, petCacheAt = list, now
+    return list
+end
+
+-- =========================================================================
+-- [[ PET SELL SYSTEM (SAFETY RAILS: NO 1B+, NO EQUIPPED, NO FAVORITE) ]]
+-- =========================================================================
+local function sellPetPlan(yieldEvery)
+    local list = petItems(false, yieldEvery)
+    if #list == 0 then return {} end
+
+    local keep = {}
+    for i = 1, math.min(Cfg.SellKeepTop or 0, #list) do keep[list[i].uid] = true end
+
+    local hasRaritySelected = false
+    if Cfg.SellPetRarities and type(Cfg.SellPetRarities) == "table" then
+        for _, v in pairs(Cfg.SellPetRarities) do
+            if v == true then hasRaritySelected = true break end
+        end
+    end
+
+    local candidates = {}
+    for _, p in ipairs(list) do
+        local isBillionTier = (p.rate and p.rate >= 1e9) or (p.price and p.price >= 1e9)
+        if not (p.equipped or p.favorite or p.inFuse or keep[p.uid] or isBillionTier) then
+            if hasRaritySelected then
+                local limit    = tonumber(Cfg.SellPetBelow) or 0
+                local byPrice  = limit > 0 and p.price < limit
+                local byRarity = Cfg.SellPetRarities[p.rarity] == true
+
+                local take
+                if Cfg.SellPetMode == "ระดับที่เลือก" then take = byRarity
+                elseif Cfg.SellPetMode == "ทั้งสองเงื่อนไข" then take = byRarity and byPrice
+                else take = byPrice end
+
+                if take then candidates[#candidates + 1] = p end
+            else
+                candidates[#candidates + 1] = p
+            end
+        end
+    end
+
+    table.sort(candidates, function(a, b) return a.price < b.price end)
+
+    if hasRaritySelected then
+        return candidates
+    else
+        local totalCapacity = 200
+        local maxAllowedPets = math.floor(totalCapacity * 0.60)
+        local excess = #list - maxAllowedPets
+        if excess <= 0 then return {} end
+
+        local plan = {}
+        for i = 1, math.min(excess, #candidates) do plan[#plan + 1] = candidates[i] end
+        return plan
+    end
+end
+
+local function refillSellQueue()
+    local plan = sellPetPlan(40)
+    table.clear(Runtime.sellQueue)
+    for i = #plan, 1, -1 do Runtime.sellQueue[#Runtime.sellQueue + 1] = plan[i] end
+
+    local total = 0
+    for _, p in ipairs(plan) do total = total + p.price end
+    local head = {}
+    for i = 1, math.min(5, #plan) do
+        head[#head + 1] = string.format("• %s (%s) - %s", plan[i].cat, plan[i].rarity, tostring(plan[i].price))
+    end
+    if #plan > 5 then head[#head + 1] = string.format("...อีก %d ตัว", #plan - 5) end
+    Runtime.sellPreview = { count = #plan, total = total, head = table.concat(head, "\n") }
+
+    Runtime.sellDirty = false
+    Runtime.sellLastScan = os.clock()
+end
+
+local function sellPets(maxCount)
+    local plan = sellPetPlan()
+    local cap  = math.min(maxCount or math.huge, math.max(1, Cfg.SellMaxPerRun or 60))
+    local sold, earned = 0, 0
+
+    for _, p in ipairs(plan) do
+        if sold >= cap then break end
+        if invoke(NET.ActiveAssets.REQUEST_SELL, p.uid) then
+            sold = sold + 1
+            earned = earned + p.price
+        end
+        task.wait(0.03)
+    end
+
+    Runtime.stats.soldPets = Runtime.stats.soldPets + sold
+    saveCache, petCache = nil, nil
+    markSellDirty()
+    return sold, earned
+end
+
+-- =========================================================================
+-- [[ EGG PLACEMENT, INVENTORY & EGG SELL SYSTEM ]]
+-- =========================================================================
+local function unplacedEggs()
+    local data = saveData()
+    local list = {}
+    local inv = data.EggInventory or {}
+    for uid, raw in pairs(inv) do
+        local rec = raw
+        if type(rec) == "table" and not rec.Placement then
+            list[#list + 1] = {
+                uid = uid,
+                cat = rec.AssetCategory or "Egg",
+                rarity = tostring(rec.Rarity or "Common"),
+                price = tonumber(rec.Price or 0)
+            }
+        end
+    end
+    return list
+end
+
+local function occupiedSpots()
+    local data = saveData()
+    local occ = {}
+    local inv = data.EggInventory or {}
+    for uid, rec in pairs(inv) do
+        if type(rec) == "table" and rec.Placement then
+            occ[#occ + 1] = rec.Placement
+        end
+    end
+    return occ
+end
+
+local function nextFreeSpot(taken)
+    local myPlot = nil
+    pcall(function()
+        local plots = Workspace:FindFirstChild("Plots") or Workspace:FindFirstChild("Homesteads")
+        if plots then
+            for _, p in ipairs(plots:GetChildren()) do
+                if p:GetAttribute("Owner") == E.Name or p:GetAttribute("OwnerUserId") == E.UserId or p.Name == E.Name then
+                    myPlot = p
+                    break
+                end
+            end
+        end
+    end)
+    if not myPlot then return nil end
+    local spots = myPlot:FindFirstChild("EggSpots") or myPlot:FindFirstChild("Spots")
+    if not spots then return nil end
+    for _, s in ipairs(spots:GetChildren()) do
+        local isTaken = false
+        for _, t in ipairs(taken or {}) do
+            if (s.Position - t).Magnitude < 2 then isTaken = true break end
+        end
+        if not isTaken then
+            return s.CFrame, s.CFrame
+        end
+    end
+    return nil
+end
+
+local function placeEggs()
+    local unplaced = unplacedEggs()
+    if #unplaced == 0 then return 0 end
+    local taken = occupiedSpots()
+    local placed = 0
+    for _, egg in ipairs(unplaced) do
+        if #taken >= 15 then break end
+        local lcf, worldCf = nextFreeSpot(taken)
+        if not lcf then break end
+        local ok = invoke(NET.Eggs.REQUEST_PLACE_EGG, { Uid = egg.uid, LocalCFrame = lcf })
+        if ok then
+            placed = placed + 1
+            table.insert(taken, lcf.Position)
+            task.wait(0.08)
+        end
+    end
+    Runtime.stats.placedEggs = Runtime.stats.placedEggs + placed
+    saveCache = nil
+    return placed
+end
+
+local function hatchReady()
+    local hatched = 0
+    pcall(function()
+        if nG then hatched = nG(false) or 0 end
+    end)
+    return hatched
+end
+
+local function eggSellPlan()
+    local plan = {}
+    local limit = tonumber(Cfg.SellEggBelow) or 0
+    for _, egg in ipairs(unplacedEggs()) do
+        local byRarity = Cfg.SellEggRarities[egg.rarity] == true
+        local byPrice  = limit > 0 and egg.price < limit
+        if byRarity or byPrice then plan[#plan + 1] = egg end
+    end
+    table.sort(plan, function(a, b) return a.price < b.price end)
+    return plan
+end
+
+local function sellEggsOnce(count)
+    local plan = eggSellPlan()
+    if #plan == 0 then return 0 end
+    local sold = 0
+    for i = 1, math.min(count or 1, #plan) do
+        local egg = plan[i]
+        if invoke(NET.Eggs.REQUEST_EQUIP_TOOL, egg.uid) then
+            fire(NET.AssetInventory.SELL_ASSET, { egg.uid })
+            sold = sold + 1
+            Runtime.stats.soldEggs = Runtime.stats.soldEggs + 1
+            task.wait(0.04)
+        end
+    end
+    if sold > 0 then
+        pcall(function() invoke(NET.Eggs.REQUEST_UNEQUIP_TOOL) end)
+        saveCache = nil
+    end
+    return sold
+end
+
+local function sellEggs(maxCount)
+    local total = 0
+    for _ = 1, math.min(maxCount or (Cfg.SellMaxPerRun or 60), 200) do
+        local n = sellEggsOnce(1)
+        if n == 0 then break end
+        total = total + n
+        task.wait(0.04)
+    end
+    return total
+end
+
+-- =========================================================================
+-- [[ THE RIFT (THE RIFF) ENGINE ]]
+-- =========================================================================
+local RIFT_BANNER_NAMES = {
+    Verdant = "Riftborn",
+    Umbral  = "Riftbeasts",
+    Radiant = "Shattered Rift",
+}
+
+local function getRiftState()
+    local ok, state = pcall(function()
+        local rf = findRemote(NET.Rift.ASK_STATE) or (ReplicatedStorage:FindFirstChild("Packages") and ReplicatedStorage.Packages:FindFirstChild("Networking") and ReplicatedStorage.Packages.Networking:FindFirstChild("RF/TheRift/AskState"))
+        if rf and rf:IsA("RemoteFunction") then return rf:InvokeServer() end
+    end)
+    if ok and type(state) == "table" then
+        if not state.BannerDisplayName and state.BannerId then
+            state.BannerDisplayName = RIFT_BANNER_NAMES[state.BannerId] or state.BannerId
+        end
+        return state
+    end
+    return nil
+end
+
+local function rerollRiftFree()
+    local rf = findRemote(NET.Rift.ASK_REFRESH) or (ReplicatedStorage:FindFirstChild("Packages") and ReplicatedStorage.Packages:FindFirstChild("Networking") and ReplicatedStorage.Packages.Networking:FindFirstChild("RF/TheRift/AskRefresh"))
+    if rf and rf:IsA("RemoteFunction") then
+        local ok, res = pcall(function() return rf:InvokeServer() end)
+        if ok and res == true then
+            task.wait(0.5)
+            local fresh = getRiftState()
+            if fresh then Runtime.riftState = fresh end
+            return true
+        end
+    end
+    return false
+end
+
+local function riftStep(manual)
+    if not manual and not Cfg.AutoRift then return false end
+    if T["glidingToTarget"] or T["securingEgg"] or T["delivering"] or T["isReturning"] then return false end
+
+    local state = getRiftState()
+    if not state or not state.Unlocked then return false end
+    Runtime.riftState = state
+
+    local currentBanner = state.BannerDisplayName or RIFT_BANNER_NAMES[state.BannerId] or state.BannerId
+    local target = Cfg.RiftTarget or "ทุกประเภท (All)"
+
+    local isMatch = false
+    if target == "All" or target == "ทุกประเภท (All)" or target == "All Banners" or target == "" then
+        isMatch = true
+    else
+        local cleanTarget = tostring(target):gsub("%s*%(.-%)", ""):lower()
+        local bName = tostring(currentBanner):lower()
+        local bId = tostring(state.BannerId or ""):lower()
+        if bName:find(cleanTarget, 1, true) or bId:find(cleanTarget, 1, true) or cleanTarget:find(bName, 1, true) then
+            isMatch = true
+        end
+    end
+
+    if not isMatch then
+        if (manual or Cfg.RiftAutoReroll) and (state.FreeRefreshesRemaining or 0) > 0 then
+            local refreshed = rerollRiftFree()
+            if refreshed then
+                task.wait(0.8)
+                state = getRiftState()
+                Runtime.riftState = state
+                currentBanner = state and (state.BannerDisplayName or state.BannerId) or currentBanner
+            end
+        else
+            return false
+        end
+    end
+
+    local reqs = state.Requirements
+    if not reqs or type(reqs) ~= "table" or #reqs < 3 then return false end
+
+    local pets = petItems(true)
+    local usedUids = {}
+    local matchedUids = {}
+
+    for slot = 1, 3 do
+        local wantName = tostring(reqs[slot])
+        local found = nil
+        for _, p in ipairs(pets) do
+            if not usedUids[p.uid] and not p.equipped and not p.favorite and not p.inFuse then
+                local isBillionTier = (p.rate and p.rate >= 1e9) or (p.price and p.price >= 1e9)
+                if not isBillionTier then
+                    local pName = tostring(p.cat)
+                    if pName == wantName or pName:lower() == wantName:lower() then
+                        found = p
+                        break
+                    end
+                end
+            end
+        end
+
+        if found then
+            usedUids[found.uid] = true
+            matchedUids[slot] = found.uid
+        else
+            return false, "ขาดวัตถุดิบ: " .. wantName
+        end
+    end
+
+    if #matchedUids == 3 then
+        local askTrade = findRemote(NET.Rift.ASK_TRADE_IN) or (ReplicatedStorage:FindFirstChild("Packages") and ReplicatedStorage.Packages:FindFirstChild("Networking") and ReplicatedStorage.Packages.Networking:FindFirstChild("RF/TheRift/AskTradeIn"))
+        if not askTrade then return false, "Remote AskTradeIn not found" end
+
+        local okTrade, resTrade = pcall(function() return askTrade:InvokeServer(matchedUids) end)
+        if okTrade and resTrade == true then
+            task.wait(0.2)
+            local askFinish = findRemote(NET.Rift.ASK_FINISH_REVEAL) or (ReplicatedStorage:FindFirstChild("Packages") and ReplicatedStorage.Packages:FindFirstChild("Networking") and ReplicatedStorage.Packages.Networking:FindFirstChild("RF/TheRift/AskFinishReveal"))
+            if askFinish then pcall(function() askFinish:InvokeServer() end) end
+            Runtime.stats.riftFuses = (Runtime.stats.riftFuses or 0) + 1
+            saveCache, petCache = nil, nil
+            markSellDirty()
+            return true
+        else
+            return false, tostring(resTrade)
+        end
+    end
+    return false
+end
+
+-- =========================================================================
+-- [[ PROGRESSION & UPGRADE HELPERS ]]
+-- =========================================================================
+local function baseUpgradeStep()
+    local ok = invoke(NET.Plots.REQUEST_BASE_UPGRADE)
+    return ok == true
+end
+
+local function treadmillUpgradeStep()
+    local ok = invoke(NET.Treadmills.REQUEST_UPGRADE)
+    return ok == true
+end
+
+local function trailsStep()
+    pcall(function()
+        local rem = findRemote(NET.Trails.REQUEST_PURCHASE)
+        if rem and rem:IsA("RemoteFunction") then rem:InvokeServer("Best") end
+    end)
+end
+
+local function fuseStep()
+    pcall(function()
+        local rem = findRemote(NET.ActiveAssets.REQUEST_FUSE)
+        if rem and rem:IsA("RemoteFunction") then rem:InvokeServer() end
+    end)
+end
+
+local function claimStep()
+    pcall(function()
+        local rem = findRemote(NET.OfflineAssets.REQUEST_REDEEM)
+        if rem and rem:IsA("RemoteFunction") then rem:InvokeServer() end
+    end)
+end
+
+-- =========================================================================
+-- [[ NAV HELPERS (CURTAIN, DAWN, TREADMILL) ]]
+-- =========================================================================
+local Nav = {}
+function Nav.curtainClosed()
+    local barrier = Workspace:FindFirstChild("Curtain") or Workspace:FindFirstChild("WallBarrier") or Workspace:FindFirstChild("NightBarrier")
+    if barrier and barrier:IsA("BasePart") then
+        return barrier.Transparency < 0.5 and barrier.CanCollide == true
+    end
+    return false
+end
+
+function Nav.secondsUntilDawn()
+    local clock = Lighting and Lighting.ClockTime or 12
+    if clock >= 6 and clock <= 18 then return 999 end
+    local remainingHours = (clock < 6) and (6 - clock) or (24 - clock + 6)
+    return remainingHours * 4
+end
+
+function Nav.onTreadmill()
+    local c = E and E.Character
+    local hum = c and c:FindFirstChildOfClass("Humanoid")
+    return hum and hum.SeatPart ~= nil
+end
+
+function Nav.leaveTreadmill()
+    leaveTreadmill()
+end
+
+-- =========================================================================
+-- [[ CENTRAL COMMAND ORCHESTRATOR & SELLER THREAD ]]
+-- =========================================================================
+task.spawn(function()
+    local eggQueue, eggQueueAt = {}, 0
+    local frameMax, frameConn = 0, nil
+    local pace  = math.max(Cfg.SellPace or 0.05, 0.03)
+    local lanes = math.clamp(Cfg.SellLanes or 3, 1, 6)
+
+    while T["alive"] do
+        local paced = false
+
+        if Runtime.sellDirty and Runtime.sellFlight == 0 then
+            pcall(refillSellQueue)
+        end
+
+        if Cfg.AutoSellPets and #Runtime.sellQueue > 0 then
+            if Runtime.sellFlight < lanes then
+                local p = table.remove(Runtime.sellQueue)
+                if p then
+                    Runtime.sellFlight = Runtime.sellFlight + 1
+                    paced = true
+                    task.spawn(function()
+                        local ok = invoke(NET.ActiveAssets.REQUEST_SELL, p.uid)
+                        Runtime.sellFlight = Runtime.sellFlight - 1
+                        if ok then
+                            Runtime.stats.soldPets = Runtime.stats.soldPets + 1
+                            Runtime.sellEarned = (Runtime.sellEarned or 0) + (p.price or 0)
+                        end
+                    end)
+                end
+            end
+        end
+
+        if Cfg.AutoSellEggs and not (T["glidingToTarget"] or T["securingEgg"] or T["delivering"] or T["isReturning"]) then
+            if #eggQueue == 0 and os.clock() - eggQueueAt > 3 then
+                eggQueueAt = os.clock()
+                local ok, plan = pcall(eggSellPlan)
+                if ok and plan then
+                    for i = #plan, 1, -1 do eggQueue[#eggQueue + 1] = plan[i] end
+                end
+            end
+            if #eggQueue > 0 and not paced then
+                local egg = table.remove(eggQueue)
+                if egg and invoke(NET.Eggs.REQUEST_EQUIP_TOOL, egg.uid) then
+                    fire(NET.AssetInventory.SELL_ASSET, { egg.uid })
+                    Runtime.stats.soldEggs = Runtime.stats.soldEggs + 1
+                    paced = true
+                    if #eggQueue == 0 then
+                        pcall(function() invoke(NET.Eggs.REQUEST_UNEQUIP_TOOL) end)
+                        saveCache = nil
+                    end
+                end
+            end
+        elseif #eggQueue > 0 then
+            table.clear(eggQueue)
+        end
+
+        task.wait(paced and pace or 0.25)
+    end
+end)
+
+local masterOrchestratorRunning = false
+task.spawn(function()
+    if masterOrchestratorRunning then return end
+    masterOrchestratorRunning = true
+
+    while T["alive"] do
+        local curtainClosed = Nav.curtainClosed()
+        local secUntilDawn = Nav.secondsUntilDawn()
+
+        -- [Dawn Preparation Window: 3s Countdown]
+        -- When 3s remain until dawn, dismount treadmill and prepare character at safe line.
+        if secUntilDawn <= 3 or (curtainClosed and secUntilDawn <= 4) then
+            if Nav.onTreadmill() then
+                Nav.leaveTreadmill()
+            end
+        end
+
+        local isStealingActive = T["pureTweenFarm"] or T["autoFarmLoop"] or T["glidingToTarget"] or T["securingEgg"] or T["delivering"] or T["isReturning"]
+
+        -- If not actively stealing, orchestrate secondary tasks
+        if not isStealingActive then
+            -- Priority 2 & 3: Place & Hatch Eggs
+            if Cfg.AutoHatch then
+                pcall(hatchReady)
+            end
+
+            if Cfg.AutoPlace and (os.clock() - (Runtime.lastPlaceAttempt or 0) > 3) then
+                local occ = occupiedSpots()
+                if #occ < 15 then
+                    local unplaced = unplacedEggs()
+                    if #unplaced > 0 then
+                        if Nav.onTreadmill() then Nav.leaveTreadmill() end
+                        placeEggs()
+                        Runtime.lastPlaceAttempt = os.clock()
+                    end
+                end
+            end
+
+            -- Priority 3.5: The Rift Fusion
+            if Cfg.AutoRift then
+                pcall(riftStep)
+            end
+
+            -- Background Progression Upgrades
+            if Cfg.AutoBaseUpgrade then pcall(baseUpgradeStep) end
+            if Cfg.AutoTrails then pcall(trailsStep) end
+            if Cfg.AutoFuse then pcall(fuseStep) end
+            if Cfg.AutoClaim then pcall(claimStep) end
+        end
+
+        task.wait(0.2)
+    end
+end)
+
+
 -- [[ OBSIDIAN GLASSMORPHIC 2 UI ENGINE - ROBUST & PRODUCTION READY ]]
 -- Designed for Mobile, Emulator (MuMu/Nox/LDPlayer) & Desktop (Synapse/Delta/Codex/Arceus/Solara)
 -- ======================================================================================
@@ -4045,6 +4313,8 @@ function ObsidianGlassEngine:CreateWindow(cfg)
 
         -- 🔘 TOGGLE WIDGET (ROBUST & FULL-ROW CLICKABLE)
         function TabObj:AddToggle(id, tCfg)
+            if type(id) == "table" and not tCfg then tCfg = id id = tCfg.Title or "Toggle" end
+            tCfg = tCfg or {}
             local title = tCfg.Title or id
             local desc = tCfg.Desc or ""
             local defaultVal = (tCfg.Default ~= nil) and tCfg.Default or false
@@ -4153,6 +4423,8 @@ function ObsidianGlassEngine:CreateWindow(cfg)
 
         -- 📋 DROPDOWN WIDGET WITH POPUP OVERLAY
         function TabObj:AddDropdown(id, dCfg)
+            if type(id) == "table" and not dCfg then dCfg = id id = dCfg.Title or "Dropdown" end
+            dCfg = dCfg or {}
             local title = dCfg.Title or id
             local values = dCfg.Values or {}
             local defaultVal = dCfg.Value or dCfg.Default or (values[1] or "")
@@ -4490,9 +4762,10 @@ function ObsidianGlassEngine:CreateWindow(cfg)
             return OptionObj
         end
 
-        -- 🔘 BUTTON WIDGET (WITH DESC SUPPORT)
-        function TabObj:AddButton(bCfg)
-            local title = bCfg.Title or "Button"
+        -- 🔘 BUTTON WIDGET (POLYMORPHIC SIGNATURE SUPPORT)
+        function TabObj:AddButton(a, b)
+            local bCfg = (type(a) == "table" and a) or (type(b) == "table" and b) or {}
+            local title = bCfg.Title or (type(a) == "string" and a) or "Button"
             local desc = bCfg.Desc or ""
             local cb = bCfg.Callback or function() end
 
@@ -4551,12 +4824,14 @@ function ObsidianGlassEngine:CreateWindow(cfg)
             return btn
         end
 
-        -- 🎚️ SLIDER WIDGET
-        function TabObj:AddSlider(id, sCfg)
+        -- 🎚️ SLIDER WIDGET (POLYMORPHIC SIGNATURE SUPPORT)
+        function TabObj:AddSlider(a, b)
+            local sCfg = (type(b) == "table" and b) or (type(a) == "table" and a) or {}
+            local id = (type(a) == "string" and a) or sCfg.Title or "Slider"
             local title = sCfg.Title or id
-            local minVal = sCfg.Min or 0
-            local maxVal = sCfg.Max or 100
-            local defaultVal = sCfg.Default or minVal
+            local minVal = sCfg.Min or (type(sCfg.Value) == "table" and sCfg.Value.Min) or 0
+            local maxVal = sCfg.Max or (type(sCfg.Value) == "table" and sCfg.Value.Max) or 100
+            local defaultVal = sCfg.Default or (type(sCfg.Value) == "table" and sCfg.Value.Default) or minVal
 
             local frame = Instance.new("Frame")
             frame.Size = UDim2.new(1, -8, 0, 50)
@@ -4680,7 +4955,8 @@ function ObsidianGlassEngine:CreateWindow(cfg)
         end
 
         -- 📌 SECTION HEADER WIDGET
-        function TabObj:AddSection(title)
+        function TabObj:AddSection(rawTitle)
+            local title = (type(rawTitle) == "table" and (rawTitle.Title or rawTitle.Text)) or tostring(rawTitle or "")
             local sec = Instance.new("TextLabel")
             sec.Size = UDim2.new(1, -8, 0, 28)
             sec.BackgroundTransparency = 1
@@ -4694,9 +4970,10 @@ function ObsidianGlassEngine:CreateWindow(cfg)
             return sec
         end
 
-        -- 📝 PARAGRAPH WIDGET (DYNAMIC MULTI-LINE HEIGHT)
-        function TabObj:AddParagraph(pCfg)
-            local title = pCfg.Title or ""
+        -- 📝 PARAGRAPH WIDGET (POLYMORPHIC SIGNATURE SUPPORT)
+        function TabObj:AddParagraph(a, b)
+            local pCfg = (type(a) == "table" and a) or (type(b) == "table" and b) or {}
+            local title = pCfg.Title or (type(a) == "string" and a) or ""
             local desc = pCfg.Desc or ""
 
             local frame = Instance.new("Frame")
@@ -5274,18 +5551,13 @@ local function updateEggESP()
     end
 end
 
+
 local function tG()
     T["alive"] = false
-    pcall(clearEggESP)
     pcall(Pq)
     pcall(jq)
-    pcall(function()
-        local parentGui = getSafeGuiParent()
-        local ui = parentGui:FindFirstChild("ObsidianGlass2_UI") or CoreGui:FindFirstChild("ObsidianGlass2_UI")
-        if ui then ui:Destroy() end
-        local notif = parentGui:FindFirstChild("ObsidianGlass_NotifHolder") or CoreGui:FindFirstChild("ObsidianGlass_NotifHolder")
-        if notif then notif:Destroy() end
-    end)
+    if zG and zG["Gui"] then pcall(function() zG["Gui"]:Destroy() end) end
+    if T["gui"] then pcall(function() T["gui"]:Destroy() end) end
     pcall(function()
         for _, obj in ipairs(CoreGui:GetChildren()) do
             if obj.Name:find("ObsidianGlass") or obj.Name:find("Dice_") or obj.Name:find("WindUI") then
@@ -5302,24 +5574,26 @@ local function xG()
     })
 
     -- =========================================================================
-    -- 📑 TABS
+    -- 📑 TABS DEFINITION
     -- =========================================================================
-    local tabFarm = Window:AddTab({ Title = "ระบบขโมยไข่" })
-    local tabChar = Window:AddTab({ Title = "ตัวละคร & ความเร็ว" })
-    local tabDash = Window:AddTab({ Title = "แดชบอร์ด & ตั้งค่า" })
+    local tabFarm = Window:AddTab({ Title = "ฟาร์ม", Icon = "egg" })
+    local tabSell = Window:AddTab({ Title = "ขาย", Icon = "coins" })
+    local tabProg = Window:AddTab({ Title = "พัฒนา", Icon = "trending-up" })
+    local tabChar = Window:AddTab({ Title = "ตัวละคร & ความเร็ว", Icon = "user" })
+    local tabDash = Window:AddTab({ Title = "แดชบอร์ด & ตั้งค่า", Icon = "layout-dashboard" })
 
     -- =========================================================================
-    -- 🚀 TAB 1: ระบบขโมยไข่ (AUTO STEAL & PLACE)
+    -- 🚀 TAB 1: ระบบขโมยไข่ (AUTO STEAL 1:1 BACKUP ENGINE)
     -- =========================================================================
-    tabFarm:AddSection("เรดาร์ตรวจจับ 2D (Egg Radar Monitoring)")
+    tabFarm:AddSection("เรดาร์ตรวจจับไข่ในแมพ")
     local RadarBox = tabFarm:AddEggRadarCard("RadarScanner")
 
-    tabFarm:AddSection("โหมดขโมยไข่อัตโนมัติ (Auto Steal)")
+    tabFarm:AddSection("โหมดขโมยไข่อัตโนมัติ (1:1 Backup Engine)")
 
     local isInternalSync = false
     local togAutoSteal = tabFarm:AddToggle("TogAutoSteal", {
-        Title = "เปิดออโต้ขโมยไข่ (Auto Steal)",
-        Desc = "บินไปขโมยไข่อัตโนมัติ พร้อมเก็บลงกระเป๋าและบินกลับเซฟโซน",
+        Title = "เปิดออโต้ขโมยไข่ (Auto Steal Egg)",
+        Desc = "บินไปขโมยไข่อัตโนมัติ (ระบบ Backup WindUI 1:1 นิ่ง เสถียร ไม่หลุดบนมือถือ)",
         Default = T["pureTweenFarm"],
         Callback = function(val)
             if isInternalSync then return end
@@ -5343,49 +5617,48 @@ local function xG()
         end)
     end
 
-    Mq = function(val)
-        -- No-op for single toggle mode
-    end
+    Mq = function(val) end
 
     tabFarm:AddDropdown("DropdownEggRarity", {
-        Title = "เลือกระดับไข่ (Egg Rarity)",
+        Title = "เลือกระดับไข่ (Egg Rarities)",
         Values = (function()
             local list = { "All (ทั้งหมด)" }
-            for _, r in ipairs(RARITY_ORDER) do
-                table.insert(list, r)
-            end
+            for _, r in ipairs(RARITY_ORDER) do table.insert(list, r) end
             return list
         end)(),
         Value = { "All (ทั้งหมด)" },
         Multi = true,
         Callback = function(val)
             if type(val) == "table" then
-                SELECTED_RARITIES = val
+                T["selectedEggRarities"] = val
             elseif type(val) == "string" then
-                SELECTED_RARITIES = { val }
+                T["selectedEggRarities"] = { val }
             else
-                SELECTED_RARITIES = {}
+                T["selectedEggRarities"] = {}
             end
-            local rarStr = #SELECTED_RARITIES > 0 and table.concat(SELECTED_RARITIES, ", ") or "ทั้งหมด"
+            local rarStr = #T["selectedEggRarities"] > 0 and table.concat(T["selectedEggRarities"], ", ") or "ทั้งหมด"
             ObsidianGlassEngine:Notify({
                 Title = "เลือกระดับไข่",
-                Content = "เลือกระดับ: " .. rarStr,
+                Content = "ระดับที่เลือก: " .. rarStr,
                 Duration = 3
             })
-            tabFarm:AddDropdown("DropdownEggZone", {
+        end
+    })
+
+    tabFarm:AddDropdown("DropdownEggZone", {
         Title = "เลือกโซนที่ต้องการขโมย (Steal Zones)",
         Values = ZONE_OPTIONS,
         Value = { "All (ทุกโซน)" },
         Multi = true,
         Callback = function(val)
             if type(val) == "table" then
-                SELECTED_ZONES = val
+                T["selectedEggZones"] = val
             elseif type(val) == "string" then
-                SELECTED_ZONES = { val }
+                T["selectedEggZones"] = { val }
             else
-                SELECTED_ZONES = { "All (ทุกโซน)" }
+                T["selectedEggZones"] = { "All (ทุกโซน)" }
             end
-            local zoneStr = #SELECTED_ZONES > 0 and table.concat(SELECTED_ZONES, ", ") or "ทุกโซน"
+            local zoneStr = #T["selectedEggZones"] > 0 and table.concat(T["selectedEggZones"], ", ") or "ทุกโซน"
             ObsidianGlassEngine:Notify({
                 Title = "เลือกโซนขโมย",
                 Content = "โซนที่เลือก: " .. zoneStr,
@@ -5395,84 +5668,25 @@ local function xG()
     })
 
     tabFarm:AddButton({
-        Title = "👑 ขโมยไข่ 5 ใบที่ดีที่สุด (Steal Top 5 Eggs)",
-        Desc = "สแกนและขโมยไข่ที่มีสถานะเยอะสุด ไกลสุด และใหญ่สุด 5 ใบในรอบนี้ทันที",
-        Callback = function()
-            stealTopFiveEggs()
-        end
-    })
-end
-    })
-
-    tabFarm:AddToggle("TogEggESP", {
-        Title = "เปิด Egg ESP (ป้ายไข่ 3D)",
-        Desc = "แสดงชื่อไข่, ระดับ Rarity, ขนาด Big Egg, Mutation และระยะห่างลอยเหนือไข่",
-        Default = Cfg_EggESP,
-        Callback = function(val)
-            Cfg_EggESP = val
-            if val then
-                pcall(updateEggESP)
-            else
-                pcall(clearEggESP)
-            end
-            ObsidianGlassEngine:Notify({
-                Title = "Egg ESP",
-                Content = val and "เปิดการแสดงผล Egg ESP เรียบร้อย" or "ปิดการแสดงผล Egg ESP แล้ว",
-                Duration = 3
-            })
-        end
-    })
-
-    tabFarm:AddButton({
-        Title = "วาร์ปขโมยไข่ 1 ครั้ง (Single Steal)",
-        Desc = "วาร์ปไปขโมยไข่ 1 ฟองแล้วบินกลับเซฟโซนทันที",
+        Title = "👑 ขโมยไข่ 1 ครั้ง (Single Steal Run)",
+        Desc = "สั่งขโมยไข่ที่ดีที่สุดทันที 1 รอบตามระบบ Backup WindUI",
         Callback = function()
             task.spawn(function()
-                if Jq ~= "NONE" then
-                    cq("NONE")
-                    task.wait(0.2)
-                end
-                local target = aG()
-                if target then
-                    local ok = DG(target, nil)
-                    if ok then
-                        pcall(jq)
-                        if T["autoGlide"] then
-                            VG(T["glideSpeed"])
-                            jq()
-                        end
-                    end
-                else
-                    ObsidianGlassEngine:Notify({
-                        Title = "เก็บไข่ไปกับพยอมบอย",
-                        Content = "ไม่พบไข่ที่พร้อมขโมยในขณะนี้",
-                        Duration = 3
-                    })
-                end
+                leaveTreadmill()
+                cq("TWEEN")
             end)
         end
     })
 
-    tabFarm:AddSection("วางไข่ที่บ้าน & ฟักไข่")
-
     tabFarm:AddButton({
-        Title = "วางไข่ที่บ้าน (Place Egg)",
-        Desc = "บินกลับบ้าน วางไข่ที่ขโมยมาบนแท่นและสั่งฟักทันที",
+        Title = "📥 วางไข่ในคอกทั้งหมด (Place All Eggs)",
+        Desc = "นำไข่ที่อยู่ในตัวไปวางในคอกจุดที่ว่างทันที",
         Callback = function()
             task.spawn(function()
+                local count = placeEggs()
                 ObsidianGlassEngine:Notify({
-                    Title = "เก็บไข่ไปกับพยอมบอย",
-                    Content = "กำลังบินกลับบ้านเพื่อวางไข่...",
-                    Duration = 3
-                })
-                T["statusText"] = "[Manual] Depositing eggs..."
-                oq(T["glideSpeed"], nil, true)
-                jq()
-                T["isReturning"] = false
-                T["delivering"] = false
-                ObsidianGlassEngine:Notify({
-                    Title = "เก็บไข่ไปกับพยอมบอย",
-                    Content = "วางไข่บนแท่นและเริ่มฟักเรียบร้อย!",
+                    Title = "วางไข่ในคอก",
+                    Content = string.format("วางไข่สำเร็จ %d ใบ", count),
                     Duration = 3
                 })
             end)
@@ -5480,467 +5694,523 @@ end
     })
 
     tabFarm:AddToggle("TogAutoHatch", {
-        Title = "ออโต้ฟักไข่ตลอดเวลา (Auto Hatch)",
-        Desc = "สั่งฟักไข่ให้อัตโนมัติต่อเนื่องจากทุกที่",
+        Title = "ฟักไข่อัตโนมัติ (Auto Hatch)",
+        Desc = "ฟักไข่ในคอกทันทีเมื่อฟักโตเต็มที่",
         Default = T["autoHatch"],
         Callback = function(val)
             T["autoHatch"] = val
-            ObsidianGlassEngine:Notify({
-                Title = "Auto Hatch",
-                Content = val and "เปิดระบบฟักไข่อัตโนมัติ" or "ปิดระบบฟักไข่อัตโนมัติ",
-                Duration = 3
-            })
+            Cfg.AutoHatch = val
         end
     })
 
     tabFarm:AddToggle("TogAutoReturn", {
-        Title = "บินกลับเซฟโซนอัตโนมัติ (Auto Return)",
-        Desc = "บินกลับพื้นที่ปลอดภัยอัตโนมัติหลังขโมยไข่เสร็จ",
+        Title = "บินกลับจุดปลอดภัยอัตโนมัติ (Auto Return)",
+        Desc = "บินกลับเส้นปลอดภัยหลังจากขโมยไข่สำเร็จ",
         Default = T["autoGlide"],
         Callback = function(val)
             T["autoGlide"] = val
-            ObsidianGlassEngine:Notify({
-                Title = "Auto Return",
-                Content = val and "เปิดระบบบินกลับเซฟโซนอัตโนมัติ" or "ปิดระบบบินกลับเซฟโซนอัตโนมัติ",
-                Duration = 3
-            })
         end
     })
 
-    -- =========================================================================
-    -- 🛡️ TAB 2: ตัวละคร & ความเร็ว (CHARACTER & SAFETY)
-    -- =========================================================================
-    tabChar:AddSection("ความปลอดภัย (Safety & Protection)")
-
-    tabChar:AddToggle("TogGodmode", {
-        Title = "โหมดอมตะ (Godmode)",
-        Desc = "เปิดโหมดอมตะ ป้องกันการโจมตีและการ์ดตีล้ม",
-        Default = false,
+    tabFarm:AddToggle("TogEggESP", {
+        Title = "เปิด Egg ESP (ป้ายไข่ 3D)",
+        Desc = "แสดงชื่อไข่, ระดับความหายาก และระยะทางบนหัวไข่",
+        Default = true,
         Callback = function(val)
-            pcall(function()
-                eG(val)
-                if val then
-                    RG()
-                end
+            -- Handled by ESP controller
+        end
+    })
+
+    -- =========================================================================
+    -- 💰 TAB 2: ระบบขาย (SELL SYSTEM FROM SRC)
+    -- =========================================================================
+    local SellPreview = tabSell:AddParagraph({
+        Title = "ตัวอย่างรายการขายสัตว์เลี้ยง",
+        Desc  = "อัปเดตอัตโนมัติจากกระเป๋า...",
+    })
+
+    tabSell:AddToggle("TogAutoSellPets", {
+        Title = "ขายสัตว์เลี้ยงอัตโนมัติ (Auto Sell Pets)",
+        Desc  = "ขายสัตว์เลี้ยงที่เข้าเงื่อนไขอัตโนมัติ (ปลอดภัย ไม่ขาย 1B+)",
+        Default = Cfg.AutoSellPets,
+        Callback = function(v)
+            Cfg.AutoSellPets = isOn(v)
+            markSellDirty()
+        end,
+    })
+
+    tabSell:AddDropdown("DropdownSellPetMode", {
+        Title = "เงื่อนไขการขายสัตว์เลี้ยง",
+        Desc  = "เลือกรูปแบบการคัดกรองสัตว์เลี้ยงที่จะขาย",
+        Values = { "ราคาต่ำกว่าที่ตั้งไว้", "ระดับที่เลือก", "ทั้งสองเงื่อนไข" },
+        Value = Cfg.SellPetMode,
+        Callback = function(v)
+            Cfg.SellPetMode = v
+            markSellDirty()
+        end,
+    })
+
+    tabSell:AddInput("InputSellPetBelow", {
+        Title = "ขายสัตว์เลี้ยงที่ราคาต่ำกว่า (Sell Below)",
+        Desc  = "ใส่ราคา เช่น 100k, 5m, 50m (0 = ขายทุกตัวที่ไม่ติดรางป้องกัน)",
+        Value = tostring(Cfg.SellPetBelow),
+        Callback = function(v)
+            local s = tostring(v):lower():gsub("[,%s]", "")
+            local num = tonumber(s:match("^[%d%.]+")) or 0
+            if s:find("k") then num = num * 1e3
+            elseif s:find("m") then num = num * 1e6
+            elseif s:find("b") then num = num * 1e9
+            elseif s:find("t") then num = num * 1e12 end
+            Cfg.SellPetBelow = num
+            markSellDirty()
+        end,
+    })
+
+    tabSell:AddDropdown("DropdownSellPetRarities", {
+        Title = "ระดับสัตว์เลี้ยงที่จะขาย (Pet Rarities)",
+        Values = RARITY_ORDER,
+        Value = setToList(Cfg.SellPetRarities),
+        Multi = true,
+        Callback = function(v)
+            Cfg.SellPetRarities = toSet(v)
+            markSellDirty()
+        end,
+    })
+
+    tabSell:AddSlider("SliderSellKeepTop", {
+        Title = "เก็บตัวเก่งสุดไว้ (Keep Top N Pets)",
+        Desc  = "จำนวนตัวเก่งสุดที่จะไม่ถูกขายเด็ดขาด",
+        Min = 0, Max = 60, Default = Cfg.SellKeepTop,
+        Callback = function(v)
+            Cfg.SellKeepTop = v
+            markSellDirty()
+        end,
+    })
+
+    tabSell:AddSection("ระบบขายไข่ (Egg Sell)")
+
+    tabSell:AddToggle("TogAutoSellEggs", {
+        Title = "ขายไข่อัตโนมัติ (Auto Sell Eggs)",
+        Desc  = "ขายเฉพาะไข่ที่ยังไม่ได้วางในคอก",
+        Default = Cfg.AutoSellEggs,
+        Callback = function(v)
+            Cfg.AutoSellEggs = isOn(v)
+            markSellDirty()
+        end,
+    })
+
+    tabSell:AddDropdown("DropdownSellEggRarities", {
+        Title = "ระดับไข่ที่จะขาย (Egg Rarities to Sell)",
+        Values = RARITY_ORDER,
+        Value = setToList(Cfg.SellEggRarities),
+        Multi = true,
+        Callback = function(v)
+            Cfg.SellEggRarities = toSet(v)
+            markSellDirty()
+        end,
+    })
+
+    tabSell:AddInput("InputSellEggBelow", {
+        Title = "หรือขายไข่ที่ราคาต่ำกว่า",
+        Desc  = "0 = ปิดเงื่อนไขราคาไข่",
+        Value = tostring(Cfg.SellEggBelow),
+        Callback = function(v)
+            local s = tostring(v):lower():gsub("[,%s]", "")
+            local num = tonumber(s:match("^[%d%.]+")) or 0
+            if s:find("k") then num = num * 1e3 elseif s:find("m") then num = num * 1e6 end
+            Cfg.SellEggBelow = num
+            markSellDirty()
+        end,
+    })
+
+    tabSell:AddSection("ความเร็วและโควต้าการขาย")
+
+    tabSell:AddSlider("SliderSellLanes", {
+        Title = "ความเร็วคำสั่งขาย (Sell Lanes)",
+        Desc  = "จำนวนคำสั่งขายที่ส่งพร้อมกัน (1-6)",
+        Min = 1, Max = 6, Default = Cfg.SellLanes,
+        Callback = function(v) Cfg.SellLanes = v end,
+    })
+
+    tabSell:AddSlider("SliderSellMaxPerRun", {
+        Title = "เพดานการขายต่อรอบ (Max Per Run)",
+        Desc  = "จำนวนสูงสุดต่อครั้งที่กดขายทันที",
+        Min = 1, Max = 200, Default = Cfg.SellMaxPerRun,
+        Callback = function(v) Cfg.SellMaxPerRun = v end,
+    })
+
+    tabSell:AddButton({
+        Title = "⚡ ขายสัตว์เลี้ยงทันที (Sell Pets Now)",
+        Desc  = "สั่งสแกนและขายสัตว์เลี้ยงตามเงื่อนไขทันที 1 รอบ",
+        Callback = function()
+            task.spawn(function()
+                local sold, earned = sellPets()
+                ObsidianGlassEngine:Notify({
+                    Title = "ขายสัตว์เลี้ยง",
+                    Content = string.format("ขายสำเร็จ %d ตัว (+%s)", sold, tostring(earned)),
+                    Duration = 3
+                })
             end)
-            ObsidianGlassEngine:Notify({
-                Title = "Godmode",
-                Content = val and "เปิดโหมดอมตะเรียบร้อย" or "ปิดโหมดอมตะแล้ว",
-                Duration = 3
-            })
         end
     })
 
-    tabChar:AddButton({
-        Title = "หลุดออกจากลู่วิ่ง (Get Out Treadmill)",
-        Desc = "หลุดออกจากลู่วิ่งและเครื่องเล่นทันที แก้ตัวติด",
+    tabSell:AddButton({
+        Title = "⚡ ขายไข่ทันที (Sell Eggs Now)",
+        Desc  = "สั่งขายไข่ในกระเป๋าที่เข้าเงื่อนไขทันที",
         Callback = function()
-            pcall(lq)
-            pcall(Pq)
-            ObsidianGlassEngine:Notify({
-                Title = "Unstick",
-                Content = "ส่งคำสั่งหลุดออกจากเครื่องเล่นแล้ว!",
-                Duration = 3
-            })
-        end
-    })
-
-    tabChar:AddButton({
-        Title = "รีเซ็ตสถานะตัวละคร (Reset State)",
-        Desc = "ล้างสถานะและปลดล็อกตัวละครทันที",
-        Callback = function()
-            pcall(Pq)
-            pcall(jq)
-            ObsidianGlassEngine:Notify({
-                Title = "Reset State",
-                Content = "รีเซ็ตสถานะตัวละครเรียบร้อย",
-                Duration = 3
-            })
-        end
-    })
-
-    tabChar:AddSection("การเคลื่อนที่ (Flight Movement)")
-
-    tabChar:AddSlider("SliderFlightSpeed", {
-        Title = "ความเร็วการบิน (Flight Speed)",
-        Min = 100,
-        Max = 600,
-        Default = T["glideSpeed"] or 400,
-        Rounding = 0,
-        Callback = function(val)
-            T["glideSpeed"] = val
-        end
-    })
-
-    -- =========================================================================
-    -- 📊 TAB 3: แดชบอร์ด & ตั้งค่า (DASHBOARD & SETTINGS)
-    -- =========================================================================
-    tabDash:AddSection("ข้อมูลสถานะสด (Live Dashboard)")
-
-    local liveDashPara = tabDash:AddParagraph({
-        Title = "สถานะระบบ (Live Telemetry)",
-        Desc = string.format("สถานะ: พร้อมทำงาน\nโหมดฟาร์ม: พักการทำงาน (Idle)\nจำนวนไข่ในตัว: %d ฟอง\nความเร็วบิน: %d Studs/s", xq(), T["glideSpeed"] or 400)
-    })
-
-    tabDash:AddSection("จัดการระบบ (System Controls)")
-
-    tabDash:AddButton({
-        Title = "รีจอยน์เซิร์ฟเวอร์ (Rejoin Server)",
-        Desc = "เข้าเซิร์ฟเวอร์เดิมใหม่อัตโนมัติ",
-        Callback = function()
-            pcall(function()
-                TeleportService:TeleportToPlaceInstance(game.PlaceId, game.JobId, E)
+            task.spawn(function()
+                local sold = sellEggs()
+                ObsidianGlassEngine:Notify({
+                    Title = "ขายไข่",
+                    Content = string.format("ขายไข่สำเร็จ %d ใบ", sold),
+                    Duration = 3
+                })
             end)
         end
     })
 
-    tabDash:AddButton({
-        Title = "ปิดสคริปต์สมบูรณ์ (Unload Script)",
-        Desc = "ปิดหน้าต่าง UI และหยุดการทำงานของสคริปต์ทั้งหมด",
-        Callback = function()
-            tG()
-        end
+    tabSell:AddParagraph({
+        Title = "ระบบป้องกันความปลอดภัย (Safety Rails)",
+        Desc  = "สัตว์เลี้ยงที่: สวมใส่อยู่, ตัวโปรด (Favorite), อยู่ในตู้ผสม (In-Fuse), และสัตว์เลี้ยงระดับ 1B+ จะถูกล็อคป้องกันไม่ให้ถูกขายเด็ดขาด 100%",
     })
 
-        -- =========================================================================
-    -- TAB 4: ระบบพัฒนา (Progression Tab - 1:1 with StealAnEggSRC.lua)
     -- =========================================================================
-    local TabProg = Window:AddTab({
-        Title = "พัฒนา",
-        Icon = "trending-up"
+    -- 🔮 TAB 3: ระบบพัฒนา & THE RIFT (THE RIFF)
+    -- =========================================================================
+    local ProgBox = tabProg:AddParagraph({
+        Title = "ความคืบหน้าการพัฒนา",
+        Desc  = "ระบบพร้อมทำงาน...",
     })
 
-    -- -------------------------------------------------------------------------
-    -- Card: ความคืบหน้า (ProgBox)
-    -- -------------------------------------------------------------------------
-    local ProgBox = TabProg:AddParagraph({
-        Title = "ความคืบหน้า",
-        Desc  = "กำลังอ่านข้อมูลผู้เล่น..."
-    })
-
-    -- -------------------------------------------------------------------------
-    -- Multi-Dropdown: ระบบอัตโนมัติที่จะเปิด
-    -- -------------------------------------------------------------------------
-    TabProg:AddDropdown("DropdownAutoProg", {
-        Title = "ระบบอัตโนมัติที่จะเปิด",
-        Desc  = "อัปฐานกับลู่วิ่งจะซื้อทันทีที่เงินถึง ตรวจทุก 1 วินาที",
-        Values = { "อัปเกรดฐาน", "ซื้อ/ใส่เทรล", "ผสมสัตว์", "รับรางวัล" },
+    tabProg:AddDropdown("DropdownAutoProg", {
+        Title = "ระบบอัปเกรดอัตโนมัติ (Auto Progression)",
+        Desc  = "เลือกฟังก์ชันที่ต้องการให้อัปเกรดอัตโนมัติในเบื้องหลัง",
+        Values = { "อัปเกรดฐาน", "ซื้อ/ใส่เส้นทางเดิน", "ผสมสัตว์เลี้ยง", "รับรางวัล" },
         Value = (function()
             local t = {}
-            if CfgProg.AutoBaseUpgrade then table.insert(t, "อัปเกรดฐาน") end
-            if CfgProg.AutoTrails then table.insert(t, "ซื้อ/ใส่เทรล") end
-            if CfgProg.AutoFuse or CfgProg.AutoRift then table.insert(t, "ผสมสัตว์") end
-            if CfgProg.AutoClaim then table.insert(t, "รับรางวัล") end
+            if Cfg.AutoBaseUpgrade then t[#t + 1] = "อัปเกรดฐาน" end
+            if Cfg.AutoTrails then t[#t + 1] = "ซื้อ/ใส่เส้นทางเดิน" end
+            if Cfg.AutoFuse then t[#t + 1] = "ผสมสัตว์เลี้ยง" end
+            if Cfg.AutoClaim then t[#t + 1] = "รับรางวัล" end
             return t
         end)(),
         Multi = true,
         Callback = function(v)
-            local set = {}
-            if type(v) == "table" then
-                for _, item in ipairs(v) do set[item] = true end
-            elseif type(v) == "string" then
-                set[v] = true
-            end
-            CfgProg.AutoBaseUpgrade = set["อัปเกรดฐาน"] == true
-            CfgProg.AutoTrails      = set["ซื้อ/ใส่เทรล"] == true
-            CfgProg.AutoFuse        = set["ผสมสัตว์"] == true
-            CfgProg.AutoRift        = set["ผสมสัตว์"] == true
-            CfgProg.AutoClaim       = set["รับรางวัล"] == true
-
-            ObsidianGlassEngine:Notify({
-                Title = "ระบบพัฒนา",
-                Content = string.format("เปิดระบบ: [ฐาน:%s | เทรล:%s | หลอม:%s | เคลม:%s]",
-                    CfgProg.AutoBaseUpgrade and "ON" or "OFF",
-                    CfgProg.AutoTrails and "ON" or "OFF",
-                    CfgProg.AutoFuse and "ON" or "OFF",
-                    CfgProg.AutoClaim and "ON" or "OFF"
-                ),
-                Duration = 3
-            })
-        end
+            local set = toSet(v)
+            Cfg.AutoBaseUpgrade = set["อัปเกรดฐาน"] == true
+            Cfg.AutoTrails      = set["ซื้อ/ใส่เส้นทางเดิน"] == true
+            Cfg.AutoFuse        = set["ผสมสัตว์เลี้ยง"] == true
+            Cfg.AutoClaim       = set["รับรางวัล"] == true
+        end,
     })
 
-    -- -------------------------------------------------------------------------
-    -- Section: The Rift (เดอะริฟต์) / Auto Fuse
-    -- -------------------------------------------------------------------------
-    TabProg:AddSection("The Rift (เดอะริฟต์) / Auto Fuse")
+    tabProg:AddSection("The Rift (เดอะริฟต์) / Auto Fusion")
 
-    TabProg:AddToggle("TogAutoRift", {
-        Title = "ผสมไข่ The Rift อัตโนมัติ",
-        Desc  = "ตรวจวัตถุดิบ 3 ตัวตามรอบแบนเนอร์ปัจจุบัน แล้วผสมให้อัตโนมัติ",
-        Default = CfgProg.AutoRift,
+    tabProg:AddToggle("TogAutoRift", {
+        Title = "ผสมไข่ The Rift อัตโนมัติ (Auto The Rift)",
+        Desc  = "ตรวจวัตถุดิบ 3 ตัวและกด Trade-In แลกสัตว์เลี้ยง Rift ทันที",
+        Default = Cfg.AutoRift,
         Callback = function(v)
-            CfgProg.AutoRift = v
-            CfgProg.AutoFuse = v
-        end
+            Cfg.AutoRift = isOn(v)
+        end,
     })
 
-    TabProg:AddDropdown("DropdownRiftTarget", {
+    tabProg:AddDropdown("DropdownRiftTarget", {
         Title = "ประเภทไข่ The Rift ที่ต้องการ",
-        Desc  = "เลือกประเภทไข่ที่จะผสม หากรอบปัจจุบันไม่ตรงจะรอหรือรีโรล",
+        Desc  = "เลือกประเภทไข่ / แบนเนอร์ที่จะรับ",
         Values = { "ทุกประเภท (All)", "Riftborn", "Riftbeasts", "Shattered Rift" },
-        Value = CfgProg.RiftTarget or "ทุกประเภท (All)",
+        Value = Cfg.RiftTarget or "ทุกประเภท (All)",
         Callback = function(v)
-            CfgProg.RiftTarget = v
-        end
+            Cfg.RiftTarget = v
+        end,
     })
 
-    TabProg:AddToggle("TogRiftAutoReroll", {
-        Title = "รีโรลหาแบนเนอร์เป้าหมายฟรี",
-        Desc  = "เมื่อรอบปัจจุบันไม่ตรงที่เลือก จะใช้สิทธิ์รีโรลฟรีหมุนหาอัตโนมัติ",
-        Default = CfgProg.RiftAutoReroll,
+    tabProg:AddToggle("TogRiftAutoReroll", {
+        Title = "รีโรลหาแบนเนอร์ฟรีอัตโนมัติ",
+        Desc  = "เมื่อรอบปัจจุบันไม่ใช่แบนเนอร์เป้าหมายและมีสิทธิ์ฟรี",
+        Default = Cfg.RiftAutoReroll,
         Callback = function(v)
-            CfgProg.RiftAutoReroll = v
-        end
+            Cfg.RiftAutoReroll = isOn(v)
+        end,
     })
 
-    local RiftStatusBox = TabProg:AddParagraph({
+    local RiftStatusBox = tabProg:AddParagraph({
         Title = "สถานะ The Rift",
-        Desc  = "กำลังตรวจสอบข้อมูลรอบแบนเนอร์...",
+        Desc  = "กำลังตรวจสอบข้อมูล The Rift ล่าสุด...",
     })
 
-    TabProg:AddButton({
-        Title = "ผสม The Rift ทันที 1 ครั้ง",
-        Desc  = "สั่งตรวจวัตถุดิบและผสมไข่ทันที",
+    tabProg:AddButton({
+        Title = "🌀 ผสม The Rift ทันที 1 ครั้ง",
+        Desc  = "สั่งตรวจวัตถุดิบและแลกรับสัตว์เลี้ยง The Rift ทันที",
         Callback = function()
             task.spawn(function()
                 local ok, err = riftStep(true)
                 if ok then
                     ObsidianGlassEngine:Notify({
                         Title = "The Rift",
-                        Content = "ผสมสำเร็จเรียบร้อย!",
-                        Duration = 4
+                        Content = "ผสมสัตว์เลี้ยง The Rift สำเร็จเรียบร้อย!",
+                        Duration = 3
                     })
                 else
                     ObsidianGlassEngine:Notify({
                         Title = "The Rift",
-                        Content = "ผสมไม่สำเร็จ: " .. tostring(err or "ขาดวัตถุดิบหรือยังไม่ปลดล็อค"),
-                        Duration = 4
+                        Content = "ผสมไม่สำเร็จ: " .. tostring(err or "วัตถุดิบไม่ครบ"),
+                        Duration = 3
                     })
                 end
             end)
-        end
+        end,
     })
 
-    TabProg:AddButton({
-        Title = "รีโรลแบนเนอร์ฟรีทันที",
-        Desc  = "ใช้สิทธิ์หมุนเปลี่ยนรอบไข่ฟรี",
+    tabProg:AddButton({
+        Title = "🎲 รีโรลแบนเนอร์ฟรีทันที",
+        Desc  = "ใช้สิทธิ์หมุนเปลี่ยนแบนเนอร์ฟรีรอบปัจจุบัน",
         Callback = function()
             task.spawn(function()
                 local ok = rerollRiftFree()
                 if ok then
                     ObsidianGlassEngine:Notify({
                         Title = "The Rift",
-                        Content = "รีโรลแบนเนอร์เรียบร้อย!",
+                        Content = "รีโรลแบนเนอร์ใหม่เรียบร้อย!",
                         Duration = 3
                     })
                 else
                     ObsidianGlassEngine:Notify({
                         Title = "The Rift",
-                        Content = "ไม่มีสิทธิ์รีโรลฟรี หรือเกิดข้อผิดพลาด",
+                        Content = "ไม่มีสิทธิ์รีโรลฟรีหรือผิดพลาด",
                         Duration = 3
                     })
                 end
             end)
-        end
+        end,
     })
 
-    -- -------------------------------------------------------------------------
-    -- Section: คำสั่งอัปเกรดด่วน (Quick Upgrades)
-    -- -------------------------------------------------------------------------
-    TabProg:AddSection("คำสั่งอัปเกรดด่วน (Manual Quick Actions)")
+    tabProg:AddSection("คำสั่งอัปเกรดด่วน")
 
-    TabProg:AddButton({
-        Title = "🚀 อัปเกรดฐานทันที 1 ระดับ",
-        Desc  = "ส่งคำสั่งอัปเกรดขยายฐานทันทีเมื่อเงินพอ",
+    tabProg:AddButton({
+        Title = "🏰 อัปเกรดฐานทันที (Upgrade Base)",
+        Desc  = "ส่งคำสั่งเพิ่มเลเวลฐานคอกสัตว์เลี้ยงทันที",
         Callback = function()
-            pcall(baseUpgradeStep)
-            ObsidianGlassEngine:Notify({
-                Title = "ระบบพัฒนา",
-                Content = "ส่งคำขออัปเกรดฐานแล้ว!",
-                Duration = 3
-            })
-        end
-    })
-
-    TabProg:AddButton({
-        Title = "⚡ อัปเกรดลู่วิ่งทันที 1 ระดับ",
-        Desc  = "ส่งคำสั่งเลื่อนระดับลู่วิ่งทันที",
-        Callback = function()
-            pcall(treadmillUpgradeStep)
-            ObsidianGlassEngine:Notify({
-                Title = "ระบบพัฒนา",
-                Content = "ส่งคำขออัปเกรดลู่วิ่งแล้ว!",
-                Duration = 3
-            })
-        end
-    })
-
-    TabProg:AddButton({
-        Title = "🎁 เคลมรางวัลทั้งหมด (Claim Offline & Index)",
-        Desc  = "รับเงินออฟไลน์และรางวัลสมุดสะสมทั้งหมดทันที",
-        Callback = function()
-            pcall(claimStep)
-            ObsidianGlassEngine:Notify({
-                Title = "ระบบพัฒนา",
-                Content = "เคลมรางวัลทั้งหมดเรียบร้อย!",
-                Duration = 3
-            })
-        end
-    })
-
-    -- Background Loop for Radar 2D Monitoring
-    task.spawn(function()
-        while T["alive"] do
-            pcall(function()
-                if RadarBox and RadarBox.UpdateTarget then
-                    local best = aG()
-                    RadarBox:UpdateTarget(best)
-                end
+            task.spawn(function()
+                local ok = baseUpgradeStep()
+                ObsidianGlassEngine:Notify({
+                    Title = "อัปเกรดฐาน",
+                    Content = ok and "ส่งคำสั่งสำเร็จ!" or "เงินไม่พอหรือเลเวลตัน",
+                    Duration = 3
+                })
             end)
-            task.wait(0.7)
         end
-    end)
+    })
 
-    -- Background Loop for Progression Telemetry & Automations (1:1 with StealAnEggSRC.lua)
+    tabProg:AddButton({
+        Title = "🏃 อัปเกรดลู่วิ่งทันที (Upgrade Treadmill)",
+        Desc  = "ส่งคำสั่งอัปเกรดเลเวลลู่วิ่งฝึกความเร็ว",
+        Callback = function()
+            task.spawn(function()
+                local ok = treadmillUpgradeStep()
+                ObsidianGlassEngine:Notify({
+                    Title = "อัปเกรดลู่วิ่ง",
+                    Content = ok and "ส่งคำสั่งสำเร็จ!" or "เงินไม่พอหรือเลเวลตัน",
+                    Duration = 3
+                })
+            end)
+        end
+    })
+
+    tabProg:AddButton({
+        Title = "✨ ซื้อและใส่ Trails ที่ดีที่สุด",
+        Desc  = "ซื้อเส้นทางเดินที่แรงที่สุดที่เงินถึง",
+        Callback = function()
+            task.spawn(function()
+                trailsStep()
+                ObsidianGlassEngine:Notify({
+                    Title = "Trails",
+                    Content = "ส่งคำสั่งซื้อและติดตั้ง Trails แล้ว",
+                    Duration = 3
+                })
+            end)
+        end
+    })
+
+    tabProg:AddButton({
+        Title = "🔥 ผสมสัตว์เลี้ยงทั้งหมด (Fuse All Pets)",
+        Desc  = "ส่งคำสั่งรวมสัตว์เลี้ยงในตู้ผสม",
+        Callback = function()
+            task.spawn(function()
+                fuseStep()
+                ObsidianGlassEngine:Notify({
+                    Title = "Fuse Pets",
+                    Content = "สั่งผสมสัตว์เลี้ยงแล้ว",
+                    Duration = 3
+                })
+            end)
+        end
+    })
+
+    tabProg:AddButton({
+        Title = "🎁 รับรางวัลทั้งหมด (Claim All Rewards)",
+        Desc  = "กดรับรางวัลความสำเร็จและรางวัลออฟไลน์",
+        Callback = function()
+            task.spawn(function()
+                claimStep()
+                ObsidianGlassEngine:Notify({
+                    Title = "Claim Rewards",
+                    Content = "ส่งคำสั่งรับรางวัลเรียบร้อย",
+                    Duration = 3
+                })
+            end)
+        end
+    })
+
+    -- =========================================================================
+    -- 🏃 TAB 4: ตัวละคร & ความเร็ว (CHARACTER & VELOCITY)
+    -- =========================================================================
+    tabChar:AddSection("ระบบความปลอดภัยตัวละคร")
+
+    tabChar:AddButton({
+        Title = "🛡️ เปิดโหมดอมตะ (Godmode Anti-Die)",
+        Desc  = "ป้องกันการโดนยามจับหรือกับดักฆ่าตาย",
+        Callback = function()
+            task.spawn(function()
+                pcall(function()
+                    local c = E.Character
+                    local hum = c and c:FindFirstChildOfClass("Humanoid")
+                    if hum then
+                        hum:SetStateEnabled(Enum.HumanoidStateType.Dead, false)
+                    end
+                end)
+                ObsidianGlassEngine:Notify({
+                    Title = "Godmode",
+                    Content = "เปิดโหมดป้องกันตัวละครแล้ว",
+                    Duration = 3
+                })
+            end)
+        end
+    })
+
+    tabChar:AddButton({
+        Title = "⚡ แก้ตัวติด / เคลียร์แรงเหวี่ยง (Unstick Character)",
+        Desc  = "รีเซ็ตความเร็ว AssemblyLinearVelocity ให้หยุดค้างหรือหลุดลอย",
+        Callback = function()
+            pcall(function()
+                leaveTreadmill()
+                local c = E.Character
+                local root = c and c:FindFirstChild("HumanoidRootPart")
+                if root then
+                    root.AssemblyLinearVelocity = Vector3.zero
+                    root.AssemblyAngularVelocity = Vector3.zero
+                end
+                ObsidianGlassEngine:Notify({
+                    Title = "Unstick",
+                    Content = "รีเซ็ตแรงเหวี่ยงและปลดตัวละครสำเร็จ",
+                    Duration = 3
+                })
+            end)
+        end
+    })
+
+    tabChar:AddButton({
+        Title = "🔄 รีเซ็ตสถานะตัวละคร (Wipe Character Rig)",
+        Desc  = "ส่งคำสั่ง Wipe Rig เคลียร์แอนิเมชันและบั๊กทั้งหมด",
+        Callback = function()
+            task.spawn(function()
+                fire(NET.ClientCharacter.REQUEST_CHARACTER_RESET)
+                ObsidianGlassEngine:Notify({
+                    Title = "Reset State",
+                    Content = "ส่งคำสั่งรีเซ็ตโมเดลตัวละครแล้ว",
+                    Duration = 3
+                })
+            end)
+        end
+    })
+
+    tabChar:AddSection("ความเร็วการบิน")
+
+    tabChar:AddSlider("SliderFlightSpeed", {
+        Title = "ความเร็วการบินขโมยไข่ (Flight Glide Speed)",
+        Desc  = "ปรับความเร็วการบิน (เดิม 350, แนะนำ 250 - 450)",
+        Min = 60, Max = 1000, Default = T["glideSpeed"] or 350,
+        Callback = function(val)
+            T["glideSpeed"] = val
+        end
+    })
+
+    -- =========================================================================
+    -- 📊 TAB 5: แดชบอร์ด & ตั้งค่า (TELEMETRY & SETTINGS)
+    -- =========================================================================
+    local dashStatus = tabDash:AddParagraph({
+        Title = "สถิติการทำงานสด (Live Session Stats)",
+        Desc  = "กำลังโหลดข้อมูลสถิติ...",
+    })
+
     task.spawn(function()
         while T["alive"] do
             pcall(function()
-                local data = getProgSaveData()
-                local lvl = tonumber(data.BaseUpgradeLevel) or 0
-                local tm  = tonumber(data.TreadmillUpgradeLevel) or 0
-                local nextBase = BasesDir and BasesDir.BASES and BasesDir.BASES[lvl + 1]
-                local nextTm
-                if TreadDir and TreadDir.GetByUpgradeLevel then
-                    local ok, t = pcall(TreadDir.GetByUpgradeLevel, tm + 1)
-                    if ok then nextTm = t end
-                end
-
-                if ProgBox and ProgBox.SetDesc then
-                    local myPets = petItems(false)
-                    ProgBox:SetDesc(string.format(
-                        "ฐาน เลเวล %d → ขั้นถัดไป %s\nลู่วิ่ง เลเวล %d → ขั้นถัดไป %s\nสัตว์ในกระเป๋า %d ตัว",
-                        lvl, nextBase and shortNum(nextBase.Cost) or "สุดแล้ว",
-                        tm, (type(nextTm) == "table") and ((nextTm.DisplayName or nextTm._id) .. " " .. shortNum(nextTm.Price)) or "สุดแล้ว",
-                        myPets and #myPets or 0
-                    ))
-                end
-
-                if RiftStatusBox and RiftStatusBox.SetDesc then
-                    local st = currentRiftState or getRiftState()
-                    if st then
-                        local bName = RIFT_BANNER_NAMES[st.BannerId] or st.BannerDisplayName or st.BannerId or "-"
-                        local reqs = st.Requirements or {}
-                        local myPets = petItems(false)
-                        local counts = {}
-                        for _, p in ipairs(myPets or {}) do
-                            if not p.equipped and not p.favorite and not p.inFuse and ((p.rate or 0) < 1e9) then
-                                counts[p.cat] = (counts[p.cat] or 0) + 1
-                            end
-                        end
-                        local reqStr = {}
-                        for _, r in ipairs(reqs) do
-                            local owned = counts[r] or 0
-                            local tag = (owned > 0) and "✓" or "✗"
-                            table.insert(reqStr, string.format("%s: %d/1 %s", tostring(r), owned, tag))
-                        end
-                        RiftStatusBox:SetDesc(string.format(
-                            "รอบ: %s | Pity: %d/50\nวัตถุดิบ: %s\nรีโรลฟรี: %d ครั้ง | ผสมไปแล้ว: %d ครั้ง",
-                            bName, st.PityCount or 0,
-                            (#reqStr > 0 and table.concat(reqStr, " • ") or "-"),
-                            st.FreeRefreshesRemaining or 0,
-                            riftFusesCount
-                        ))
-                    else
-                        RiftStatusBox:SetDesc("ยังไม่ปลดล็อค The Rift (หรือกำลังรอข้อมูล)")
-                    end
-                end
-
-                -- Auto Automations
-                if CfgProg.AutoBaseUpgrade then pcall(baseUpgradeStep) end
-                if CfgProg.AutoTrails then pcall(trailsStep) end
-                if CfgProg.AutoFuse or CfgProg.AutoRift then pcall(riftStep, false) end
-                if CfgProg.AutoClaim then pcall(claimStep) end
+                local fps = math.floor(Workspace:GetRealPhysicsFPS())
+                local ping = math.floor(E:GetNetworkPing() * 1000)
+                local money = moneyNow()
+                local moneyStr = (money >= 1e9 and string.format("%.2fB", money/1e9)) or (money >= 1e6 and string.format("%.2fM", money/1e6)) or tostring(money)
+                dashStatus:SetContent(string.format("⚡ FPS: %d | 📶 Ping: %d ms\n💰 เงินปัจจุบัน: %s\n🎯 ขโมยสำเร็จ: %d ใบ\n🐶 ขายสัตว์เลี้ยง: %d ตัว\n🥚 ขายไข่: %d ใบ\n🌀 ผสม The Rift: %d ครั้ง",
+                    fps, ping, moneyStr, (T["totalSecured"] or 0), (Runtime.stats.soldPets or 0), (Runtime.stats.soldEggs or 0), (Runtime.stats.riftFuses or 0)))
             end)
             task.wait(1.5)
         end
     end)
 
-    -- 🔄 REALTIME LIVE DASHBOARD TELEMETRY LOOP
+    tabDash:AddButton({
+        Title = "🔄 Rejoin Server (เข้าเซิร์ฟเดิมใหม่)",
+        Desc  = "เชื่อมต่อกลับเข้าเซิร์ฟเวอร์เดิมทันที",
+        Callback = function()
+            game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, E)
+        end
+    })
+
+    tabDash:AddButton({
+        Title = "❌ ปิดและยกเลิกสคริปต์ (Unload Script)",
+        Desc  = "ทำลาย UI ทั้งหมด คืนค่าตัวละคร และหยุดการทำงานทุกระบบ",
+        Callback = function()
+            tG()
+        end
+    })
+
+    -- Live preview updater for Sell tab
     task.spawn(function()
         while T["alive"] do
             pcall(function()
-                local eggCount = xq()
-                local statusStr = "พร้อมทำงาน"
-                if T["delivering"] then
-                    statusStr = "กำลังวางไข่"
-                elseif T["securingEgg"] or T["holdingEggForGuard"] then
-                    statusStr = "กำลังหยิบไข่"
-                elseif T["teleporting"] then
-                    statusStr = "กำลังวาร์ป"
-                elseif T["isReturning"] then
-                    statusStr = "กำลังบินกลับ"
-                elseif T["glidingToTarget"] then
-                    statusStr = "กำลังขโมย"
-                elseif Jq == "TWEEN" and not T["isReturning"] then
-                    statusStr = "กำลังหาไข่"
-                elseif Jq == "WARP" and not T["isReturning"] then
-                    statusStr = "กำลังหาไข่"
-                end
-
-                local farmModeStr = "พักการทำงาน (Idle)"
-                if Jq == "TWEEN" then
-                    farmModeStr = "Auto Steal (Tween)"
-                elseif Jq == "WARP" then
-                    farmModeStr = "Auto Steal (Teleport)"
-                end
-
-                local dashText = string.format("สถานะ: %s\nโหมดฟาร์ม: %s\nจำนวนไข่ในตัว: %d ฟอง\nความเร็วบิน: %d Studs/s",
-                    statusStr,
-                    farmModeStr,
-                    eggCount,
-                    T["glideSpeed"] or 400
-                )
-
-                if liveDashPara and liveDashPara.SetDesc then
-                    liveDashPara:SetDesc(dashText)
+                if Runtime.sellPreview and SellPreview then
+                    local p = Runtime.sellPreview
+                    local totalStr = (p.total >= 1e9 and string.format("%.2fB", p.total/1e9)) or (p.total >= 1e6 and string.format("%.2fM", p.total/1e6)) or tostring(p.total)
+                    SellPreview:SetContent(string.format("พร้อมขาย: %d ตัว | รายได้คาดการณ์: +%s\n%s", p.count, totalStr, p.head or ""))
                 end
             end)
-            task.wait(0.5)
+            task.wait(2.5)
+        end
+    end)
+
+    -- Live preview updater for The Rift tab
+    task.spawn(function()
+        while T["alive"] do
+            pcall(function()
+                if RiftStatusBox then
+                    local st = Runtime.riftState or getRiftState()
+                    if st then
+                        local bName = st.BannerDisplayName or RIFT_BANNER_NAMES[st.BannerId] or st.BannerId or "Unknown"
+                        local free = st.FreeRefreshesRemaining or 0
+                        local reqStr = ""
+                        if st.Requirements and type(st.Requirements) == "table" then
+                            local reqs = {}
+                            for i, r in ipairs(st.Requirements) do
+                                table.insert(reqs, string.format("[%d] %s", i, tostring(r)))
+                            end
+                            reqStr = table.concat(reqs, ", ")
+                        end
+                        RiftStatusBox:SetContent(string.format("แบนเนอร์ปัจจุบัน: %s\nสิทธิ์รีโรลฟรีเหลือ: %d\nวัตถุดิบที่ต้องการ: %s", bName, free, reqStr))
+                    end
+                end
+            end)
+            task.wait(3)
         end
     end)
 end
 
--- ======================================================================================
--- 🚀 INITIALIZATION & RUNTIME HOOKS
--- ======================================================================================
-V("[+] Initializing เก็บไข่ไปกับพยอมบอย (Obsidian Glassmorphic 2 Engine)...")
-xG()
-
-task.spawn(function()
-    task.wait(0.5)
-    RG()
-    eG(true)
-    lq()
-    if E["Character"] then
-        Hq(E["Character"])
-    end
-    jq()
-    V("[+] Auto Humanoid Swap & Rigid Joint Locking Active.")
-end)
-
-E["CharacterAdded"]:Connect(function(e)
-    task.wait(0.6)
-    if T["alive"] then
-        Pq()
-        Cq()
-        lq()
-        RG()
-        eG(true)
-        Hq(e)
-        jq()
-    end
-end)
-
-V("[+] เก็บไข่ไปกับพยอมบอย Ready! Obsidian Glassmorphic 2 Engine Loaded, Mutex Auto Steal, Remote Auto-Hatch, Always Hands-Free.")
-pcall(d)
+task.spawn(xG)
