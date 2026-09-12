@@ -511,26 +511,28 @@ local function mq(e)
         if not e or B == e or not B then
             return true
         end
+        return true
     end
     local g = E:FindFirstChild("Backpack")
     if g then
-        for R, B in ipairs(g:GetChildren()) do
+        for _, B in ipairs(g:GetChildren()) do
             if Uq(B) then
                 local R = B:GetAttribute("UID") or B:GetAttribute("EggUid")
                 if not e or R == e or B["Name"] == tostring(e) then
                     return true
                 end
+                return true
             end
         end
     end
     if e and(r and r["ReadFieldEggs"]) then
         local R, B = pcall(r["ReadFieldEggs"])
         if R and(B and B["Records"]) then
-            for R, B in ipairs(B["Records"]) do
+            for _, B in ipairs(B["Records"]) do
                 if B["Uid"] == e then
                     if(B["State"] == "Carried" or B["State"] == 2) then
-                        local e = B["CarrierUserId"] or B["Carrier"]
-                        if e == E["UserId"] then
+                        local carrier = B["CarrierUserId"] or B["Carrier"]
+                        if carrier == E["UserId"] then
                             return true
                         end
                     end
@@ -867,57 +869,42 @@ local function Pq()
         end
     end)
 end
-local function triggerPromptSafe(p)
-    if not p or not p:IsA("ProximityPrompt") then return end
-    pcall(function()
-        p["RequiresLineOfSight"] = false
-        p["HoldDuration"] = 0
-        p["MaxActivationDistance"] = 9999
-        p["Enabled"] = true
-    end)
-    local fpp = (typeof(fireproximityprompt) == "function" and fireproximityprompt)
-        or (typeof(getgenv) == "function" and getgenv().fireproximityprompt)
-    if fpp then
-        pcall(fpp, p, 0)
-        pcall(fpp, p)
-    end
-    -- Delta Mobile Native Engine Fallback
-    pcall(function()
-        if p.InputHoldBegin then
-            p:InputHoldBegin()
-            task.wait(0.02)
-            p:InputHoldEnd()
-        end
-    end)
-end
-
-local function Lq(e, pos)
+local function Lq(e, B)
     if e then
         for _, prompt in ipairs(e:GetDescendants()) do
             if prompt:IsA("ProximityPrompt") then
-                triggerPromptSafe(prompt)
+                pcall(function()
+                    prompt["RequiresLineOfSight"] = false
+                    prompt["HoldDuration"] = 0
+                    if typeof(fireproximityprompt) == "function" then
+                        fireproximityprompt(prompt, 0)
+                        fireproximityprompt(prompt)
+                    elseif typeof(getgenv) == "function" and getgenv().fireproximityprompt then
+                        getgenv().fireproximityprompt(prompt, 0)
+                        getgenv().fireproximityprompt(prompt)
+                    end
+                end)
             end
         end
     end
-    local slots = R:FindFirstChild("AreaEggSlotsClient")
-    if slots and pos then
-        for _, slot in ipairs(slots:GetChildren()) do
+    local g = workspace:FindFirstChild("AreaEggSlotsClient") or (R and R:FindFirstChild("AreaEggSlotsClient"))
+    if g and B then
+        for _, slot in ipairs(g:GetChildren()) do
             local bp = slot:FindFirstChildWhichIsA("BasePart") or slot["PrimaryPart"]
-            if bp and ((bp["Position"] - pos))["Magnitude"] <= 25 then
+            if bp and ((bp["Position"] - B))["Magnitude"] <= 18 then
                 for _, prompt in ipairs(slot:GetDescendants()) do
                     if prompt:IsA("ProximityPrompt") then
-                        triggerPromptSafe(prompt)
-                    end
-                end
-            end
-        end
-    end
-    if pos then
-        for _, child in ipairs(R:GetChildren()) do
-            if (child.Name == "SmartPromptPart" or child.Name:find("Prompt")) and child:IsA("BasePart") and ((child.Position - pos)).Magnitude <= 22 then
-                for _, prompt in ipairs(child:GetDescendants()) do
-                    if prompt:IsA("ProximityPrompt") then
-                        triggerPromptSafe(prompt)
+                        pcall(function()
+                            prompt["RequiresLineOfSight"] = false
+                            prompt["HoldDuration"] = 0
+                            if typeof(fireproximityprompt) == "function" then
+                                fireproximityprompt(prompt, 0)
+                                fireproximityprompt(prompt)
+                            elseif typeof(getgenv) == "function" and getgenv().fireproximityprompt then
+                                getgenv().fireproximityprompt(prompt, 0)
+                                getgenv().fireproximityprompt(prompt)
+                            end
+                        end)
                     end
                 end
             end
@@ -2012,6 +1999,9 @@ local function SG(e, g, w, h)
     if not I then
         task["wait"](.12) I = mq(e)
     end
+    if not I and (zq() or tq() or xq() > 0) then
+        I = true
+    end
     T["currentTargetModel"] = nil T["targetPosition"] = nil T["securingEgg"] = false T["holdingEggForGuard"] = false
     if h and Kq ~= h then
         return false
@@ -2292,11 +2282,21 @@ local bG = os["clock"]() task["spawn"]( function()
                             end
                             if not S then
                                 o("[AutoSteal] Egg was taken during flight. Switching to next target...") Aq[g["Uid"]] = os["clock"]() + 5 Pq()
+                                if T["autoGlide"] then
+                                    local char = E["Character"]
+                                    local hrp = char and char:FindFirstChild("HumanoidRootPart")
+                                    if hrp and hrp.Position.X > (m + 15) then
+                                        T["statusText"] = "[AutoSteal] Returning to Safe Line X=525..."
+                                        VG(T["glideSpeed"], B)
+                                        pcall(jq)
+                                    end
+                                end
                                 return
                             end
                             if T["pureTweenFarm"] and(Jq == "TWEEN" and((R["Position"] - g["Position"]))["Magnitude"] <= 22) then
+                                local prevEggs = xq()
                                 local e = SG(g["Uid"], a, g["Model"], B)
-                                if not e and sq() then
+                                if not e and (sq() or zq() or tq() or xq() > prevEggs) then
                                     e = true
                                 end
                                 if Kq ~= B or not T["pureTweenFarm"] or Jq ~= "TWEEN" then
@@ -2314,6 +2314,15 @@ local bG = os["clock"]() task["spawn"]( function()
                                 else
                                     if Kq == B and(T["pureTweenFarm"] and Jq == "TWEEN") then
                                         o("[AutoSteal] Guard Strike or Re-grab failed. Retrying with next egg...") Aq[g["Uid"]] = os["clock"]() +(5) Pq()
+                                        if T["autoGlide"] then
+                                            local char = E["Character"]
+                                            local hrp = char and char:FindFirstChild("HumanoidRootPart")
+                                            if hrp and hrp.Position.X > (m + 15) then
+                                                T["statusText"] = "[AutoSteal] Returning to Safe Line X=525..."
+                                                VG(T["glideSpeed"], B)
+                                                pcall(jq)
+                                            end
+                                        end
                                     end
                                 end
                             else
@@ -2370,6 +2379,15 @@ local vG = os["clock"]() task["spawn"]( function()
                                         Aq[R["Uid"]] = os["clock"]() +(5)
                                     end
                                     pcall(Pq)
+                                    if T["autoGlide"] then
+                                        local char = E["Character"]
+                                        local hrp = char and char:FindFirstChild("HumanoidRootPart")
+                                        if hrp and hrp.Position.X > (m + 15) then
+                                            T["statusText"] = "[SnipeLoop] Returning to Safe Line X=525..."
+                                            VG(T["glideSpeed"], e)
+                                            pcall(jq)
+                                        end
+                                    end
                                 end
                             end
                         else
