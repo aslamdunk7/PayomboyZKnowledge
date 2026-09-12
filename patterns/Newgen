@@ -1682,6 +1682,92 @@ local function oG()
     end
     return h
 end
+
+-- =========================================================================
+-- [[ EARLY NAV & CURTAIN MODULE INITIALIZATION ]]
+-- =========================================================================
+local Nav = {}
+local _WallModule = nil
+pcall(function()
+    local m = require(h:FindFirstChild("AreaEggResetWall", true))
+    if type(m) == "table" and type(m.IsSealed) == "function" then
+        _WallModule = m
+    end
+end)
+
+local _CycleModule = nil
+pcall(function()
+    local m = require(h:FindFirstChild("AreaEggCycle", true))
+    if type(m) == "table" then
+        _CycleModule = m
+    end
+end)
+
+local _curtainOpenedAt = 0
+local _lastCurtainState = true
+
+function Nav.curtainClosed()
+    -- Method 1: AreaEggResetWall module
+    if _WallModule and type(_WallModule.IsSealed) == "function" then
+        local ok, sealed = pcall(_WallModule.IsSealed)
+        if ok and sealed ~= nil then return sealed == true end
+    end
+    -- Method 2: AreaEggCycle module
+    if _CycleModule and type(_CycleModule.IsNightPhase) == "function" then
+        local ok, night = pcall(_CycleModule.IsNightPhase, os.time())
+        if ok and night ~= nil then return night == true end
+    end
+    -- Method 3: WallStartCollision in __OBJECTS
+    local objs = Workspace:FindFirstChild("__OBJECTS")
+    local areas = objs and objs:FindFirstChild("Areas")
+    local wall = areas and areas:FindFirstChild("WallStartCollision")
+    if wall and wall:IsA("BasePart") then
+        return wall.CanCollide == true or wall.Transparency < 0.9
+    end
+    -- Method 4: Lighting-based day/night check
+    local clock = Lighting and Lighting.ClockTime or 12
+    if clock < 6 or clock > 18 then return true end
+    return false
+end
+
+function Nav.secondsUntilDawn()
+    if _CycleModule and type(_CycleModule.SecondsUntilReset) == "function" then
+        local ok, sec = pcall(_CycleModule.SecondsUntilReset, os.time())
+        if ok and tonumber(sec) then return tonumber(sec) end
+    end
+    local clock = Lighting and Lighting.ClockTime or 12
+    if clock >= 6 and clock <= 18 then return 999 end
+    local remainingHours = (clock < 6) and (6 - clock) or (24 - clock + 6)
+    return remainingHours * 4
+end
+
+function Nav.canStealSafe()
+    local closed = Nav.curtainClosed()
+    local now = os.clock()
+    if closed then
+        _lastCurtainState = true
+        _curtainOpenedAt = 0
+        return false, "Curtain is closed (night)"
+    end
+    -- Curtain is open: check transition from closed to open
+    if _lastCurtainState then
+        _lastCurtainState = false
+        _curtainOpenedAt = now -- Just opened!
+    end
+    -- Must wait 3 seconds after curtain opens before dashing
+    if (now - _curtainOpenedAt) < 3.0 then
+        return false, "Curtain opening cooldown (3s)"
+    end
+    -- Don't start a steal if night/reset is starting in <= 3 seconds
+    if _CycleModule and type(_CycleModule.SecondsUntilReset) == "function" then
+        local ok, sec = pcall(_CycleModule.SecondsUntilReset, os.time())
+        if ok and tonumber(sec) and tonumber(sec) <= 3 then
+            return false, "Night starting soon"
+        end
+    end
+    return true
+end
+
 local function aG()
     local e = nil
     if r and r["ReadFieldEggs"] then
@@ -2248,7 +2334,8 @@ end
 local bG = os["clock"]() task["spawn"]( function()
     while T["alive"] do
         local e, R = pcall( function()
-            if T["pureTweenFarm"] and( not T["autoFarmLoop"] and(Jq == "TWEEN" and( not T["teleporting"] and( not T["glidingToTarget"] and( not T["securingEgg"] and( not T["delivering"] and not T["isReturning"])))))) then
+            local _canSteal, _stealReason = Nav.canStealSafe()
+            if T["pureTweenFarm"] and( not T["autoFarmLoop"] and(Jq == "TWEEN" and( not T["teleporting"] and( not T["glidingToTarget"] and( not T["securingEgg"] and( not T["delivering"] and not T["isReturning"])))))) and _canSteal then
                 local e = E["Character"]
                 local R = e and e:FindFirstChild("HumanoidRootPart")
                 local B = e and e:FindFirstChildOfClass("Humanoid")
@@ -2347,7 +2434,8 @@ end)
 local vG = os["clock"]() task["spawn"]( function()
     while T["alive"] do
         local e, R = pcall( function()
-            if T["autoFarmLoop"] and( not T["pureTweenFarm"] and(Jq == "WARP" and( not T["teleporting"] and( not T["glidingToTarget"] and( not T["securingEgg"] and( not T["delivering"] and not T["isReturning"])))))) then
+            local _canSteal2, _stealReason2 = Nav.canStealSafe()
+            if T["autoFarmLoop"] and( not T["pureTweenFarm"] and(Jq == "WARP" and( not T["teleporting"] and( not T["glidingToTarget"] and( not T["securingEgg"] and( not T["delivering"] and not T["isReturning"])))))) and _canSteal2 then
                 local e = E["Character"]
                 local R = e and e:FindFirstChild("HumanoidRootPart")
                 local B = e and e:FindFirstChildOfClass("Humanoid")
@@ -3189,17 +3277,38 @@ end
 -- =========================================================================
 -- [[ NAV HELPERS (CURTAIN, DAWN, TREADMILL) ]]
 -- =========================================================================
-local Nav = {}
+-- (Nav and modules initialized early above)
+
 function Nav.curtainClosed()
-    local barrier = Workspace:FindFirstChild("Curtain") or Workspace:FindFirstChild("WallBarrier") or Workspace:FindFirstChild("NightBarrier")
-    if barrier and barrier:IsA("BasePart") then
-        return barrier.Transparency < 0.5 and barrier.CanCollide == true
+    -- Method 1: AreaEggResetWall module
+    if _WallModule and type(_WallModule.IsSealed) == "function" then
+        local ok, sealed = pcall(_WallModule.IsSealed)
+        if ok and sealed ~= nil then return sealed == true end
     end
+    -- Method 2: AreaEggCycle module
+    if _CycleModule and type(_CycleModule.IsNightPhase) == "function" then
+        local ok, night = pcall(_CycleModule.IsNightPhase, os.time())
+        if ok and night ~= nil then return night == true end
+    end
+    -- Method 3: WallStartCollision in __OBJECTS
+    local objs = Workspace:FindFirstChild("__OBJECTS")
+    local areas = objs and objs:FindFirstChild("Areas")
+    local wall = areas and areas:FindFirstChild("WallStartCollision")
+    if wall and wall:IsA("BasePart") then
+        return wall.CanCollide == true or wall.Transparency < 0.9
+    end
+    -- Method 4: Lighting-based day/night check
+    local clock = Lighting and Lighting.ClockTime or 12
+    if clock < 6 or clock > 18 then return true end
     return false
 end
 
 function Nav.secondsUntilDawn()
-    local clock = Lighting.ClockTime
+    if _CycleModule and type(_CycleModule.SecondsUntilReset) == "function" then
+        local ok, sec = pcall(_CycleModule.SecondsUntilReset, os.time())
+        if ok and tonumber(sec) then return tonumber(sec) end
+    end
+    local clock = Lighting and Lighting.ClockTime or 12
     if clock >= 6 and clock <= 18 then return 999 end
     local remainingHours = (clock < 6) and (6 - clock) or (24 - clock + 6)
     return remainingHours * 4
@@ -3295,6 +3404,14 @@ task.spawn(function()
         end
 
         local isStealingActive = T["pureTweenFarm"] or T["autoFarmLoop"] or T["glidingToTarget"] or T["securingEgg"] or T["delivering"] or T["isReturning"]
+
+        -- Block steal if curtain is closed (night time) OR within 3s cooldown after curtain opens
+        if (curtainClosed or not Nav.canStealSafe()) and isStealingActive and not T["teleporting"] and not T["securingEgg"] then
+            -- Night / cooldown: pause steal without disabling user toggles
+            if fq then pcall(fq, false) end
+            if Mq then pcall(Mq, false) end
+            V("[Orchestrator] Curtain is CLOSED / In Cooldown. Steal paused safely until dawn.")
+        end
 
         -- If not actively stealing, orchestrate secondary tasks
         if not isStealingActive then
